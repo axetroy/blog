@@ -1,6 +1,7 @@
 title: ionic下的配置问题
 date: 2015-12-27 19:01:08
 tags: [ionic,angular]
+categories: Javascript
 ---
 ### 下载 ###
 ```bash

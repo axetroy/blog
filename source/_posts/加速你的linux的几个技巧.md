@@ -1,6 +1,7 @@
 title: 加速你的linux的几个技巧
 date: 2016-01-04 20:36:48
 tags: linux
+categories: Linux
 ---
 ### 使用Preload预加载 ###
 与Prelink类似，Preload是一个运行于后台的监护程序，探测那些常用的软件，并将其放入缓存，以起到加速的作用。在LinuxMint/Ubuntu下安装Preload很简单：

@@ -1,6 +1,7 @@
 title: sublime的使用和配置
 date: 2015-12-16 23:59:23
 tags: sublime
+categories: 折腾
 ---
 sublime是一款轻量级的代码编辑器，它不是IDE，却不比IDE差，关键是运行快，什么机子都能够跑起来。
 而且插件够多，能够媲美类似webstorm这样的神器。支持多语言。

@@ -1,6 +1,7 @@
 title: linux下清除垃圾命令行
 date: 2016-01-04 01:40:06
 tags: linux
+categories: Linux
 ---
 linux下本来就不是像window会产生很多垃圾，导致越用越慢。
 但是我等强迫症呢，就是看不了有点残留的东西存在。

@@ -1,6 +1,7 @@
 title: 解决wine下中文乱码问题
 date: 2016-01-04 21:46:29
 tags: [linux,wine]
+categories: Linux
 ---
 ### 1，准备字体 ###
 下载simfang.ttc 字体字体自行百度

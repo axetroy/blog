@@ -1,6 +1,7 @@
 title: 写了几个AngularJS的小模块
 date: 2016-04-07 01:48:59
-tags:
+tags: [js,angular]
+categories: Javascript
 ---
 
 纯粹是练手，学习Angular..

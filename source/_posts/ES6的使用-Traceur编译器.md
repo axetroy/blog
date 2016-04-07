@@ -1,6 +1,7 @@
 title: 'ES6的使用,Traceur编译器'
 date: 2016-01-09 15:56:41
-tags: js,es6
+tags: es6
+categories: Javascript
 ---
 最近也在学习ES6的新语法，感觉就像是一门新的语言。
 变化太大，会不会重蹈ES4的老路呢？

@@ -1,6 +1,7 @@
 title: 在linux下查看拨号错误代码
 date: 2016-01-04 21:11:21
 tags: linux
+categories: Linux
 ---
 ### 那是不可能的 ###
 不用想了，linux下没有像window那样，有这样的提示给你。

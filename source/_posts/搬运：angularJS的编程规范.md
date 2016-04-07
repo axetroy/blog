@@ -1,6 +1,7 @@
 title: 搬运：angularJS的编程规范
 date: 2015-12-28 22:22:00
 tags: angular
+categories: Javascript
 ---
 # 简介
 

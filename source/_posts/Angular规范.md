@@ -1,6 +1,9 @@
 title: Angular规范
 date: 2016-01-17 04:10:22
 tags:
+  - Angular
+  - Javascript
+categories: Javascript
 ---
 # Angular规范
 

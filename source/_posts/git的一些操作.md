@@ -1,6 +1,7 @@
 title: git的一些操作
 date: 2016-01-17 03:46:21
-tags:
+tags: git
+categories: Linux
 ---
 如果不小心``commit``了一个不需要``commit``的文件，可以对其进行撤销。
 <!--more-->

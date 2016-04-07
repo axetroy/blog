@@ -1,6 +1,7 @@
 title: Manjaro Linux使用心得
 date: 2016-04-06 21:52:30
-tags:
+tags: [linux,manjaro]
+categories: Linux
 ---
 
 ### 什么是Manjaro
