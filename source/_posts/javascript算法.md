@@ -1,7 +1,7 @@
 title: javascript常用的操作与算法
 date: 2016-05-06 01:42:16
 tags: javascript
-categories: javascript
+categories: Javascript
 ---
 
 ## 字符串操作
