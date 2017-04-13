@@ -1,0 +1,51 @@
+/**
+ * Created by axetroy on 17-4-6.
+ */
+import React, { Component } from 'react';
+import { Row, Col, Icon } from 'antd';
+import moment from 'moment';
+
+class Footer extends Component {
+  state = {
+    createdDate: new Date('2016-11-09')
+  };
+
+  render() {
+    return (
+      <Row className="text-center">
+        <Col span={8}>
+          <h3><Icon type="github" />Github</h3>
+          <div>
+            <a target="_blank" href="https://github.com/axetroy/my">仓库源码</a>
+          </div>
+        </Col>
+        <Col span={8}>
+          <h3><Icon type="link" />相关技术</h3>
+          <div>
+            <a target="_blank" href="https://facebook.github.io/react/">
+              React
+            </a>
+          </div>
+          <div>
+            <a target="_blank" href="https://github.com/reactjs/redux">Redux</a>
+          </div>
+          <div><a target="_blank" href="https://ant.design">Antd</a></div>
+        </Col>
+        <Col span={8}>
+          <p>Copyright © 2017</p>
+          <p>
+            Created at
+            {' '}
+            {moment(this.state.createdDate).fromNow()}
+            {' '}
+            by
+            {' '}
+            <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
+          </p>
+        </Col>
+      </Row>
+    );
+  }
+}
+
+export default Footer;

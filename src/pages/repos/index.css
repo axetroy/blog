@@ -1,0 +1,9 @@
+.repo-language-color{
+  background-color: grey;
+  position: relative;
+  top: 0.1rem;
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+}
