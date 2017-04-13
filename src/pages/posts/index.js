@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Menu, Spin, Pagination } from 'antd';
+import { Layout, Menu, Spin, Pagination, Timeline } from 'antd';
 import { Route, NavLink } from 'react-router-dom';
 
 import Post from '../post/';
@@ -29,7 +29,7 @@ class Posts extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 10,
+      per_page: 20,
       total: 0
     },
     loading: false
@@ -51,9 +51,12 @@ class Posts extends Component {
     let posts = this.props.posts;
     try {
       this.setStateAsync({ loading: true });
-      const res = await github.get(`/repos/${pkg.config.owner}/${pkg.config.repo}/issues`, {
-        params: { creator: pkg.config.owner, page, per_page }
-      });
+      const res = await github.get(
+        `/repos/${pkg.config.owner}/${pkg.config.repo}/issues`,
+        {
+          params: { creator: pkg.config.owner, page, per_page }
+        }
+      );
 
       const link = res.headers.link;
 
@@ -91,24 +94,26 @@ class Posts extends Component {
   render() {
     return (
       <Layout>
-        <Sider width={250} style={styles.content}>
+        <Sider width={280} style={styles.content}>
           <Spin spinning={this.state.loading}>
-            <Menu mode="inline" style={{ height: '100%' }}>
+
+            <Timeline>
               {this.props.posts.map((post, index) => {
                 return (
-                  <Menu.Item key={index}>
+                  <Timeline.Item key={post.number}>
                     <NavLink
                       exact={true}
-                      activeClassName={'ant-menu-item-selected'}
+                      style={{ color: '#303030' }}
+                      activeStyle={{ color: '#FF5722' }}
                       to={`/post/${post.number}`}
                       title={post.title}
                     >
                       {post.title}
                     </NavLink>
-                  </Menu.Item>
+                  </Timeline.Item>
                 );
               })}
-            </Menu>
+            </Timeline>
 
             {this.state.meta.total > 0
               ? <div className="text-center">

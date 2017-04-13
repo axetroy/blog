@@ -49,12 +49,7 @@ class GlobalHead extends Component {
           {this.state.nav.map(nav => {
             return (
               <Menu.Item key={nav.name}>
-                <NavLink
-                  exact={true}
-                  activeClassName={'ant-menu-item-selected'}
-                  activeStyle={{ color: '#fff' }}
-                  to={nav.href}
-                >
+                <NavLink activeStyle={{ color: '#FF5722' }} to={nav.href}>
                   {nav.title}
                 </NavLink>
               </Menu.Item>
