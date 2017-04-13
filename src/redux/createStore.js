@@ -9,6 +9,10 @@ function createLogMiddleWare() {
   return createLogger();
 }
 
+function storeInitCallback() {
+  console.info('persistStore init done');
+}
+
 /**
  * 创建store
  * @param rootReducer
@@ -37,9 +41,13 @@ export default function(rootReducer) {
       keyPrefix: '[A]'
     },
     function() {
-      console.info('persistStore init done');
+      storeInitCallback();
     }
   );
 
   return store;
+}
+
+export function onStoreDone(callback) {
+  storeInitCallback = callback;
 }
