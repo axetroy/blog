@@ -61,24 +61,6 @@ class GithubFollowing extends Component {
     return followings;
   }
 
-  renderFollowings() {
-    return this.props.following.map(user => {
-      return (
-        <Col className="text-center" span={4} key={user.login}>
-          <a href={user.html_url} target="_blank">
-            <img
-              src={user.avatar_url}
-              style={{ width: '10rem', maxWidth: '100%' }}
-              alt=""
-            />
-            <br />
-            <sub>{user.login}</sub>
-          </a>
-        </Col>
-      );
-    });
-  }
-
   changePage(page, per_page) {
     this.getFollowings(page, per_page);
   }
@@ -87,7 +69,21 @@ class GithubFollowing extends Component {
     return (
       <Spin spinning={!this.props.following || !this.props.following.length}>
         <Row>
-          {this.renderFollowings()}
+          {this.props.following.map(user => {
+            return (
+              <Col className="text-center" span={4} key={user.login}>
+                <a href={user.html_url} target="_blank">
+                  <img
+                    src={user.avatar_url}
+                    style={{ width: '10rem', maxWidth: '100%' }}
+                    alt=""
+                  />
+                  <br />
+                  <sub>{user.login}</sub>
+                </a>
+              </Col>
+            );
+          })}
         </Row>
         {this.state.meta.total > 0
           ? <Row className="text-center">
