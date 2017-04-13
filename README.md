@@ -66,7 +66,7 @@ yarn start
   
 ```
 
-
+2. 运行命令部署
 
 ```bash
 yarn
