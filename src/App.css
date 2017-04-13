@@ -37,3 +37,11 @@ html {
   margin: 1.6rem 2.8rem 1.6rem 0;
   float: left;
 }
+
+.markdown-body ul {
+  list-style: initial;
+}
+
+.markdown-body ol {
+  list-style: initial;
+}
