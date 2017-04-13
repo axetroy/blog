@@ -31,8 +31,7 @@ class Posts extends Component {
       page: 1,
       per_page: 20,
       total: 0
-    },
-    loading: false
+    }
   };
 
   async componentWillMount() {
@@ -50,7 +49,6 @@ class Posts extends Component {
   async getPosts(page, per_page) {
     let posts = this.props.posts;
     try {
-      this.setStateAsync({ loading: true });
       const res = await github.get(
         `/repos/${pkg.config.owner}/${pkg.config.repo}/issues`,
         {
@@ -82,8 +80,6 @@ class Posts extends Component {
 
     this.props.setPosts(posts);
 
-    this.setState({ loading: false });
-
     return posts;
   }
 
@@ -95,10 +91,10 @@ class Posts extends Component {
     return (
       <Layout>
         <Sider width={280} style={styles.content}>
-          <Spin spinning={this.state.loading}>
+          <Spin spinning={!this.props.posts}>
 
             <Timeline>
-              {this.props.posts.map((post, index) => {
+              {this.props.posts.map(post => {
                 return (
                   <Timeline.Item key={post.number}>
                     <NavLink

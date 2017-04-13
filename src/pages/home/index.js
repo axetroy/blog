@@ -11,10 +11,6 @@ import github from '../../lib/github';
 import { store } from '../../redux/homeReadMe';
 
 class Home extends Component {
-  state = {
-    readmeLoading: false
-  };
-
   async componentDidMount() {
     const { owner, repo } = pkg.config;
     await this.getReadme(owner, repo);
@@ -35,7 +31,6 @@ class Home extends Component {
   async getReadme(owner, repo) {
     let html = '';
     try {
-      await this.setStateAsync({ readmeLoading: true });
       const response = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
           Accept: 'application/vnd.github.v3.html'
@@ -47,7 +42,6 @@ class Home extends Component {
       console.error(err);
     }
     this.storeReadme(html);
-    this.setState({ readmeLoading: false });
     return html;
   }
 
@@ -55,7 +49,7 @@ class Home extends Component {
     return (
       <Row>
         <Col span={16} offset={4}>
-          <Spin spinning={this.state.readmeLoading}>
+          <Spin spinning={!this.props.readme}>
             <div
               className="markdown-body"
               style={{ fontSize: '16px', minHeight: '20rem' }}

@@ -32,8 +32,6 @@ const styles = {
 };
 
 class Github extends Component {
-  state = { profileLoading: false };
-
   componentDidMount() {
     GitHubCalendar('.calendar', pkg.config.owner);
   }
@@ -49,14 +47,12 @@ class Github extends Component {
   async componentWillMount() {
     let user = {};
     try {
-      await this.setStateAsync({ profileLoading: true });
       const response = await github.get(`/users/${pkg.config.owner}`);
       user = response.data;
     } catch (err) {
       console.error(err);
     }
     this.props.storeOwnerInfo(user);
-    this.setState({ profileLoading: false });
     return user;
   }
 
@@ -75,7 +71,7 @@ class Github extends Component {
         </h2>
 
         <Card style={{ width: '100%' }}>
-          <Spin spinning={this.state.profileLoading}>
+          <Spin spinning={!this.props.user}>
             <Row>
               <Col span={4}>
                 <a href={this.props.user.html_url} target="_blank">
