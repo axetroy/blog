@@ -20,10 +20,10 @@ class GithubFollowing extends Component {
   };
 
   async componentWillMount() {
-    await this.getFollowers(this.state.meta.page, this.state.meta.per_page);
+    await this.getFollowings(this.state.meta.page, this.state.meta.per_page);
   }
 
-  async getFollowers(page, per_page) {
+  async getFollowings(page, per_page) {
     let followings = [];
     try {
       const {
@@ -80,7 +80,7 @@ class GithubFollowing extends Component {
   }
 
   changePage(page, per_page) {
-    this.getFollowers(page, per_page);
+    this.getFollowings(page, per_page);
   }
 
   render() {

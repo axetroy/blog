@@ -2,10 +2,12 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Row, Col, Spin, Pagination } from 'antd';
 
 import github from '../../lib/github';
-
+import { storeFollower } from '../../redux/follower';
 import pkg from '../../../package.json';
 
 class GithubFollowers extends Component {
@@ -13,18 +15,8 @@ class GithubFollowers extends Component {
     meta: {
       page: 1,
       per_page: 30
-    },
-    followers: [],
-    followersLoading: false
+    }
   };
-
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
 
   async componentWillMount() {
     await this.getFollowers(this.state.meta.page, this.state.meta.per_page);
@@ -33,8 +25,10 @@ class GithubFollowers extends Component {
   async getFollowers(page, per_page) {
     let followers = [];
     try {
-      await this.setStateAsync({ followersLoading: true });
-      const { data, headers } = await github.get(`/users/${pkg.config.owner}/followers`, {
+      const {
+        data,
+        headers
+      } = await github.get(`/users/${pkg.config.owner}/followers`, {
         params: { page, per_page }
       });
       followers = data;
@@ -57,32 +51,13 @@ class GithubFollowers extends Component {
       console.error(err);
     }
     this.setState({
-      followers,
-      followersLoading: false,
       meta: {
         ...this.state.meta,
         ...{ page, per_page }
       }
     });
+    if (page === 1) this.props.storeFollower(followers);
     return followers;
-  }
-
-  renderFollowers() {
-    return this.state.followers.map(user => {
-      return (
-        <Col className="text-center" span={4} key={user.login}>
-          <a href={user.html_url} target="_blank">
-            <img
-              src={user.avatar_url}
-              style={{ width: '10rem', maxWidth: '100%' }}
-              alt=""
-            />
-            <br />
-            <sub>{user.login}</sub>
-          </a>
-        </Col>
-      );
-    });
   }
 
   changePage(page, per_page) {
@@ -91,9 +66,23 @@ class GithubFollowers extends Component {
 
   render() {
     return (
-      <Spin spinning={this.state.followersLoading}>
+      <Spin spinning={!this.props.followers || !this.props.followers.length}>
         <Row>
-          {this.renderFollowers()}
+          {this.props.followers.map(user => {
+            return (
+              <Col className="text-center" span={4} key={user.login}>
+                <a href={user.html_url} target="_blank">
+                  <img
+                    src={user.avatar_url}
+                    style={{ width: '10rem', maxWidth: '100%' }}
+                    alt=""
+                  />
+                  <br />
+                  <sub>{user.login}</sub>
+                </a>
+              </Col>
+            );
+          })}
         </Row>
         {this.state.meta.total > 0
           ? <Row className="text-center">
@@ -111,4 +100,16 @@ class GithubFollowers extends Component {
   }
 }
 
-export default GithubFollowers;
+export default connect(
+  function mapStateToProps(state) {
+    return { followers: state.follower };
+  },
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+      {
+        storeFollower: storeFollower
+      },
+      dispatch
+    );
+  }
+)(GithubFollowers);
