@@ -8,9 +8,20 @@
 
 ### 为什么不使用Hexo之类的静态博客
 
-因为我讨厌每次都要去新建一个.md, 然后再build, 再部署
+Hexo的流程: 
 
-要做的就是一次部署之后，不用再care源码.
+- 新建一个xxx.md(无论是手动或命令行)
+- 编辑相应的信息, 如发布日期, 分类, 标签, 内容. 
+- 本地预览
+- 将markdown构建成html静态文件
+- 部署到服务器
+- push源代码
+
+它可能不适合我: 
+- 疲与上面的步骤
+- 依赖于开发环境(首先你要有nodejs, 有hexo)
+
+我要的是一次部署之后，不用再care源码. 也不依赖环境, 登陆Github就能发文章
 
 ### Feature
 
@@ -24,7 +35,38 @@
 - [x] 数据持久化(Redux+Persist)
 - [ ] 部署教程
 
+### 使用
+
+```bash
+git clone https://github.com/axetroy/blog.git
+yarn
+yarn start
+```
+
 ### 部署
+
+1. 修改成你自己的相关信息
+
+**package.json**
+
+```
+  "...": "...",
+  "config": {
+    "owner": "axetroy",     # 你的名字
+    "repo": "blog"          # 你博客的仓库名称
+                            # 最终结果: https://github.com/axetroy/blog
+  },
+  "...": "...",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"   # 修改成你要部署的仓库
+  },
+  
+```
+
+
 
 ```bash
 yarn
