@@ -47,7 +47,7 @@ yarn start
 
 1. 修改成你自己的相关信息
 
-**package.json**
+    **package.json**
 
 ```
   "...": "...",
