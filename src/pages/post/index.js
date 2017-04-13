@@ -83,6 +83,7 @@ class Post extends Component {
   render() {
     return (
       <Spin spinning={this.state.loading}>
+
         <h2>{this.state.post.title}</h2>
         <div>
           <p>
@@ -115,36 +116,69 @@ class Post extends Component {
         <hr className="hr" />
 
         <div>
-          {this.state.comments.map(comment => {
-            return (
-              <div key={comment.id}>
-                <div className="comment-header">
-                  <img
-                    style={{ width: '3.2rem', verticalAlign: 'middle' }}
-                    src={comment.user.avatar_url}
-                    alt=""
-                  />
-                  <strong style={{ color: '#586069' }}>
-                    {comment.user.login}
-                  </strong>
-                  &nbsp;&nbsp;
-                  <span>
-                    {' '}
-                    {
-                      `commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`
-                    }
-                  </span>
-                </div>
-                <div className="comment-body">
+          <h3>大牛们的评论: </h3>
+
+          {this.state.comments.length
+            ? this.state.comments.map(comment => {
+                return (
                   <div
-                    className="markdown-body"
-                    style={{ fontSize: '1.6rem', padding: '1.5rem' }}
-                    dangerouslySetInnerHTML={{ __html: comment.body_html }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+                    key={comment.id}
+                    style={{
+                      border: '0.1rem solid #e2e2e2',
+                      borderRadius: '0.5rem',
+                      margin: '1rem 0'
+                    }}
+                  >
+                    <div className="comment-header">
+                      <img
+                        style={{
+                          width: '3.2rem',
+                          verticalAlign: 'middle',
+                          borderRadius: '50%'
+                        }}
+                        src={comment.user.avatar_url}
+                        alt=""
+                      />
+                      &nbsp;&nbsp;
+                      <strong style={{ color: '#586069' }}>
+                        <a
+                          target="_blank"
+                          href={`https://github.com/${comment.user.login}`}
+                        >
+                          {comment.user.login}
+                        </a>
+                      </strong>
+                      &nbsp;&nbsp;
+                      <span>
+                        {' '}
+                        {
+                          `commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`
+                        }
+                      </span>
+                    </div>
+                    <div className="comment-body">
+                      <div
+                        className="markdown-body"
+                        style={{ fontSize: '1.6rem', padding: '1.5rem' }}
+                        dangerouslySetInnerHTML={{ __html: comment.body_html }}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            : <div>
+                还没有人评论哦，赶紧
+                <a
+                  target="_blank"
+                  href={
+                    `https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${this.state.post.number}`
+                  }
+                >
+                  抢沙发
+                </a>
+                !
+              </div>}
+
         </div>
       </Spin>
     );
