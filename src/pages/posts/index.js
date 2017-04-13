@@ -51,7 +51,7 @@ class Posts extends Component {
     let posts = this.props.posts;
     try {
       this.setStateAsync({ loading: true });
-      const res = await github.get(`/repos/${pkg.config.owner}/blog/issues`, {
+      const res = await github.get(`/repos/${pkg.config.owner}/${pkg.config.repo}/issues`, {
         params: { creator: pkg.config.owner, page, per_page }
       });
 

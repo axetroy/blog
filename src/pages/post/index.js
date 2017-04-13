@@ -39,7 +39,7 @@ class Post extends Component {
     try {
       await this.setStateAsync({ loading: true, number });
       const res = await github.get(
-        `/repos/${pkg.config.owner}/blog/issues/${number}`,
+        `/repos/${pkg.config.owner}/${pkg.config.repo}/issues/${number}`,
         {
           headers: {
             Accept: 'application/vnd.github.v3.html'
