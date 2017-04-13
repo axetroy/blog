@@ -21,12 +21,14 @@ Hexo的流程:
 - 疲与上面的步骤
 - 依赖于开发环境(首先你要有nodejs, 有hexo)
 
-我要的是一次部署之后，不用再care源码. 也不依赖环境, 登陆Github就能发文章
+我要的是一次部署之后，不用再care源码. 也不依赖环境, 登陆Github就能发文章，治好了我多年偷懒的毛病(:逃...
+
+再者，Github发布issues之后不能删除，对文章的质量要求更高。
 
 ### Feature
 
 - [x] 动态加载issues作为博客
-- [ ] 动态加载issues评论作为博客评论
+- [x] 动态加载issues评论作为博客评论
 - [x] 动态加载仓库
 - [ ] 数据可视化
 - [ ] 常用工具集合
@@ -47,7 +49,7 @@ yarn start
 
 1. 修改成你自己的相关信息
 
-    **package.json**
+**package.json**
 
 ```
   "...": "...",
@@ -63,7 +65,6 @@ yarn start
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"   # 修改成你要部署的仓库
   },
-  
 ```
 
 2. 运行命令部署
