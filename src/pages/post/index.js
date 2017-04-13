@@ -72,7 +72,6 @@ class Post extends Component {
           responseType: 'text'
         }
       );
-      console.log(data);
       this.setState({ comments: data });
     } catch (err) {
       console.error(err);

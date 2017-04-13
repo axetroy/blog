@@ -2,9 +2,12 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Row, Col, Spin, Pagination } from 'antd';
 
 import github from '../../lib/github';
+import { storeFollowings } from '../../redux/following';
 
 import pkg from '../../../package.json';
 
@@ -13,18 +16,8 @@ class GithubFollowing extends Component {
     meta: {
       page: 1,
       per_page: 30
-    },
-    followings: [],
-    followingsLoading: false
+    }
   };
-
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
 
   async componentWillMount() {
     await this.getFollowers(this.state.meta.page, this.state.meta.per_page);
@@ -33,7 +26,6 @@ class GithubFollowing extends Component {
   async getFollowers(page, per_page) {
     let followings = [];
     try {
-      await this.setStateAsync({ followingsLoading: true });
       const {
         data,
         headers
@@ -60,18 +52,17 @@ class GithubFollowing extends Component {
       console.error(err);
     }
     this.setState({
-      followings,
-      followingsLoading: false,
       meta: {
         ...this.state.meta,
         ...{ page, per_page }
       }
     });
+    if (page === 1) this.props.storeFollowings(followings);
     return followings;
   }
 
   renderFollowings() {
-    return this.state.followings.map(user => {
+    return this.props.following.map(user => {
       return (
         <Col className="text-center" span={4} key={user.login}>
           <a href={user.html_url} target="_blank">
@@ -94,7 +85,7 @@ class GithubFollowing extends Component {
 
   render() {
     return (
-      <Spin spinning={this.state.followingsLoading}>
+      <Spin spinning={!this.props.following || !this.props.following.length}>
         <Row>
           {this.renderFollowings()}
         </Row>
@@ -114,4 +105,16 @@ class GithubFollowing extends Component {
   }
 }
 
-export default GithubFollowing;
+export default connect(
+  function mapStateToProps(state) {
+    return { following: state.following };
+  },
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+      {
+        storeFollowings: storeFollowings
+      },
+      dispatch
+    );
+  }
+)(GithubFollowing);
