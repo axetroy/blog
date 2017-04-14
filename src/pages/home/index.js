@@ -8,7 +8,7 @@ import { Row, Col, Spin } from 'antd';
 
 import pkg from '../../../package.json';
 import github from '../../lib/github';
-import { store } from '../../redux/homeReadMe';
+import { store } from '../../redux/readme';
 
 class Home extends Component {
   async componentDidMount() {

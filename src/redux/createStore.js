@@ -23,7 +23,7 @@ export default function(rootReducer) {
   const enhancers = [];
 
   // log中间件
-  middleware.push(createLogMiddleWare());
+  // middleware.push(createLogMiddleWare());
 
   // 合并中间件
   enhancers.push(applyMiddleware(...middleware));

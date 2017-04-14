@@ -8,7 +8,7 @@ import { Spin, Row, Col } from 'antd';
 import pkg from '../../../package.json';
 import github from '../../lib/github';
 
-import { store } from '../../redux/aboutMe';
+import { store } from '../../redux/about';
 
 class About extends Component {
   componentDidMount() {

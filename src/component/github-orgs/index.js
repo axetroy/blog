@@ -14,6 +14,7 @@ import github from '../../lib/github';
 import { store } from '../../redux/orgs';
 import { set } from '../../redux/orgs-repos';
 import { setStat } from '../../redux/repo-stat';
+import * as allOrgRepos from '../../redux/all-orgs-repos';
 
 import pkg from '../../../package.json';
 
@@ -35,11 +36,17 @@ const styles = {
 class GithubOrganizations extends Component {
   state = {
     currentOrg: null,
-    orgMemberShip: {},
-    orgRepos: {}
+    orgMemberShip: {}
   };
 
-  async componentWillReceiveProps(nextProp) {}
+  async componentWillReceiveProps(nextProp) {
+    if (nextProp.orgs && nextProp.orgs.length) {
+      const current = nextProp.orgs[0];
+      current &&
+        !this.state.currentOrg &&
+        this.setState({ currentOrg: current.login, a: 22 });
+    }
+  }
 
   async componentWillMount() {
     // 获取所在的组织列表
@@ -173,14 +180,7 @@ class GithubOrganizations extends Component {
     } catch (err) {
       console.error(err);
     }
-    this.setState({
-      orgRepos: {
-        ...this.state.orgRepos,
-        ...{
-          [org]: repos
-        }
-      }
-    });
+    this.props.setOrgAllRepos({ name: org, repos });
     return repos;
   }
   render() {
@@ -231,7 +231,7 @@ class GithubOrganizations extends Component {
             <p>
               <Octicon className="font-size-2rem mr5" name="star" mega />
               {(() => {
-                const currentOrg = this.state.orgRepos[this.state.currentOrg];
+                const currentOrg = this.props.orgRepos[this.state.currentOrg];
                 if (currentOrg) {
                 }
                 return currentOrg
@@ -411,7 +411,15 @@ export default connect(
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
-      { storeOrgs: store, setOrgRepos: set, setRepoStat: setStat },
+      {
+        storeOrgs: store,
+        // 储存仓库列表
+        setOrgRepos: set,
+        // 组织一个组织的第一页仓库列表
+        setRepoStat: setStat,
+        // 储存一个仓库的统计报告
+        setOrgAllRepos: allOrgRepos.set // 存储一个组织所有的项目
+      },
       dispatch
     );
   }
