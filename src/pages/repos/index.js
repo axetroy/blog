@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import github from '../../lib/github';
 import GithubColors from '../../lib/github-colors.json';
 import pkg from '../../../package.json';
-import { setRepos } from '../../redux/repos';
+import * as repoAction from '../../redux/repos';
 
 import './index.css';
 
@@ -110,11 +110,11 @@ class Repos extends Component {
             minHeight: '28rem'
           }}
         >
-          <Spin spinning={!this.props.repos || !this.props.repos.length}>
+          <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
 
             <Row style={{ width: '120rem', margin: '0 auto' }}>
 
-              {this.props.repos.map(repo => {
+              {this.props.REPOS.map(repo => {
                 return (
                   <Link
                     key={`${repo.owner.login}/${repo.name}`}
@@ -139,7 +139,11 @@ class Repos extends Component {
                       >
 
                         <div>
-                          <p style={{ overflowWrap: 'break-word' }}>
+                          <p
+                            style={{
+                              overflowWrap: 'break-word'
+                            }}
+                          >
                             {repo.description}
                           </p>
                         </div>
@@ -154,7 +158,12 @@ class Repos extends Component {
                           })}
                         </div>
 
-                        <div style={{ position: 'absolute', bottom: '1rem' }}>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            bottom: '1rem'
+                          }}
+                        >
                           <span className="mr5">
                             <span
                               className="repo-language-color mr5"
@@ -225,15 +234,16 @@ class Repos extends Component {
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
-    return { repos: state.repos };
+    return {
+      REPOS: state.REPOS
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setRepos: setRepos
+        setRepos: repoAction.setRepos
       },
       dispatch
     );

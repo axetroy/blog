@@ -9,16 +9,12 @@ import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
-import * as $$AllRepos from '../../redux/all-repos';
+import * as allReposAction from '../../redux/all-repos';
 
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 
 class GithubRepositories extends Component {
-  state = {
-    allRepos: []
-  };
-
   setStateAsync(newState) {
     return new Promise(resolve => {
       this.setState(newState, () => {
@@ -66,7 +62,7 @@ class GithubRepositories extends Component {
           <Col span={8} style={{ borderRight: '0.1rem solid #e6e6e6' }}>
             <p>
               <Octicon className="font-size-2rem mr5" name="star" mega />
-              {this.props.allRepos
+              {this.props.ALL_REPOS
                 .map(repo => repo.watchers_count)
                 .reduce((a, b) => a + b, 0) || 0}
             </p>
@@ -75,7 +71,7 @@ class GithubRepositories extends Component {
           <Col span={8}>
             <p>
               <Octicon className="font-size-2rem mr5" name="gist-fork" mega />
-              {this.props.allRepos
+              {this.props.ALL_REPOS
                 .map(repo => repo.forks_count)
                 .reduce((a, b) => a + b, 0) || 0}
             </p>
@@ -89,7 +85,7 @@ class GithubRepositories extends Component {
           >
             <p>
               <Octicon className="font-size-2rem mr5" name="repo" mega />
-              {this.props.allRepos.filter(repo => !repo.fork).length}
+              {this.props.ALL_REPOS.filter(repo => !repo.fork).length}
             </p>
             <p>创建的仓库数</p>
           </Col>
@@ -111,7 +107,7 @@ class GithubRepositories extends Component {
               <Octicon className="font-size-2rem mr5" name="package" mega />
               {(() => {
                 const sortByStar = sortBy(
-                  this.props.allRepos,
+                  this.props.ALL_REPOS,
                   repo => -repo.watchers_count
                 );
                 const mostStarRepo = sortByStar[0];
@@ -127,7 +123,7 @@ class GithubRepositories extends Component {
           <Col span={12}>
             {(() => {
               const sortByTime = sortBy(
-                this.props.allRepos,
+                this.props.ALL_REPOS,
                 repo => -(new Date(repo.updated_at) - new Date(repo.created_at))
               );
               const mostLongTimeRepo = sortByTime[0];
@@ -154,13 +150,13 @@ class GithubRepositories extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      allRepos: state.allRepos
+      ALL_REPOS: state.ALL_REPOS
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setAllRepos: $$AllRepos.set
+        setAllRepos: allReposAction.set
       },
       dispatch
     );

@@ -14,7 +14,7 @@ import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
 
-import { store } from '../../redux/owner';
+import * as userAction from '../../redux/owner';
 
 import './index.css';
 
@@ -71,32 +71,32 @@ class Github extends Component {
         </h2>
 
         <Card style={{ width: '100%' }}>
-          <Spin spinning={!this.props.user}>
+          <Spin spinning={!this.props.OWNER}>
             <Row>
               <Col span={4}>
-                <a href={this.props.user.html_url} target="_blank">
+                <a href={this.props.OWNER.html_url} target="_blank">
                   <img
-                    alt={this.props.user.avatar_url}
+                    alt={this.props.OWNER.avatar_url}
                     style={{
                       width: '70%',
                       height: 'auto',
                       borderRadius: '50%'
                     }}
-                    src={this.props.user.avatar_url}
+                    src={this.props.OWNER.avatar_url}
                   />
                 </a>
               </Col>
               <Col span={20}>
-                <p>{this.props.user.name}</p>
+                <p>{this.props.OWNER.name}</p>
                 <p>
                   加入时间：
-                  {this.props.user.created_at &&
-                    moment(this.props.user.created_at).format('YYYY-MM-DD')}
+                  {this.props.OWNER.created_at &&
+                    moment(this.props.OWNER.created_at).format('YYYY-MM-DD')}
                 </p>
                 <p>
                   编程经历：
-                  {this.props.user.created_at
-                    ? ((new Date() - new Date(this.props.user.created_at)) /
+                  {this.props.OWNER.created_at
+                    ? ((new Date() - new Date(this.props.OWNER.created_at)) /
                         1000 /
                         3600 /
                         24 /
@@ -105,13 +105,13 @@ class Github extends Component {
                   年
                 </p>
                 <blockquote>
-                  {this.props.user.bio}
+                  {this.props.OWNER.bio}
                 </blockquote>
                 <div>
                   状态:<Tag
-                    color={this.props.user.hireable ? '#4CAF50' : '#FF5722'}
+                    color={this.props.OWNER.hireable ? '#4CAF50' : '#FF5722'}
                   >
-                    {!!this.props.user.hireable ? '待业' : '在职'}
+                    {!!this.props.OWNER.hireable ? '待业' : '在职'}
                   </Tag>
                 </div>
               </Col>
@@ -123,7 +123,7 @@ class Github extends Component {
               <Col span={8}>
                 <div className="bg-green" style={styles.infoBlock}>
                   <span style={styles.strong}>
-                    {this.props.user.public_repos}
+                    {this.props.OWNER.public_repos}
                   </span>
                   {' '}
                   Repositories
@@ -132,7 +132,7 @@ class Github extends Component {
               <Col span={8}>
                 <div className="bg-green" style={styles.infoBlock}>
                   <span style={styles.strong}>
-                    {this.props.user.followers}
+                    {this.props.OWNER.followers}
                   </span>
                   {' '}
                   Followers
@@ -141,7 +141,7 @@ class Github extends Component {
               <Col span={8}>
                 <div className="bg-green" style={styles.infoBlock}>
                   <span style={styles.strong}>
-                    {this.props.user.following}
+                    {this.props.OWNER.following}
                   </span>
                   {' '}
                   Following
@@ -179,12 +179,12 @@ class Github extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return { user: state.owner };
+    return { OWNER: state.OWNER };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeOwnerInfo: store
+        storeOwnerInfo: userAction.store
       },
       dispatch
     );

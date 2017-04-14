@@ -49,11 +49,11 @@ class Home extends Component {
     return (
       <Row>
         <Col span={16} offset={4}>
-          <Spin spinning={!this.props.readme}>
+          <Spin spinning={!this.props.READ_ME}>
             <div
               className="markdown-body"
               style={{ fontSize: '16px', minHeight: '20rem' }}
-              dangerouslySetInnerHTML={{ __html: this.props.readme }}
+              dangerouslySetInnerHTML={{ __html: this.props.READ_ME }}
             />
           </Spin>
         </Col>
@@ -64,7 +64,7 @@ class Home extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return { readme: state.homeReadMe };
+    return { READ_ME: state.READ_ME };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(

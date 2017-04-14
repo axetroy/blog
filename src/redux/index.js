@@ -17,18 +17,18 @@ import allOrgRepoReducer from './all-orgs-repos';
 
 function createStore() {
   const rootReducer = combineReducers({
-    homeReadMe: homeReadMeReducer,
-    aboutMe: aboutMeReducer,
-    posts: postsReducer,
-    repos: reposReducer,
-    owner: ownerReducer,
-    rollList: rollListReducer,
+    READ_ME: homeReadMeReducer,
+    ABOUT_ME: aboutMeReducer,
+    POSTS: postsReducer,
+    OWNER: ownerReducer,
     ORGS: orgsReducer,
     REPOS_STAT: repoStatReducer,
-    following: followingReducer,
-    follower: followerReducer,
-    allRepos: allReposReducer,
+    FOLLOWING: followingReducer,
+    FOLLOWER: followerReducer,
+    ALL_REPOS: allReposReducer,
     ALL_ORG_REPOS: allOrgRepoReducer,
+    ROLL_LIST: rollListReducer,
+    REPOS: reposReducer
   });
 
   return configureStore(rootReducer);

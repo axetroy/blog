@@ -10,7 +10,7 @@ import { Route, NavLink } from 'react-router-dom';
 import Post from '../post/';
 import github from '../../lib/github';
 
-import { set } from '../../redux/posts';
+import * as postAction from '../../redux/posts';
 
 import pkg from '../../../package.json';
 
@@ -47,7 +47,7 @@ class Posts extends Component {
   }
 
   async getPosts(page, per_page) {
-    let posts = this.props.posts;
+    let posts = this.props.POSTS;
     try {
       const res = await github.get(
         `/repos/${pkg.config.owner}/${pkg.config.repo}/issues`,
@@ -91,10 +91,10 @@ class Posts extends Component {
     return (
       <Layout>
         <Sider width={280} style={styles.content}>
-          <Spin spinning={!this.props.posts}>
+          <Spin spinning={!this.props.POSTS}>
 
             <Timeline>
-              {this.props.posts.map(post => {
+              {this.props.POSTS.map(post => {
                 return (
                   <Timeline.Item key={post.number}>
                     <NavLink
@@ -136,12 +136,12 @@ class Posts extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return { posts: state.posts };
+    return { POSTS: state.POSTS };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setPosts: set
+        setPosts: postAction.set
       },
       dispatch
     );

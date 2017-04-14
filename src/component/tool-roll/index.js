@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Row, Form, Table, Button, Input, Modal, message } from 'antd';
 import RollUp from '@axetroy/roll';
 
-import { add, remove } from '../../redux/rollList';
+import * as rollAction from '../../redux/rollList';
 
 const { Column } = Table;
 const FormItem = Form.Item;
@@ -31,7 +31,7 @@ class Roll extends Component {
     if (isNaN(+rank) || +rank <= 0)
       return message.error('Invalid Rank. Rank > 0');
 
-    if (this.props.rollList.findIndex(v => v.name === name) >= 0)
+    if (this.props.ROLL_LIST.findIndex(v => v.name === name) >= 0)
       return message.error('Duplicate name');
 
     this.props.addRollList({
@@ -53,7 +53,7 @@ class Roll extends Component {
 
   roll() {
     const roller = new RollUp();
-    const list = this.props.rollList;
+    const list = this.props.ROLL_LIST;
     list.forEach(v => roller.add(v.name, +v.rank));
     const result = roller.roll();
     console.info(result);
@@ -107,7 +107,7 @@ class Roll extends Component {
               </Button>
             </FormItem>
           </Form>
-          <Table dataSource={this.props.rollList} pagination={false}>
+          <Table dataSource={this.props.ROLL_LIST} pagination={false}>
             <Column title="名称" dataIndex="name" key="name" />
             <Column title="权重" dataIndex="rank" key="rank" />
             <Column
@@ -127,16 +127,17 @@ class Roll extends Component {
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
-    return { rollList: state.rollList };
+    return {
+      ROLL_LIST: state.ROLL_LIST
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        addRollList: add,
-        removeRollList: remove
+        addRollList: rollAction.add,
+        removeRollList: rollAction.remove
       },
       dispatch
     );

@@ -8,7 +8,7 @@ import { Spin, Row, Col } from 'antd';
 import pkg from '../../../package.json';
 import github from '../../lib/github';
 
-import { store } from '../../redux/about';
+import * as aboutAction from '../../redux/about';
 
 class About extends Component {
   componentDidMount() {
@@ -44,8 +44,8 @@ class About extends Component {
     return (
       <Row>
         <Col span={16} offset={4}>
-          <Spin spinning={!this.props.aboutMe}>
-            <div dangerouslySetInnerHTML={{ __html: this.props.aboutMe }} />
+          <Spin spinning={!this.props.ABOUT_ME}>
+            <div dangerouslySetInnerHTML={{ __html: this.props.ABOUT_ME }} />
           </Spin>
         </Col>
       </Row>
@@ -55,12 +55,12 @@ class About extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return { aboutMe: state.aboutMe };
+    return { ABOUT_ME: state.ABOUT_ME };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeAboutMe: store
+        storeAboutMe: aboutAction.store
       },
       dispatch
     );

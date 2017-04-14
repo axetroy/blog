@@ -67,9 +67,9 @@ class GithubFollowing extends Component {
 
   render() {
     return (
-      <Spin spinning={!this.props.following || !this.props.following.length}>
+      <Spin spinning={!this.props.FOLLOWING || !this.props.FOLLOWING.length}>
         <Row>
-          {this.props.following.map(user => {
+          {this.props.FOLLOWING.map(user => {
             return (
               <Col className="text-center" span={4} key={user.login}>
                 <a href={user.html_url} target="_blank">
@@ -103,7 +103,7 @@ class GithubFollowing extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return { following: state.following };
+    return { FOLLOWING: state.FOLLOWING };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
