@@ -13,6 +13,7 @@ import orgsReposReducer from './orgs-repos';
 import repoStatReducer from './repo-stat';
 import followingReducer from './following';
 import followerReducer from './follower';
+import allReposReducer from './all-repos';
 
 function createStore() {
   const rootReducer = combineReducers({
@@ -26,7 +27,8 @@ function createStore() {
     orgsRepos: orgsReposReducer,
     repoStat: repoStatReducer,
     following: followingReducer,
-    follower: followerReducer
+    follower: followerReducer,
+    allRepos: allReposReducer,
   });
 
   return configureStore(rootReducer);
