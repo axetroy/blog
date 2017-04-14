@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Menu, Spin, Pagination, Timeline } from 'antd';
+import { Layout, Spin, Pagination, Timeline } from 'antd';
 import { Route, NavLink } from 'react-router-dom';
 
 import Post from '../post/';

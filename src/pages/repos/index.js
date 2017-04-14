@@ -2,6 +2,8 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Layout, Card, Row, Col, Tag, Pagination, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import Octicon from 'react-octicon';
@@ -9,8 +11,10 @@ import queryString from 'query-string';
 
 import github from '../../lib/github';
 import GithubColors from '../../lib/github-colors.json';
-import './index.css';
 import pkg from '../../../package.json';
+import { setRepos } from '../../redux/repos';
+
+import './index.css';
 
 const { Content } = Layout;
 
@@ -20,9 +24,7 @@ class Repos extends Component {
       page: 1,
       per_page: 20,
       total: 0
-    },
-    repos: [],
-    loading: false
+    }
   };
 
   async componentWillMount() {
@@ -48,21 +50,22 @@ class Repos extends Component {
   }
 
   async getRepos(page, per_page) {
-    if (this.state.loading) return;
+    let repos = [];
 
-    let repos = this.state.repos || [];
-
-    let res;
     try {
-      await this.setStateAsync({ loading: true });
-      res = await github.get(`/users/${pkg.config.owner}/repos?sort=pushed`, {
+      const {
+        data,
+        headers
+      } = await github.get(`/users/${pkg.config.owner}/repos?sort=pushed`, {
         params: { page, per_page },
         headers: {
           Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8'
         }
       });
 
-      const link = res.headers.link;
+      repos = data;
+
+      const link = headers.link;
 
       /**
        * Pagination
@@ -78,16 +81,11 @@ class Repos extends Component {
           }
         });
       }
-
-      repos = res.data;
     } catch (err) {
       console.error(err);
     }
 
-    await this.setStateAsync({
-      repos,
-      loading: false
-    });
+    this.props.setRepos(repos);
 
     return repos;
   }
@@ -112,11 +110,11 @@ class Repos extends Component {
             minHeight: '28rem'
           }}
         >
-          <Spin spinning={this.state.loading}>
+          <Spin spinning={!this.props.repos || !this.props.repos.length}>
 
             <Row style={{ width: '120rem', margin: '0 auto' }}>
 
-              {this.state.repos.map(repo => {
+              {this.props.repos.map(repo => {
                 return (
                   <Link
                     key={`${repo.owner.login}/${repo.name}`}
@@ -228,4 +226,16 @@ class Repos extends Component {
   }
 }
 
-export default Repos;
+export default connect(
+  function mapStateToProps(state) {
+    return { repos: state.repos };
+  },
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+      {
+        setRepos: setRepos
+      },
+      dispatch
+    );
+  }
+)(Repos);

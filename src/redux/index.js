@@ -5,6 +5,7 @@ import configureStore from './createStore';
 import homeReadMeReducer from './homeReadMe';
 import aboutMeReducer from './aboutMe';
 import postsReducer from './posts';
+import reposReducer from './repos';
 import ownerReducer from './owner';
 import rollListReducer from './rollList';
 import orgsReducer from './orgs';
@@ -18,6 +19,7 @@ function createStore() {
     homeReadMe: homeReadMeReducer,
     aboutMe: aboutMeReducer,
     posts: postsReducer,
+    repos: reposReducer,
     owner: ownerReducer,
     rollList: rollListReducer,
     orgs: orgsReducer,
