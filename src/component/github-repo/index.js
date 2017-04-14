@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Spin } from 'antd';
+import { Row, Col, Spin, Tooltip } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
@@ -115,9 +115,11 @@ class GithubRepositories extends Component {
                   repo => -repo.watchers_count
                 );
                 const mostStarRepo = sortByStar[0];
-                if (mostStarRepo) {
-                  return mostStarRepo.name;
-                }
+                return mostStarRepo
+                  ? <Tooltip title={`Star ${mostStarRepo.watchers_count}`}>
+                      {mostStarRepo.name}
+                    </Tooltip>
+                  : '';
               })()}
             </p>
             <p>最受欢迎的仓库</p>
@@ -130,11 +132,14 @@ class GithubRepositories extends Component {
               );
               const mostLongTimeRepo = sortByTime[0];
               return mostLongTimeRepo
-                ? <p>
-                    {moment(mostLongTimeRepo.created_at).format('YYYY-MM-DD')}
-                    ~
-                    {moment(mostLongTimeRepo.updated_at).format('YYYY-MM-DD')}
-                  </p>
+                ? <Tooltip title={mostLongTimeRepo.name} text>
+                    <Octicon className="font-size-2rem mr5" name="clock" mega />
+                    <span>
+                      {moment(mostLongTimeRepo.created_at).format('YYYY-MM-DD')}
+                      ~
+                      {moment(mostLongTimeRepo.updated_at).format('YYYY-MM-DD')}
+                    </span>
+                  </Tooltip>
                 : '';
             })()}
             <p>
