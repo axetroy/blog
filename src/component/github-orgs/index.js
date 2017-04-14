@@ -29,22 +29,12 @@ const styles = {
 
 class GithubOrganizations extends Component {
   state = {
-    organizations: {},
     currentOrg: null
   };
-
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
 
   async componentWillReceiveProps(nextProp) {}
 
   async componentWillMount() {
-    await this.setStateAsync({ orgsLoading: true });
     // 获取所在的组织列表
     const orgs = await this.getOrganizationsByUser(pkg.config.owner);
 
@@ -69,8 +59,6 @@ class GithubOrganizations extends Component {
         this.props.setRepoStat({ name: repo.name, stat: stats });
       }
     }
-
-    this.setState({ orgsLoading: false });
   }
 
   async getOrganizationsByUser(owner) {
@@ -146,7 +134,7 @@ class GithubOrganizations extends Component {
 
   render() {
     return (
-      <Spin spinning={this.state.orgsLoading}>
+      <Spin spinning={!this.props.orgRepos}>
 
         <Row>
           {this.props.orgs.map(v => {
@@ -296,7 +284,6 @@ class GithubOrganizations extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    // console.log(state.orgsRepos);
     return {
       orgs: state.orgs,
       orgRepos: state.orgsRepos,
