@@ -16,7 +16,7 @@ class Footer extends Component {
         <Col span={8}>
           <h3><Icon type="github" />Github</h3>
           <div>
-            <a target="_blank" href="https://github.com/axetroy/my">仓库源码</a>
+            <a target="_blank" href="https://github.com/axetroy/blog">仓库源码</a>
           </div>
         </Col>
         <Col span={8}>
