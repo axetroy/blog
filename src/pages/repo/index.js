@@ -51,29 +51,6 @@ class Repo extends Component {
     this.getStat(owner, repo);
   }
 
-  renderStat() {
-    let result = null;
-    for (let name in this.state.contributions) {
-      const contributions = this.state.contributions;
-      if (this.state.contributions.hasOwnProperty(name)) {
-        const contribution = contributions[name];
-        const dom = (
-          <div>
-            <span>{name}</span>
-            <span>+{contribution.add} </span>
-            <span>-{contribution.delete} </span>
-          </div>
-        );
-        if (!result) {
-          result = dom;
-        } else {
-          result += dom;
-        }
-      }
-    }
-    return result;
-  }
-
   async getStat(owner, repo) {
     let contributions = {};
     try {
@@ -255,9 +232,7 @@ class Repo extends Component {
                   <RepoEvents {...this.props.match.params} />
                 </TabPane>
                 <TabPane tab="贡献比例" key="contributions">
-                  <div>
-                    {this.renderStat()}
-                  </div>
+                  TODO
                 </TabPane>
               </Tabs>
             </Content>
@@ -268,5 +243,4 @@ class Repo extends Component {
     );
   }
 }
-
 export default Repo;

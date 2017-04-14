@@ -9,7 +9,6 @@ import reposReducer from './repos';
 import ownerReducer from './owner';
 import rollListReducer from './rollList';
 import orgsReducer from './orgs';
-import orgsReposReducer from './orgs-repos';
 import repoStatReducer from './repo-stat';
 import followingReducer from './following';
 import followerReducer from './follower';
@@ -24,9 +23,8 @@ function createStore() {
     repos: reposReducer,
     owner: ownerReducer,
     rollList: rollListReducer,
-    orgs: orgsReducer,
-    orgsRepos: orgsReposReducer,
-    repoStat: repoStatReducer,
+    ORGS: orgsReducer,
+    REPOS_STAT: repoStatReducer,
     following: followingReducer,
     follower: followerReducer,
     allRepos: allReposReducer,

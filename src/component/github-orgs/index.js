@@ -12,7 +12,6 @@ import moment from 'moment';
 import github from '../../lib/github';
 
 import { store } from '../../redux/orgs';
-import { set } from '../../redux/orgs-repos';
 import { setStat } from '../../redux/repo-stat';
 import * as allOrgRepos from '../../redux/all-orgs-repos';
 
@@ -50,21 +49,17 @@ class GithubOrganizations extends Component {
 
   async componentWillMount() {
     // 获取所在的组织列表
-    const orgs = await this.getOrganizationsByUser(pkg.config.owner);
+    await this.getOrgs(pkg.config.owner);
     this.setState({
-      currentOrg: this.props.orgs[0] ? this.props.orgs[0].login : null
-    });
-    // 获取单个组织下的仓库
-    for (let org of orgs) {
-      await this.getRepositoriesByOrg(org.login);
-    }
-    // 最后进行统计
+      currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null
+    }); // 进行统计
     const organizations = {
       ...{},
-      ...this.props.orgRepos
+      ...this.props.ALL_ORG_REPOS
     };
     for (let org in organizations) {
-      const repositories = organizations[org]; // stat repo one by one
+      const repositories = organizations[org];
+      // stat repo one by one
       for (let repo of repositories) {
         const stats = await this.statRepo(repo.owner.login, repo.name);
         this.props.setRepoStat({
@@ -74,16 +69,22 @@ class GithubOrganizations extends Component {
       }
     }
   }
-  async getOrganizationsByUser(owner) {
+  /**
+   * 获取owner当前所在的组织列表
+   * @param owner
+   * @returns {Promise.<Array>}
+   */ async getOrgs(
+    owner
+  ) {
     let organizations = [];
     try {
       const { data } = await github.get(`/users/${owner}/orgs`);
       const _organizations = (data || []).slice();
       while (_organizations.length) {
-        const org = _organizations.shift();
-        const { data } = await github.get(`/orgs/${org.login}`); // 获取基本信息
-        await this.getOrgAllMemberShip(org.login); // 获取组织内公开的所有成员
-        await this.getOrgAllRepos(org.login); // 获取该组织下, 所有的项目
+        const org = _organizations.shift(); // 获取基本信息
+        const { data } = await github.get(`/orgs/${org.login}`); // 获取该组织下, 所有的项目
+        await [this.getOrgAllRepos(org.login), this.getOrgMembers(org.login)];
+        // 获取组织内公开的所有成员
         organizations = organizations.concat([data]);
       }
     } catch (err) {
@@ -91,21 +92,13 @@ class GithubOrganizations extends Component {
     }
     this.props.storeOrgs(organizations);
     return organizations;
-  }
-  async getRepositoriesByOrg(org) {
-    let repositories = [];
-    try {
-      const response = await github.get(`/orgs/${org}/repos`);
-      repositories = [].concat(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-    this.props.setOrgRepos({
-      name: org,
-      repos: repositories
-    });
-    return repositories;
-  }
+  } /**
+  /**
+   * 统计一个仓库
+   * @param owner
+   * @param repo
+   * @returns {Promise.<Array>}
+   */
   async statRepo(owner, repo) {
     let contributions = [];
     try {
@@ -143,8 +136,12 @@ class GithubOrganizations extends Component {
       v.contribution.total = total;
       return v;
     });
-  }
-  async getOrgAllMemberShip(org) {
+  } /**
+   * 获取组织的所有成员列表
+   * @param org
+   * @returns {Promise.<Array>}
+   */
+  async getOrgMembers(org) {
     let allMemberShip = [];
     try {
       const { data, headers } = await github.get(`/orgs/${org}/public_members`);
@@ -165,12 +162,19 @@ class GithubOrganizations extends Component {
       }
     });
     return allMemberShip;
-  }
+  } /**
+   * 获取组织的所有仓库
+   * @param org
+   * @param page
+   * @returns {Promise.<*>}
+   */
   async getOrgAllRepos(org, page = 1) {
     let repos = [];
     try {
       const { data, headers } = await github.get(`/orgs/${org}/repos`, {
-        params: { page }
+        params: {
+          page
+        }
       });
       repos = data;
       const { link } = headers;
@@ -180,129 +184,152 @@ class GithubOrganizations extends Component {
     } catch (err) {
       console.error(err);
     }
-    this.props.setOrgAllRepos({ name: org, repos });
+    this.props.setOrgAllRepos({
+      name: org,
+      repos
+    });
     return repos;
-  }
-  render() {
+  } /**
+   * 渲染元信息
+   * @returns {XML}
+   */
+  orgMetaRender() {
     return (
-      <Spin spinning={!this.props.orgRepos}>
-
-        <Row
-          className="text-center"
+      <Row
+        className="text-center"
+        style={{
+          ...styles.orgRow,
+          ...{ fontSize: '1.5rem' }
+        }}
+      >
+        <Col
+          span={8}
           style={{
-            ...styles.orgRow,
-            ...{
-              fontSize: '1.5rem'
-            }
+            borderRight: '0.1rem solid #e6e6e6'
           }}
         >
-          <Col
-            span={8}
-            style={{
-              borderRight: '0.1rem solid #e6e6e6'
-            }}
-          >
-            <p>
-              <Octicon className="font-size-2rem mr5" name="mention" mega />
-              {this.state.orgMemberShip[this.state.currentOrg]
-                ? this.state.orgMemberShip[this.state.currentOrg].length
-                : 1}
-            </p>
-            <p>成员数</p>
-          </Col>
-          <Col span={8}>
-            <p>
-              <Octicon className="font-size-2rem mr5" name="repo" mega />
-              {(() => {
-                const currentOrg = this.props.orgs.find(
-                  org => org.login === this.state.currentOrg
-                );
-                return currentOrg ? currentOrg.public_repos : 0;
-              })()}
-            </p>
-            <p>项目数</p>
-          </Col>
-          <Col
-            span={8}
-            style={{
-              borderLeft: '0.1rem solid #e6e6e6'
-            }}
-          >
-            <p>
-              <Octicon className="font-size-2rem mr5" name="star" mega />
-              {(() => {
-                const currentOrg = this.props.orgRepos[this.state.currentOrg];
-                if (currentOrg) {
-                }
-                return currentOrg
-                  ? currentOrg
-                      .map(repo => repo.watchers_count)
-                      .reduce((a, b) => a + b, 0)
-                  : 0;
-              })()}
-            </p>
-            <p>收获star数</p>
-          </Col>
-        </Row>
-
-        <Row style={styles.orgRow}>
-          {this.props.orgs.map(v => {
-            return (
-              <Col
-                onClick={() =>
-                  this.setState({
-                    currentOrg: v.login
-                  })}
-                span={6}
-                key={v.login}
-                style={{
-                  textAlign: 'center',
-                  borderBottomWidth: '0.3rem',
-                  borderBottomStyle: 'solid',
-                  borderBottomColor: this.state.currentOrg === v.login
-                    ? '#008000'
-                    : '#fff'
-                }}
-              >
-                <div>
-                  <img
-                    style={{
-                      width: '10rem',
-                      maxWidth: '100%'
-                    }}
-                    src={v.avatar_url}
-                    alt=""
-                  />
-                  <p>{v.login}</p>
+          <p>
+            <Octicon className="font-size-2rem mr5" name="mention" mega />
+            {this.state.orgMemberShip[this.state.currentOrg]
+              ? this.state.orgMemberShip[this.state.currentOrg].length
+              : 1}
+          </p>
+          <p>成员数</p>
+        </Col>
+        <Col span={8}>
+          <p>
+            <Octicon className="font-size-2rem mr5" name="repo" mega />
+            {(() => {
+              const currentOrg = this.props.ORGS.find(
+                org => org.login === this.state.currentOrg
+              );
+              return currentOrg ? currentOrg.public_repos : 0;
+            })()}
+          </p>
+          <p>项目数</p>
+        </Col>
+        <Col
+          span={8}
+          style={{
+            borderLeft: '0.1rem solid #e6e6e6'
+          }}
+        >
+          <p>
+            <Octicon className="font-size-2rem mr5" name="star" mega />
+            {(() => {
+              const currentOrg = this.props.ALL_ORG_REPOS[
+                this.state.currentOrg
+              ];
+              return currentOrg
+                ? currentOrg
+                    .map(repo => repo.watchers_count)
+                    .reduce((a, b) => a + b, 0)
+                : 0;
+            })()}
+          </p>
+          <p>收获star数</p>
+        </Col>
+      </Row>
+    );
+  }
+  /**
+   * 渲染组织列表
+   * @returns {XML}
+   */ orgListRender() {
+    return (
+      <Row style={styles.orgRow}>
+        {this.props.ORGS.map(v => {
+          return (
+            <Col
+              onClick={() =>
+                this.setState({
+                  currentOrg: v.login
+                })}
+              span={6}
+              key={v.login}
+              style={{
+                textAlign: 'center',
+                borderBottomWidth: '0.3rem',
+                borderBottomStyle: 'solid',
+                borderBottomColor: this.state.currentOrg === v.login
+                  ? '#008000'
+                  : '#fff'
+              }}
+            >
+              <div>
+                <img
+                  style={{
+                    width: '10rem',
+                    maxWidth: '100%'
+                  }}
+                  src={v.avatar_url}
+                  alt=""
+                />
+                <p>{v.login}</p>
+              </div>
+            </Col>
+          );
+        })}
+      </Row>
+    );
+  } /**
+   * 渲染组织的介绍
+   * @returns {XML}
+   */
+  orgDescRender() {
+    return (
+      <Row style={styles.orgRow}>
+        <div>
+          {this.props.ORGS
+            .filter(org => org.login === this.state.currentOrg)
+            .map(org => {
+              return (
+                <div key={org.login}>
+                  <p>{org.login}</p>
+                  <p>{org.description}</p>
+                  <p>
+                    创建于 {moment(org.created_at).format('YYYY-MM-DD')}
+                  </p>
                 </div>
-              </Col>
-            );
-          })}
-        </Row>
-
-        <Row style={styles.orgRow}>
-          <div>
-            {this.props.orgs
-              .filter(org => org.login === this.state.currentOrg)
-              .map(org => {
-                return (
-                  <div key={org.login}>
-                    <p>{org.login}</p>
-                    <p>{org.description}</p>
-                    <p>
-                      创建于 {moment(org.created_at).format('YYYY-MM-DD')}
-                    </p>
-                  </div>
-                );
-              })}
-          </div>
-        </Row>
-
-        <Row style={styles.orgRow}>
-          {sortBy(
-            this.props.orgRepos[this.state.currentOrg] || [],
+              );
+            })}
+        </div>
+      </Row>
+    );
+  }
+  /**
+   * 渲染组织的仓库列表
+   * @returns {XML}
+   */ orgReposRender() {
+    return (
+      <Row style={styles.orgRow}>
+        {(() => {
+          let repos = sortBy(
+            this.props.ALL_ORG_REPOS[this.state.currentOrg] || [],
             repo => -repo.watchers_count
-          ).map(repo => {
+          );
+          repos.length = 10;
+          return repos.map(repo => {
             return (
               <Popover
                 key={repo.name}
@@ -314,7 +341,7 @@ class GithubOrganizations extends Component {
                     <p>
                       贡献比例
                       {(() => {
-                        const stats = this.props.repoStat[repo.name] || [];
+                        const stats = this.props.REPOS_STAT[repo.name] || [];
                         const myStat = stats.find(
                           stat =>
                             stat &&
@@ -358,7 +385,7 @@ class GithubOrganizations extends Component {
                       style={{
                         ...styles.contributionBar,
                         width: (() => {
-                          const stats = this.props.repoStat[repo.name] || [];
+                          const stats = this.props.REPOS_STAT[repo.name] || [];
                           const myStat = stats.find(
                             stat =>
                               stat &&
@@ -394,8 +421,22 @@ class GithubOrganizations extends Component {
                 </div>
               </Popover>
             );
-          })}
-        </Row>
+          });
+        })()}
+      </Row>
+    );
+  }
+  render() {
+    return (
+      <Spin spinning={!this.props.ALL_ORG_REPOS}>
+
+        {this.orgMetaRender()}
+
+        {this.orgListRender()}
+
+        {this.orgDescRender()}
+
+        {this.orgReposRender()}
 
       </Spin>
     );
@@ -404,21 +445,17 @@ class GithubOrganizations extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      orgs: state.orgs,
-      orgRepos: state.orgsRepos,
-      repoStat: state.repoStat
+      ORGS: state.ORGS,
+      REPOS_STAT: state.REPOS_STAT,
+      ALL_ORG_REPOS: state.ALL_ORG_REPOS
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
         storeOrgs: store,
-        // 储存仓库列表
-        setOrgRepos: set,
-        // 组织一个组织的第一页仓库列表
         setRepoStat: setStat,
-        // 储存一个仓库的统计报告
-        setOrgAllRepos: allOrgRepos.set // 存储一个组织所有的项目
+        setOrgAllRepos: allOrgRepos.set
       },
       dispatch
     );
