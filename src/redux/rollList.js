@@ -1,3 +1,6 @@
+/**
+ * 存储roll相关数据
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const ADD = 'ADD';

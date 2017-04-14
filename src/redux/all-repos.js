@@ -1,3 +1,6 @@
+/**
+ * 存储"我所有仓库"
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const STORE = 'STORE_ALL_REPOS';

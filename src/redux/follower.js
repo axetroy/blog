@@ -1,3 +1,6 @@
+/**
+ * 存储第一页的follower
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const STORE = 'STORE_FOLLOWERS_ME';

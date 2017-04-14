@@ -1,3 +1,6 @@
+/**
+ * 存储组织下对于的仓库列表
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const SET = 'SET_ORG_REPOS';

@@ -1,3 +1,6 @@
+/**
+ * 存储帖子列表
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const SET = 'SET_POSTS';

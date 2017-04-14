@@ -1,3 +1,6 @@
+/**
+ * 我的组织列表
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const STORE = 'STORE_ORGS';

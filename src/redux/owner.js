@@ -1,5 +1,5 @@
 /**
- * Created by axetroy on 17-4-12.
+ * 存储用户信息
  */
 
 import { createAction, handleActions } from 'redux-actions';

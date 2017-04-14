@@ -1,3 +1,6 @@
+/**
+ * 存储一个仓库的统计结果
+ */
 import { createAction, handleActions } from 'redux-actions';
 
 export const SET = 'SET_REPO_STAT';

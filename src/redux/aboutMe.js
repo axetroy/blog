@@ -1,3 +1,7 @@
+/**
+ * 存储"关于我"的数据
+ */
+
 import { createAction, handleActions } from 'redux-actions';
 
 export const STORE = 'STORE_ABOUT_ME';
