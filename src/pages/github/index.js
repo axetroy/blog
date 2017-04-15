@@ -12,6 +12,7 @@ import GithubFollowers from '../../component/github-followers';
 import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
+import GithubLang from '../../component/github-lang';
 
 import './index.css';
 
@@ -50,9 +51,9 @@ class Github extends Component {
           <GithubOrgs />
         </Card>
 
-        <h2 className="github-title">感谢支持我的人</h2>
+        <h2 className="github-title">编程语言</h2>
         <Card>
-          <GithubFollowers />
+          <GithubLang />
         </Card>
 
         <h2 className="github-title">追寻的大牛</h2>
