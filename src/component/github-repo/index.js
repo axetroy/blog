@@ -8,11 +8,24 @@ import { Row, Col, Spin, Tooltip } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
-
+import Chart from '../chart';
 import * as allReposAction from '../../redux/all-repos';
 
 import github from '../../lib/github';
 import pkg from '../../../package.json';
+
+function str2color(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xff;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
 
 class GithubRepositories extends Component {
   setStateAsync(newState) {
@@ -49,6 +62,16 @@ class GithubRepositories extends Component {
   }
 
   render() {
+    const data = {
+      labels: ['Red', 'Blue', 'Yellow'],
+      datasets: [
+        {
+          data: [300, 50, 100],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }
+      ]
+    };
     return (
       <Spin spinning={false}>
         <Row
@@ -94,7 +117,8 @@ class GithubRepositories extends Component {
           className="text-center"
           style={{
             padding: '2rem 0',
-            fontSize: '1.5rem'
+            fontSize: '1.5rem',
+            borderBottom: '0.1rem solid #e6e6e6'
           }}
         >
           <Col
@@ -141,6 +165,80 @@ class GithubRepositories extends Component {
             <p>
               贡献最久的仓库
             </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            {(() => {
+              const repos = this.props.ALL_REPOS || [];
+              const fork = repos.filter(repo => repo.fork);
+              const source = repos.filter(repo => !repo.fork);
+              return (
+                <Chart
+                  type="pie"
+                  data={{
+                    labels: ['原创仓库', 'Fork'],
+                    datasets: [
+                      {
+                        data: [source.length, fork.length],
+                        backgroundColor: ['green', '#108ee9'],
+                        hoverBackgroundColor: ['green', '#108ee9']
+                      }
+                    ]
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: `${(source.length / repos.length * 100).toFixed(0)}% 原创仓库`
+                    },
+                    cutoutPercentage: 50,
+                    legend: {
+                      display: false
+                    }
+                  }}
+                />
+              );
+            })()}
+          </Col>
+          <Col span={12}>
+            {(() => {
+              let repos = sortBy(
+                this.props.ALL_REPOS || [],
+                repo => -repo.watchers_count
+              );
+              repos = [].concat(repos).slice(0, 10);
+              return (
+                <Chart
+                  type="pie"
+                  data={{
+                    labels: repos.map(repo => repo.name),
+                    datasets: [
+                      {
+                        data: repos.map(repo => repo.watchers_count),
+                        backgroundColor: repos.map(repo =>
+                          str2color(repo.name)
+                        ),
+                        hoverBackgroundColor: repos.map(repo =>
+                          str2color(repo.name)
+                        )
+                      }
+                    ]
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: `Star比例`
+                    },
+                    cutoutPercentage: 50,
+                    legend: {
+                      display: false
+                    }
+                  }}
+                />
+              );
+            })()}
           </Col>
         </Row>
       </Spin>

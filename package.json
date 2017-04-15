@@ -12,6 +12,7 @@
     "axios": "^0.16.0",
     "axios-retry": "^1.2.0",
     "babel-plugin-import": "^1.1.1",
+    "chart.js": "^2.5.0",
     "github-calendar": "^1.1.12",
     "github-markdown-css": "^2.6.0",
     "localforage": "^1.5.0",
