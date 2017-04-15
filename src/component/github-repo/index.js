@@ -160,8 +160,8 @@ class GithubRepositories extends Component {
                     datasets: [
                       {
                         data: [source.length, fork.length],
-                        backgroundColor: ['#4CAF50', '#3F51B5'],
-                        hoverBackgroundColor: ['#43A047', '#3949AB']
+                        backgroundColor: ['#4CAF50'],
+                        hoverBackgroundColor: ['#4CAF50']
                       }
                     ]
                   }}

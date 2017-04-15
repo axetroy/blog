@@ -115,6 +115,17 @@ class Post extends Component {
         <div>
           <h3>大牛们的评论: </h3>
 
+          <p style={{ fontSize: '1.5rem' }}>
+            <a
+              target="_blank"
+              href={
+                `https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`
+              }
+            >
+              朕有话说
+            </a>
+          </p>
+
           {this.state.comments.length
             ? this.state.comments.map(comment => {
                 return (
@@ -152,7 +163,9 @@ class Post extends Component {
                       &nbsp;&nbsp;
                       <span>
                         {' '}
-                        {`commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`}
+                        {
+                          `commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`
+                        }
                       </span>
                     </div>
                     <div className="comment-body">
@@ -171,14 +184,7 @@ class Post extends Component {
                 );
               })
             : <div>
-                还没有人评论哦，赶紧
-                <a
-                  target="_blank"
-                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-                >
-                  抢沙发
-                </a>
-                !
+                <p>还没有人评论哦，赶紧抢沙发!</p>
               </div>}
 
         </div>
