@@ -53,7 +53,8 @@ class GithubLang extends Component {
     // TODO： 通过/repos/:owner/:repo/languages获取准确的语言相关
     const languages = Object.keys(this.state.lang);
     const starPercent = values(this.state.lang).map(v =>
-      (v / this.props.ALL_REPOS.length).toFixed(1));
+      (v / this.props.ALL_REPOS.length).toFixed(1)
+    );
     const startNum = sortBy(values(this.state.lang), v => -v);
     return (
       <Spin spinning={!this.state.init}>
@@ -89,7 +90,8 @@ class GithubLang extends Component {
                     label: '语言 & 获得star',
                     data: startNum,
                     backgroundColor: languages.map(
-                      lang => GithubColors[lang] ? GithubColors[lang].color : ''
+                      lang =>
+                        (GithubColors[lang] ? GithubColors[lang].color : '')
                     )
                   }
                 ]
