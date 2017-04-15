@@ -14,28 +14,7 @@ import * as allReposAction from '../../redux/all-repos';
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 
-function str2color(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  let colour = '#';
-  for (let i = 0; i < 3; i++) {
-    let value = (hash >> (i * 8)) & 0xff;
-    colour += ('00' + value.toString(16)).substr(-2);
-  }
-  return colour;
-}
-
 class GithubRepositories extends Component {
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
-
   async componentWillMount() {
     const allRepos = await this.getAllRepos(1);
     this.props.setAllRepos(allRepos);
@@ -181,8 +160,8 @@ class GithubRepositories extends Component {
                     datasets: [
                       {
                         data: [source.length, fork.length],
-                        backgroundColor: ['green', '#108ee9'],
-                        hoverBackgroundColor: ['green', '#108ee9']
+                        backgroundColor: ['#4CAF50', '#3F51B5'],
+                        hoverBackgroundColor: ['#43A047', '#3949AB']
                       }
                     ]
                   }}
@@ -216,12 +195,8 @@ class GithubRepositories extends Component {
                     datasets: [
                       {
                         data: repos.map(repo => repo.watchers_count),
-                        backgroundColor: repos.map(repo =>
-                          str2color(repo.name)
-                        ),
-                        hoverBackgroundColor: repos.map(repo =>
-                          str2color(repo.name)
-                        )
+                        backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
+                        hoverBackgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9']
                       }
                     ]
                   }}
