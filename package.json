@@ -76,7 +76,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"
+    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
+    "generate": "./node_modules/.bin/all-contributors generate"
   },
   "jest": {
     "collectCoverageFrom": [
