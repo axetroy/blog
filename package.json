@@ -4,7 +4,9 @@
   "private": true,
   "config": {
     "owner": "axetroy",
-    "repo": "blog"
+    "repo": "blog",
+    "github_client_id": "b8257841dd7ca5eef2aa",
+    "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
   },
   "dependencies": {
     "@axetroy/roll": "^1.0.2",
