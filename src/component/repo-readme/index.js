@@ -7,16 +7,7 @@ import { Spin } from 'antd';
 import github from '../../lib/github';
 
 class RepoReadme extends Component {
-  state = { readmeLoading: true };
-
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
-
+  state = { readme: null };
   async componentWillMount() {
     await this.getReadme(this.props.owner, this.props.repo);
   }
@@ -24,24 +15,23 @@ class RepoReadme extends Component {
   async getReadme(owner, repo) {
     let html = '';
     try {
-      await this.setStateAsync({ readmeLoading: true });
-      const response = await github.get(`/repos/${owner}/${repo}/readme`, {
+      const { data } = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
           Accept: 'application/vnd.github.v3.html'
         },
         responseType: 'text'
       });
-      html = response.data;
+      html = data;
     } catch (err) {
       console.error(err);
     }
-    this.setState({ readme: html, readmeLoading: false });
+    this.setState({ readme: html });
     return html;
   }
 
   render() {
     return (
-      <Spin spinning={this.state.readmeLoading}>
+      <Spin spinning={false}>
         <div
           className="markdown-body"
           style={{ fontSize: '16px', minHeight: '20rem' }}

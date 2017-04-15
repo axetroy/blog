@@ -41,14 +41,6 @@ class Repos extends Component {
     await this.getRepos(page, per_page);
   }
 
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
-
   async getRepos(page, per_page) {
     let repos = [];
 

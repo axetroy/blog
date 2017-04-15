@@ -38,14 +38,6 @@ class Posts extends Component {
     await this.getPosts(this.state.meta.page, this.state.meta.per_page);
   }
 
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
-
   async getPosts(page, per_page) {
     let posts = this.props.POSTS;
     try {
