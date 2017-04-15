@@ -2,17 +2,19 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Spin, Tag } from 'antd';
 import moment from 'moment';
 
 import github from '../../lib/github';
-
+import * as postAction from '../../redux/post';
 import pkg from '../../../package.json';
 
 import './post.css';
 
 class Post extends Component {
-  state = { post: {}, loading: false, number: 0, comments: [] };
+  state = { comments: [] };
 
   async componentWillMount() {
     let { number } = this.props.match.params;
@@ -23,24 +25,17 @@ class Post extends Component {
 
   async componentWillReceiveProps(nextProp) {
     const { number } = nextProp.match.params;
-    if (number && number !== this.state.number) {
+    if (number && number !== this.props.match.params.number) {
       await this.getPost(nextProp.match.params.number);
     }
   }
 
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
-  }
-
   async getPost(number) {
-    let data = {};
+    let post = {};
     try {
-      await this.setStateAsync({ loading: true, number });
-      const res = await github.get(
+      const {
+        data
+      } = await github.get(
         `/repos/${pkg.config.owner}/${pkg.config.repo}/issues/${number}`,
         {
           headers: {
@@ -49,13 +44,13 @@ class Post extends Component {
           responseType: 'text'
         }
       );
-      data = res.data;
+      post = data;
       this.getComments(pkg.config.owner, pkg.config.repo, number);
     } catch (err) {
       console.error(err);
     }
-    this.setState({ post: data, loading: false });
-    return data;
+    this.props.setPost({ [number]: post });
+    return post;
   }
 
   async getComments(owner, repo, number) {
@@ -80,25 +75,26 @@ class Post extends Component {
   }
 
   render() {
+    const { number } = this.props.match.params;
+    const post = this.props.POST[number] || {};
     return (
-      <Spin spinning={this.state.loading}>
+      <Spin spinning={!Object.keys(post).length}>
 
-        <h2>{this.state.post.title}</h2>
+        <h2>{post.title}</h2>
         <div>
           <p>
             Created by
             {' '}
-            {this.state.post.user && this.state.post.user.login}
+            {post.user && post.user.login}
             {' '}
             at
             {' '}
-            {this.state.post.created_at &&
-              moment(this.state.post.created_at).fromNow()}
+            {post.created_at && moment(post.created_at).fromNow()}
           </p>
         </div>
         <div style={{ margin: '1rem 0' }}>
-          {this.state.post.labels &&
-            this.state.post.labels.map((v, i) => {
+          {post.labels &&
+            post.labels.map((v, i) => {
               return (
                 <Tag color={'#' + v.color} key={i}>
                   {v.name}
@@ -109,7 +105,9 @@ class Post extends Component {
         <div
           className="markdown-body"
           style={{ fontSize: '1.6rem', minHeight: '20rem' }}
-          dangerouslySetInnerHTML={{ __html: this.state.post.body_html }}
+          dangerouslySetInnerHTML={{
+            __html: post.body_html
+          }}
         />
 
         <hr className="hr" />
@@ -139,7 +137,11 @@ class Post extends Component {
                         alt=""
                       />
                       &nbsp;&nbsp;
-                      <strong style={{ color: '#586069' }}>
+                      <strong
+                        style={{
+                          color: '#586069'
+                        }}
+                      >
                         <a
                           target="_blank"
                           href={`https://github.com/${comment.user.login}`}
@@ -150,16 +152,19 @@ class Post extends Component {
                       &nbsp;&nbsp;
                       <span>
                         {' '}
-                        {
-                          `commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`
-                        }
+                        {`commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`}
                       </span>
                     </div>
                     <div className="comment-body">
                       <div
                         className="markdown-body"
-                        style={{ fontSize: '1.6rem', padding: '1.5rem' }}
-                        dangerouslySetInnerHTML={{ __html: comment.body_html }}
+                        style={{
+                          fontSize: '1.6rem',
+                          padding: '1.5rem'
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: comment.body_html
+                        }}
                       />
                     </div>
                   </div>
@@ -169,9 +174,7 @@ class Post extends Component {
                 还没有人评论哦，赶紧
                 <a
                   target="_blank"
-                  href={
-                    `https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${this.state.post.number}`
-                  }
+                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
                 >
                   抢沙发
                 </a>
@@ -183,5 +186,16 @@ class Post extends Component {
     );
   }
 }
-
-export default Post;
+export default connect(
+  function mapStateToProps(state) {
+    return { POST: state.POST };
+  },
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+      {
+        setPost: postAction.set
+      },
+      dispatch
+    );
+  }
+)(Post);

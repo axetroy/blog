@@ -14,12 +14,14 @@ import followingReducer from './following';
 import followerReducer from './follower';
 import allReposReducer from './all-repos';
 import allOrgRepoReducer from './all-orgs-repos';
+import postReducer from './post';
 
 function createStore() {
   const rootReducer = combineReducers({
     READ_ME: homeReadMeReducer,
     ABOUT_ME: aboutMeReducer,
     POSTS: postsReducer,
+    POST: postReducer,
     OWNER: ownerReducer,
     ORGS: orgsReducer,
     REPOS_STAT: repoStatReducer,
