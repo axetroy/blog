@@ -8,6 +8,7 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 const { Sider, Content } = Layout;
 
 import Roll from '../../component/tool-roll';
+import MdPreview from '../../component/tool-md-preview';
 
 const styles = {
   content: {
@@ -22,17 +23,27 @@ class Tool extends Component {
   state = {
     tools: [
       { title: 'Roll', name: 'roll' },
-      { title: '加密解密', name: 'encryption' }
+      {
+        title: 'Markdown预览',
+        name: 'md-preview'
+      },
+      {
+        title: '加密解密',
+        name: 'encryption'
+      }
     ]
   };
-
   componentWillMount() {}
-
   render() {
     return (
       <Layout>
         <Sider width={250} style={styles.content}>
-          <Menu mode="inline" style={{ height: '100%' }}>
+          <Menu
+            mode="inline"
+            style={{
+              height: '100%'
+            }}
+          >
             {this.state.tools.map((post, index) => {
               return (
                 <Menu.Item key={index}>
@@ -52,11 +63,11 @@ class Tool extends Component {
         <Content style={styles.content}>
           <Switch>
             <Route path="/tool/roll" component={Roll} />
+            <Route path="/tool/md-preview" component={MdPreview} />
           </Switch>
         </Content>
       </Layout>
     );
   }
 }
-
 export default Tool;

@@ -15,6 +15,7 @@ import followerReducer from './follower';
 import allReposReducer from './all-repos';
 import allOrgRepoReducer from './all-orgs-repos';
 import postReducer from './post';
+import tollMdPreviewReducer from './tool-md-preview';
 
 function createStore() {
   const rootReducer = combineReducers({
@@ -30,7 +31,8 @@ function createStore() {
     ALL_REPOS: allReposReducer,
     ALL_ORG_REPOS: allOrgRepoReducer,
     ROLL_LIST: rollListReducer,
-    REPOS: reposReducer
+    REPOS: reposReducer,
+    TOOL_MD_PREVIEW: tollMdPreviewReducer
   });
 
   return configureStore(rootReducer);
