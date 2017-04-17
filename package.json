@@ -2,11 +2,13 @@
   "name": "my",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://axetroy.github.io",
   "config": {
     "owner": "axetroy",
     "repo": "blog",
     "github_client_id": "b8257841dd7ca5eef2aa",
-    "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
+    "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e",
+    "domain": "www.burningall.com"
   },
   "dependencies": {
     "@axetroy/roll": "^1.0.2",
@@ -74,7 +76,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && python scripts/domain.py",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
     "generate": "./node_modules/.bin/all-contributors generate"
