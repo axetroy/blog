@@ -2,13 +2,12 @@
   "name": "my",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://axetroy.github.io",
+  "homepage": "http://www.burningall.com",
   "config": {
     "owner": "axetroy",
     "repo": "blog",
     "github_client_id": "b8257841dd7ca5eef2aa",
-    "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e",
-    "domain": "www.burningall.com"
+    "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
   },
   "dependencies": {
     "@axetroy/roll": "^1.0.2",
