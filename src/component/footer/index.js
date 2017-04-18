@@ -7,8 +7,43 @@ import moment from 'moment';
 
 class Footer extends Component {
   state = {
-    createdDate: new Date('2016-11-09')
+    createdDate: new Date('2016-11-09 14:22:33'),
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
   };
+
+  componentDidMount() {
+    const intervalId = setInterval(this.timer.bind(this), 1000);
+    this.setState({ intervalId: intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
+  timer() {
+    const created = moment(this.state.createdDate);
+
+    let seconds = moment().diff(created, 'seconds');
+    const days = Math.floor(seconds / (3600 * 24));
+    seconds = seconds - days * 3600 * 24;
+
+    const hours = Math.floor(seconds / 3600);
+    seconds = seconds - hours * 3600;
+
+    const minutes = Math.floor(seconds / 60);
+    seconds = seconds - minutes * 60;
+
+    this.setState({
+      date: new Date(),
+      days,
+      hours,
+      minutes,
+      seconds
+    });
+  }
 
   render() {
     return (
@@ -34,11 +69,10 @@ class Footer extends Component {
         <Col md={8} xs={24}>
           <p>Copyright © 2017</p>
           <p>
-            Created at
-            {' '}
-            {moment(this.state.createdDate).fromNow()}
-            {' '}
-            by
+            {`博客已运行 ${this.state.days}d ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`}
+          </p>
+          <p>
+            created by
             {' '}
             <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
           </p>
