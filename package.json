@@ -43,6 +43,7 @@
     "case-sensitive-paths-webpack-plugin": "1.1.4",
     "chalk": "1.1.3",
     "connect-history-api-fallback": "1.3.0",
+    "cross-env": "^4.0.0",
     "cross-spawn": "4.0.2",
     "css-loader": "0.26.1",
     "detect-port": "1.1.0",
@@ -74,7 +75,7 @@
     "whatwg-fetch": "2.0.2"
   },
   "scripts": {
-    "start": "PORT=10086 node scripts/start.js",
+    "start": "cross-env PORT=10086 node scripts/start.js",
     "build": "node scripts/build.js && python scripts/domain.py",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",

@@ -81,15 +81,15 @@ class GlobalHead extends Component {
         theme={menuMode === 'horizontal' ? 'dark' : ''}
         mode={menuMode}
         style={{
-          lineHeight: '6.4rem',
-          borderRight: 0,
+          border: 0,
           minWidth: '20rem'
         }}
       >
         {this.state.nav.map(nav => {
           return (
-            <Menu.Item key={nav.name}>
+            <Menu.Item key={nav.name} style={{ height: '5.4rem' }}>
               <NavLink
+                style={{ lineHeight: '5.4rem' }}
                 onClick={() => this.handleHideMenu()}
                 activeStyle={{
                   color: '#FF5722'
@@ -131,14 +131,7 @@ class GlobalHead extends Component {
             </div>
           : null}
         <Row>
-          <Col lg={4} md={5} sm={24} xs={24}>
-            <div
-              className="logo"
-              style={{
-                opacity: 0
-              }}
-            />
-          </Col>
+          <Col lg={4} md={5} sm={24} xs={24} />
           <Col lg={20} md={19} sm={0} xs={0}>
             {menuMode === 'horizontal' ? menu : null}
           </Col>
