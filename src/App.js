@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, BackTop } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
@@ -34,6 +34,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={HashRouter}>
           <Layout>
+            <BackTop />
             <Row>
               <Col md={24} sm={0} xs={0}>
                 <a
