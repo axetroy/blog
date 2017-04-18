@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Layout, Menu } from 'antd';
+import { Row, Col, Layout, Menu } from 'antd';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
@@ -36,12 +36,19 @@ class Tool extends Component {
   componentWillMount() {}
   render() {
     return (
-      <Layout>
-        <Sider width={250} style={styles.content}>
+      <Row>
+        <Col
+          md={{
+            span: 4,
+            offset: 4
+          }}
+          xs={24}
+        >
           <Menu
             mode="inline"
             style={{
-              height: '100%'
+              height: '100%',
+              ...styles.content
             }}
           >
             {this.state.tools.map((post, index) => {
@@ -58,15 +65,18 @@ class Tool extends Component {
               );
             })}
           </Menu>
-        </Sider>
+        </Col>
 
-        <Content style={styles.content}>
-          <Switch>
-            <Route path="/tool/roll" component={Roll} />
-            <Route path="/tool/md-preview" component={MdPreview} />
-          </Switch>
-        </Content>
-      </Layout>
+        <Col md={12} xs={24}>
+          <div style={styles.content}>
+            <Switch>
+              <Route path="/tool/roll" component={Roll} />
+              <Route path="/tool/md-preview" component={MdPreview} />
+            </Switch>
+          </div>
+        </Col>
+
+      </Row>
     );
   }
 }

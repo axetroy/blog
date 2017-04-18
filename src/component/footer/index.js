@@ -13,13 +13,13 @@ class Footer extends Component {
   render() {
     return (
       <Row className="text-center">
-        <Col md={8} xs={8}>
+        <Col md={8} xs={0}>
           <h3><Icon type="github" />Github</h3>
           <div>
             <a target="_blank" href="https://github.com/axetroy/blog">仓库源码</a>
           </div>
         </Col>
-        <Col md={8} xs={8}>
+        <Col md={8} xs={0}>
           <h3><Icon type="link" />相关技术</h3>
           <div>
             <a target="_blank" href="https://facebook.github.io/react/">
@@ -31,7 +31,7 @@ class Footer extends Component {
           </div>
           <div><a target="_blank" href="https://ant.design">Antd</a></div>
         </Col>
-        <Col md={8} xs={8}>
+        <Col md={8} xs={24}>
           <p>Copyright © 2017</p>
           <p>
             Created at
