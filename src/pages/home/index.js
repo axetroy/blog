@@ -52,7 +52,7 @@ class Home extends Component {
           lg={{ span: 14, offset: 5 }}
           md={{ span: 16, offset: 4 }}
           sm={{ span: 20, offset: 2 }}
-          xs={{ span: 21, offset: 1 }}
+          xs={{ span: 22, offset: 1 }}
         >
           <Spin spinning={!this.props.READ_ME}>
             <div
