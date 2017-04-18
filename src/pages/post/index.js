@@ -115,12 +115,14 @@ class Post extends Component {
         <div>
           <h3>大牛们的评论: </h3>
 
-          <p style={{ fontSize: '1.5rem' }}>
+          <p
+            style={{
+              fontSize: '1.5rem'
+            }}
+          >
             <a
               target="_blank"
-              href={
-                `https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`
-              }
+              href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
             >
               朕有话说
             </a>
@@ -137,7 +139,12 @@ class Post extends Component {
                       margin: '1rem 0'
                     }}
                   >
-                    <div className="comment-header">
+                    <div
+                      className="comment-header"
+                      style={{
+                        overflow: 'hidden'
+                      }}
+                    >
                       <img
                         style={{
                           width: '3.2rem',
@@ -163,9 +170,9 @@ class Post extends Component {
                       &nbsp;&nbsp;
                       <span>
                         {' '}
-                        {
-                          `commented at ${moment(comment.created_at).fromNow()}, updated at ${moment(comment.updated_at).fromNow()}`
-                        }
+                        {`commented at ${moment(comment.created_at).fromNow()}`}
+                        &nbsp;&nbsp;
+                        {`updated at ${moment(comment.updated_at).fromNow()}`}
                       </span>
                     </div>
                     <div className="comment-body">

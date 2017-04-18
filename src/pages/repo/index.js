@@ -16,6 +16,15 @@ import RepoEvents from '../../component/repo-events';
 
 import './index.css';
 
+const styles = {
+  content: {
+    background: '#fff',
+    padding: '2.4rem',
+    margin: 0,
+    minHeight: '28rem'
+  }
+};
+
 class Repo extends Component {
   state = {
     repo: {},
@@ -215,14 +224,7 @@ class Repo extends Component {
 
             </Sider>
 
-            <Content
-              style={{
-                background: '#fff',
-                padding: '0 24px',
-                margin: 0,
-                minHeight: 280
-              }}
-            >
+            <Content style={styles.content}>
 
               <Tabs defaultActiveKey="readme">
                 <TabPane tab="项目介绍" key="readme">
