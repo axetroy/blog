@@ -39,13 +39,13 @@ class Github extends Component {
 
           <div
             style={{
-              width: '100%',
               overflow: 'auto'
             }}
           >
             <div
               className="calendar"
               style={{
+                width: '100%',
                 minWidth: '75rem'
               }}
             />

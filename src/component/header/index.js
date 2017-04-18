@@ -90,6 +90,7 @@ class GlobalHead extends Component {
           return (
             <Menu.Item key={nav.name}>
               <NavLink
+                onClick={() => this.handleHideMenu()}
                 activeStyle={{
                   color: '#FF5722'
                 }}
