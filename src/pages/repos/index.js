@@ -97,109 +97,118 @@ class Repos extends Component {
         <Content
           style={{
             background: '#fff',
-            padding: '2.4rem',
-            margin: 0,
-            minHeight: '28rem'
+            minHeight: '28rem',
+            overflow: 'hidden'
           }}
         >
           <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
 
-            <Row style={{ width: '120rem', margin: '0 auto' }}>
+            <Row gutter={16}>
 
               {this.props.REPOS.map(repo => {
                 return (
-                  <Link
+                  <Col
+                    lg={6}
+                    md={8}
+                    sm={12}
+                    style={{ textAlign: 'center' }}
                     key={`${repo.owner.login}/${repo.name}`}
-                    to={`/repo/${repo.owner.login}/${repo.name}`}
                   >
-                    <Col span={6}>
-                      <Card
-                        title={repo.name}
-                        extra={
-                          <Tag color={repo.fork ? '#108ee9' : '#87d068'}>
-                            {repo.fork ? 'Fork' : '原创'}
-                          </Tag>
-                        }
-                        style={{
-                          width: '25rem',
-                          height: '30rem',
-                          display: 'inline-block',
-                          margin: '1rem 0',
-                          position: 'relative',
-                          color: '#303030'
-                        }}
-                      >
 
-                        <div>
-                          <p
-                            style={{
-                              overflowWrap: 'break-word'
-                            }}
-                          >
-                            {repo.description}
-                          </p>
-                        </div>
+                    <Card
+                      title={repo.name}
+                      extra={
+                        <Tag color={repo.fork ? '#108ee9' : '#87d068'}>
+                          {repo.fork ? 'Fork' : '原创'}
+                        </Tag>
+                      }
+                      style={{
+                        width: '100%',
+                        height: '30rem',
+                        display: 'inline-block',
+                        position: 'relative',
+                        color: '#303030',
+                        textAlign: 'left'
+                      }}
+                    >
 
-                        <div>
-                          {(repo.topics || []).map(topic => {
-                            return (
-                              <Tag style={{ marginTop: '0.5rem' }} key={topic}>
-                                {topic}
-                              </Tag>
-                            );
-                          })}
-                        </div>
-
-                        <div
+                      <div>
+                        <p
                           style={{
-                            position: 'absolute',
-                            bottom: '1rem'
+                            overflowWrap: 'break-word'
                           }}
                         >
-                          <span className="mr5">
-                            <span
-                              className="repo-language-color mr5"
-                              style={{
-                                backgroundColor: GithubColors[repo.language]
-                                  ? GithubColors[repo.language].color
-                                  : ''
-                              }}
-                            />
-                            <span>
-                              {GithubColors[repo.language]
-                                ? repo.language
-                                : 'Unkown'}
-                            </span>
-                          </span>
-                          <span className="mr5">
-                            <Octicon
-                              className="font-size-2rem mr5"
-                              name="star"
-                              mega
-                            />
-                            <span>{repo.watchers_count}</span>
-                          </span>
-                          <span className="mr5">
-                            <Octicon
-                              className="font-size-2rem mr5"
-                              name="gist-fork"
-                              mega
-                            />
-                            <span>{repo.forks_count}</span>
-                          </span>
-                          <span className="mr5">
-                            <Octicon
-                              className="font-size-2rem mr5"
-                              name="issue-opened"
-                              mega
-                            />
-                            <span>{repo.open_issues_count}</span>
-                          </span>
-                        </div>
+                          {repo.description}
+                        </p>
+                        <p>
+                          <Link
+                            key={`${repo.owner.login}/${repo.name}`}
+                            to={`/repo/${repo.owner.login}/${repo.name}`}
+                          >
+                            More
+                          </Link>
+                        </p>
+                      </div>
 
-                      </Card>
-                    </Col>
-                  </Link>
+                      <div>
+                        {(repo.topics || []).map(topic => {
+                          return (
+                            <Tag style={{ marginTop: '0.5rem' }} key={topic}>
+                              {topic}
+                            </Tag>
+                          );
+                        })}
+                      </div>
+
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: '1rem'
+                        }}
+                      >
+                        <span className="mr5">
+                          <span
+                            className="repo-language-color mr5"
+                            style={{
+                              backgroundColor: GithubColors[repo.language]
+                                ? GithubColors[repo.language].color
+                                : ''
+                            }}
+                          />
+                          <span>
+                            {GithubColors[repo.language]
+                              ? repo.language
+                              : 'Unkown'}
+                          </span>
+                        </span>
+                        <span className="mr5">
+                          <Octicon
+                            className="font-size-2rem mr5"
+                            name="star"
+                            mega
+                          />
+                          <span>{repo.watchers_count}</span>
+                        </span>
+                        <span className="mr5">
+                          <Octicon
+                            className="font-size-2rem mr5"
+                            name="gist-fork"
+                            mega
+                          />
+                          <span>{repo.forks_count}</span>
+                        </span>
+                        <span className="mr5">
+                          <Octicon
+                            className="font-size-2rem mr5"
+                            name="issue-opened"
+                            mega
+                          />
+                          <span>{repo.open_issues_count}</span>
+                        </span>
+                      </div>
+
+                    </Card>
+                  </Col>
                 );
               })}
 
