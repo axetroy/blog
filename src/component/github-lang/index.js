@@ -73,8 +73,60 @@ class GithubLang extends Component {
     const total = sum(lines);
     const starPercent = lines.map(v => Math.max(v / total, 0.01).toFixed(2));
     const startNum = sortBy(values(this.props.ALL_REPO_LANGUAGES), v => -v);
+
     return (
       <Spin spinning={lines.length === 0}>
+        <Row>
+          <Col span={24}>
+            <div
+              style={{
+                width: '100%',
+                height: '1rem',
+                backgroundColor: '#6e6e6e',
+                display: 'table'
+              }}
+            >
+              {(() => {
+                const entity = [];
+                for (let lang in this.props.ALL_REPO_LANGUAGES) {
+                  if (this.props.ALL_REPO_LANGUAGES.hasOwnProperty(lang)) {
+                    entity.push({
+                      lang,
+                      percent: this.props.ALL_REPO_LANGUAGES[lang] / total
+                    });
+                  }
+                }
+                return sortBy(entity, v => -v.percent).map(v => {
+                  return (
+                    <span
+                      key={v.lang}
+                      title={v.lang}
+                      style={{
+                        display: 'table-cell',
+                        width: v.percent * 100 + '%',
+                        backgroundColor: (GithubColors[v.lang] || {}).color
+                      }}
+                    />
+                  );
+                });
+              })()}
+            </div>
+          </Col>
+        </Row>
+        <Row style={{ margin: '2rem 0' }}>
+          <Col span={24}>
+            {languages.map(lang => {
+              return (
+                <Tag
+                  key={lang}
+                  color={GithubColors[lang] ? GithubColors[lang].color : ''}
+                >
+                  {lang}
+                </Tag>
+              );
+            })}
+          </Col>
+        </Row>
         <Row>
           <Col md={12} xs={24}>
             <Chart
@@ -133,20 +185,6 @@ class GithubLang extends Component {
                 }
               }}
             />
-          </Col>
-        </Row>
-        <Row style={{ margin: '2rem 0' }}>
-          <Col span={24}>
-            {languages.map(lang => {
-              return (
-                <Tag
-                  key={lang}
-                  color={GithubColors[lang] ? GithubColors[lang].color : ''}
-                >
-                  {lang}
-                </Tag>
-              );
-            })}
           </Col>
         </Row>
       </Spin>
