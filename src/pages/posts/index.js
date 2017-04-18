@@ -82,7 +82,7 @@ class Posts extends Component {
   render() {
     return (
       <Row>
-        <Col md={6} xs={24}>
+        <Col md={{ span: 4, offset: 4 }} xs={24}>
           <Sider width="100%" style={styles.content}>
             <Spin spinning={!this.props.POSTS}>
 
@@ -120,7 +120,7 @@ class Posts extends Component {
           </Sider>
         </Col>
 
-        <Col md={18} xs={24}>
+        <Col md={12} xs={24}>
           <div style={styles.content}>
             <Route path="/post/:number" component={Post} />
           </div>

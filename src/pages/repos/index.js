@@ -22,7 +22,7 @@ class Repos extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 20,
+      per_page: 24,
       total: 0
     }
   };
@@ -93,16 +93,13 @@ class Repos extends Component {
 
   render() {
     return (
-      <Layout>
-        <Content
-          style={{
-            background: '#fff',
-            minHeight: '28rem',
-            overflow: 'hidden'
-          }}
-        >
-          <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
-
+      <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
+        <Row style={{ padding: '2.4rem 0' }}>
+          <Col
+            lg={{ span: 16, offset: 4 }}
+            md={{ span: 18, offset: 3 }}
+            xs={{ span: 22, offset: 1 }}
+          >
             <Row gutter={16}>
 
               {this.props.REPOS.map(repo => {
@@ -116,7 +113,14 @@ class Repos extends Component {
                   >
 
                     <Card
-                      title={repo.name}
+                      title={
+                        <Link
+                          key={`${repo.owner.login}/${repo.name}`}
+                          to={`/repo/${repo.owner.login}/${repo.name}`}
+                        >
+                          {repo.name}
+                        </Link>
+                      }
                       extra={
                         <Tag color={repo.fork ? '#108ee9' : '#87d068'}>
                           {repo.fork ? 'Fork' : '原创'}
@@ -140,20 +144,17 @@ class Repos extends Component {
                         >
                           {repo.description}
                         </p>
-                        <p>
-                          <Link
-                            key={`${repo.owner.login}/${repo.name}`}
-                            to={`/repo/${repo.owner.login}/${repo.name}`}
-                          >
-                            More
-                          </Link>
-                        </p>
                       </div>
 
                       <div>
                         {(repo.topics || []).map(topic => {
                           return (
-                            <Tag style={{ marginTop: '0.5rem' }} key={topic}>
+                            <Tag
+                              style={{
+                                marginTop: '0.5rem'
+                              }}
+                              key={topic}
+                            >
                               {topic}
                             </Tag>
                           );
@@ -227,11 +228,9 @@ class Repos extends Component {
                   </Col>
                 </Row>
               : ''}
-
-          </Spin>
-
-        </Content>
-      </Layout>
+          </Col>
+        </Row>
+      </Spin>
     );
   }
 }
