@@ -49,13 +49,11 @@ class App extends Component {
               <GlobalHeader />
             </Header>
             <Layout>
-              <Layout style={{ padding: '0 24px 24px' }}>
+              <Layout>
                 <Content
                   style={{
                     background: '#fff',
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 280
+                    minHeight: '28rem'
                   }}
                 >
                   <Switch>
