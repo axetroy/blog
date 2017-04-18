@@ -10,6 +10,10 @@ import sortBy from 'lodash.sortby';
 import GithubColors from '../../lib/github-colors.json';
 import Chart from '../../component/chart';
 
+import github from '../../lib/github';
+
+import * as allRepoLanguages from '../../redux/languages';
+
 function values(obj) {
   let result = [];
   for (let key in obj) {
@@ -20,11 +24,22 @@ function values(obj) {
   return result;
 }
 
+function sum(array) {
+  let result = 0;
+  for (let key in array) {
+    if (array.hasOwnProperty(key)) {
+      result = result + (array[key] || 0);
+    }
+  }
+  return result;
+}
+
 class GithubLang extends Component {
-  state = { lang: {}, init: false };
+  state = { ALL_REPOS: null };
 
   componentWillReceiveProps(nextPros) {
-    if (this.props.ALL_REPOS) {
+    if (nextPros.ALL_REPOS && this.state.ALL_REPOS !== this.props.ALL_REPOS) {
+      this.setState({ ALL_REPOS: nextPros.ALL_REPOS });
       this.stat(nextPros.ALL_REPOS);
     }
   }
@@ -32,36 +47,34 @@ class GithubLang extends Component {
   /**
    * 统计编程语言
    * @param repos
-   */ stat(repos = []) {
+   */
+  async stat(repos = []) {
     let lang = {};
-    repos = [].concat(repos);
+    repos = [].concat(repos).filter(v => !v.fork);
     while (repos.length) {
       const repo = repos.shift();
-      const { language } = repo;
-      if (!language) {
-      } else if (lang[language] === void 0) {
-        lang[language] = 1;
-      } else {
-        lang[language] = lang[language] + 1;
+      const { data } = await github.get(
+        `/repos/${repo.owner.login}/${repo.name}/languages`
+      );
+      for (let language in data) {
+        if (data.hasOwnProperty(language)) {
+          if (!lang[language]) lang[language] = 0;
+          lang[language] = lang[language] + +data[language];
+        }
       }
     }
-    this.setState({
-      lang: {
-        ...this.state.lang,
-        ...lang
-      },
-      init: true
-    });
+
+    this.props.storeLang(lang);
   }
   render() {
     // TODO： 通过/repos/:owner/:repo/languages获取准确的语言相关
-    const languages = Object.keys(this.state.lang);
-    const starPercent = values(this.state.lang).map(v =>
-      (v / this.props.ALL_REPOS.length).toFixed(1)
-    );
-    const startNum = sortBy(values(this.state.lang), v => -v);
+    const languages = Object.keys(this.props.ALL_REPO_LANGUAGES);
+    const lines = values(this.props.ALL_REPO_LANGUAGES);
+    const total = sum(lines);
+    const starPercent = lines.map(v => Math.max(v / total, 0.01).toFixed(2));
+    const startNum = sortBy(values(this.props.ALL_REPO_LANGUAGES), v => -v);
     return (
-      <Spin spinning={!this.state.init}>
+      <Spin spinning={lines.length === 0}>
         <Row>
           <Col md={12} xs={24}>
             <Chart
@@ -80,6 +93,20 @@ class GithubLang extends Component {
                     data: starPercent
                   }
                 ]
+              }}
+              options={{
+                options: {
+                  title: {
+                    display: true,
+                    text: '使用语言频次'
+                  },
+                  legend: {
+                    display: false
+                  },
+                  tooltips: {
+                    enabled: false
+                  }
+                }
               }}
             />
           </Col>
@@ -130,10 +157,16 @@ class GithubLang extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      ALL_REPOS: state.ALL_REPOS
+      ALL_REPOS: state.ALL_REPOS,
+      ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES
     };
   },
   function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators(
+      {
+        storeLang: allRepoLanguages.store
+      },
+      dispatch
+    );
   }
 )(GithubLang);
