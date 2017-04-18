@@ -83,7 +83,6 @@ class GithubLang extends Component {
                 labels: languages,
                 datasets: [
                   {
-                    label: '使用语言频次',
                     backgroundColor: 'rgba(179,181,198,0.2)',
                     borderColor: 'rgba(179,181,198,1)',
                     pointBackgroundColor: 'rgba(179,181,198,1)',
@@ -95,17 +94,12 @@ class GithubLang extends Component {
                 ]
               }}
               options={{
-                options: {
-                  title: {
-                    display: true,
-                    text: '使用语言频次'
-                  },
-                  legend: {
-                    display: false
-                  },
-                  tooltips: {
-                    enabled: false
-                  }
+                title: {
+                  display: true,
+                  text: '使用语言频次'
+                },
+                legend: {
+                  display: false
                 }
               }}
             />
@@ -118,7 +112,6 @@ class GithubLang extends Component {
                 labels: languages,
                 datasets: [
                   {
-                    label: '语言 & 获得star',
                     data: startNum,
                     backgroundColor: languages.map(
                       lang =>
@@ -128,9 +121,15 @@ class GithubLang extends Component {
                 ]
               }}
               options={{
-                title: '语言 & 获得star',
                 scale: {
                   lineArc: true
+                },
+                title: {
+                  display: true,
+                  text: '语言 & 代码行数'
+                },
+                legend: {
+                  display: true
                 }
               }}
             />
