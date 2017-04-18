@@ -42,8 +42,13 @@ class About extends Component {
 
   render() {
     return (
-      <Row>
-        <Col span={16} offset={4}>
+      <Row style={{ padding: '2.4rem' }}>
+        <Col
+          lg={{ span: 14, offset: 5 }}
+          md={{ span: 16, offset: 4 }}
+          sm={{ span: 20, offset: 2 }}
+          xs={{ span: 22, offset: 1 }}
+        >
           <Spin spinning={!this.props.ABOUT_ME}>
             <div dangerouslySetInnerHTML={{ __html: this.props.ABOUT_ME }} />
           </Spin>

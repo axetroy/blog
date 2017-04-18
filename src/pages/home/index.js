@@ -47,7 +47,7 @@ class Home extends Component {
 
   render() {
     return (
-      <Row>
+      <Row style={{ padding: '2.4rem' }}>
         <Col
           lg={{ span: 14, offset: 5 }}
           md={{ span: 16, offset: 4 }}

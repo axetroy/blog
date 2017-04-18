@@ -71,7 +71,13 @@ class GithubFollowing extends Component {
         <Row>
           {this.props.FOLLOWING.map(user => {
             return (
-              <Col className="text-center" span={4} key={user.login}>
+              <Col
+                className="text-center"
+                md={4}
+                sm={6}
+                xs={6}
+                key={user.login}
+              >
                 <a href={user.html_url} target="_blank">
                   <img
                     src={user.avatar_url}

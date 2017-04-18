@@ -137,7 +137,7 @@ class GithubRepositories extends Component {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col md={12} sm={24} xs={24}>
             {(() => {
               const repos = this.props.ALL_REPOS || [];
               const fork = repos.filter(repo => repo.fork);
@@ -170,7 +170,7 @@ class GithubRepositories extends Component {
               );
             })()}
           </Col>
-          <Col span={12}>
+          <Col md={12} sm={24} xs={24}>
             {(() => {
               let repos = sortBy(
                 this.props.ALL_REPOS || [],

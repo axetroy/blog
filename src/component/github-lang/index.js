@@ -32,8 +32,7 @@ class GithubLang extends Component {
   /**
    * 统计编程语言
    * @param repos
-   */
-  stat(repos = []) {
+   */ stat(repos = []) {
     let lang = {};
     repos = [].concat(repos);
     while (repos.length) {
@@ -46,9 +45,14 @@ class GithubLang extends Component {
         lang[language] = lang[language] + 1;
       }
     }
-    this.setState({ lang: { ...this.state.lang, ...lang }, init: true });
+    this.setState({
+      lang: {
+        ...this.state.lang,
+        ...lang
+      },
+      init: true
+    });
   }
-
   render() {
     // TODO： 通过/repos/:owner/:repo/languages获取准确的语言相关
     const languages = Object.keys(this.state.lang);
@@ -59,7 +63,7 @@ class GithubLang extends Component {
     return (
       <Spin spinning={!this.state.init}>
         <Row>
-          <Col span={12}>
+          <Col md={12} xs={24}>
             <Chart
               type="radar"
               data={{
@@ -80,7 +84,7 @@ class GithubLang extends Component {
             />
           </Col>
 
-          <Col span={12}>
+          <Col md={12} xs={24}>
             <Chart
               type="polarArea"
               data={{
@@ -105,7 +109,7 @@ class GithubLang extends Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ margin: '2rem 0' }}>
           <Col span={24}>
             {languages.map(lang => {
               return (
@@ -123,10 +127,11 @@ class GithubLang extends Component {
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
-    return { ALL_REPOS: state.ALL_REPOS };
+    return {
+      ALL_REPOS: state.ALL_REPOS
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch);
