@@ -3,10 +3,16 @@
  */
 import React, { Component } from 'react';
 import ChartJs from 'chart.js';
+import debounce from 'lodash.debounce';
+import isequal from 'lodash.isequal';
 
 class Chart extends Component {
   componentDidUnmounted() {
     this.__chart__ && this.__chart__.destroy && this.__chart__.destroy();
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isequal(this.props, nextProps);
   }
 
   draw(ctx) {
@@ -23,13 +29,11 @@ class Chart extends Component {
 
   render() {
     return (
-      <div>
-        <canvas
-          width={this.props.width}
-          height={this.props.height}
-          ref={ctx => this.draw(ctx)}
-        />
-      </div>
+      <canvas
+        width={this.props.width}
+        height={this.props.height}
+        ref={debounce(ctx => this.draw(ctx), 500)}
+      />
     );
   }
 }

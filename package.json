@@ -19,6 +19,8 @@
     "github-calendar": "^1.1.12",
     "github-markdown-css": "^2.6.0",
     "localforage": "^1.5.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.isequal": "^4.5.0",
     "lodash.sortby": "^4.7.0",
     "moment": "^2.18.1",
     "normalize.css": "^6.0.0",

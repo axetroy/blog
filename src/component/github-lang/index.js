@@ -13,7 +13,8 @@ import Chart from '../../component/chart';
 
 import github from '../../lib/github';
 
-import * as allRepoLanguages from '../../redux/languages';
+import * as allRepoLanguages from '../../redux/all-repo-languages';
+import * as repoLanguages from '../../redux/repo-languages';
 
 function values(obj) {
   let result = [];
@@ -56,6 +57,10 @@ class GithubLang extends Component {
       const { data } = await github.get(
         `/repos/${repo.owner.login}/${repo.name}/languages`
       );
+      this.props.storeRepoLang({
+        repo: repo.name,
+        languages: data
+      });
       for (let language in data) {
         if (data.hasOwnProperty(language)) {
           if (!lang[language]) lang[language] = 0;
@@ -129,6 +134,7 @@ class GithubLang extends Component {
                 ]
               }}
               options={{
+                animation: false,
                 title: {
                   display: true,
                   text: '使用语言频次'
@@ -156,6 +162,7 @@ class GithubLang extends Component {
                 ]
               }}
               options={{
+                animation: false,
                 scale: {
                   lineArc: true
                 },
@@ -200,43 +207,56 @@ class GithubLang extends Component {
             {(() => {
               // TODO: 语言相关不精准
               if (!this.state.currentLang) return '';
-              const list = this.props.ALL_REPOS.filter(
-                v => v.language === this.state.currentLang
-              );
-              return sortBy(list, v => -v.watchers_count).map(repo => {
-                return (
-                  <Row
-                    key={repo.name}
-                    style={{
-                      margin: '1rem 0',
-                      padding: '1rem 0'
-                    }}
-                  >
-                    <Col span={20}>
-                      <h3>
-                        <a href={repo.html_url} target="_blank">{repo.name}</a>
-                      </h3>
-                      <p
-                        style={{
-                          color: '#c0c0c0'
-                        }}
-                      >
-                        {repo.description}
-                      </p>
-                    </Col>
-                    <Col span={4}>
-                      <Octicon
-                        style={{
-                          fontSize: '2rem'
-                        }}
-                        name="star"
-                        mega
-                      />
-                      {repo.watchers_count}
-                    </Col>
-                  </Row>
-                );
-              });
+              let list = [];
+              for (let repo in this.props.REPO_LANGUAGES) {
+                if (this.props.REPO_LANGUAGES.hasOwnProperty(repo)) {
+                  const languages = this.props.REPO_LANGUAGES[repo];
+                  if (languages[this.state.currentLang]) {
+                    list = list.concat([repo]);
+                  }
+                }
+              }
+              return sortBy(
+                this.props.ALL_REPOS.filter(repo => list.includes(repo.name)),
+                v => -v.watchers_count
+              )
+                .slice(0, 10)
+                .map(repo => {
+                  return (
+                    <Row
+                      key={repo.name}
+                      style={{
+                        margin: '1rem 0',
+                        padding: '1rem 0'
+                      }}
+                    >
+                      <Col span={20}>
+                        <h3>
+                          <a href={repo.html_url} target="_blank">
+                            {repo.name}
+                          </a>
+                        </h3>
+                        <p
+                          style={{
+                            color: '#c0c0c0'
+                          }}
+                        >
+                          {repo.description}
+                        </p>
+                      </Col>
+                      <Col span={4}>
+                        <Octicon
+                          style={{
+                            fontSize: '2rem'
+                          }}
+                          name="star"
+                          mega
+                        />
+                        {repo.watchers_count}
+                      </Col>
+                    </Row>
+                  );
+                });
             })()}
           </Col>
         </Row>
@@ -248,13 +268,15 @@ export default connect(
   function mapStateToProps(state) {
     return {
       ALL_REPOS: state.ALL_REPOS,
+      REPO_LANGUAGES: state.REPO_LANGUAGES,
       ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeLang: allRepoLanguages.store
+        storeLang: allRepoLanguages.store,
+        storeRepoLang: repoLanguages.push
       },
       dispatch
     );

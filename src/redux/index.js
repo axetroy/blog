@@ -16,7 +16,8 @@ import allReposReducer from './all-repos';
 import allOrgRepoReducer from './all-orgs-repos';
 import postReducer from './post';
 import tollMdPreviewReducer from './tool-md-preview';
-import languagesReducer from './languages';
+import allRepoLanguagesReducer from './all-repo-languages';
+import repoLanguagesReducer from './repo-languages';
 
 function createStore() {
   const rootReducer = combineReducers({
@@ -34,7 +35,8 @@ function createStore() {
     ROLL_LIST: rollListReducer,
     REPOS: reposReducer,
     TOOL_MD_PREVIEW: tollMdPreviewReducer,
-    ALL_REPO_LANGUAGES: languagesReducer
+    ALL_REPO_LANGUAGES: allRepoLanguagesReducer,
+    REPO_LANGUAGES: repoLanguagesReducer
   });
 
   return configureStore(rootReducer);
