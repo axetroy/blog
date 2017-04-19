@@ -2,8 +2,8 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Menu, Row, Col, Popover, Icon } from 'antd';
-import { Link, NavLink } from 'react-router-dom';
+import { Menu, Row, Col, Popover } from 'antd';
+import { NavLink } from 'react-router-dom';
 import enquire from 'enquire.js';
 import Octicon from 'react-octicon';
 
@@ -58,11 +58,6 @@ class GlobalHead extends Component {
       }
     });
   }
-  handleShowMenu = () => {
-    this.setState({
-      menuVisible: true
-    });
-  };
   handleHideMenu = () => {
     this.setState({
       menuVisible: false
@@ -82,19 +77,27 @@ class GlobalHead extends Component {
         mode={menuMode}
         style={{
           border: 0,
-          minWidth: '20rem'
+          minWidth: '20rem',
+          minHeight: '6.4rem'
         }}
       >
         {this.state.nav.map(nav => {
           return (
-            <Menu.Item key={nav.name} style={{ height: '5.4rem' }}>
+            <Menu.Item
+              key={nav.name}
+              style={{
+                height: '6.4rem'
+              }}
+            >
               <NavLink
-                style={{ lineHeight: '5.4rem' }}
                 onClick={() => this.handleHideMenu()}
                 activeStyle={{
                   color: '#FF5722'
                 }}
                 to={nav.href}
+                style={{
+                  lineHeight: '6.4rem'
+                }}
               >
                 {nav.title}
               </NavLink>
@@ -123,7 +126,8 @@ class GlobalHead extends Component {
                   name="three-bars"
                   style={{
                     color: '#fff',
-                    verticalAlign: 'middle'
+                    verticalAlign: 'middle',
+                    fontSize: '3.6rem'
                   }}
                   mega
                 />

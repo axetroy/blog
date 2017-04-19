@@ -100,7 +100,7 @@ class Repos extends Component {
             md={{ span: 18, offset: 3 }}
             xs={{ span: 22, offset: 1 }}
           >
-            <Row gutter={16}>
+            <Row gutter={48}>
 
               {this.props.REPOS.map(repo => {
                 return (
@@ -108,7 +108,11 @@ class Repos extends Component {
                     lg={6}
                     md={8}
                     sm={12}
-                    style={{ textAlign: 'center' }}
+                    style={{
+                      textAlign: 'center',
+                      marginTop: '2.4rem',
+                      marginBottom: '2.4rem'
+                    }}
                     key={`${repo.owner.login}/${repo.name}`}
                   >
 
@@ -132,7 +136,8 @@ class Repos extends Component {
                         display: 'inline-block',
                         position: 'relative',
                         color: '#303030',
-                        textAlign: 'left'
+                        textAlign: 'left',
+                        overflow: 'hidden'
                       }}
                     >
 
@@ -164,7 +169,12 @@ class Repos extends Component {
                       <div
                         style={{
                           position: 'absolute',
-                          bottom: '1rem'
+                          bottom: 0,
+                          left: 0,
+                          padding: '1rem 2.4rem',
+                          backgroundColor: '#f8f8f8',
+                          width: '100%',
+                          zIndex: 9999
                         }}
                       >
                         <span className="mr5">
