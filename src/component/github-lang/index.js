@@ -47,8 +47,7 @@ class GithubLang extends Component {
   /**
    * 统计编程语言
    * @param repos
-   */
-  async stat(repos = []) {
+   */ async stat(repos = []) {
     let lang = {};
     repos = [].concat(repos).filter(v => !v.fork);
     while (repos.length) {
@@ -63,17 +62,14 @@ class GithubLang extends Component {
         }
       }
     }
-
     this.props.storeLang(lang);
   }
   render() {
-    // TODO： 通过/repos/:owner/:repo/languages获取准确的语言相关
     const languages = Object.keys(this.props.ALL_REPO_LANGUAGES);
     const lines = values(this.props.ALL_REPO_LANGUAGES);
     const total = sum(lines);
     const starPercent = lines.map(v => Math.max(v / total, 0.01).toFixed(2));
     const startNum = sortBy(values(this.props.ALL_REPO_LANGUAGES), v => -v);
-
     return (
       <Spin spinning={lines.length === 0}>
         <Row>
@@ -100,7 +96,7 @@ class GithubLang extends Component {
                   return (
                     <span
                       key={v.lang}
-                      title={v.lang}
+                      title={`${v.lang}: ${(v.percent * 100).toFixed(2) + '%'}`}
                       style={{
                         display: 'table-cell',
                         width: v.percent * 100 + '%',
@@ -113,13 +109,20 @@ class GithubLang extends Component {
             </div>
           </Col>
         </Row>
-        <Row style={{ margin: '2rem 0' }}>
+        <Row
+          style={{
+            margin: '2rem 0'
+          }}
+        >
           <Col span={24}>
             {languages.map(lang => {
               return (
                 <Tag
                   key={lang}
                   color={GithubColors[lang] ? GithubColors[lang].color : ''}
+                  style={{
+                    margin: '1rem 0.5rem'
+                  }}
                 >
                   {lang}
                 </Tag>

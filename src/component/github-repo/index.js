@@ -47,8 +47,8 @@ class GithubRepositories extends Component {
           className="text-center"
           style={{
             borderBottom: '0.1rem solid #e6e6e6',
-            padding: '2rem 0',
-            fontSize: '1.5rem'
+            padding: '0 0 2rem 0',
+            fontSize: '1.6rem'
           }}
         >
           <Col span={8} style={{ borderRight: '0.1rem solid #e6e6e6' }}>

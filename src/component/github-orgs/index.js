@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Spin, Popover } from 'antd';
+import { Row, Col, Spin, Popover, Tabs, Icon } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
@@ -17,6 +17,8 @@ import * as allOrgRepos from '../../redux/all-orgs-repos';
 
 import pkg from '../../../package.json';
 
+const TabPane = Tabs.TabPane;
+
 const styles = {
   contributionBar: {
     borderRadius: '0.5rem',
@@ -27,7 +29,7 @@ const styles = {
     height: '100%'
   },
   orgRow: {
-    padding: '2rem 0',
+    padding: '0 0 2rem 0',
     borderBottom: '0.1rem solid #e6e6e6'
   }
 };
@@ -252,191 +254,168 @@ class GithubOrganizations extends Component {
       </Row>
     );
   }
-  /**
-   * 渲染组织列表
-   * @returns {XML}
-   */ orgListRender() {
-    return (
-      <Row style={styles.orgRow}>
-        {this.props.ORGS.map(v => {
-          return (
-            <Col
-              onClick={() =>
-                this.setState({
-                  currentOrg: v.login
-                })}
-              span={6}
-              key={v.login}
-              style={{
-                textAlign: 'center',
-                borderBottomWidth: '0.3rem',
-                borderBottomStyle: 'solid',
-                borderBottomColor: this.state.currentOrg === v.login
-                  ? '#008000'
-                  : '#fff'
-              }}
-            >
-              <div>
-                <img
-                  style={{
-                    width: '10rem',
-                    maxWidth: '100%'
-                  }}
-                  src={v.avatar_url}
-                  alt=""
-                />
-                <p>{v.login}</p>
-              </div>
-            </Col>
-          );
-        })}
-      </Row>
-    );
-  } /**
-   * 渲染组织的介绍
-   * @returns {XML}
-   */
-  orgDescRender() {
-    return (
-      <Row style={styles.orgRow}>
-        <div>
-          {this.props.ORGS
-            .filter(org => org.login === this.state.currentOrg)
-            .map(org => {
-              return (
-                <div key={org.login}>
-                  <p>{org.login}</p>
-                  <p>{org.description}</p>
-                  <p>
-                    创建于 {moment(org.created_at).format('YYYY-MM-DD')}
-                  </p>
-                </div>
-              );
-            })}
-        </div>
-      </Row>
-    );
-  }
-  /**
-   * 渲染组织的仓库列表
-   * @returns {XML}
-   */ orgReposRender() {
-    return (
-      <Row style={styles.orgRow}>
-        {(() => {
-          let repos = sortBy(
-            this.props.ALL_ORG_REPOS[this.state.currentOrg] || [],
-            repo => -repo.watchers_count
-          );
-          repos.length = 10;
-          return repos.map(repo => {
-            return (
-              <Popover
-                key={repo.name}
-                title={'详细信息'}
-                content={
-                  <div>
-                    <p>{repo.name}</p>
-                    <p>Star {repo.watchers_count}</p>
-                    <p>
-                      贡献比例
-                      {(() => {
-                        const stats = this.props.REPOS_STAT[repo.name] || [];
-                        const myStat = stats.find(
-                          stat =>
-                            stat &&
-                            stat.author &&
-                            stat.author.login === pkg.config.owner
-                        );
-                        if (myStat) {
-                          return (
-                            (myStat.contribution.changes /
-                              myStat.contribution.total *
-                              100).toFixed(2) + '%'
-                          );
-                        } else {
-                          return '0%';
-                        }
-                      })()}
-                    </p>
-                  </div>
-                }
-              >
-                <div
-                  style={{
-                    position: 'relative',
-                    padding: '0.5rem',
-                    margin: '1rem 0'
-                  }}
-                >
-                  <div
-                    className="org-contrib-row"
-                    style={styles.contributionBar}
-                  >
-                    <div
-                      className="greasy-bar"
-                      style={{
-                        ...styles.contributionBar,
-                        backgroundColor: '#d2d2d2'
-                      }}
-                    />
-                    <div
-                      className="green-bar"
-                      style={{
-                        ...styles.contributionBar,
-                        width: (() => {
-                          const stats = this.props.REPOS_STAT[repo.name] || [];
-                          const myStat = stats.find(
-                            stat =>
-                              stat &&
-                              stat.author &&
-                              stat.author.login === pkg.config.owner
-                          );
-                          if (myStat) {
-                            return (
-                              (myStat.contribution.changes /
-                                myStat.contribution.total *
-                                100).toFixed(2) + '%'
-                            );
-                          } else {
-                            return '0%';
-                          }
-                        })(),
-                        backgroundColor: '#008000'
-                      }}
-                    />
-                  </div>
-
-                  <span
-                    style={{
-                      position: 'absolute',
-                      color: '#fff'
-                    }}
-                  >
-                    <span> {repo.name} </span>
-                  </span>
-
-                  <span>^_^</span>
-
-                </div>
-              </Popover>
-            );
-          });
-        })()}
-      </Row>
-    );
-  }
   render() {
     return (
       <Spin spinning={!this.props.ALL_ORG_REPOS}>
 
         {this.orgMetaRender()}
 
-        {this.orgListRender()}
+        <Tabs
+          defaultActiveKey={
+            this.props.ORGS && this.props.ORGS.length
+              ? this.props.ORGS[0].login
+              : ''
+          }
+          onChange={tab =>
+            this.setState({
+              currentOrg: tab
+            })}
+        >
 
-        {this.orgDescRender()}
+          {this.props.ORGS.map(org => {
+            return (
+              <TabPane
+                tab={
+                  <span
+                    style={{
+                      textAlign: 'center'
+                    }}
+                  >
+                    <img
+                      src={org.avatar_url}
+                      style={{
+                        width: '10rem',
+                        maxWidth: '100%'
+                      }}
+                      alt=""
+                    />
+                  </span>
+                }
+                key={org.login}
+              >
+                <Row style={styles.orgRow}>
+                  <Col span={24}>
+                    <div>
+                      <strong>{org.login}</strong>
+                      <p>{org.description}</p>
+                      <p>{org.location}</p>
+                      <p>创建于 {moment(org.created_at).format('YYYY-MM-DD')}</p>
+                    </div>
+                  </Col>
+                </Row>
+                <Row style={styles.orgRow}>
+                  <Col span={24}>
+                    {(() => {
+                      let repos = sortBy(
+                        this.props.ALL_ORG_REPOS[org.login] || [],
+                        repo => -repo.watchers_count
+                      );
+                      repos.length = 10;
+                      // only display 10
+                      return repos.map(repo => {
+                        return (
+                          <Popover
+                            key={repo.name}
+                            title={'详细信息'}
+                            content={
+                              <div>
+                                <p>{repo.name}</p>
+                                <p>Star {repo.watchers_count}</p>
+                                <p>
+                                  贡献比例
+                                  {(() => {
+                                    const stats = this.props.REPOS_STAT[
+                                      repo.name
+                                    ] || [];
+                                    const myStat = stats.find(
+                                      stat =>
+                                        stat &&
+                                        stat.author &&
+                                        stat.author.login === pkg.config.owner
+                                    );
+                                    if (myStat) {
+                                      return (
+                                        (myStat.contribution.changes /
+                                          myStat.contribution.total *
+                                          100).toFixed(2) + '%'
+                                      );
+                                    } else {
+                                      return '0%';
+                                    }
+                                  })()}
+                                </p>
+                              </div>
+                            }
+                          >
+                            <div
+                              style={{
+                                position: 'relative',
+                                padding: '0.5rem',
+                                margin: '1rem 0'
+                              }}
+                            >
+                              <div
+                                className="org-contrib-row"
+                                style={styles.contributionBar}
+                              >
+                                <div
+                                  className="greasy-bar"
+                                  style={{
+                                    ...styles.contributionBar,
+                                    backgroundColor: '#d2d2d2'
+                                  }}
+                                />
+                                <div
+                                  className="green-bar"
+                                  style={{
+                                    ...styles.contributionBar,
+                                    width: (() => {
+                                      const stats = this.props.REPOS_STAT[
+                                        repo.name
+                                      ] || [];
+                                      const myStat = stats.find(
+                                        stat =>
+                                          stat &&
+                                          stat.author &&
+                                          stat.author.login === pkg.config.owner
+                                      );
+                                      if (myStat) {
+                                        return (
+                                          (myStat.contribution.changes /
+                                            myStat.contribution.total *
+                                            100).toFixed(2) + '%'
+                                        );
+                                      } else {
+                                        return '0%';
+                                      }
+                                    })(),
+                                    backgroundColor: '#008000'
+                                  }}
+                                />
+                              </div>
 
-        {this.orgReposRender()}
+                              <span
+                                style={{
+                                  position: 'absolute',
+                                  color: '#fff'
+                                }}
+                              >
+                                <span> {repo.name} </span>
+                              </span>
+
+                              <span>^_^</span>
+
+                            </div>
+                          </Popover>
+                        );
+                      });
+                    })()}
+                  </Col>
+                </Row>
+              </TabPane>
+            );
+          })}
+        </Tabs>
 
       </Spin>
     );
