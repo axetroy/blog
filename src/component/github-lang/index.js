@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Tag, Spin } from 'antd';
 import sortBy from 'lodash.sortby';
+import Octicon from 'react-octicon';
 
 import GithubColors from '../../lib/github-colors.json';
 import Chart from '../../component/chart';
@@ -109,27 +110,6 @@ class GithubLang extends Component {
             </div>
           </Col>
         </Row>
-        <Row
-          style={{
-            margin: '2rem 0'
-          }}
-        >
-          <Col span={24}>
-            {languages.map(lang => {
-              return (
-                <Tag
-                  key={lang}
-                  color={GithubColors[lang] ? GithubColors[lang].color : ''}
-                  style={{
-                    margin: '1rem 0.5rem'
-                  }}
-                >
-                  {lang}
-                </Tag>
-              );
-            })}
-          </Col>
-        </Row>
         <Row>
           <Col md={12} xs={24}>
             <Chart
@@ -181,13 +161,83 @@ class GithubLang extends Component {
                 },
                 title: {
                   display: true,
-                  text: '语言 & 代码行数'
+                  text: '语言 & 代码量'
                 },
                 legend: {
                   display: true
                 }
               }}
             />
+          </Col>
+        </Row>
+        <Row
+          style={{
+            margin: '2rem 0'
+          }}
+        >
+          <Col span={24}>
+            {languages.map(lang => {
+              return (
+                <Tag
+                  key={lang}
+                  color={GithubColors[lang] ? GithubColors[lang].color : ''}
+                  style={{
+                    margin: '1rem 0.5rem'
+                  }}
+                  onClick={() =>
+                    this.setState({
+                      currentLang: lang
+                    })}
+                >
+                  {lang}
+                </Tag>
+              );
+            })}
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            {(() => {
+              // TODO: 语言相关不精准
+              if (!this.state.currentLang) return '';
+              const list = this.props.ALL_REPOS.filter(
+                v => v.language === this.state.currentLang
+              );
+              return sortBy(list, v => -v.watchers_count).map(repo => {
+                return (
+                  <Row
+                    key={repo.name}
+                    style={{
+                      margin: '1rem 0',
+                      padding: '1rem 0'
+                    }}
+                  >
+                    <Col span={20}>
+                      <h3>
+                        <a href={repo.html_url} target="_blank">{repo.name}</a>
+                      </h3>
+                      <p
+                        style={{
+                          color: '#c0c0c0'
+                        }}
+                      >
+                        {repo.description}
+                      </p>
+                    </Col>
+                    <Col span={4}>
+                      <Octicon
+                        style={{
+                          fontSize: '2rem'
+                        }}
+                        name="star"
+                        mega
+                      />
+                      {repo.watchers_count}
+                    </Col>
+                  </Row>
+                );
+              });
+            })()}
           </Col>
         </Row>
       </Spin>
