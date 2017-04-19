@@ -293,7 +293,7 @@ class GithubOrganizations extends Component {
                 }
                 key={org.login}
               >
-                <Row style={styles.orgRow}>
+                <Row>
                   <Col span={24}>
                     <div>
                       <strong>{org.login}</strong>
@@ -303,26 +303,30 @@ class GithubOrganizations extends Component {
                     </div>
                   </Col>
                 </Row>
-                <Row style={styles.orgRow}>
+                <Row>
                   <Col span={24}>
                     {(() => {
                       let repos = sortBy(
                         this.props.ALL_ORG_REPOS[org.login] || [],
                         repo => -repo.watchers_count
                       );
-                      repos.length = 10;
-                      // only display 10
+                      repos.length = 10; // only display 10
                       return repos.map(repo => {
                         return (
                           <Popover
                             key={repo.name}
-                            title={'详细信息'}
+                            title={
+                              <a href={repo.html_url} target="_blank">
+                                {repo.name}
+                              </a>
+                            }
                             content={
                               <div>
-                                <p>{repo.name}</p>
+                                <p>{repo.description}</p>
                                 <p>Star {repo.watchers_count}</p>
+                                <p>Fork {repo.forks_count}</p>
                                 <p>
-                                  贡献比例
+                                  贡献比例:
                                   {(() => {
                                     const stats = this.props.REPOS_STAT[
                                       repo.name
@@ -351,7 +355,7 @@ class GithubOrganizations extends Component {
                               style={{
                                 position: 'relative',
                                 padding: '0.5rem',
-                                margin: '1rem 0'
+                                margin: '1rem 0 0 0'
                               }}
                             >
                               <div

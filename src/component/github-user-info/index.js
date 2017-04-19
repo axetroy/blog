@@ -14,10 +14,10 @@ import pkg from '../../../package.json';
 const styles = {
   infoBlock: {
     width: '80%',
-    margin: '0 auto',
+    margin: '1rem auto',
     textAlign: 'center',
     color: '#fff',
-    padding: 20
+    padding: '2rem'
   },
   strong: { fontSize: '2em' }
 };
@@ -47,7 +47,8 @@ class GithubUserInfo extends Component {
                 style={{
                   width: '70%',
                   height: 'auto',
-                  borderRadius: '50%'
+                  borderRadius: '50%',
+                  verticalAlign: 'middle'
                 }}
                 src={this.props.OWNER.avatar_url}
               />
@@ -82,10 +83,15 @@ class GithubUserInfo extends Component {
           </Col>
         </Row>
 
-        <hr className="hr" />
+        <div
+          style={{
+            borderTop: '1px solid #e6e6e6',
+            margin: '2rem'
+          }}
+        />
 
         <Row>
-          <Col span={8}>
+          <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {this.props.OWNER.public_repos}
@@ -94,7 +100,7 @@ class GithubUserInfo extends Component {
               Repositories
             </div>
           </Col>
-          <Col span={8}>
+          <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {this.props.OWNER.followers}
@@ -103,7 +109,7 @@ class GithubUserInfo extends Component {
               Followers
             </div>
           </Col>
-          <Col span={8}>
+          <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {this.props.OWNER.following}
@@ -118,7 +124,6 @@ class GithubUserInfo extends Component {
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
     return { OWNER: state.OWNER };
