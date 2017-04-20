@@ -49,10 +49,10 @@ class Home extends Component {
     return (
       <Row style={{ padding: '2.4rem' }}>
         <Col
-          lg={{ span: 14, offset: 5 }}
-          md={{ span: 16, offset: 4 }}
-          sm={{ span: 20, offset: 2 }}
-          xs={{ span: 22, offset: 1 }}
+          lg={{ span: 14 }}
+          md={{ span: 16 }}
+          sm={{ span: 20 }}
+          xs={{ span: 22 }}
         >
           <Spin spinning={!this.props.READ_ME}>
             <div

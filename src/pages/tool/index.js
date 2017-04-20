@@ -39,8 +39,7 @@ class Tool extends Component {
       <Row>
         <Col
           md={{
-            span: 4,
-            offset: 4
+            span: 4
           }}
           xs={24}
         >
