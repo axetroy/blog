@@ -2012,9 +2012,9 @@ eslint-module-utils@^1.0.0:
     debug "2.2.0"
     pkg-dir "^1.0.0"
 
-eslint-plugin-flowtype@2.21.0:
-  version "2.21.0"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-2.21.0.tgz#a47e85abcdd181d37a336054bd552149ae387d9c"
+eslint-plugin-flowtype@2.32.0:
+  version "2.32.0"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-2.32.0.tgz#e5669d81acac828ea021a1496a31116b88dd0435"
   dependencies:
     lodash "^4.15.0"
 

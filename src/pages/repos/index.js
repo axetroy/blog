@@ -4,15 +4,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Card, Row, Col, Tag, Pagination, Spin } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout, Card, Row, Col, Tag, Pagination, Spin, Menu } from 'antd';
 import Octicon from 'react-octicon';
 import queryString from 'query-string';
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  HashRouter,
+  NavLink
+} from 'react-router-dom';
 
 import github from '../../lib/github';
 import GithubColors from '../../lib/github-colors.json';
 import pkg from '../../../package.json';
 import * as repoAction from '../../redux/repos';
+
+import Repo from '../repo';
 
 import './index.css';
 
@@ -94,140 +102,28 @@ class Repos extends Component {
   render() {
     return (
       <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
-        <Row style={{ padding: '2.4rem 0' }}>
-          <Col
-            lg={{ span: 16, offset: 4 }}
-            md={{ span: 18, offset: 3 }}
-            xs={{ span: 22, offset: 1 }}
-          >
-            <Row gutter={16}>
-
+        <Row>
+          <Col span={4}>
+            <Menu>
               {this.props.REPOS.map(repo => {
                 return (
-                  <Col
-                    lg={6}
-                    md={8}
-                    sm={12}
-                    style={{ textAlign: 'center' }}
-                    key={`${repo.owner.login}/${repo.name}`}
-                  >
-
-                    <Card
-                      title={
-                        <Link
-                          key={`${repo.owner.login}/${repo.name}`}
-                          to={`/repo/${repo.owner.login}/${repo.name}`}
-                        >
-                          {repo.name}
-                        </Link>
-                      }
-                      extra={
-                        <Tag color={repo.fork ? '#108ee9' : '#87d068'}>
-                          {repo.fork ? 'Fork' : '原创'}
-                        </Tag>
-                      }
-                      style={{
-                        width: '100%',
-                        height: '30rem',
-                        display: 'inline-block',
-                        position: 'relative',
-                        color: '#303030',
-                        textAlign: 'left'
-                      }}
+                  <Menu.Item key={`${repo.owner.login}/${repo.name}`}>
+                    <NavLink
+                      exact={true}
+                      title={repo.name}
+                      to={`/repo/${repo.owner.login}/${repo.name}`}
                     >
-
-                      <div>
-                        <p
-                          style={{
-                            overflowWrap: 'break-word'
-                          }}
-                        >
-                          {repo.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {(repo.topics || []).map(topic => {
-                          return (
-                            <Tag
-                              style={{
-                                marginTop: '0.5rem'
-                              }}
-                              key={topic}
-                            >
-                              {topic}
-                            </Tag>
-                          );
-                        })}
-                      </div>
-
-                      <div
-                        style={{
-                          position: 'absolute',
-                          bottom: '1rem'
-                        }}
-                      >
-                        <span className="mr5">
-                          <span
-                            className="repo-language-color mr5"
-                            style={{
-                              backgroundColor: GithubColors[repo.language]
-                                ? GithubColors[repo.language].color
-                                : ''
-                            }}
-                          />
-                          <span>
-                            {GithubColors[repo.language]
-                              ? repo.language
-                              : 'Unkown'}
-                          </span>
-                        </span>
-                        <span className="mr5">
-                          <Octicon
-                            className="font-size-2rem mr5"
-                            name="star"
-                            mega
-                          />
-                          <span>{repo.watchers_count}</span>
-                        </span>
-                        <span className="mr5">
-                          <Octicon
-                            className="font-size-2rem mr5"
-                            name="gist-fork"
-                            mega
-                          />
-                          <span>{repo.forks_count}</span>
-                        </span>
-                        <span className="mr5">
-                          <Octicon
-                            className="font-size-2rem mr5"
-                            name="issue-opened"
-                            mega
-                          />
-                          <span>{repo.open_issues_count}</span>
-                        </span>
-                      </div>
-
-                    </Card>
-                  </Col>
+                      {repo.name}
+                    </NavLink>
+                  </Menu.Item>
                 );
               })}
-
-            </Row>
-
-            {this.state.meta.total > 0
-              ? <Row>
-                  <Col className="text-center">
-                    <Pagination
-                      onChange={page =>
-                        this.changePage(page, this.state.meta.per_page)}
-                      defaultCurrent={this.state.meta.page}
-                      defaultPageSize={this.state.meta.per_page}
-                      total={this.state.meta.total}
-                    />
-                  </Col>
-                </Row>
-              : ''}
+            </Menu>
+          </Col>
+          <Col span={20}>
+            <Switch>
+              <Route exact path="/repo/:owner/:repo" component={Repo} />
+            </Switch>
           </Col>
         </Row>
       </Spin>

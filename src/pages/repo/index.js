@@ -114,8 +114,7 @@ class Repo extends Component {
   render() {
     return (
       <Row>
-
-        <Col md={{ span: 4, offset: 4 }} xs={{ span: 24 }}>
+        <Col span={24}>
           <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
             <div style={{ padding: '2.4rem' }}>
               <h1>
@@ -217,9 +216,6 @@ class Repo extends Component {
               </div>
             </div>
           </Spin>
-        </Col>
-
-        <Col md={12} xs={{ span: 24 }}>
           <div style={{ padding: '2.4rem' }}>
             <Tabs defaultActiveKey="readme">
               <TabPane tab="项目介绍" key="readme">
