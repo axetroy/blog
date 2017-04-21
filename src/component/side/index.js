@@ -129,7 +129,6 @@ class Side extends Component {
           })}
         </Menu>
         <div>
-          <p>Copyright © 2017</p>
           <p>
             {`${this.state.days}d ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`}
           </p>
@@ -138,6 +137,7 @@ class Side extends Component {
             {' '}
             <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
           </p>
+          <p>Copyright © 2017</p>
         </div>
       </div>
     );
