@@ -7,27 +7,16 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { Layout, Row, Col } from 'antd';
-
-const { Header, Content, Footer } = Layout;
+import { Row, Col } from 'antd';
 
 import Home from './pages/home';
 import Github from './pages/github';
 import About from './pages/about';
 import Posts from './pages/posts';
 import Repos from './pages/repos';
-import Repo from './pages/repo';
 import Tool from './pages/tool';
-
-import GlobalFooter from './component/footer';
-import GlobalHeader from './component/header';
 import Side from './component/side';
-import Category from './component/category';
-import ContentBody from './component/content';
-
 import store from './redux/index';
-
-import pkg from '../package.json';
 
 import './App.css';
 

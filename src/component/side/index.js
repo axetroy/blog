@@ -5,8 +5,14 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { NavLink, matchPath } from 'react-router-dom';
+import moment from 'moment';
 class Side extends Component {
   state = {
+    created: moment(new Date('2016-11-09 14:22:33')),
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
     nav: [
       {
         name: 'Home',
@@ -40,6 +46,31 @@ class Side extends Component {
       }
     ]
   };
+  componentDidMount() {
+    const intervalId = setInterval(this.timer.bind(this), 1000);
+    this.setState({
+      intervalId: intervalId
+    });
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+  timer() {
+    let seconds = moment().diff(this.state.created, 'seconds');
+    const days = Math.floor(seconds / (3600 * 24));
+    seconds = seconds - days * 3600 * 24;
+    const hours = Math.floor(seconds / 3600);
+    seconds = seconds - hours * 3600;
+    const minutes = Math.floor(seconds / 60);
+    seconds = seconds - minutes * 60;
+    this.setState({
+      date: new Date(),
+      days,
+      hours,
+      minutes,
+      seconds
+    });
+  }
   render() {
     const pathname = (location.pathname + location.hash).replace('/#', '');
     const navClassName = 'ant-menu-item-selected';
@@ -71,7 +102,6 @@ class Side extends Component {
         </div>
         <Menu
           mode="inline"
-          className={'h100'}
           style={{
             overflowY: 'auto',
             overflowX: 'hidden',
@@ -98,6 +128,17 @@ class Side extends Component {
             );
           })}
         </Menu>
+        <div>
+          <p>Copyright © 2017</p>
+          <p>
+            {`${this.state.days}d ${this.state.hours}h ${this.state.minutes}m ${this.state.seconds}s`}
+          </p>
+          <p>
+            Created by
+            {' '}
+            <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
+          </p>
+        </div>
       </div>
     );
   }
