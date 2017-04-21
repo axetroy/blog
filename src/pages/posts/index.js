@@ -4,8 +4,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Spin, Pagination, Timeline, Row, Col } from 'antd';
-import { Route, NavLink } from 'react-router-dom';
+import { Layout, Spin, Pagination, Timeline, Row, Col, Menu } from 'antd';
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  HashRouter,
+  NavLink
+} from 'react-router-dom';
 
 import Post from '../post/';
 import github from '../../lib/github';
@@ -82,48 +88,28 @@ class Posts extends Component {
   render() {
     return (
       <Row>
-        <Col md={{ span: 4, offset: 4 }} xs={24}>
-          <Sider width="100%" style={styles.content}>
-            <Spin spinning={!this.props.POSTS}>
-
-              <Timeline>
-                {this.props.POSTS.map(post => {
-                  return (
-                    <Timeline.Item key={post.number}>
-                      <NavLink
-                        exact={true}
-                        style={{ color: '#303030' }}
-                        activeStyle={{ color: '#FF5722' }}
-                        to={`/post/${post.number}`}
-                        title={post.title}
-                      >
-                        {post.title}
-                      </NavLink>
-                    </Timeline.Item>
-                  );
-                })}
-              </Timeline>
-
-              {this.state.meta.total > 0
-                ? <div className="text-center">
-                    <Pagination
-                      onChange={page =>
-                        this.changePage(page, this.state.meta.per_page)}
-                      defaultCurrent={this.state.meta.page}
-                      defaultPageSize={this.state.meta.per_page}
-                      total={this.state.meta.total}
-                    />
-                  </div>
-                : ''}
-
-            </Spin>
-          </Sider>
+        <Col span={4}>
+          <Menu>
+            {this.props.POSTS.map(post => {
+              return (
+                <Menu.Item key={post.number}>
+                  <NavLink
+                    exact={true}
+                    to={`/post/${post.number}`}
+                    title={post.title}
+                  >
+                    {post.title}
+                  </NavLink>
+                </Menu.Item>
+              );
+            })}
+          </Menu>
         </Col>
 
-        <Col md={12} xs={24}>
-          <div style={styles.content}>
+        <Col span={20}>
+          <Switch>
             <Route path="/post/:number" component={Post} />
-          </div>
+          </Switch>
         </Col>
 
       </Row>

@@ -79,122 +79,124 @@ class Post extends Component {
     const post = this.props.POST[number] || {};
     return (
       <Spin spinning={!Object.keys(post).length}>
-
-        <h2>{post.title}</h2>
-        <div>
-          <p>
-            Created by
-            {' '}
-            {post.user && post.user.login}
-            {' '}
-            at
-            {' '}
-            {post.created_at && moment(post.created_at).fromNow()}
-          </p>
-        </div>
-        <div style={{ margin: '1rem 0' }}>
-          {post.labels &&
-            post.labels.map((v, i) => {
-              return (
-                <Tag color={'#' + v.color} key={i}>
-                  {v.name}
-                </Tag>
-              );
-            })}
-        </div>
-        <div
-          className="markdown-body"
-          style={{ fontSize: '1.6rem', minHeight: '20rem' }}
-          dangerouslySetInnerHTML={{
-            __html: post.body_html
-          }}
-        />
-
-        <hr className="hr" />
-
-        <div>
-          <h3>大牛们的评论: </h3>
-
-          <p
-            style={{
-              fontSize: '1.5rem'
-            }}
-          >
-            <a
-              target="_blank"
-              href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-            >
-              朕有话说
-            </a>
-          </p>
-
-          {this.state.comments.length
-            ? this.state.comments.map(comment => {
+        <div style={{ padding: '2.4rem' }}>
+          <h2>{post.title}</h2>
+          <div>
+            <p>
+              Created by
+              {' '}
+              {post.user && post.user.login}
+              {' '}
+              at
+              {' '}
+              {post.created_at && moment(post.created_at).fromNow()}
+            </p>
+          </div>
+          <div style={{ margin: '1rem 0' }}>
+            {post.labels &&
+              post.labels.map((v, i) => {
                 return (
-                  <div
-                    key={comment.id}
-                    style={{
-                      border: '0.1rem solid #e2e2e2',
-                      borderRadius: '0.5rem',
-                      margin: '1rem 0'
-                    }}
-                  >
+                  <Tag color={'#' + v.color} key={i}>
+                    {v.name}
+                  </Tag>
+                );
+              })}
+          </div>
+          <div
+            className="markdown-body"
+            style={{ fontSize: '1.6rem', minHeight: '20rem' }}
+            dangerouslySetInnerHTML={{
+              __html: post.body_html
+            }}
+          />
+
+          <hr className="hr" />
+
+          <div>
+            <h3>大牛们的评论: </h3>
+
+            <p
+              style={{
+                fontSize: '1.5rem'
+              }}
+            >
+              <a
+                target="_blank"
+                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+              >
+                朕有话说
+              </a>
+            </p>
+
+            {this.state.comments.length
+              ? this.state.comments.map(comment => {
+                  return (
                     <div
-                      className="comment-header"
+                      key={comment.id}
                       style={{
-                        overflow: 'hidden'
+                        border: '0.1rem solid #e2e2e2',
+                        borderRadius: '0.5rem',
+                        margin: '1rem 0'
                       }}
                     >
-                      <img
+                      <div
+                        className="comment-header"
                         style={{
-                          width: '3.2rem',
-                          verticalAlign: 'middle',
-                          borderRadius: '50%'
-                        }}
-                        src={comment.user.avatar_url}
-                        alt=""
-                      />
-                      &nbsp;&nbsp;
-                      <strong
-                        style={{
-                          color: '#586069'
+                          overflow: 'hidden'
                         }}
                       >
-                        <a
-                          target="_blank"
-                          href={`https://github.com/${comment.user.login}`}
-                        >
-                          {comment.user.login}
-                        </a>
-                      </strong>
-                      &nbsp;&nbsp;
-                      <span>
-                        {' '}
-                        {`commented at ${moment(comment.created_at).fromNow()}`}
+                        <img
+                          style={{
+                            width: '3.2rem',
+                            verticalAlign: 'middle',
+                            borderRadius: '50%'
+                          }}
+                          src={comment.user.avatar_url}
+                          alt=""
+                        />
                         &nbsp;&nbsp;
-                        {`updated at ${moment(comment.updated_at).fromNow()}`}
-                      </span>
+                        <strong
+                          style={{
+                            color: '#586069'
+                          }}
+                        >
+                          <a
+                            target="_blank"
+                            href={`https://github.com/${comment.user.login}`}
+                          >
+                            {comment.user.login}
+                          </a>
+                        </strong>
+                        &nbsp;&nbsp;
+                        <span>
+                          {' '}
+                          {`commented at ${moment(comment.created_at).fromNow()}`}
+                          &nbsp;&nbsp;
+                          {`updated at ${moment(comment.updated_at).fromNow()}`}
+                        </span>
+                      </div>
+                      <div className="comment-body">
+                        <div
+                          className="markdown-body"
+                          style={{
+                            fontSize: '1.6rem',
+                            padding: '1.5rem'
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: comment.body_html
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div className="comment-body">
-                      <div
-                        className="markdown-body"
-                        style={{
-                          fontSize: '1.6rem',
-                          padding: '1.5rem'
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: comment.body_html
-                        }}
-                      />
-                    </div>
-                  </div>
-                );
-              })
-            : <div>
-                <p>还没有人评论哦，赶紧抢沙发!</p>
-              </div>}
+                  );
+                })
+              : <div>
+                  <p>还没有人评论哦，赶紧抢沙发!</p>
+                </div>}
 
+          </div>
         </div>
+
       </Spin>
     );
   }
