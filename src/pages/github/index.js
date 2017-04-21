@@ -25,7 +25,7 @@ class Github extends Component {
 
   render() {
     return (
-      <Row>
+      <Row style={{ padding: '2.4rem' }}>
 
         <Col
           lg={{ span: 12 }}

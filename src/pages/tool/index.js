@@ -2,22 +2,11 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Row, Col, Layout, Menu } from 'antd';
+import { Row, Col, Menu } from 'antd';
 import { Route, Switch, NavLink } from 'react-router-dom';
-
-const { Sider, Content } = Layout;
 
 import Roll from '../../component/tool-roll';
 import MdPreview from '../../component/tool-md-preview';
-
-const styles = {
-  content: {
-    background: '#fff',
-    padding: 24,
-    margin: 0,
-    minHeight: 280
-  }
-};
 
 class Tool extends Component {
   state = {
@@ -37,19 +26,8 @@ class Tool extends Component {
   render() {
     return (
       <Row>
-        <Col
-          md={{
-            span: 4
-          }}
-          xs={24}
-        >
-          <Menu
-            mode="inline"
-            style={{
-              height: '100%',
-              ...styles.content
-            }}
-          >
+        <Col span={4}>
+          <Menu mode="inline">
             {this.state.tools.map((post, index) => {
               return (
                 <Menu.Item key={index}>
@@ -66,8 +44,12 @@ class Tool extends Component {
           </Menu>
         </Col>
 
-        <Col md={12} xs={24}>
-          <div style={styles.content}>
+        <Col span={20}>
+          <div
+            style={{
+              padding: '2.4rem'
+            }}
+          >
             <Switch>
               <Route path="/tool/roll" component={Roll} />
               <Route path="/tool/md-preview" component={MdPreview} />

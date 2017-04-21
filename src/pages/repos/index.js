@@ -4,17 +4,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Card, Row, Col, Tag, Pagination, Spin, Menu } from 'antd';
+import {
+  Layout,
+  Card,
+  Row,
+  Col,
+  Tag,
+  Pagination,
+  Spin,
+  Menu,
+  Button
+} from 'antd';
 import Octicon from 'react-octicon';
 import queryString from 'query-string';
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  HashRouter,
-  NavLink
-} from 'react-router-dom';
-
+import { Route, Switch, NavLink } from 'react-router-dom';
 import github from '../../lib/github';
 import GithubColors from '../../lib/github-colors.json';
 import pkg from '../../../package.json';
@@ -24,13 +27,11 @@ import Repo from '../repo';
 
 import './index.css';
 
-const { Content } = Layout;
-
 class Repos extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 24,
+      per_page: 50,
       total: 0
     }
   };
@@ -102,15 +103,19 @@ class Repos extends Component {
   render() {
     return (
       <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
-        <Row>
-          <Col span={4}>
-            <Menu>
-              {this.props.REPOS.map(repo => {
+        <Row className={'h100'}>
+          <Col span={4} className={'h100'}>
+            <Menu
+              mode="inline"
+              className={'h100'}
+              style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            >
+              {this.props.REPOS.map((repo, i) => {
                 return (
-                  <Menu.Item key={`${repo.owner.login}/${repo.name}`}>
+                  <Menu.Item key={`${repo.owner.login}/${repo.name}/${i}`}>
                     <NavLink
                       exact={true}
-                      title={repo.name}
+                      activeClassName={'ant-menu-item-selected'}
                       to={`/repo/${repo.owner.login}/${repo.name}`}
                     >
                       {repo.name}
@@ -118,9 +123,30 @@ class Repos extends Component {
                   </Menu.Item>
                 );
               })}
+              <Menu.Item>
+                {this.state.meta.total > 0
+                  ? <Row className="text-center">
+                      <Col span={24}>
+                        <Pagination
+                          simple
+                          onChange={page =>
+                            this.changePage(page, this.state.meta.per_page)}
+                          defaultCurrent={this.state.meta.page}
+                          defaultPageSize={this.state.meta.per_page}
+                          total={this.state.meta.total}
+                        />
+                      </Col>
+                    </Row>
+                  : ''}
+              </Menu.Item>
+
             </Menu>
           </Col>
-          <Col span={20}>
+          <Col
+            span={20}
+            className={'h100'}
+            style={{ overflowY: 'auto', overflowX: 'hidden' }}
+          >
             <Switch>
               <Route exact path="/repo/:owner/:repo" component={Repo} />
             </Switch>

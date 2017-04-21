@@ -7,6 +7,24 @@
 */
 html {
   font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.h100 {
+  height: 100% !important;
+}
+
+.ant-spin-nested-loading, .ant-spin-container {
+  height: inherit;
 }
 
 .text-center {

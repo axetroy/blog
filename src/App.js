@@ -36,11 +36,15 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={HashRouter}>
-          <Row>
-            <Col span={2}>
+          <Row className={'h100'}>
+            <Col span={3} className={'h100'}>
               <Side />
             </Col>
-            <Col span={22}>
+            <Col
+              span={21}
+              className={'h100'}
+              style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            >
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/github" component={Github} />

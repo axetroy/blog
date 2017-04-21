@@ -12,6 +12,13 @@ class RepoReadme extends Component {
     await this.getReadme(this.props.owner, this.props.repo);
   }
 
+  async componentWillReceiveProps(nextProp) {
+    const { repo } = nextProp;
+    if (repo && this.props.repo !== repo) {
+      await this.getReadme(nextProp.owner, nextProp.repo);
+    }
+  }
+
   async getReadme(owner, repo) {
     let html = '';
     try {

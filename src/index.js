@@ -7,5 +7,8 @@ import { onStoreDone } from './redux/createStore';
 
 onStoreDone(function() {
   // always render the component after Redux store are ready
-  ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(
+    <App style={{ height: '100%' }} />,
+    document.getElementById('root')
+  );
 });

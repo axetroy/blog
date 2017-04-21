@@ -2,11 +2,10 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Layout, Spin, Row, Col, Tabs, Tag } from 'antd';
+import { Spin, Row, Col, Tabs, Tag } from 'antd';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
-const { Content, Sider } = Layout;
 const TabPane = Tabs.TabPane;
 
 import github from '../../lib/github';
@@ -15,15 +14,6 @@ import RepoReadme from '../../component/repo-readme';
 import RepoEvents from '../../component/repo-events';
 
 import './index.css';
-
-const styles = {
-  content: {
-    background: '#fff',
-    padding: '2.4rem',
-    margin: 0,
-    minHeight: '28rem'
-  }
-};
 
 class Repo extends Component {
   state = {
@@ -38,9 +28,8 @@ class Repo extends Component {
   }
 
   async componentWillReceiveProps(nextProp) {
-    const { nextOwner, nextRepo } = nextProp.match.params;
-    const { owner, repo } = this.props.match.params;
-    if (nextOwner !== owner && nextRepo !== repo) {
+    const { repo } = nextProp.match.params;
+    if (repo && repo !== this.props.match.params.repo) {
       await this.getData(nextProp);
     }
   }
@@ -57,40 +46,6 @@ class Repo extends Component {
     if (this.state.loading) return;
     const { owner, repo } = props.match.params;
     await this.getRepo(owner, repo);
-    this.getStat(owner, repo);
-  }
-
-  async getStat(owner, repo) {
-    let contributions = {};
-    try {
-      const response = await github.get(
-        `/repos/${owner}/${repo}/stats/contributors`
-      );
-      let stats = [].concat(response.data || []);
-
-      let contributions = {};
-
-      stats.forEach(item => {
-        const author = item.author;
-        const weeks = item.weeks;
-        let contribution = {
-          add: 0,
-          delete: 0,
-          changes: 0
-        };
-        weeks &&
-          weeks.forEach(item => {
-            contribution.add += item.a; // add
-            contribution.delete += item.d; // delete
-            contribution.changes = contribution.add + contribution.delete;
-          });
-        contributions[author.login] = contribution;
-        this.setState({ contributions });
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    return contributions;
   }
 
   async getRepo(owner, repo) {
@@ -219,13 +174,16 @@ class Repo extends Component {
           <div style={{ padding: '2.4rem' }}>
             <Tabs defaultActiveKey="readme">
               <TabPane tab="项目介绍" key="readme">
-                <RepoReadme {...this.props.match.params} />
+                <RepoReadme
+                  repo={this.state.repo}
+                  {...this.props.match.params}
+                />
               </TabPane>
               <TabPane tab="最近活动" key="events">
-                <RepoEvents {...this.props.match.params} />
-              </TabPane>
-              <TabPane tab="贡献比例" key="contributions">
-                TODO
+                <RepoEvents
+                  repo={this.state.repo}
+                  {...this.props.match.params}
+                />
               </TabPane>
             </Tabs>
           </div>

@@ -4,14 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Layout, Spin, Pagination, Timeline, Row, Col, Menu } from 'antd';
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  HashRouter,
-  NavLink
-} from 'react-router-dom';
+import { Spin, Pagination, Row, Col, Menu } from 'antd';
+import { Route, Switch, NavLink } from 'react-router-dom';
 
 import Post from '../post/';
 import github from '../../lib/github';
@@ -20,22 +14,11 @@ import * as postAction from '../../redux/posts';
 
 import pkg from '../../../package.json';
 
-const { Sider } = Layout;
-
-const styles = {
-  content: {
-    background: '#fff',
-    padding: '2.4rem',
-    margin: 0,
-    minHeight: '28rem'
-  }
-};
-
 class Posts extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 20,
+      per_page: 50,
       total: 0
     }
   };
@@ -86,33 +69,67 @@ class Posts extends Component {
   }
 
   render() {
+    const { pathname } = this.props.location;
+
+    const matcher = pathname.match(/\/post\/(\d+)/);
+
+    const number = matcher ? matcher[1] : null;
+
     return (
-      <Row>
-        <Col span={4}>
-          <Menu>
-            {this.props.POSTS.map(post => {
-              return (
-                <Menu.Item key={post.number}>
-                  <NavLink
-                    exact={true}
-                    to={`/post/${post.number}`}
-                    title={post.title}
+      <Spin spinning={false}>
+        <Row className={'h100'}>
+          <Col span={4} className={'h100'}>
+            <Menu
+              mode="inline"
+              className={'h100'}
+              style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            >
+              {this.props.POSTS.map((post, i) => {
+                return (
+                  <Menu.Item
+                    key={post.number + '/' + i}
+                    className={
+                      +number === +post.number ? 'ant-menu-item-selected' : ``
+                    }
                   >
-                    {post.title}
-                  </NavLink>
-                </Menu.Item>
-              );
-            })}
-          </Menu>
-        </Col>
+                    <NavLink
+                      exact={true}
+                      to={`/post/${post.number}`}
+                      title={post.title}
+                    >
+                      {post.title}
+                    </NavLink>
+                  </Menu.Item>
+                );
+              })}
 
-        <Col span={20}>
-          <Switch>
-            <Route path="/post/:number" component={Post} />
-          </Switch>
-        </Col>
+              <Menu.Item>
+                {this.state.meta.total > 0
+                  ? <Row className="text-center">
+                      <Col span={24}>
+                        <Pagination
+                          simple
+                          onChange={page =>
+                            this.changePage(page, this.state.meta.per_page)}
+                          defaultCurrent={this.state.meta.page}
+                          defaultPageSize={this.state.meta.per_page}
+                          total={this.state.meta.total}
+                        />
+                      </Col>
+                    </Row>
+                  : ''}
+              </Menu.Item>
+            </Menu>
+          </Col>
 
-      </Row>
+          <Col span={20} className={'h100'} style={{ overflowY: 'auto' }}>
+            <Switch>
+              <Route path="/post/:number" component={Post} />
+            </Switch>
+          </Col>
+
+        </Row>
+      </Spin>
     );
   }
 }
