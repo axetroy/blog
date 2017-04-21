@@ -41,7 +41,8 @@ class Side extends Component {
     ]
   };
   render() {
-    console.log(this);
+    const pathname = (location.pathname + location.hash).replace('/#', '');
+    const navClassName = 'ant-menu-item-selected';
     return (
       <div
         className={'h100'}
@@ -79,7 +80,17 @@ class Side extends Component {
         >
           {this.state.nav.map(nav => {
             return (
-              <Menu.Item key={nav.name}>
+              <Menu.Item
+                key={nav.name}
+                className={(() => {
+                  const isMatchRoute = matchPath(pathname, { path: nav.href });
+                  if (pathname === '/') {
+                    return pathname === nav.href ? navClassName : '';
+                  } else {
+                    return isMatchRoute && nav.href !== '/' ? navClassName : '';
+                  }
+                })()}
+              >
                 <NavLink to={nav.href}>
                   {nav.title}
                 </NavLink>

@@ -101,6 +101,12 @@ class Repos extends Component {
   }
 
   render() {
+    const { pathname } = this.props.location;
+
+    const matcher = pathname.match(/\/repo\/([^\/]+)/);
+
+    const repoNameOnUrl = matcher ? matcher[1] : null;
+
     return (
       <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
         <Row className={'h100'}>
@@ -112,12 +118,15 @@ class Repos extends Component {
             >
               {this.props.REPOS.map((repo, i) => {
                 return (
-                  <Menu.Item key={`${repo.owner.login}/${repo.name}/${i}`}>
-                    <NavLink
-                      exact={true}
-                      activeClassName={'ant-menu-item-selected'}
-                      to={`/repo/${repo.owner.login}/${repo.name}`}
-                    >
+                  <Menu.Item
+                    key={`${repo.owner.login}/${repo.name}/${i}`}
+                    className={
+                      repoNameOnUrl === repo.name
+                        ? 'ant-menu-item-selected'
+                        : ''
+                    }
+                  >
+                    <NavLink exact={true} to={`/repo/${repo.name}`}>
                       {repo.name}
                     </NavLink>
                   </Menu.Item>
@@ -148,7 +157,7 @@ class Repos extends Component {
             style={{ overflowY: 'auto', overflowX: 'hidden' }}
           >
             <Switch>
-              <Route exact path="/repo/:owner/:repo" component={Repo} />
+              <Route exact path="/repo/:repo" component={Repo} />
             </Switch>
           </Col>
         </Row>

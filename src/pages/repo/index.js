@@ -13,6 +13,8 @@ import GithubColors from '../../lib/github-colors.json';
 import RepoReadme from '../../component/repo-readme';
 import RepoEvents from '../../component/repo-events';
 
+import pkg from '../../../package.json';
+
 import './index.css';
 
 class Repo extends Component {
@@ -44,8 +46,8 @@ class Repo extends Component {
 
   async getData(props) {
     if (this.state.loading) return;
-    const { owner, repo } = props.match.params;
-    await this.getRepo(owner, repo);
+    const { repo } = props.match.params;
+    await this.getRepo(pkg.config.owner, repo);
   }
 
   async getRepo(owner, repo) {
@@ -175,12 +177,14 @@ class Repo extends Component {
             <Tabs defaultActiveKey="readme">
               <TabPane tab="项目介绍" key="readme">
                 <RepoReadme
+                  owner={pkg.config.owner}
                   repo={this.state.repo}
                   {...this.props.match.params}
                 />
               </TabPane>
               <TabPane tab="最近活动" key="events">
                 <RepoEvents
+                  owner={pkg.config.owner}
                   repo={this.state.repo}
                   {...this.props.match.params}
                 />
