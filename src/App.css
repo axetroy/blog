@@ -11,8 +11,9 @@ html {
 }
 
 body {
-  overflow: hidden;
+  overflow-y: hidden;
   height: 100%;
+  min-width: 117rem;
 }
 
 #root {
