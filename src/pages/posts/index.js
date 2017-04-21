@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Pagination, Row, Col, Menu, Button, Icon } from 'antd';
+import { Spin, Pagination, Row, Col, Menu } from 'antd';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
 import Post from '../post/';
@@ -16,7 +16,6 @@ import pkg from '../../../package.json';
 
 class Posts extends Component {
   state = {
-    status: 0,
     meta: {
       page: 1,
       per_page: 50,
@@ -69,13 +68,6 @@ class Posts extends Component {
     this.getPosts(page, per_page);
   }
 
-  toggle() {
-    this.setState({
-      menuPadding: this.state.status === 0 ? 20 : 0,
-      status: Math.abs(1 - this.state.status)
-    });
-  }
-
   render() {
     const { pathname } = this.props.location;
 
@@ -86,7 +78,7 @@ class Posts extends Component {
     return (
       <Spin spinning={false}>
         <Row className={'h100'}>
-          <Col sm={4} xs={this.state.menuPadding || 0} className={'h100'}>
+          <Col sm={4} xs={!number ? 24 : 0} className={'h100'}>
             <Menu
               mode="inline"
               className={'h100'}
@@ -137,20 +129,8 @@ class Posts extends Component {
           </Col>
 
           <Col
-            sm={0}
-            xs={this.state.status === 0 ? 24 : 24 - this.state.menuPadding}
-            style={{ backgroundColor: '#cfcfcf' }}
-          >
-            <Icon
-              style={{ fontSize: '2rem', lineHeight: '2rem', padding: '1rem' }}
-              type="menu-unfold"
-              onClick={() => this.toggle()}
-            />
-          </Col>
-
-          <Col
             sm={20}
-            xs={this.state.status === 1 ? 0 : 24}
+            xs={number ? 24 : 0}
             className={'h100'}
             style={{
               overflowY: 'auto'

@@ -24,9 +24,15 @@ class Tool extends Component {
   };
   componentWillMount() {}
   render() {
+    const { pathname } = this.props.location;
+
+    const matcher = pathname.match(/\/tool\/([^\/]+)/);
+
+    const toolName = matcher ? matcher[1] : null;
+
     return (
       <Row>
-        <Col span={4}>
+        <Col sm={4} xs={!toolName ? 24 : 0}>
           <Menu mode="inline">
             {this.state.tools.map((post, index) => {
               return (
@@ -44,7 +50,7 @@ class Tool extends Component {
           </Menu>
         </Col>
 
-        <Col span={20}>
+        <Col sm={20} xs={toolName ? 24 : 0}>
           <div
             style={{
               padding: '2.4rem'

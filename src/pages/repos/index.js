@@ -4,22 +4,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  Layout,
-  Card,
-  Row,
-  Col,
-  Tag,
-  Pagination,
-  Spin,
-  Menu,
-  Button
-} from 'antd';
-import Octicon from 'react-octicon';
+import { Row, Col, Tag, Pagination, Spin, Menu } from 'antd';
 import queryString from 'query-string';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import github from '../../lib/github';
-import GithubColors from '../../lib/github-colors.json';
 import pkg from '../../../package.json';
 import * as repoAction from '../../redux/repos';
 
@@ -110,7 +98,7 @@ class Repos extends Component {
     return (
       <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
         <Row className={'h100'}>
-          <Col span={4} className={'h100'}>
+          <Col sm={4} xs={!repoNameOnUrl ? 24 : 0} className={'h100'}>
             <Menu
               mode="inline"
               className={'h100'}
@@ -161,7 +149,8 @@ class Repos extends Component {
             </Menu>
           </Col>
           <Col
-            span={20}
+            sm={20}
+            xs={repoNameOnUrl ? 24 : 0}
             className={'h100'}
             style={{ overflowY: 'auto', overflowX: 'hidden' }}
           >
