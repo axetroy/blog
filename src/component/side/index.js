@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Menu } from 'antd';
+import { Row, Col, Menu } from 'antd';
 import { NavLink, matchPath } from 'react-router-dom';
 import moment from 'moment';
 class Side extends Component {
