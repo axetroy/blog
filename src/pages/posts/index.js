@@ -96,6 +96,12 @@ class Posts extends Component {
                       exact={true}
                       to={`/post/${post.number}`}
                       title={post.title}
+                      style={{
+                        whiteSpace: 'nowrap',
+                        wordBreak: 'break-all',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden'
+                      }}
                     >
                       {post.title}
                     </NavLink>

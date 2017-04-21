@@ -126,7 +126,16 @@ class Repos extends Component {
                         : ''
                     }
                   >
-                    <NavLink exact={true} to={`/repo/${repo.name}`}>
+                    <NavLink
+                      exact={true}
+                      to={`/repo/${repo.name}`}
+                      style={{
+                        whiteSpace: 'nowrap',
+                        wordBreak: 'break-all',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden'
+                      }}
+                    >
                       {repo.name}
                     </NavLink>
                   </Menu.Item>
