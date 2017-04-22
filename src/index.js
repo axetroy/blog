@@ -1,3 +1,7 @@
+// polyfill
+import FastClick from 'fastclick';
+FastClick.attach(document.body);
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';

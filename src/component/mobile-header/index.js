@@ -75,7 +75,10 @@ class MobileHead extends Component {
         key={'menu'}
         theme={menuMode === 'horizontal' ? 'dark' : ''}
         mode={menuMode}
-        style={{ border: 0, minWidth: '16rem' }}
+        style={{
+          border: 0,
+          minWidth: '16rem'
+        }}
       >
         {this.state.nav.map(nav => {
           return (
@@ -95,8 +98,16 @@ class MobileHead extends Component {
       </Menu>
     ];
     return (
-      <header style={{ backgroundColor: '#3F51B5' }}>
-        <Row style={{ fontSize: '3.6rem' }}>
+      <header
+        style={{
+          backgroundColor: '#3F51B5'
+        }}
+      >
+        <Row
+          style={{
+            fontSize: '100%'
+          }}
+        >
           <Col span={8} />
           <Col span={8} />
           <Col span={8}>
@@ -118,7 +129,7 @@ class MobileHead extends Component {
                   style={{
                     color: '#fff',
                     verticalAlign: 'middle',
-                    margin: '1rem 2rem'
+                    padding: '1rem 2rem'
                   }}
                   mega
                 />
