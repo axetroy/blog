@@ -129,9 +129,10 @@ class Repos extends Component {
                   </Menu.Item>
                 );
               })}
-              <Menu.Item>
-                {this.state.meta.total > 0
-                  ? <Row className="text-center">
+
+              {this.state.meta.total > 0
+                ? <Menu.Item>
+                    <Row className="text-center">
                       <Col span={24}>
                         <Pagination
                           simple
@@ -143,8 +144,8 @@ class Repos extends Component {
                         />
                       </Col>
                     </Row>
-                  : ''}
-              </Menu.Item>
+                  </Menu.Item>
+                : ''}
 
             </Menu>
           </Col>

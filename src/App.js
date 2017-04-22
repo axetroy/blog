@@ -15,6 +15,7 @@ import About from './pages/about';
 import Posts from './pages/posts';
 import Repos from './pages/repos';
 import Tool from './pages/tool';
+import Todos from './pages/todos';
 import Side from './component/side';
 import FullHeight from './component/full-height';
 import MobileHeader from './component/mobile-header';
@@ -49,6 +50,7 @@ class App extends Component {
                   <Route path="/tool" component={Tool} />
                   <Route path="/post" component={Posts} />
                   <Route path="/repo" component={Repos} />
+                  <Route path="/todo" component={Todos} />
                 </Switch>
               </Col>
               <Col xs={24} sm={0}>
