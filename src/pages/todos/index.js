@@ -9,6 +9,10 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 
 import Todo from '../todo';
 
+import github from '../../lib/github';
+import pkg from '../../../package.json';
+import * as todosAction from '../../redux/todos';
+
 class TodoList extends Component {
   state = {
     meta: {
@@ -17,12 +21,34 @@ class TodoList extends Component {
       total: 0
     }
   };
-  async getTodoList() {}
+
+  componentWillMount() {
+    const { page, per_page } = this.state.meta;
+    this.getTodoList(page, per_page);
+  }
+
+  async getTodoList(page, per_page) {
+    let todoList = [];
+    try {
+      const {
+        data
+      } = await github.get(
+        `/repos/${pkg.config.owner}/${pkg.config.todo_repo}/issues`,
+        {
+          params: { creator: pkg.config.owner, page, per_page }
+        }
+      );
+      todoList = data;
+      this.props.setTodo(todoList);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   render() {
     const { pathname } = this.props.location;
 
-    const matcher = pathname.match(/\/post\/(\d+)/);
+    const matcher = pathname.match(/\/todo\/(\d+)/);
 
     const number = matcher ? matcher[1] : null;
 
@@ -35,18 +61,18 @@ class TodoList extends Component {
               className={'h100'}
               style={{ overflowY: 'auto', overflowX: 'hidden' }}
             >
-              {(this.props.TODOS || []).map((post, i) => {
+              {this.props.TODOS.map((todo, i) => {
                 return (
                   <Menu.Item
-                    key={post.number + '/' + i}
+                    key={todo.number + '/' + i}
                     className={
-                      +number === +post.number ? 'ant-menu-item-selected' : ``
+                      +number === +todo.number ? 'ant-menu-item-selected' : ``
                     }
                   >
                     <NavLink
                       exact={true}
-                      to={`/post/${post.number}`}
-                      title={post.title}
+                      to={`/todo/${todo.number}`}
+                      title={todo.title}
                       style={{
                         whiteSpace: 'nowrap',
                         wordBreak: 'break-all',
@@ -54,7 +80,7 @@ class TodoList extends Component {
                         overflow: 'hidden'
                       }}
                     >
-                      {post.title}
+                      {todo.title}
                     </NavLink>
                   </Menu.Item>
                 );
@@ -89,7 +115,7 @@ class TodoList extends Component {
             }}
           >
             <Switch>
-              <Route path="/post/:number" component={Todo} />
+              <Route path="/todo/:number" component={Todo} />
             </Switch>
           </Col>
 
@@ -101,9 +127,14 @@ class TodoList extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    return {};
+    return { TODOS: state.TODOS };
   },
   function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators(
+      {
+        setTodo: todosAction.set
+      },
+      dispatch
+    );
   }
 )(TodoList);

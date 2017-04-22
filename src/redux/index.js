@@ -5,6 +5,7 @@ import configureStore from './createStore';
 import homeReadMeReducer from './readme';
 import aboutMeReducer from './about';
 import postsReducer from './posts';
+import todosReducer from './todos';
 import reposReducer from './repos';
 import ownerReducer from './owner';
 import rollListReducer from './rollList';
@@ -15,6 +16,7 @@ import followerReducer from './follower';
 import allReposReducer from './all-repos';
 import allOrgRepoReducer from './all-orgs-repos';
 import postReducer from './post';
+import todoReducer from './todo';
 import tollMdPreviewReducer from './tool-md-preview';
 import allRepoLanguagesReducer from './all-repo-languages';
 import repoLanguagesReducer from './repo-languages';
@@ -25,6 +27,8 @@ function createStore() {
     ABOUT_ME: aboutMeReducer,
     POSTS: postsReducer,
     POST: postReducer,
+    TODOS: todosReducer,
+    TODO: todoReducer,
     OWNER: ownerReducer,
     ORGS: orgsReducer,
     REPOS_STAT: repoStatReducer,
