@@ -35,7 +35,7 @@ class TodoList extends Component {
       } = await github.get(
         `/repos/${pkg.config.owner}/${pkg.config.todo_repo}/issues`,
         {
-          params: { creator: pkg.config.owner, page, per_page }
+          params: { creator: pkg.config.owner, page, per_page, state: 'all' }
         }
       );
       todoList = data;

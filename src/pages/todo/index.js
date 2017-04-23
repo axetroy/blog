@@ -4,7 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin } from 'antd';
+import { Spin, Steps, Icon } from 'antd';
+import moment from 'moment';
 
 import github from '../../lib/github';
 import * as todoAction from '../../redux/todo';
@@ -56,6 +57,30 @@ class Todo extends Component {
       <Spin spinning={!Object.keys(todo).length}>
         <div style={{ padding: '2.4rem' }}>
           <h2>{todo.title}</h2>
+          <Steps>
+            <Steps.Step
+              status="finish"
+              title="创建计划"
+              description={`${moment(new Date(todo.created_at)).format('YYYY-MM-DD HH:mm:ss')}`}
+              icon={<Icon type="book" />}
+            />
+            <Steps.Step
+              status={todo.closed_at ? 'finish' : 'wait'}
+              title="进行中"
+              description={todo.closed_at ? `耗时xxx天` : '进行中...'}
+              icon={<Icon type="clock-circle-o" />}
+            />
+            <Steps.Step
+              status={todo.closed_at ? 'finish' : 'wait'}
+              title="已完成"
+              description={
+                todo.closed_at
+                  ? `${moment(new Date(todo.closed_at)).format('YYYY-MM-DD HH:mm:ss')}`
+                  : ''
+              }
+              icon={<Icon type="check" />}
+            />
+          </Steps>
           <div
             className="markdown-body"
             style={{ fontSize: '1.6rem', minHeight: '20rem' }}
