@@ -131,6 +131,9 @@ class Repos extends Component {
                         overflow: 'hidden'
                       }}
                     >
+                      <Tag color={repo.fork ? 'blue' : 'green'}>
+                        {repo.fork ? 'Fork' : 'Source'}
+                      </Tag>
                       {repo.name}
                     </NavLink>
                   </Menu.Item>

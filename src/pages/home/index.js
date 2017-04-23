@@ -48,7 +48,13 @@ class Home extends Component {
   render() {
     return (
       <Row style={{ padding: '2.4rem' }}>
-        <Col span={24}>
+        <Col
+          xl={{ span: 14 }}
+          lg={{ span: 18 }}
+          md={{ span: 20 }}
+          sm={{ span: 22 }}
+          xs={{ span: 24 }}
+        >
           <Spin spinning={!this.props.READ_ME}>
             <div
               className="markdown-body"

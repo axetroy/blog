@@ -28,10 +28,11 @@ class Github extends Component {
       <Row style={{ padding: '2.4rem' }}>
 
         <Col
-          lg={{ span: 12 }}
-          md={{ span: 14 }}
-          sm={{ span: 20 }}
-          xs={{ span: 22 }}
+          xl={{ span: 14 }}
+          lg={{ span: 18 }}
+          md={{ span: 20 }}
+          sm={{ span: 22 }}
+          xs={{ span: 24 }}
         >
           <h2 className="github-title">
             活跃度

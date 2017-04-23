@@ -11,7 +11,7 @@ import * as todoAction from '../../redux/todo';
 import pkg from '../../../package.json';
 
 class Todo extends Component {
-  state = { comments: [] };
+  state = {};
 
   async componentWillMount() {
     let { number } = this.props.match.params;
@@ -42,33 +42,11 @@ class Todo extends Component {
         }
       );
       todo = data;
-      this.getComments(pkg.config.owner, pkg.config.repo, number);
     } catch (err) {
       console.error(err);
     }
     this.props.setTodo({ [number]: todo });
     return todo;
-  }
-
-  async getComments(owner, repo, number) {
-    let comments = [];
-    try {
-      const {
-        data
-      } = await github.get(
-        `/repos/${owner}/${repo}/issues/${number}/comments`,
-        {
-          headers: {
-            Accept: 'application/vnd.github.v3.html'
-          },
-          responseType: 'text'
-        }
-      );
-      this.setState({ comments: data });
-    } catch (err) {
-      console.error(err);
-    }
-    return comments;
   }
 
   render() {

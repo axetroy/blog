@@ -44,10 +44,11 @@ class About extends Component {
     return (
       <Row style={{ padding: '2.4rem' }}>
         <Col
-          lg={{ span: 14 }}
-          md={{ span: 16 }}
-          sm={{ span: 20 }}
-          xs={{ span: 22 }}
+          xl={{ span: 14 }}
+          lg={{ span: 18 }}
+          md={{ span: 20 }}
+          sm={{ span: 22 }}
+          xs={{ span: 24 }}
         >
           <Spin spinning={!this.props.ABOUT_ME}>
             <div dangerouslySetInnerHTML={{ __html: this.props.ABOUT_ME }} />

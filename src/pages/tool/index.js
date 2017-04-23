@@ -31,9 +31,13 @@ class Tool extends Component {
     const toolName = matcher ? matcher[1] : null;
 
     return (
-      <Row>
-        <Col sm={4} xs={!toolName ? 24 : 0}>
-          <Menu mode="inline">
+      <Row className={'h100'}>
+        <Col sm={4} xs={!toolName ? 24 : 0} className={'h100'}>
+          <Menu
+            mode="inline"
+            className={'h100'}
+            style={{ overflowY: 'auto', overflowX: 'hidden' }}
+          >
             {this.state.tools.map((post, index) => {
               return (
                 <Menu.Item key={index}>
@@ -50,7 +54,12 @@ class Tool extends Component {
           </Menu>
         </Col>
 
-        <Col sm={20} xs={toolName ? 24 : 0}>
+        <Col
+          sm={20}
+          xs={toolName ? 24 : 0}
+          className={'h100'}
+          style={{ overflowY: 'auto', overflowX: 'hidden' }}
+        >
           <div
             style={{
               padding: '2.4rem'
