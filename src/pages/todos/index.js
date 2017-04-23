@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Menu, Pagination, Spin } from 'antd';
+import { Row, Col, Menu, Pagination, Spin, Tag } from 'antd';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
 import Todo from '../todo';
@@ -55,7 +55,15 @@ class TodoList extends Component {
     return (
       <Spin spinning={false}>
         <Row className={'h100'}>
-          <Col sm={4} xs={!number ? 24 : 0} className={'h100'}>
+
+          <Col
+            xl={4}
+            lg={6}
+            md={8}
+            sm={8}
+            xs={!number ? 24 : 0}
+            className={'h100'}
+          >
             <Menu
               mode="inline"
               className={'h100'}
@@ -80,6 +88,9 @@ class TodoList extends Component {
                         overflow: 'hidden'
                       }}
                     >
+                      <Tag color={todo.state === 'open' ? 'red' : 'green'}>
+                        {todo.state === 'open' ? '未完成' : '已完成'}
+                      </Tag>
                       {todo.title}
                     </NavLink>
                   </Menu.Item>
@@ -107,7 +118,10 @@ class TodoList extends Component {
           </Col>
 
           <Col
-            sm={20}
+            xl={20}
+            lg={18}
+            md={16}
+            sm={16}
             xs={number ? 24 : 0}
             className={'h100'}
             style={{

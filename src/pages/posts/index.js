@@ -78,7 +78,14 @@ class Posts extends Component {
     return (
       <Spin spinning={false}>
         <Row className={'h100'}>
-          <Col sm={4} xs={!number ? 24 : 0} className={'h100'}>
+          <Col
+            xl={4}
+            lg={6}
+            md={8}
+            sm={8}
+            xs={!number ? 24 : 0}
+            className={'h100'}
+          >
             <Menu
               mode="inline"
               className={'h100'}
@@ -130,7 +137,10 @@ class Posts extends Component {
           </Col>
 
           <Col
-            sm={20}
+            xl={20}
+            lg={18}
+            md={16}
+            sm={16}
             xs={number ? 24 : 0}
             className={'h100'}
             style={{

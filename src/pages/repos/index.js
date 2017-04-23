@@ -98,7 +98,14 @@ class Repos extends Component {
     return (
       <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
         <Row className={'h100'}>
-          <Col sm={4} xs={!repoNameOnUrl ? 24 : 0} className={'h100'}>
+          <Col
+            xl={4}
+            lg={6}
+            md={8}
+            sm={8}
+            xs={!repoNameOnUrl ? 24 : 0}
+            className={'h100'}
+          >
             <Menu
               mode="inline"
               className={'h100'}
@@ -150,7 +157,10 @@ class Repos extends Component {
             </Menu>
           </Col>
           <Col
-            sm={20}
+            xl={20}
+            lg={18}
+            md={16}
+            sm={16}
             xs={repoNameOnUrl ? 24 : 0}
             className={'h100'}
             style={{ overflowY: 'auto', overflowX: 'hidden' }}
