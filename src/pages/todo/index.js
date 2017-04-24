@@ -71,7 +71,6 @@ class Todo extends Component {
               description={
                 todo.closed_at
                   ? (() => {
-                      console.info('exec');
                       const diff = diffTime(new Date(todo.created_at))(
                         new Date(todo.closed_at)
                       );

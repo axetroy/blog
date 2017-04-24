@@ -97,10 +97,6 @@ class Repo extends Component {
       {
         icon: 'issue-opened',
         field: 'open_issues_count'
-      },
-      {
-        icon: 'home',
-        field: 'homepage'
       }
     ];
 
@@ -158,6 +154,17 @@ class Repo extends Component {
                 </h1>
 
                 <GithubLangIngredient languages={this.state.languages} />
+
+                <div className="github-meta">
+                  <span>{this.state.repo.description}</span>
+                  &nbsp;
+                  &nbsp;
+                  {this.state.repo.homepage
+                    ? <a href={this.state.repo.homepage} target="_blank">
+                        {this.state.repo.homepage}
+                      </a>
+                    : ''}
+                </div>
 
                 <div className="github-meta">
                   <div>

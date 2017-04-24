@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon } from 'antd';
+import moment from 'moment';
 
 import github from '../../lib/github';
 import * as gistAction from '../../redux/gist';
@@ -20,19 +21,19 @@ function values(obj) {
 }
 
 class Gist extends Component {
-  state = {};
+  state = { comments: [] };
 
   async componentWillMount() {
     let { id } = this.props.match.params;
     if (id) {
-      await this.getGist(id);
+      await [this.getGist(id), this.getComments(id)];
     }
   }
 
   async componentWillReceiveProps(nextProp) {
     const { id } = nextProp.match.params;
     if (id && id !== this.props.match.params.id) {
-      await this.getGist(nextProp.match.params.id);
+      await [this.getGist(id), this.getComments(id)];
     }
   }
 
@@ -64,6 +65,23 @@ class Gist extends Component {
     }
     this.props.setGist({ [id]: gist });
     return gist;
+  }
+
+  async getComments(id) {
+    let comments = [];
+    try {
+      const { data } = await github.get(`/gists/${id}/comments`, {
+        headers: {
+          Accept: 'application/vnd.github.v3.html'
+        },
+        responseType: 'text'
+      });
+      comments = comments.concat(data || []);
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState({ comments });
+    return comments;
   }
 
   render() {
@@ -103,6 +121,89 @@ class Gist extends Component {
               </div>
             );
           })}
+
+          <hr className="hr" />
+
+          <div>
+            <h3>大牛们的评论: </h3>
+
+            <p
+              style={{
+                fontSize: '1.5rem'
+              }}
+            >
+              <a target="_blank" href={gist.html_url}>
+                朕有话说
+              </a>
+            </p>
+
+            {this.state.comments.length
+              ? this.state.comments.map(comment => {
+                  return (
+                    <div
+                      key={comment.id}
+                      style={{
+                        border: '0.1rem solid #e2e2e2',
+                        borderRadius: '0.5rem',
+                        margin: '1rem 0'
+                      }}
+                    >
+                      <div
+                        className="comment-header"
+                        style={{
+                          overflow: 'hidden'
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: '3.2rem',
+                            verticalAlign: 'middle',
+                            borderRadius: '50%'
+                          }}
+                          src={comment.user.avatar_url}
+                          alt=""
+                        />
+                        &nbsp;&nbsp;
+                        <strong
+                          style={{
+                            color: '#586069'
+                          }}
+                        >
+                          <a
+                            target="_blank"
+                            href={`https://github.com/${comment.user.login}`}
+                          >
+                            {comment.user.login}
+                          </a>
+                        </strong>
+                        &nbsp;&nbsp;
+                        <span>
+                          {' '}
+                          {`commented at ${moment(comment.created_at).fromNow()}`}
+                          &nbsp;&nbsp;
+                          {`updated at ${moment(comment.updated_at).fromNow()}`}
+                        </span>
+                      </div>
+                      <div className="comment-body">
+                        <div
+                          className="markdown-body"
+                          style={{
+                            fontSize: '1.6rem',
+                            padding: '1.5rem'
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: comment.body_html
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              : <div>
+                  <p>还没有人评论哦，赶紧抢沙发!</p>
+                </div>}
+
+          </div>
         </div>
 
       </Spin>
