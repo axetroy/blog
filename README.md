@@ -12,6 +12,7 @@
 - [x] 响应式
 - [ ] Progressive Web Apps
 - [x] 数据持久化
+- [ ] 动态加载路由
 - [x] 部署教程
 - [x] 分析Github相关数据
 
