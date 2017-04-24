@@ -82,7 +82,7 @@ class Side extends Component {
     });
   }
   render() {
-    const pathname = (location.pathname + location.hash).replace('/#', '');
+    const pathname = (location.pathname + location.hash).replace('/#/', '/');
     const navClassName = 'ant-menu-item-selected';
     return (
       <div

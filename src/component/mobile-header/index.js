@@ -2,8 +2,8 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Menu, Row, Col, Popover } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Menu, Row, Col, Popover, Icon } from 'antd';
+import { NavLink, matchPath } from 'react-router-dom';
 import enquire from 'enquire.js';
 import Octicon from 'react-octicon';
 
@@ -79,11 +79,12 @@ class MobileHead extends Component {
     });
   };
   render() {
+    const pathname = (location.pathname + location.hash).replace('/#/', '/');
     const { menuMode, menuVisible } = this.state;
+    const navClassName = 'ant-menu-item-selected';
     const menu = [
       <Menu
         key={'menu'}
-        theme={menuMode === 'horizontal' ? 'dark' : ''}
         mode={menuMode}
         style={{
           border: 0,
@@ -92,14 +93,18 @@ class MobileHead extends Component {
       >
         {this.state.nav.map(nav => {
           return (
-            <Menu.Item key={nav.name}>
-              <NavLink
-                onClick={() => this.handleHideMenu()}
-                activeStyle={{
-                  color: '#FF5722'
-                }}
-                to={nav.href}
-              >
+            <Menu.Item
+              key={nav.name}
+              className={(() => {
+                const isMatchRoute = matchPath(pathname, { path: nav.href });
+                if (pathname === '/') {
+                  return pathname === nav.href ? navClassName : '';
+                } else {
+                  return isMatchRoute && nav.href !== '/' ? navClassName : '';
+                }
+              })()}
+            >
+              <NavLink onClick={() => this.handleHideMenu()} to={nav.href}>
                 {nav.title}
               </NavLink>
             </Menu.Item>
@@ -107,6 +112,7 @@ class MobileHead extends Component {
         })}
       </Menu>
     ];
+    const isHomePage = pathname === '/';
     return (
       <header
         style={{
@@ -118,7 +124,24 @@ class MobileHead extends Component {
             fontSize: '100%'
           }}
         >
-          <Col span={8} />
+          <Col span={8}>
+            {!isHomePage && history.length > 1
+              ? <div className="text-left">
+                  <span>
+                    <Icon
+                      type="rollback"
+                      style={{
+                        color: '#fff',
+                        verticalAlign: 'middle',
+                        padding: '1rem 2rem',
+                        fontSize: '3.2rem'
+                      }}
+                      onClick={() => history.go(-1)}
+                    />
+                  </span>
+                </div>
+              : ''}
+          </Col>
           <Col span={8} />
           <Col span={8}>
             <div

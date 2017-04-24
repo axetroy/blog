@@ -26,7 +26,11 @@ export default class FullHeight extends Component {
 
   render() {
     return (
-      <div style={{ height: this.state.clientHeight }} className="full-height">
+      <div
+        style={{ height: this.state.clientHeight }}
+        {...this.props}
+        className="full-height"
+      >
         {this.props.children}
       </div>
     );

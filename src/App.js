@@ -33,7 +33,7 @@ class App extends Component {
           <FullHeight>
             <Row className={'h100'}>
               <Col sm={0} xs={24} style={{ transition: 'all 1s' }}>
-                <MobileHeader />
+                <MobileHeader {...this.props} />
               </Col>
               <Col
                 sm={3}
@@ -65,7 +65,7 @@ class App extends Component {
                 </Switch>
               </Col>
               <Col xs={24} sm={0} style={{ transition: 'all 1s' }}>
-                <Footer />
+                <Footer {...this.props} />
               </Col>
             </Row>
           </FullHeight>
