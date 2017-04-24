@@ -67,7 +67,8 @@ class GithubLangIngredient extends Component {
                 style={{
                   display: 'table-cell',
                   width: percent + '%',
-                  backgroundColor: bgColor
+                  backgroundColor: bgColor,
+                  transition: 'all 1s'
                 }}
               />
             </Tooltip>
@@ -78,3 +79,4 @@ class GithubLangIngredient extends Component {
   }
 }
 export default GithubLangIngredient;
+

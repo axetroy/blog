@@ -33,7 +33,7 @@ class Posts extends Component {
       const res = await github.get(
         `/repos/${pkg.config.owner}/${pkg.config.repo}/issues`,
         {
-          params: { creator: pkg.config.owner, page, per_page }
+          params: { creator: pkg.config.owner, page, per_page, state: 'open' }
         }
       );
 
