@@ -63,6 +63,7 @@ class TodoList extends Component {
             sm={8}
             xs={!number ? 24 : 0}
             className={'h100'}
+            style={{ transition: 'all 1s' }}
           >
             <Menu
               mode="inline"
@@ -100,7 +101,12 @@ class TodoList extends Component {
               {this.state.meta.total > 0
                 ? <Menu.Item>
                     <Row className="text-center">
-                      <Col span={24}>
+                      <Col
+                        span={24}
+                        style={{
+                          transition: 'all 1s'
+                        }}
+                      >
                         <Pagination
                           simple
                           onChange={page =>
@@ -125,7 +131,8 @@ class TodoList extends Component {
             xs={number ? 24 : 0}
             className={'h100'}
             style={{
-              overflowY: 'auto'
+              overflowY: 'auto',
+              transition: 'all 1s'
             }}
           >
             <Switch>
@@ -138,10 +145,11 @@ class TodoList extends Component {
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
-    return { TODOS: state.TODOS };
+    return {
+      TODOS: state.TODOS
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(

@@ -54,6 +54,7 @@ class Home extends Component {
           md={{ span: 20 }}
           sm={{ span: 22 }}
           xs={{ span: 24 }}
+          style={{ transition: 'all 1s' }}
         >
           <Spin spinning={!this.props.READ_ME}>
             <div className="edit-this-page-container">

@@ -105,6 +105,7 @@ class Repos extends Component {
             sm={8}
             xs={!repoNameOnUrl ? 24 : 0}
             className={'h100'}
+            style={{ transition: 'all 1s' }}
           >
             <Menu
               mode="inline"
@@ -143,7 +144,7 @@ class Repos extends Component {
               {this.state.meta.total > 0
                 ? <Menu.Item>
                     <Row className="text-center">
-                      <Col span={24}>
+                      <Col span={24} style={{ transition: 'all 1s' }}>
                         <Pagination
                           simple
                           onChange={page =>
@@ -166,7 +167,11 @@ class Repos extends Component {
             sm={16}
             xs={repoNameOnUrl ? 24 : 0}
             className={'h100'}
-            style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            style={{
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              transition: 'all 1s'
+            }}
           >
             <Switch>
               <Route exact path="/repo/:repo" component={Repo} />

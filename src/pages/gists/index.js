@@ -51,6 +51,7 @@ class Gists extends Component {
           sm={8}
           xs={!gistId ? 24 : 0}
           className={'h100'}
+          style={{ transition: 'all 1s' }}
         >
           <Menu
             mode="inline"
@@ -87,7 +88,11 @@ class Gists extends Component {
           sm={16}
           xs={gistId ? 24 : 0}
           className={'h100'}
-          style={{ overflowY: 'auto', overflowX: 'hidden' }}
+          style={{
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            transition: 'all 1s'
+          }}
         >
           <Switch>
             <Route exact path="/gist/:id" component={Gist} />

@@ -32,17 +32,26 @@ class App extends Component {
         <Router history={HashRouter}>
           <FullHeight>
             <Row className={'h100'}>
-              <Col sm={0} xs={24}>
+              <Col sm={0} xs={24} style={{ transition: 'all 1s' }}>
                 <MobileHeader />
               </Col>
-              <Col sm={3} xs={0} className={'h100'}>
+              <Col
+                sm={3}
+                xs={0}
+                className={'h100'}
+                style={{ transition: 'all 1s' }}
+              >
                 <Side />
               </Col>
               <Col
                 sm={21}
                 xs={24}
                 className={'h100'}
-                style={{ overflowY: 'auto', overflowX: 'hidden' }}
+                style={{
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                  transition: 'all 1s'
+                }}
               >
                 <Switch>
                   <Route exact path="/" component={Home} />
@@ -55,7 +64,7 @@ class App extends Component {
                   <Route path="/gist" component={Gists} />
                 </Switch>
               </Col>
-              <Col xs={24} sm={0}>
+              <Col xs={24} sm={0} style={{ transition: 'all 1s' }}>
                 <Footer />
               </Col>
             </Row>
