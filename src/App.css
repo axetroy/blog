@@ -28,6 +28,36 @@ body {
   height: inherit;
 }
 
+.edit-this-page-container {
+  position: relative;
+}
+
+.edit-this-page {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0;
+  opacity: 0;
+  transition: all .5s;
+  transition-delay: 2s;
+  z-index: 999;
+}
+
+.edit-this-page-container:hover .edit-this-page {
+  padding: 0.5rem 0;
+  opacity: 1;
+  transition: all .5s;
+}
+
+/*framework*/
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .text-center {
   text-align: center;
 }

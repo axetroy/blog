@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Spin, Row, Col, Tabs, Tag } from 'antd';
+import { Spin, Row, Col, Tabs, Tag, Tooltip, Icon } from 'antd';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
@@ -70,126 +70,143 @@ class Repo extends Component {
 
   render() {
     return (
-      <Row>
+      <Row style={{ padding: '2.4rem' }}>
         <Col span={24}>
-          <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
-            <div style={{ padding: '2.4rem' }}>
-              <h1>
-                <a target="_blank" href={this.state.repo.html_url}>
-                  {this.state.repo.name}
-                </a>
-              </h1>
-
-              {this.state.repo && this.state.repo.homepage
-                ? <div className="github-meta">
-                    <span className="mr5">
-                      <a href={this.state.repo.homepage} target="_blank">
-                        {this.state.repo.homepage}
-                      </a>
-                    </span>
-                  </div>
-                : ''}
-
-              <div className="github-meta">
-                <span className="mr5">
-                  <span
-                    className="repo-language-color mr5"
+          <div className="edit-this-page-container">
+            <div className="edit-this-page">
+              <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+                <a
+                  href={`https://github.com/${pkg.config.owner}/${this.state.repo.name}/edit/master/README.md`}
+                  target="_blank"
+                >
+                  <Icon
+                    type="edit"
                     style={{
-                      backgroundColor: GithubColors[this.state.repo.language]
-                        ? GithubColors[this.state.repo.language].color
-                        : ''
+                      fontSize: '3rem'
                     }}
                   />
-                  <span>
-                    {GithubColors[this.state.repo.language]
-                      ? this.state.repo.language
-                      : 'Unkown'}
+                </a>
+              </Tooltip>
+            </div>
+            <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
+              <div>
+                <h1>
+                  <a target="_blank" href={this.state.repo.html_url}>
+                    {this.state.repo.name}
+                  </a>
+                </h1>
+
+                {this.state.repo && this.state.repo.homepage
+                  ? <div className="github-meta">
+                      <span className="mr5">
+                        <a href={this.state.repo.homepage} target="_blank">
+                          {this.state.repo.homepage}
+                        </a>
+                      </span>
+                    </div>
+                  : ''}
+
+                <div className="github-meta">
+                  <span className="mr5">
+                    <span
+                      className="repo-language-color mr5"
+                      style={{
+                        backgroundColor: GithubColors[this.state.repo.language]
+                          ? GithubColors[this.state.repo.language].color
+                          : ''
+                      }}
+                    />
+                    <span>
+                      {GithubColors[this.state.repo.language]
+                        ? this.state.repo.language
+                        : 'Unkown'}
+                    </span>
                   </span>
-                </span>
-              </div>
+                </div>
 
-              <div className="github-meta">
-                <span
-                  className="mr5"
-                  title={'Watch ' + this.state.repo.subscribers_count}
-                >
-                  <Octicon className="font-size-2rem mr5" name="eye" mega />
-                  <span>{this.state.repo.subscribers_count}</span>
-                </span>
-                <span
-                  className="mr5"
-                  title={'Star ' + this.state.repo.watchers_count}
-                >
-                  <Octicon className="font-size-2rem mr5" name="star" mega />
-                  <span>{this.state.repo.watchers_count}</span>
-                </span>
-                <span
-                  title={'Fork ' + this.state.repo.forks_count}
-                  className="mr5"
-                >
-                  <Octicon
-                    className="font-size-2rem mr5"
-                    name="gist-fork"
-                    mega
-                  />
-                  <span>{this.state.repo.forks_count}</span>
-                </span>
-                <span
-                  title={'Issue opened ' + this.state.repo.open_issues_count}
-                  className="mr5"
-                >
-                  <Octicon
-                    className="font-size-2rem mr5"
-                    name="issue-opened"
-                    mega
-                  />
-                  <span>{this.state.repo.open_issues_count}</span>
-                </span>
-              </div>
+                <div className="github-meta">
+                  <span
+                    className="mr5"
+                    title={'Watch ' + this.state.repo.subscribers_count}
+                  >
+                    <Octicon className="font-size-2rem mr5" name="eye" mega />
+                    <span>{this.state.repo.subscribers_count}</span>
+                  </span>
+                  <span
+                    className="mr5"
+                    title={'Star ' + this.state.repo.watchers_count}
+                  >
+                    <Octicon className="font-size-2rem mr5" name="star" mega />
+                    <span>{this.state.repo.watchers_count}</span>
+                  </span>
+                  <span
+                    title={'Fork ' + this.state.repo.forks_count}
+                    className="mr5"
+                  >
+                    <Octicon
+                      className="font-size-2rem mr5"
+                      name="gist-fork"
+                      mega
+                    />
+                    <span>{this.state.repo.forks_count}</span>
+                  </span>
+                  <span
+                    title={'Issue opened ' + this.state.repo.open_issues_count}
+                    className="mr5"
+                  >
+                    <Octicon
+                      className="font-size-2rem mr5"
+                      name="issue-opened"
+                      mega
+                    />
+                    <span>{this.state.repo.open_issues_count}</span>
+                  </span>
+                </div>
 
-              <div className="github-meta">
-                <div>
-                  {(this.state.repo.topics || []).map(topic => {
-                    return (
-                      <Tag style={{ marginTop: '0.5rem' }} key={topic}>
-                        {topic}
-                      </Tag>
-                    );
-                  })}
+                <div className="github-meta">
+                  <div>
+                    {(this.state.repo.topics || []).map(topic => {
+                      return (
+                        <Tag style={{ marginTop: '0.5rem' }} key={topic}>
+                          {topic}
+                        </Tag>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="github-meta">
+                  Create at
+                  {' '}
+                  {this.state.repo.created_at &&
+                    moment(this.state.repo.created_at).fromNow()}
+                </div>
+                <div className="github-meta">
+                  Update at
+                  {' '}
+                  {this.state.repo.updated_at &&
+                    moment(this.state.repo.updated_at).fromNow()}
                 </div>
               </div>
-
-              <div className="github-meta">
-                Create at
-                {' '}
-                {this.state.repo.created_at &&
-                  moment(this.state.repo.created_at).fromNow()}
-              </div>
-              <div className="github-meta">
-                Update at
-                {' '}
-                {this.state.repo.updated_at &&
-                  moment(this.state.repo.updated_at).fromNow()}
-              </div>
+            </Spin>
+            <div>
+              <Tabs defaultActiveKey="readme">
+                <TabPane tab="项目介绍" key="readme">
+                  <RepoReadme
+                    owner={pkg.config.owner}
+                    repo={this.state.repo}
+                    {...this.props.match.params}
+                  />
+                </TabPane>
+                <TabPane tab="最近活动" key="events">
+                  <RepoEvents
+                    owner={pkg.config.owner}
+                    repo={this.state.repo}
+                    {...this.props.match.params}
+                  />
+                </TabPane>
+              </Tabs>
             </div>
-          </Spin>
-          <div style={{ padding: '2.4rem' }}>
-            <Tabs defaultActiveKey="readme">
-              <TabPane tab="项目介绍" key="readme">
-                <RepoReadme
-                  owner={pkg.config.owner}
-                  repo={this.state.repo}
-                  {...this.props.match.params}
-                />
-              </TabPane>
-              <TabPane tab="最近活动" key="events">
-                <RepoEvents
-                  owner={pkg.config.owner}
-                  repo={this.state.repo}
-                  {...this.props.match.params}
-                />
-              </TabPane>
-            </Tabs>
           </div>
         </Col>
       </Row>

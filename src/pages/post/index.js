@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Tag } from 'antd';
+import { Spin, Tag, Tooltip, Icon } from 'antd';
 import moment from 'moment';
 
 import github from '../../lib/github';
@@ -79,18 +79,21 @@ class Post extends Component {
     const post = this.props.POST[number] || {};
     return (
       <Spin spinning={!Object.keys(post).length}>
-        <div style={{ padding: '2.4rem' }}>
+        <div className="edit-this-page-container" style={{ padding: '2.4rem' }}>
           <h2>{post.title}</h2>
           <div>
-            <p>
-              Created by
-              {' '}
-              {post.user && post.user.login}
-              {' '}
-              at
-              {' '}
-              {post.created_at && moment(post.created_at).fromNow()}
-            </p>
+            {post.user
+              ? <p>
+                  Created by
+                  {' '}
+                  {post.user && post.user.login}
+                  {' '}
+                  at
+                  {' '}
+                  {post.created_at && moment(post.created_at).fromNow()}
+                </p>
+              : ''}
+
           </div>
           <div style={{ margin: '1rem 0' }}>
             {post.labels &&
@@ -102,16 +105,32 @@ class Post extends Component {
                 );
               })}
           </div>
+          <div className="edit-this-page">
+            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+              <a
+                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                target="_blank"
+              >
+                <Icon
+                  type="edit"
+                  style={{
+                    fontSize: '3rem'
+                  }}
+                />
+              </a>
+            </Tooltip>
+          </div>
           <div
             className="markdown-body"
-            style={{ fontSize: '1.6rem', minHeight: '20rem' }}
+            style={{
+              fontSize: '1.6rem',
+              minHeight: '20rem'
+            }}
             dangerouslySetInnerHTML={{
               __html: post.body_html
             }}
           />
-
           <hr className="hr" />
-
           <div>
             <h3>大牛们的评论: </h3>
 
@@ -203,7 +222,9 @@ class Post extends Component {
 }
 export default connect(
   function mapStateToProps(state) {
-    return { POST: state.POST };
+    return {
+      POST: state.POST
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(

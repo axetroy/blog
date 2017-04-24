@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Spin } from 'antd';
+import { Row, Col, Spin, Icon, Tooltip } from 'antd';
 
 import pkg from '../../../package.json';
 import github from '../../lib/github';
@@ -56,21 +56,44 @@ class Home extends Component {
           xs={{ span: 24 }}
         >
           <Spin spinning={!this.props.READ_ME}>
-            <div
-              className="markdown-body"
-              style={{ fontSize: '16px', minHeight: '20rem' }}
-              dangerouslySetInnerHTML={{ __html: this.props.READ_ME }}
-            />
+            <div className="edit-this-page-container">
+              <div className="edit-this-page">
+                <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+                  <a
+                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
+                    target="_blank"
+                  >
+                    <Icon
+                      type="edit"
+                      style={{
+                        fontSize: '3rem'
+                      }}
+                    />
+                  </a>
+                </Tooltip>
+              </div>
+              <div
+                className="markdown-body"
+                style={{
+                  fontSize: '1.6rem',
+                  minHeight: '20rem'
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: this.props.READ_ME
+                }}
+              />
+            </div>
           </Spin>
         </Col>
       </Row>
     );
   }
 }
-
 export default connect(
   function mapStateToProps(state) {
-    return { READ_ME: state.READ_ME };
+    return {
+      READ_ME: state.READ_ME
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
