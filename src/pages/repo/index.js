@@ -9,9 +9,9 @@ import moment from 'moment';
 const TabPane = Tabs.TabPane;
 
 import github from '../../lib/github';
-import GithubColors from '../../lib/github-colors.json';
 import RepoReadme from '../../component/repo-readme';
 import RepoEvents from '../../component/repo-events';
+import GithubLangIngredient from '../../component/github-lang-ingredient';
 
 import pkg from '../../../package.json';
 
@@ -47,7 +47,8 @@ class Repo extends Component {
   async getData(props) {
     if (this.state.loading) return;
     const { repo } = props.match.params;
-    await this.getRepo(pkg.config.owner, repo);
+    const data = await this.getRepo(pkg.config.owner, repo);
+    await this.getLang(data.owner.login, data.name);
   }
 
   async getRepo(owner, repo) {
@@ -68,7 +69,41 @@ class Repo extends Component {
     return data;
   }
 
+  async getLang(owner, repo) {
+    let languages = {};
+    try {
+      const { data } = await github.get(`/repos/${owner}/${repo}/languages`);
+      languages = data;
+      this.setState({ languages: data });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   render() {
+    const metas = [
+      {
+        icon: 'eye',
+        field: 'subscribers_count'
+      },
+      {
+        icon: 'star',
+        field: 'watchers_count'
+      },
+      {
+        icon: 'gist-fork',
+        field: 'forks_count'
+      },
+      {
+        icon: 'issue-opened',
+        field: 'open_issues_count'
+      },
+      {
+        icon: 'home',
+        field: 'homepage'
+      }
+    ];
+
     return (
       <Row style={{ padding: '2.4rem' }}>
         <Col span={24}>
@@ -94,74 +129,34 @@ class Repo extends Component {
                   <a target="_blank" href={this.state.repo.html_url}>
                     {this.state.repo.name}
                   </a>
+                  &nbsp;
+                  {metas.map(meta => {
+                    return (
+                      <span
+                        className="mr5"
+                        style={{
+                          fontSize: '1.4rem'
+                        }}
+                      >
+                        <Octicon
+                          className="mr5"
+                          name={meta.icon}
+                          mega
+                          style={{
+                            fontSize: '1.4rem'
+                          }}
+                        />
+                        {meta.icon === 'home'
+                          ? <a href={this.state.repo.homepage} target="_blank">
+                              {this.state.repo.homepage}
+                            </a>
+                          : this.state.repo[meta.field]}
+                      </span>
+                    );
+                  })}
                 </h1>
 
-                {this.state.repo && this.state.repo.homepage
-                  ? <div className="github-meta">
-                      <span className="mr5">
-                        <a href={this.state.repo.homepage} target="_blank">
-                          {this.state.repo.homepage}
-                        </a>
-                      </span>
-                    </div>
-                  : ''}
-
-                <div className="github-meta">
-                  <span className="mr5">
-                    <span
-                      className="repo-language-color mr5"
-                      style={{
-                        backgroundColor: GithubColors[this.state.repo.language]
-                          ? GithubColors[this.state.repo.language].color
-                          : ''
-                      }}
-                    />
-                    <span>
-                      {GithubColors[this.state.repo.language]
-                        ? this.state.repo.language
-                        : 'Unkown'}
-                    </span>
-                  </span>
-                </div>
-
-                <div className="github-meta">
-                  <span
-                    className="mr5"
-                    title={'Watch ' + this.state.repo.subscribers_count}
-                  >
-                    <Octicon className="font-size-2rem mr5" name="eye" mega />
-                    <span>{this.state.repo.subscribers_count}</span>
-                  </span>
-                  <span
-                    className="mr5"
-                    title={'Star ' + this.state.repo.watchers_count}
-                  >
-                    <Octicon className="font-size-2rem mr5" name="star" mega />
-                    <span>{this.state.repo.watchers_count}</span>
-                  </span>
-                  <span
-                    title={'Fork ' + this.state.repo.forks_count}
-                    className="mr5"
-                  >
-                    <Octicon
-                      className="font-size-2rem mr5"
-                      name="gist-fork"
-                      mega
-                    />
-                    <span>{this.state.repo.forks_count}</span>
-                  </span>
-                  <span
-                    title={'Issue opened ' + this.state.repo.open_issues_count}
-                    className="mr5"
-                  >
-                    <Octicon
-                      className="font-size-2rem mr5"
-                      name="issue-opened"
-                      mega
-                    />
-                    <span>{this.state.repo.open_issues_count}</span>
-                  </span>
-                </div>
+                <GithubLangIngredient languages={this.state.languages} />
 
                 <div className="github-meta">
                   <div>
