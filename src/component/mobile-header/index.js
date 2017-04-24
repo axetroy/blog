@@ -28,8 +28,13 @@ class MobileHead extends Component {
         href: '/repo'
       },
       {
+        name: 'gist',
+        title: 'Gist',
+        href: '/gist'
+      },
+      {
         name: 'todo',
-        title: 'TODO',
+        title: 'Todo',
         href: '/todo'
       },
       {

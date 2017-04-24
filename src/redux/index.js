@@ -7,6 +7,8 @@ import aboutMeReducer from './about';
 import postsReducer from './posts';
 import todosReducer from './todos';
 import reposReducer from './repos';
+import gistsReducer from './gists';
+import gistReducer from './gist';
 import ownerReducer from './owner';
 import rollListReducer from './rollList';
 import orgsReducer from './orgs';
@@ -40,7 +42,9 @@ function createStore() {
     REPOS: reposReducer,
     TOOL_MD_PREVIEW: tollMdPreviewReducer,
     ALL_REPO_LANGUAGES: allRepoLanguagesReducer,
-    REPO_LANGUAGES: repoLanguagesReducer
+    REPO_LANGUAGES: repoLanguagesReducer,
+    GISTS: gistsReducer,
+    GIST: gistReducer
   });
 
   return configureStore(rootReducer);

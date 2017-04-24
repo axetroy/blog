@@ -133,6 +133,7 @@ class Repo extends Component {
                   {metas.map(meta => {
                     return (
                       <span
+                        key={meta.field}
                         className="mr5"
                         style={{
                           fontSize: '1.4rem'
