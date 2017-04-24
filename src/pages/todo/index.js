@@ -10,6 +10,7 @@ import moment from 'moment';
 import github from '../../lib/github';
 import * as todoAction from '../../redux/todo';
 import pkg from '../../../package.json';
+import { diffTime } from '../../lib/utils';
 
 class Todo extends Component {
   state = {};
@@ -57,7 +58,7 @@ class Todo extends Component {
       <Spin spinning={!Object.keys(todo).length}>
         <div style={{ padding: '2.4rem' }}>
           <h2>{todo.title}</h2>
-          <Steps>
+          <Steps style={{ margin: '2rem 0' }}>
             <Steps.Step
               status="finish"
               title="创建计划"
@@ -67,7 +68,17 @@ class Todo extends Component {
             <Steps.Step
               status={todo.closed_at ? 'finish' : 'wait'}
               title="进行中"
-              description={todo.closed_at ? `耗时xxx天` : '进行中...'}
+              description={
+                todo.closed_at
+                  ? (() => {
+                      console.info('exec');
+                      const diff = diffTime(new Date(todo.created_at))(
+                        new Date(todo.closed_at)
+                      );
+                      return `耗时${diff.days ? diff.days + '天' : ''} ${diff.hours || diff.days ? diff.hours + '时' : ''}${diff.minutes || diff.hours ? diff.minutes + '分' : ''}${diff.seconds}秒`;
+                    })()
+                  : '进行中...'
+              }
               icon={<Icon type="clock-circle-o" />}
             />
             <Steps.Step
@@ -83,7 +94,10 @@ class Todo extends Component {
           </Steps>
           <div
             className="markdown-body"
-            style={{ fontSize: '1.6rem', minHeight: '20rem' }}
+            style={{
+              fontSize: '1.6rem',
+              minHeight: '20rem'
+            }}
             dangerouslySetInnerHTML={{
               __html: todo.body_html
             }}

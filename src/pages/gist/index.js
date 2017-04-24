@@ -90,7 +90,7 @@ class Gist extends Component {
           {(values(gist.files) || []).map(file => {
             return (
               <div key={file.filename} style={{}}>
-                <h3>{file.filename}</h3>
+                <h3><Icon type="file" />{file.filename}</h3>
                 <div
                   className="markdown-body"
                   style={{

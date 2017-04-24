@@ -28,6 +28,11 @@ class MobileHead extends Component {
         href: '/repo'
       },
       {
+        name: 'tool',
+        title: '工具集',
+        href: '/tool'
+      },
+      {
         name: 'gist',
         title: 'Gist',
         href: '/gist'
@@ -36,11 +41,6 @@ class MobileHead extends Component {
         name: 'todo',
         title: 'Todo',
         href: '/todo'
-      },
-      {
-        name: 'tool',
-        title: '工具集',
-        href: '/tool'
       },
       {
         name: 'github',
