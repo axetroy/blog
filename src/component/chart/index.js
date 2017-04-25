@@ -2,7 +2,6 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import ChartJs from 'chart.js';
 import debounce from 'lodash.debounce';
 import isequal from 'lodash.isequal';
 
@@ -24,7 +23,10 @@ class Chart extends Component {
       options: { ...this.props.options }
     };
 
-    this.__chart__ = new ChartJs(ctx, config);
+    require.ensure('chart.js', require => {
+      const ChartJs = require('chart.js');
+      this.__chart__ = new ChartJs(ctx, config);
+    });
   }
 
   render() {

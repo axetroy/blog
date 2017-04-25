@@ -22,21 +22,20 @@ class Tool extends Component {
       }
     ]
   };
-  componentWillMount() {}
   render() {
     const { pathname } = this.props.location;
-
     const matcher = pathname.match(/\/tool\/([^\/]+)/);
-
     const toolName = matcher ? matcher[1] : null;
-
     return (
       <Row className={'h100'}>
         <Col sm={4} xs={!toolName ? 24 : 0} className={'h100'}>
           <Menu
             mode="inline"
             className={'h100'}
-            style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            style={{
+              overflowY: 'auto',
+              overflowX: 'hidden'
+            }}
           >
             {this.state.tools.map((post, index) => {
               return (
@@ -58,7 +57,10 @@ class Tool extends Component {
           sm={20}
           xs={toolName ? 24 : 0}
           className={'h100'}
-          style={{ overflowY: 'auto', overflowX: 'hidden' }}
+          style={{
+            overflowY: 'auto',
+            overflowX: 'hidden'
+          }}
         >
           <div
             style={{

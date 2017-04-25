@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
 import { Row, Form, Table, Button, Input, Modal, message } from 'antd';
-import RollUp from '@axetroy/roll';
 
 import * as rollAction from '../../redux/rollList';
 
@@ -52,12 +51,15 @@ class Roll extends Component {
   }
 
   roll() {
-    const roller = new RollUp();
-    const list = this.props.ROLL_LIST;
-    list.forEach(v => roller.add(v.name, +v.rank));
-    const result = roller.roll();
-    console.info(result);
-    this.setState({ result, visible: true });
+    require.ensure(['@axetroy/roll'], require => {
+      const RollUp = require('@axetroy/roll');
+      const roller = new RollUp();
+      const list = this.props.ROLL_LIST;
+      list.forEach(v => roller.add(v.name, +v.rank));
+      const result = roller.roll();
+      console.info(result);
+      this.setState({ result, visible: true });
+    });
   }
 
   render() {
