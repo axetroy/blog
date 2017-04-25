@@ -17,6 +17,7 @@ import Repos from './pages/repos';
 import Tool from './pages/tool';
 import Todos from './pages/todos';
 import Gists from './pages/gists';
+import OAuth from './pages/oauth';
 import Side from './component/side';
 import FullHeight from './component/full-height';
 import MobileHeader from './component/mobile-header';
@@ -62,6 +63,7 @@ class App extends Component {
                   <Route path="/repo" component={Repos} />
                   <Route path="/todo" component={Todos} />
                   <Route path="/gist" component={Gists} />
+                  <Route path="/oauth" component={OAuth} />
                 </Switch>
               </Col>
               <Col xs={24} sm={0} style={{ transition: 'all 1s' }}>

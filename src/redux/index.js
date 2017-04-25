@@ -22,6 +22,7 @@ import todoReducer from './todo';
 import tollMdPreviewReducer from './tool-md-preview';
 import allRepoLanguagesReducer from './all-repo-languages';
 import repoLanguagesReducer from './repo-languages';
+import oauthReducer from './oauth';
 
 function createStore() {
   const rootReducer = combineReducers({
@@ -44,7 +45,8 @@ function createStore() {
     ALL_REPO_LANGUAGES: allRepoLanguagesReducer,
     REPO_LANGUAGES: repoLanguagesReducer,
     GISTS: gistsReducer,
-    GIST: gistReducer
+    GIST: gistReducer,
+    OAUTH: oauthReducer
   });
 
   return configureStore(rootReducer);
