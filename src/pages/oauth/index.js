@@ -6,38 +6,29 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
-import pkg from '../../../package.json';
-import github from '../../lib/github';
-
 import * as oauthActions from '../../redux/oauth';
 
 class OAuth extends Component {
-  async componentDidMount() {
+  async componentWillMount() {
     const matcher = location.search.replace(/^\?/, '').match(/code=([^&]+)/);
     const code = matcher && matcher[1] ? matcher[1] : null;
-    this.props.setCode({ code });
+    this.props.setCode(code);
 
-    const {
-      data
-    } = await axios.get(
-      `https://crossorigin.me/https://github.com/login/oauth/access_token`,
-      null,
-      {
-        headers: {
-          Origin: location.host
-        },
-        params: {
-          code,
-          client_id: pkg.config.github_client_id,
-          client_secret: pkg.config.github_client_secret
-        },
-        withCredentials: true
+    let result;
+    try {
+      const { data } = await axios.get(
+        `https://axetroy.herokuapp.com/oauth?code=${code}`
+      );
+      result = data;
+      if (data && data.access_token) {
+        this.props.setAccessToken(data.access_token);
       }
-    );
-    console.log(data);
-    // setTimeout(() => {
-    //   window.close();
-    // }, 100);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      const opener = window.opener;
+      opener && opener.onoauth && opener.onoauth(result);
+    }
   }
 
   render() {
@@ -51,7 +42,8 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setCode: oauthActions.store
+        setCode: oauthActions.setCode,
+        setAccessToken: oauthActions.setAccessToken
       },
       dispatch
     );

@@ -3,9 +3,16 @@
  */
 
 import React, { Component } from 'react';
-import { Menu } from 'antd';
+import { Menu, Button, Icon } from 'antd';
 import { NavLink, matchPath } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
+
+import github from '../../lib/github';
+import * as userAction from '../../redux/user';
+import * as oauthAction from '../../redux/oauth';
+
 class Side extends Component {
   state = {
     created: moment(new Date('2016-11-09 14:22:33')),
@@ -56,14 +63,31 @@ class Side extends Component {
       }
     ]
   };
-  componentDidMount() {
+  async componentDidMount() {
     const intervalId = setInterval(this.timer.bind(this), 1000);
-    this.setState({
-      intervalId: intervalId
-    });
+    this.setState({ intervalId }); // login
+    const { access_token } = this.props.OAUTH;
+    if (access_token) {
+      let user = {};
+      try {
+        const { data } = await github.get('/user', {
+          params: {
+            access_token: access_token
+          }
+        });
+        user = data;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.props.login(user);
+      }
+    }
   }
   componentWillUnmount() {
     clearInterval(this.state.intervalId);
+  }
+  componentWillReceiveProps(nextProd) {
+    console.log('next prod', nextProd);
   }
   timer() {
     let seconds = moment().diff(this.state.created, 'seconds');
@@ -110,6 +134,37 @@ class Side extends Component {
         <div>
           <h3>Axetroy</h3>
         </div>
+        <div>
+          {this.props.USER && this.props.USER.name
+            ? <div>
+                Welcome {this.props.USER.name}
+                <Button
+                  onClick={() => {
+                    this.props.logout();
+                    this.props.cleanOauth();
+                  }}
+                >
+                  <Icon type="github" />Logout
+                </Button>
+              </div>
+            : <div>
+                <Button
+                  onClick={() => {
+                    const newWindow = window.open(
+                      `https://github.com/login/oauth/authorize?client_id=b8257841dd7ca5eef2aa&redirect_uri=https://axetroy.github.io/#/oauth/`,
+                      '_blank',
+                      'width=600,height=400,menubar=no,toolbar=no,scrollbar=no,resize=no'
+                    );
+                    window.onoauth = function(data) {
+                      console.log('access data', data);
+                      newWindow.close();
+                    };
+                  }}
+                >
+                  <Icon type="github" />Login
+                </Button>
+              </div>}
+        </div>
         <Menu
           mode="inline"
           style={{
@@ -153,4 +208,21 @@ class Side extends Component {
     );
   }
 }
-export default Side;
+export default connect(
+  function mapStateToProps(state) {
+    return {
+      OAUTH: state.OAUTH,
+      USER: state.USER
+    };
+  },
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+      {
+        login: userAction.login,
+        logout: userAction.logout,
+        cleanOauth: oauthAction.clean
+      },
+      dispatch
+    );
+  }
+)(Side);
