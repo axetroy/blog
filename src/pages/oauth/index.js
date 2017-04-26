@@ -32,12 +32,19 @@ class OAuth extends Component {
   }
 
   render() {
-    return <div />;
+    return (
+      <div className="text-center">
+        <h2>正在登陆...</h2>
+        <p>请不要关闭页面</p>
+      </div>
+    );
   }
 }
 export default connect(
   function mapStateToProps(state) {
-    return { OAUTH: state.OAUTH };
+    return {
+      OAUTH: state.OAUTH
+    };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(

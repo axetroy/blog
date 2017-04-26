@@ -65,7 +65,12 @@ class Side extends Component {
   };
   async componentDidMount() {
     const intervalId = setInterval(this.timer.bind(this), 1000);
-    this.setState({ intervalId }); // login
+    this.setState({
+      intervalId
+    });
+    await this.login();
+  }
+  async login() {
     const { access_token } = this.props.OAUTH;
     if (access_token) {
       let user = {};
@@ -137,7 +142,7 @@ class Side extends Component {
         <div>
           {this.props.USER && this.props.USER.name
             ? <div>
-                Welcome {this.props.USER.name}
+                <p>Welcome {this.props.USER.name}</p>
                 <Button
                   onClick={() => {
                     this.props.logout();
@@ -158,6 +163,7 @@ class Side extends Component {
                     window.onoauth = function(data) {
                       console.log('access data', data);
                       newWindow.close();
+                      location.reload();
                     };
                   }}
                 >
