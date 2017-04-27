@@ -88,7 +88,7 @@ class Post extends Component {
               borderBottom: '1px solid #e6e6e6'
             }}
           >
-            {post.user.avatar_url
+            {post.user && post.user.avatar_url
               ? <img
                   src={post.user.avatar_url}
                   alt=""
@@ -174,8 +174,10 @@ class Post extends Component {
           />
 
           <blockquote>
+            <p>注意：</p>
             <p>1. 若非声明文章为转载, 则为原创文章.</p>
             <p>2. 欢迎转载, 但需要注明出处.</p>
+            <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
           </blockquote>
 
           <div

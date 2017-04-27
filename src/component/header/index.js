@@ -5,9 +5,11 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink, matchPath } from 'react-router-dom';
 import Octicon from 'react-octicon';
+import Rythm from 'rythm.js';
 
 class Header extends Component {
   state = {
+    rythmState: 'stop',
     nav: [
       { path: '/', name: 'home', title: 'Home', icon: <Icon type="home" /> },
       {
@@ -42,11 +44,25 @@ class Header extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    const rythm = new Rythm();
+    rythm.setMusic('./audio/bgm.mp3');
+
+    rythm.addRythm('pulse2', 'pulse', 0, 10, {
+      min: 0.1,
+      max: 1.5
+    });
+
+    rythm.start();
+    this.setState({ rythm, rythmState: 'play' });
+  }
+
   render() {
     const pathname = (location.pathname + location.hash).replace('/#/', '/');
     const navClassName = 'ant-menu-item-selected';
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         <div
           style={{
             width: '100%',
@@ -100,6 +116,30 @@ class Header extends Component {
             );
           })}
         </Menu>
+        <div
+          className="pulse2"
+          style={{
+            width: '2rem',
+            height: '2rem',
+            backgroundColor: this.state.rythmState === 'stop'
+              ? '#F44336'
+              : '#4CAF50',
+            borderRadius: '50%',
+            position: 'absolute',
+            right: '1.1rem',
+            bottom: '1.1rem',
+            cursor: 'point'
+          }}
+          onClick={() => {
+            if (this.state.rythmState === 'stop') {
+              this.state.rythm.start();
+              this.setState({ rythmState: 'play' });
+            } else {
+              this.state.rythm.stop();
+              this.setState({ rythmState: 'stop' });
+            }
+          }}
+        />
       </div>
     );
   }

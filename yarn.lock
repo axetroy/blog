@@ -4543,13 +4543,7 @@ promise@7.1.1, promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0:
-  version "15.5.7"
-  resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.5.7.tgz#231c4f29cdd82e355011d4889386ca9059544dd1"
-  dependencies:
-    fbjs "^0.8.9"
-
-prop-types@^15.5.8:
+prop-types@^15.0.0, prop-types@^15.5.8:
   version "15.5.8"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -5333,6 +5327,10 @@ run-async@^0.1.0:
 rx-lite@^3.1.2:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/rx-lite/download/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
+
+rythm.js@^2.0.4:
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/rythm.js/download/rythm.js-2.0.4.tgz#113979f5eb0f8ea965db921ff081f78393406e02"
 
 safe-buffer@^5.0.1:
   version "5.0.1"
