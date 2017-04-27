@@ -24,10 +24,6 @@ import MobileHeader from './component/mobile-header';
 import Footer from './component/footer';
 import store from './redux/index';
 
-window.__store__ = store;
-
-store.subscribe(function() {});
-
 import './App.css';
 
 class App extends Component {
