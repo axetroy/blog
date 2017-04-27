@@ -4,9 +4,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Tag, Pagination, Spin, Menu } from 'antd';
+import { Row, Col, Pagination, Spin, Menu } from 'antd';
 import queryString from 'query-string';
 import { Route, Switch, NavLink } from 'react-router-dom';
+import Octicon from 'react-octicon';
+
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 import * as repoAction from '../../redux/repos';
@@ -132,9 +134,11 @@ class Repos extends Component {
                         overflow: 'hidden'
                       }}
                     >
-                      <Tag color={repo.fork ? 'blue' : 'green'}>
-                        {repo.fork ? 'Fork' : 'Source'}
-                      </Tag>
+                      <Octicon
+                        name={repo.fork ? 'repo-forked' : 'repo'}
+                        mega
+                        style={{ marginRight: '0.5rem', fontSize: '2rem' }}
+                      />
                       {repo.name}
                     </NavLink>
                   </Menu.Item>
