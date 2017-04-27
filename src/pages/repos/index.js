@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Pagination, Spin, Card } from 'antd';
+import { Row, Col, Pagination, Spin, Card, Tag } from 'antd';
 import queryString from 'query-string';
 import { NavLink } from 'react-router-dom';
 import Octicon from 'react-octicon';
@@ -12,6 +12,7 @@ import Octicon from 'react-octicon';
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 import * as repoAction from '../../redux/repos';
+import GithubColors from '../../lib/github-colors.json';
 
 import './index.css';
 
@@ -122,6 +123,44 @@ class Repos extends Component {
                   <p style={{ color: '#9E9E9E' }}>
                     {repo.description}
                   </p>
+                  <div>
+                    {(repo.topics || []).map(topic => {
+                      return <Tag key={topic}>{topic}</Tag>;
+                    })}
+                  </div>
+                  <div style={{ position: 'absolute', bottom: '1rem' }}>
+                    <span>
+                      <span
+                        className="repo-language-color"
+                        style={{
+                          backgroundColor: (GithubColors[repo.language] || {})
+                            .color
+                        }}
+                      />
+                      {' '}
+                      {repo.language || 'Unknown'}
+                    </span>&nbsp;&nbsp;
+                    <span>
+                      <Octicon
+                        name="star"
+                        mega
+                        style={{
+                          fontSize: '1.4rem',
+                          margin: 0
+                        }}
+                      /> {repo.watchers_count}
+                    </span>&nbsp;&nbsp;
+                    <span>
+                      <Octicon
+                        name="repo-forked"
+                        mega
+                        style={{
+                          fontSize: '1.4rem',
+                          margin: 0
+                        }}
+                      /> {repo.forks_count}
+                    </span>&nbsp;&nbsp;
+                  </div>
                 </Card>
 
               </Col>

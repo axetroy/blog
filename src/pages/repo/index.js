@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Spin, Row, Col, Tabs, Tag, Tooltip, Icon } from 'antd';
+import { Spin, Tabs, Tag } from 'antd';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
@@ -91,7 +91,7 @@ class Repo extends Component {
         field: 'watchers_count'
       },
       {
-        icon: 'gist-fork',
+        icon: 'repo-forked',
         field: 'forks_count'
       },
       {
