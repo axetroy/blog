@@ -89,7 +89,7 @@ class Gist extends Component {
     const gist = (this.props.GIST || {})[id] || {};
     return (
       <Spin spinning={!Object.keys(gist).length}>
-        <div className="edit-this-page-container" style={{ padding: '2.4rem' }}>
+        <div className="edit-this-page-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
               <a
@@ -125,17 +125,18 @@ class Gist extends Component {
           <hr className="hr" />
 
           <div>
-            <h3>大牛们的评论: </h3>
-
-            <p
-              style={{
-                fontSize: '1.5rem'
-              }}
-            >
-              <a target="_blank" href={gist.html_url}>
+            <h3>
+              大牛们的评论:
+              <a
+                target="_blank"
+                href={gist.html_url}
+                style={{
+                  float: 'right'
+                }}
+              >
                 朕有话说
               </a>
-            </p>
+            </h3>
 
             {this.state.comments.length
               ? this.state.comments.map(comment => {

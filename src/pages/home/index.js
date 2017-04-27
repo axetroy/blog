@@ -47,46 +47,31 @@ class Home extends Component {
 
   render() {
     return (
-      <Row style={{ padding: '2.4rem' }}>
-        <Col
-          xl={{ span: 14 }}
-          lg={{ span: 18 }}
-          md={{ span: 20 }}
-          sm={{ span: 22 }}
-          xs={{ span: 24 }}
-          style={{ transition: 'all 1s' }}
-        >
-          <Spin spinning={!this.props.READ_ME}>
-            <div className="edit-this-page-container">
-              <div className="edit-this-page">
-                <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-                  <a
-                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
-                    target="_blank"
-                  >
-                    <Icon
-                      type="edit"
-                      style={{
-                        fontSize: '3rem'
-                      }}
-                    />
-                  </a>
-                </Tooltip>
-              </div>
-              <div
-                className="markdown-body"
-                style={{
-                  fontSize: '1.6rem',
-                  minHeight: '20rem'
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: this.props.READ_ME
-                }}
-              />
-            </div>
-          </Spin>
-        </Col>
-      </Row>
+      <Spin spinning={!this.props.READ_ME}>
+        <div className="edit-this-page-container">
+          <div className="edit-this-page">
+            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+              <a
+                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
+                target="_blank"
+              >
+                <Icon
+                  type="edit"
+                  style={{
+                    fontSize: '3rem'
+                  }}
+                />
+              </a>
+            </Tooltip>
+          </div>
+          <div
+            className="markdown-body"
+            dangerouslySetInnerHTML={{
+              __html: this.props.READ_ME
+            }}
+          />
+        </div>
+      </Spin>
     );
   }
 }

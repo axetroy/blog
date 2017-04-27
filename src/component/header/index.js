@@ -2,146 +2,106 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Menu, Row, Col, Popover } from 'antd';
-import { NavLink } from 'react-router-dom';
-import enquire from 'enquire.js';
+import { Menu, Icon } from 'antd';
+import { NavLink, matchPath } from 'react-router-dom';
 import Octicon from 'react-octicon';
 
-class GlobalHead extends Component {
+class Header extends Component {
   state = {
-    menuVisible: false,
-    menuMode: 'horizontal',
     nav: [
+      { path: '/', name: 'home', title: 'Home', icon: <Icon type="home" /> },
       {
-        name: 'Home',
-        title: '主页',
-        href: '/'
-      },
-      {
-        name: 'post',
+        path: '/post',
         title: '博客文章',
-        href: '/post'
+        icon: <Octicon name="book" mega />
       },
       {
-        name: 'repo',
+        path: '/repo',
         title: '开源项目',
-        href: '/repo'
+        icon: <Octicon name="repo" mega />
       },
       {
-        name: 'tool',
-        title: '工具集',
-        href: '/tool'
+        path: '/todo',
+        title: 'TODO',
+        icon: <Icon type="exception" />
       },
       {
-        name: 'github',
+        path: '/gist',
+        title: 'Gist',
+        icon: <Octicon name="gist" mega />
+      },
+      {
+        path: '/github',
         title: 'Github',
-        href: '/github'
+        icon: <Octicon name="mark-github" mega />
       },
       {
-        name: 'about',
+        path: '/about',
         title: '关于我',
-        href: '/about'
+        icon: <Icon type="question-circle" />
       }
     ]
   };
-  componentDidMount() {
-    enquire.register('only screen and (min-width: 0) and (max-width: 992px)', {
-      match: () => {
-        this.setState({
-          menuMode: 'inline'
-        });
-      },
-      unmatch: () => {
-        this.setState({
-          menuMode: 'horizontal'
-        });
-      }
-    });
-  }
-  handleHideMenu = () => {
-    this.setState({
-      menuVisible: false
-    });
-  };
-  onMenuVisibleChange = visible => {
-    this.setState({
-      menuVisible: visible
-    });
-  };
   render() {
-    const { menuMode, menuVisible } = this.state;
-    const menu = [
-      <Menu
-        key={'menu'}
-        theme={menuMode === 'horizontal' ? 'dark' : ''}
-        mode={menuMode}
-        style={{
-          border: 0,
-          minWidth: '20rem',
-          minHeight: '6.4rem'
-        }}
-      >
-        {this.state.nav.map(nav => {
-          return (
-            <Menu.Item
-              key={nav.name}
-              style={{
-                height: '6.4rem'
-              }}
-            >
-              <NavLink
-                onClick={() => this.handleHideMenu()}
-                activeStyle={{
-                  color: '#FF5722'
-                }}
-                to={nav.href}
-                style={{
-                  lineHeight: '6.4rem'
-                }}
-              >
-                {nav.title}
-              </NavLink>
-            </Menu.Item>
-          );
-        })}
-      </Menu>
-    ];
+    const pathname = (location.pathname + location.hash).replace('/#/', '/');
+    const navClassName = 'ant-menu-item-selected';
     return (
-      <header>
-        {menuMode === 'inline'
-          ? <div
-              style={{
-                textAlign: 'right'
-              }}
-            >
-              <Popover
-                placement="bottomRight"
-                content={menu}
-                trigger="click"
-                visible={menuVisible}
-                arrowPointAtCenter
-                onVisibleChange={this.onMenuVisibleChange}
+      <div>
+        <div
+          style={{
+            width: '100%',
+            height: '20rem',
+            backgroundImage: 'url(./img/header-image.jpg)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'inherit',
+            backgroundPosition: 'center',
+            position: 'relative'
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '2rem',
+              left: '2rem',
+              color: '#607D8B'
+            }}
+          >
+            <h2>Axetroy's NeverLand</h2>
+            <q>生活已经如此的艰难, 有些事情就不要拆穿...</q>
+          </div>
+        </div>
+        <Menu mode="horizontal">
+          {this.state.nav.map(nav => {
+            return (
+              <Menu.Item
+                key={nav.path}
+                className={(() => {
+                  const navPath = nav.path;
+                  const isMatchRoute = matchPath(pathname, {
+                    path: navPath
+                  });
+                  if (pathname === '/') {
+                    return pathname === navPath ? navClassName : '';
+                  } else {
+                    return isMatchRoute && navPath !== '/' ? navClassName : '';
+                  }
+                })()}
               >
-                <Octicon
-                  name="three-bars"
+                <NavLink
+                  to={nav.path}
                   style={{
-                    color: '#fff',
-                    verticalAlign: 'middle',
-                    fontSize: '3.6rem'
+                    fontSize: '1.4rem'
                   }}
-                  mega
-                />
-              </Popover>
-            </div>
-          : null}
-        <Row>
-          <Col lg={4} md={5} sm={24} xs={24} />
-          <Col lg={20} md={19} sm={0} xs={0}>
-            {menuMode === 'horizontal' ? menu : null}
-          </Col>
-        </Row>
-      </header>
+                >
+                  {nav.icon ? nav.icon : ''}{nav.title}
+                </NavLink>
+              </Menu.Item>
+            );
+          })}
+        </Menu>
+      </div>
     );
   }
 }
-export default GlobalHead;
+export default Header;

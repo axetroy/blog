@@ -2396,6 +2396,10 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/flatten/download/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
+flow-bin@^0.44.0:
+  version "0.44.2"
+  resolved "http://registry.npm.taobao.org/flow-bin/download/flow-bin-0.44.2.tgz#3893c7db5de043ed82674f327a04b1309db208b5"
+
 follow-redirects@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
@@ -4545,6 +4549,12 @@ prop-types@^15.0.0:
   dependencies:
     fbjs "^0.8.9"
 
+prop-types@^15.5.8:
+  version "15.5.8"
+  resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
+  dependencies:
+    fbjs "^0.8.9"
+
 proxy-addr@~1.1.3:
   version "1.1.4"
   resolved "http://registry.npm.taobao.org/proxy-addr/download/proxy-addr-1.1.4.tgz#27e545f6960a44a627d9b44467e35c1b6b4ce2f3"
@@ -4582,6 +4592,18 @@ q-io@1.13.2:
 q@1.4.1, q@^1.0.1, q@^1.1.2:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/q/download/q-1.4.1.tgz#55705bcd93c5f3673530c2c2cbc0c2b3addc286e"
+
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "http://registry.npm.taobao.org/qr.js/download/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+
+qrcode.react@^0.7.0:
+  version "0.7.0"
+  resolved "http://registry.npm.taobao.org/qrcode.react/download/qrcode.react-0.7.0.tgz#64e2c63e8cd00756f6d622041390403655cb0076"
+  dependencies:
+    flow-bin "^0.44.0"
+    prop-types "^15.5.8"
+    qr.js "0.0.0"
 
 qs@6.4.0, qs@~6.4.0:
   version "6.4.0"

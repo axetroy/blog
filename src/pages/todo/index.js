@@ -56,53 +56,50 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <Spin spinning={!Object.keys(todo).length}>
-        <div style={{ padding: '2.4rem' }}>
-          <h2>{todo.title}</h2>
-          <Steps style={{ margin: '2rem 0' }}>
-            <Steps.Step
-              status="finish"
-              title="创建计划"
-              description={`${moment(new Date(todo.created_at)).format('YYYY-MM-DD HH:mm:ss')}`}
-              icon={<Icon type="book" />}
-            />
-            <Steps.Step
-              status={todo.closed_at ? 'finish' : 'wait'}
-              title="进行中"
-              description={
-                todo.closed_at
-                  ? (() => {
-                      const diff = diffTime(new Date(todo.created_at))(
-                        new Date(todo.closed_at)
-                      );
-                      return `耗时${diff.days ? diff.days + '天' : ''} ${diff.hours || diff.days ? diff.hours + '时' : ''}${diff.minutes || diff.hours ? diff.minutes + '分' : ''}${diff.seconds}秒`;
-                    })()
-                  : '进行中...'
-              }
-              icon={<Icon type="clock-circle-o" />}
-            />
-            <Steps.Step
-              status={todo.closed_at ? 'finish' : 'wait'}
-              title="已完成"
-              description={
-                todo.closed_at
-                  ? `${moment(new Date(todo.closed_at)).format('YYYY-MM-DD HH:mm:ss')}`
-                  : ''
-              }
-              icon={<Icon type="check" />}
-            />
-          </Steps>
-          <div
-            className="markdown-body"
-            style={{
-              fontSize: '1.6rem',
-              minHeight: '20rem'
-            }}
-            dangerouslySetInnerHTML={{
-              __html: todo.body_html
-            }}
+        <h2>{todo.title}</h2>
+        <Steps style={{ margin: '2rem 0' }}>
+          <Steps.Step
+            status="finish"
+            title="创建计划"
+            description={`${moment(new Date(todo.created_at)).format('YYYY-MM-DD HH:mm:ss')}`}
+            icon={<Icon type="book" />}
           />
-        </div>
-
+          <Steps.Step
+            status={todo.closed_at ? 'finish' : 'wait'}
+            title="进行中"
+            description={
+              todo.closed_at
+                ? (() => {
+                    const diff = diffTime(new Date(todo.created_at))(
+                      new Date(todo.closed_at)
+                    );
+                    return `耗时${diff.days ? diff.days + '天' : ''} ${diff.hours || diff.days ? diff.hours + '时' : ''}${diff.minutes || diff.hours ? diff.minutes + '分' : ''}${diff.seconds}秒`;
+                  })()
+                : '进行中...'
+            }
+            icon={<Icon type="clock-circle-o" />}
+          />
+          <Steps.Step
+            status={todo.closed_at ? 'finish' : 'wait'}
+            title="已完成"
+            description={
+              todo.closed_at
+                ? `${moment(new Date(todo.closed_at)).format('YYYY-MM-DD HH:mm:ss')}`
+                : ''
+            }
+            icon={<Icon type="check" />}
+          />
+        </Steps>
+        <div
+          className="markdown-body"
+          style={{
+            fontSize: '1.6rem',
+            minHeight: '20rem'
+          }}
+          dangerouslySetInnerHTML={{
+            __html: todo.body_html
+          }}
+        />
       </Spin>
     );
   }

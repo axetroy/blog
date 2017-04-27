@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Row, Col, Icon } from 'antd';
+import { Row, Col } from 'antd';
 
 import { diffTime } from '../../lib/utils';
 
@@ -34,32 +34,21 @@ class Footer extends Component {
 
   render() {
     return (
-      <Row className="text-center">
-        <Col md={8} sm={12} xs={0}>
-          <h3><Icon type="github" />Github</h3>
-          <div>
-            <a target="_blank" href="https://github.com/axetroy/blog">仓库源码</a>
-          </div>
-        </Col>
-        <Col md={8} sm={12} xs={0}>
-          <h3><Icon type="link" />相关技术</h3>
-          <div>
-            <a target="_blank" href="https://facebook.github.io/react/">
-              React
-            </a>
-          </div>
-          <div>
-            <a target="_blank" href="https://github.com/reactjs/redux">Redux</a>
-          </div>
-          <div><a target="_blank" href="https://ant.design">Antd</a></div>
-        </Col>
-        <Col md={8} sm={0} xs={24}>
+      <Row
+        className="text-center"
+        style={{
+          marginTop: '2rem',
+          padding: '2rem 0',
+          backgroundColor: '#fff'
+        }}
+      >
+        <Col span={24}>
           <p>Copyright © 2017</p>
           <p>
             {`已运行 ${this.state.days}天 ${this.state.hours}时 ${this.state.minutes}分 ${this.state.seconds}秒`}
           </p>
           <p>
-            created by
+            Created by
             {' '}
             <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
           </p>

@@ -4,8 +4,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Tag, Tooltip, Icon } from 'antd';
+import { Spin, Row, Col, Tag, Tooltip, Icon, Popover } from 'antd';
 import moment from 'moment';
+import QRCode from 'qrcode.react';
 
 import github from '../../lib/github';
 import * as postAction from '../../redux/post';
@@ -79,73 +80,123 @@ class Post extends Component {
     const post = this.props.POST[number] || {};
     return (
       <Spin spinning={!Object.keys(post).length}>
-        <div className="edit-this-page-container" style={{ padding: '2.4rem' }}>
-          <h2>{post.title}</h2>
-          <div>
-            {post.user
-              ? <p>
-                  Created by
-                  {' '}
-                  {post.user && post.user.login}
-                  {' '}
-                  at
-                  {' '}
-                  {post.created_at && moment(post.created_at).fromNow()}
-                </p>
+        <Row>
+          <Col
+            style={{
+              marginBottom: '2rem',
+              paddingBottom: '2rem',
+              borderBottom: '1px solid #e6e6e6'
+            }}
+          >
+            {post.user.avatar_url
+              ? <img
+                  src={post.user.avatar_url}
+                  alt=""
+                  style={{
+                    width: '4.4rem',
+                    height: '100%',
+                    borderRadius: '50%',
+                    verticalAlign: 'middle'
+                  }}
+                />
               : ''}
+            <div
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                margin: '0 1rem'
+              }}
+            >
+              <strong>{post.user.login}</strong>
+              <p>{moment(new Date(post.created_at)).fromNow()}</p>
+            </div>
+            <div
+              style={{ textAlign: 'right', float: 'right', fontSize: '2.4rem' }}
+            >
+              <Popover
+                placement="topLeft"
+                title={'在其他设备中扫描二维码'}
+                trigger="click"
+                content={
+                  <div className="text-center">
+                    <QRCode value={location.href} />
+                  </div>
+                }
+              >
+                <Icon type="qrcode" />
+              </Popover>
+              <span>
+                <Tooltip title="编辑文章">
+                  <a
+                    target="blank"
+                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                    style={{
+                      color: 'inherit'
+                    }}
+                  >
+                    <Icon type="edit" />
+                  </a>
+                </Tooltip>
+              </span>
+            </div>
+          </Col>
 
-          </div>
-          <div style={{ margin: '1rem 0' }}>
-            {post.labels &&
-              post.labels.map((v, i) => {
+          <h3
+            style={{
+              textAlign: 'center'
+            }}
+          >
+            {post.title} <span
+              style={{
+                verticalAlign: 'top'
+              }}
+            >
+              {(post.labels || []).map(label => {
                 return (
-                  <Tag color={'#' + v.color} key={i}>
-                    {v.name}
+                  <Tag key={label.id} color={'#' + label.color}>
+                    {label.name}
                   </Tag>
                 );
               })}
-          </div>
-          <div className="edit-this-page">
-            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-              <a
-                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-                target="_blank"
-              >
-                <Icon
-                  type="edit"
-                  style={{
-                    fontSize: '3rem'
-                  }}
-                />
-              </a>
-            </Tooltip>
-          </div>
+            </span>
+          </h3>
+
           <div
             className="markdown-body"
             style={{
-              fontSize: '1.6rem',
-              minHeight: '20rem'
+              margin: '2rem 0',
+              borderBottom: '1px solid #e6e6e6',
+              paddingBottom: '2rem'
             }}
             dangerouslySetInnerHTML={{
               __html: post.body_html
             }}
           />
-          <hr className="hr" />
-          <div>
-            <h3>大牛们的评论: </h3>
 
-            <p
-              style={{
-                fontSize: '1.5rem'
-              }}
-            >
+          <blockquote>
+            <p>1. 若非声明文章为转载, 则为原创文章.</p>
+            <p>2. 欢迎转载, 但需要注明出处.</p>
+          </blockquote>
+
+          <div
+            style={{
+              marginTop: '2rem',
+              paddingTop: '2rem',
+              borderTop: '1px solid #e6e6e6'
+            }}
+          >
+            <h3>
+              大牛们的评论:
               <a
                 target="_blank"
                 href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                style={{
+                  float: 'right'
+                }}
               >
                 朕有话说
               </a>
-            </p>
+            </h3>
 
             {this.state.comments.length
               ? this.state.comments.map(comment => {
@@ -194,13 +245,14 @@ class Post extends Component {
                           {`updated at ${moment(comment.updated_at).fromNow()}`}
                         </span>
                       </div>
-                      <div className="comment-body">
+                      <div
+                        className="comment-body"
+                        style={{
+                          padding: '1.2rem'
+                        }}
+                      >
                         <div
                           className="markdown-body"
-                          style={{
-                            fontSize: '1.6rem',
-                            padding: '1.5rem'
-                          }}
                           dangerouslySetInnerHTML={{
                             __html: comment.body_html
                           }}
@@ -214,7 +266,7 @@ class Post extends Component {
                 </div>}
 
           </div>
-        </div>
+        </Row>
 
       </Spin>
     );
@@ -227,11 +279,6 @@ export default connect(
     };
   },
   function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        setPost: postAction.set
-      },
-      dispatch
-    );
+    return bindActionCreators({ setPost: postAction.set }, dispatch);
   }
 )(Post);

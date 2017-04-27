@@ -101,118 +101,99 @@ class Repo extends Component {
     ];
 
     return (
-      <Row style={{ padding: '2.4rem' }}>
-        <Col span={24}>
-          <div className="edit-this-page-container">
-            <div className="edit-this-page">
-              <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-                <a
-                  href={`https://github.com/${pkg.config.owner}/${this.state.repo.name}/edit/master/README.md`}
-                  target="_blank"
-                >
-                  <Icon
-                    type="edit"
+      <div>
+        <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
+          <div>
+            <h1>
+              <a target="_blank" href={this.state.repo.html_url}>
+                {this.state.repo.name}
+              </a>
+              &nbsp;
+              {metas.map(meta => {
+                return (
+                  <span
+                    key={meta.field}
+                    className="mr5"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '1.4rem'
                     }}
-                  />
-                </a>
-              </Tooltip>
-            </div>
-            <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
-              <div>
-                <h1>
-                  <a target="_blank" href={this.state.repo.html_url}>
-                    {this.state.repo.name}
+                  >
+                    <Octicon
+                      className="mr5"
+                      name={meta.icon}
+                      mega
+                      style={{
+                        fontSize: '1.4rem'
+                      }}
+                    />
+                    {meta.icon === 'home'
+                      ? <a href={this.state.repo.homepage} target="_blank">
+                          {this.state.repo.homepage}
+                        </a>
+                      : this.state.repo[meta.field]}
+                  </span>
+                );
+              })}
+            </h1>
+
+            <GithubLangIngredient languages={this.state.languages} />
+
+            <div className="github-meta">
+              <span>{this.state.repo.description}</span>
+              &nbsp;
+              &nbsp;
+              {this.state.repo.homepage
+                ? <a href={this.state.repo.homepage} target="_blank">
+                    {this.state.repo.homepage}
                   </a>
-                  &nbsp;
-                  {metas.map(meta => {
-                    return (
-                      <span
-                        key={meta.field}
-                        className="mr5"
-                        style={{
-                          fontSize: '1.4rem'
-                        }}
-                      >
-                        <Octicon
-                          className="mr5"
-                          name={meta.icon}
-                          mega
-                          style={{
-                            fontSize: '1.4rem'
-                          }}
-                        />
-                        {meta.icon === 'home'
-                          ? <a href={this.state.repo.homepage} target="_blank">
-                              {this.state.repo.homepage}
-                            </a>
-                          : this.state.repo[meta.field]}
-                      </span>
-                    );
-                  })}
-                </h1>
+                : ''}
+            </div>
 
-                <GithubLangIngredient languages={this.state.languages} />
-
-                <div className="github-meta">
-                  <span>{this.state.repo.description}</span>
-                  &nbsp;
-                  &nbsp;
-                  {this.state.repo.homepage
-                    ? <a href={this.state.repo.homepage} target="_blank">
-                        {this.state.repo.homepage}
-                      </a>
-                    : ''}
-                </div>
-
-                <div className="github-meta">
-                  <div>
-                    {(this.state.repo.topics || []).map(topic => {
-                      return (
-                        <Tag style={{ marginTop: '0.5rem' }} key={topic}>
-                          {topic}
-                        </Tag>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="github-meta">
-                  Create at
-                  {' '}
-                  {this.state.repo.created_at &&
-                    moment(this.state.repo.created_at).fromNow()}
-                </div>
-                <div className="github-meta">
-                  Update at
-                  {' '}
-                  {this.state.repo.updated_at &&
-                    moment(this.state.repo.updated_at).fromNow()}
-                </div>
+            <div className="github-meta">
+              <div>
+                {(this.state.repo.topics || []).map(topic => {
+                  return (
+                    <Tag style={{ marginTop: '0.5rem' }} key={topic}>
+                      {topic}
+                    </Tag>
+                  );
+                })}
               </div>
-            </Spin>
-            <div>
-              <Tabs defaultActiveKey="readme">
-                <TabPane tab="项目介绍" key="readme">
-                  <RepoReadme
-                    owner={pkg.config.owner}
-                    repo={this.state.repo}
-                    {...this.props.match.params}
-                  />
-                </TabPane>
-                <TabPane tab="最近活动" key="events">
-                  <RepoEvents
-                    owner={pkg.config.owner}
-                    repo={this.state.repo}
-                    {...this.props.match.params}
-                  />
-                </TabPane>
-              </Tabs>
+            </div>
+
+            <div className="github-meta">
+              Create at
+              {' '}
+              {this.state.repo.created_at &&
+                moment(this.state.repo.created_at).fromNow()}
+            </div>
+            <div className="github-meta">
+              Update at
+              {' '}
+              {this.state.repo.updated_at &&
+                moment(this.state.repo.updated_at).fromNow()}
             </div>
           </div>
-        </Col>
-      </Row>
+        </Spin>
+        <div>
+          <Tabs defaultActiveKey="readme">
+            <TabPane tab="项目介绍" key="readme">
+              <RepoReadme
+                owner={pkg.config.owner}
+                repo={this.state.repo}
+                {...this.props.match.params}
+              />
+            </TabPane>
+            <TabPane tab="最近活动" key="events">
+              <RepoEvents
+                owner={pkg.config.owner}
+                repo={this.state.repo}
+                {...this.props.match.params}
+              />
+            </TabPane>
+          </Tabs>
+        </div>
+      </div>
     );
   }
 }

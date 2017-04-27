@@ -5,9 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Menu, Pagination, Spin, Tag } from 'antd';
-import { Route, Switch, NavLink } from 'react-router-dom';
-
-import Todo from '../todo';
+import { NavLink } from 'react-router-dom';
 
 import github from '../../lib/github';
 import pkg from '../../../package.json';
@@ -46,101 +44,64 @@ class TodoList extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
-
-    const matcher = pathname.match(/\/todo\/(\d+)/);
-
-    const number = matcher ? matcher[1] : null;
-
     return (
       <Spin spinning={false}>
-        <Row className={'h100'}>
+        <Menu
+          mode="inline"
+          className={'h100'}
+          style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
+        >
+          {this.props.TODOS.map((todo, i) => {
+            return (
+              <Menu.Item
+                style={{
+                  borderBottom: '1px solid #e6e6e6'
+                }}
+                key={todo.number + '/' + i}
+              >
+                <NavLink
+                  exact={true}
+                  to={`/todo/${todo.number}`}
+                  title={todo.title}
+                  style={{
+                    whiteSpace: 'nowrap',
+                    wordBreak: 'break-all',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <Tag color={todo.state === 'open' ? 'red' : 'green'}>
+                    {todo.state === 'open' ? '未完成' : '已完成'}
+                  </Tag>
+                  {todo.title}
+                </NavLink>
+              </Menu.Item>
+            );
+          })}
 
-          <Col
-            xl={4}
-            lg={6}
-            md={8}
-            sm={8}
-            xs={!number ? 24 : 0}
-            className={'h100'}
-            style={{ transition: 'all 1s' }}
-          >
-            <Menu
-              mode="inline"
-              className={'h100'}
-              style={{ overflowY: 'auto', overflowX: 'hidden' }}
-            >
-              {this.props.TODOS.map((todo, i) => {
-                return (
-                  <Menu.Item
-                    key={todo.number + '/' + i}
-                    className={
-                      +number === +todo.number ? 'ant-menu-item-selected' : ``
-                    }
+          {this.state.meta.total > 0
+            ? <Menu.Item>
+                <Row className="text-center">
+                  <Col
+                    span={24}
+                    style={{
+                      transition: 'all 1s'
+                    }}
                   >
-                    <NavLink
-                      exact={true}
-                      to={`/todo/${todo.number}`}
-                      title={todo.title}
-                      style={{
-                        whiteSpace: 'nowrap',
-                        wordBreak: 'break-all',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      <Tag color={todo.state === 'open' ? 'red' : 'green'}>
-                        {todo.state === 'open' ? '未完成' : '已完成'}
-                      </Tag>
-                      {todo.title}
-                    </NavLink>
-                  </Menu.Item>
-                );
-              })}
+                    <Pagination
+                      simple
+                      onChange={page =>
+                        this.changePage(page, this.state.meta.per_page)}
+                      defaultCurrent={this.state.meta.page}
+                      defaultPageSize={this.state.meta.per_page}
+                      total={this.state.meta.total}
+                    />
+                  </Col>
+                </Row>
+              </Menu.Item>
+            : ''}
 
-              {this.state.meta.total > 0
-                ? <Menu.Item>
-                    <Row className="text-center">
-                      <Col
-                        span={24}
-                        style={{
-                          transition: 'all 1s'
-                        }}
-                      >
-                        <Pagination
-                          simple
-                          onChange={page =>
-                            this.changePage(page, this.state.meta.per_page)}
-                          defaultCurrent={this.state.meta.page}
-                          defaultPageSize={this.state.meta.per_page}
-                          total={this.state.meta.total}
-                        />
-                      </Col>
-                    </Row>
-                  </Menu.Item>
-                : ''}
-
-            </Menu>
-          </Col>
-
-          <Col
-            xl={20}
-            lg={18}
-            md={16}
-            sm={16}
-            xs={number ? 24 : 0}
-            className={'h100'}
-            style={{
-              overflowY: 'auto',
-              transition: 'all 1s'
-            }}
-          >
-            <Switch>
-              <Route path="/todo/:number" component={Todo} />
-            </Switch>
-          </Col>
-
-        </Row>
+        </Menu>
       </Spin>
     );
   }

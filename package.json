@@ -26,6 +26,7 @@
     "lodash.sortby": "^4.7.0",
     "moment": "^2.18.1",
     "normalize.css": "^6.0.0",
+    "qrcode.react": "^0.7.0",
     "query-string": "^4.3.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

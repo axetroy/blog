@@ -4,11 +4,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Menu } from 'antd';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Menu } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 import github from '../../lib/github';
-import Gist from '../gist';
 import * as gistsAction from '../../redux/gists';
 
 class Gists extends Component {
@@ -36,69 +35,37 @@ class Gists extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
-
-    const matcher = pathname.match(/\/gist\/([^\/]+)/);
-
-    const gistId = matcher ? matcher[1] : null;
-
     return (
-      <Row className={'h100'}>
-        <Col
-          xl={4}
-          lg={6}
-          md={8}
-          sm={8}
-          xs={!gistId ? 24 : 0}
-          className={'h100'}
-          style={{ transition: 'all 1s' }}
+      <div>
+        <Menu
+          mode="inline"
+          style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
         >
-          <Menu
-            mode="inline"
-            className={'h100'}
-            style={{ overflowY: 'auto', overflowX: 'hidden' }}
-          >
-            {this.props.GISTS.map(gist => {
-              return (
-                <Menu.Item
-                  key={gist.id}
-                  className={gistId === gist.id ? 'ant-menu-item-selected' : ''}
+          {this.props.GISTS.map(gist => {
+            return (
+              <Menu.Item
+                key={gist.id}
+                style={{
+                  borderBottom: '1px solid #e6e6e6'
+                }}
+              >
+                <NavLink
+                  exact={true}
+                  to={`/gist/${gist.id}`}
+                  style={{
+                    whiteSpace: 'nowrap',
+                    wordBreak: 'break-all',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden'
+                  }}
                 >
-                  <NavLink
-                    exact={true}
-                    to={`/gist/${gist.id}`}
-                    style={{
-                      whiteSpace: 'nowrap',
-                      wordBreak: 'break-all',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden'
-                    }}
-                  >
-                    {gist.description}
-                  </NavLink>
-                </Menu.Item>
-              );
-            })}
-          </Menu>
-        </Col>
-        <Col
-          xl={20}
-          lg={18}
-          md={16}
-          sm={16}
-          xs={gistId ? 24 : 0}
-          className={'h100'}
-          style={{
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            transition: 'all 1s'
-          }}
-        >
-          <Switch>
-            <Route exact path="/gist/:id" component={Gist} />
-          </Switch>
-        </Col>
-      </Row>
+                  {gist.description}
+                </NavLink>
+              </Menu.Item>
+            );
+          })}
+        </Menu>
+      </div>
     );
   }
 }

@@ -11,13 +11,38 @@ html {
 }
 
 body {
-  /*overflow-y: hidden;*/
   height: 100%;
-  /*min-width: 117rem;*/
+  background-color: #e9ebec;
+  /*background-image: url('http://d.5857.com/yzxkgqbz_110726/013.jpg');*/
+  background-origin: initial;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-#root {
-  height: 100%;
+.mega-octicon {
+  font-size: inherit;
+  min-width: 1.4rem;
+  margin-right: 0.8rem;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+  text-transform: none;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 0.1rem solid #e6e6e6;
+  box-shadow: 0.5rem 0.5rem 2rem #e6e6e6;
+  transition: all .5s
+}
+
+.container:hover {
+  box-shadow: 0.8rem 0.8rem 2rem #e6e6e6;
+  transition: all .5s
 }
 
 .h100 {

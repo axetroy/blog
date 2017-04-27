@@ -4,27 +4,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Pagination, Row, Col, Menu } from 'antd';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Spin, Pagination, Row, Col, Card, Tag } from 'antd';
+import { NavLink } from 'react-router-dom';
+import moment from 'moment';
+import queryString from 'query-string';
 
-import Post from '../post/';
 import github from '../../lib/github';
 
 import * as postAction from '../../redux/posts';
 
 import pkg from '../../../package.json';
 
+import './index.css';
+
 class Posts extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 50,
+      per_page: 10,
       total: 0
     }
   };
 
   async componentWillMount() {
-    await this.getPosts(this.state.meta.page, this.state.meta.per_page);
+    const query = queryString.parse(this.props.location.search);
+    let { page, per_page } = query;
+    page = +page || this.state.meta.page;
+    per_page = +per_page || this.state.meta.per_page;
+    this.setState({
+      meta: {
+        ...this.state.meta,
+        ...{ page: +page, per_page: +per_page }
+      }
+    });
+    await this.getPosts(page, per_page);
   }
 
   async getPosts(page, per_page) {
@@ -65,96 +78,98 @@ class Posts extends Component {
   }
 
   changePage(page, per_page) {
+    const oldQuery = queryString.parse(this.props.location.search);
+    this.props.history.push({
+      ...this.props.location,
+      search: queryString.stringify(Object.assign(oldQuery, { page, per_page }))
+    });
     this.getPosts(page, per_page);
   }
 
   render() {
-    const { pathname } = this.props.location;
-
-    const matcher = pathname.match(/\/post\/(\d+)/);
-
-    const number = matcher ? matcher[1] : null;
-
     return (
       <Spin spinning={false}>
-        <Row className={'h100'}>
-          <Col
-            xl={4}
-            lg={6}
-            md={8}
-            sm={8}
-            xs={!number ? 24 : 0}
-            className={'h100'}
-            style={{ transition: 'all 1s' }}
-          >
-            <Menu
-              mode="inline"
-              className={'h100'}
-              style={{ overflowY: 'auto', overflowX: 'hidden' }}
+        {this.props.POSTS.map((post, i) => {
+          return (
+            <Card
+              style={{ margin: '2rem 0' }}
+              className="post-list"
+              key={post.number + '/' + i}
             >
-              {this.props.POSTS.map((post, i) => {
-                return (
-                  <Menu.Item
-                    key={post.number + '/' + i}
-                    className={
-                      +number === +post.number ? 'ant-menu-item-selected' : ``
-                    }
+              <div>
+                <h3 className="post-title">
+                  <NavLink
+                    exact={true}
+                    to={`/post/${post.number}`}
+                    title={post.title}
+                    style={{
+                      wordBreak: 'break-word',
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden'
+                    }}
                   >
-                    <NavLink
-                      exact={true}
-                      to={`/post/${post.number}`}
-                      title={post.title}
+                    {post.title}
+                  </NavLink>
+                  <span style={{ marginLeft: '1rem' }}>
+                    {(post.labels || []).map(label => {
+                      return (
+                        <Tag key={label.id} color={'#' + label.color}>
+                          {label.name}
+                        </Tag>
+                      );
+                    })}
+                  </span>
+                </h3>
+              </div>
+              <div>
+                {post.body.slice(0, 500)}...
+              </div>
+              <div
+                style={{
+                  marginTop: '2rem',
+                  paddingTop: '2rem',
+                  borderTop: '1px solid #e6e6e6'
+                }}
+              >
+                {post.user.avatar_url
+                  ? <img
+                      src={post.user.avatar_url}
+                      alt=""
                       style={{
-                        whiteSpace: 'nowrap',
-                        wordBreak: 'break-all',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden'
+                        width: '4.4rem',
+                        height: '100%',
+                        borderRadius: '50%',
+                        marginRight: '0.5rem',
+                        verticalAlign: 'middle'
                       }}
-                    >
-                      {post.title}
-                    </NavLink>
-                  </Menu.Item>
-                );
-              })}
+                    />
+                  : ''}
+                <div
+                  style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                >
+                  <strong>{post.user.login}</strong>
+                  <p>{moment(new Date(post.created_at)).fromNow()}</p>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
 
-              {this.state.meta.total > 0
-                ? <Menu.Item>
-                    <Row className="text-center">
-                      <Col span={24} style={{ transition: 'all 1s' }}>
-                        <Pagination
-                          simple
-                          onChange={page =>
-                            this.changePage(page, this.state.meta.per_page)}
-                          defaultCurrent={this.state.meta.page}
-                          defaultPageSize={this.state.meta.per_page}
-                          total={this.state.meta.total}
-                        />
-                      </Col>
-                    </Row>
-                  </Menu.Item>
-                : ''}
+        {this.state.meta.total > 0
+          ? <Row className="text-center">
+              <Col span={24} style={{ transition: 'all 1s' }}>
+                <Pagination
+                  simple
+                  onChange={page =>
+                    this.changePage(page, this.state.meta.per_page)}
+                  defaultCurrent={this.state.meta.page}
+                  defaultPageSize={this.state.meta.per_page}
+                  total={this.state.meta.total}
+                />
+              </Col>
+            </Row>
+          : ''}
 
-            </Menu>
-          </Col>
-
-          <Col
-            xl={20}
-            lg={18}
-            md={16}
-            sm={16}
-            xs={number ? 24 : 0}
-            className={'h100'}
-            style={{
-              overflowY: 'auto',
-              transition: 'all 1s'
-            }}
-          >
-            <Switch>
-              <Route path="/post/:number" component={Post} />
-            </Switch>
-          </Col>
-
-        </Row>
       </Spin>
     );
   }
