@@ -44,25 +44,29 @@ class Header extends Component {
       }
     ]
   };
-
   componentDidMount() {
     const rythm = new Rythm();
     rythm.setMusic('./audio/bgm.mp3');
-
     rythm.addRythm('pulse2', 'pulse', 0, 10, {
       min: 0.1,
       max: 1.5
     });
-
     rythm.start();
-    this.setState({ rythm, rythmState: 'play' });
+    this.setState({
+      rythm,
+      rythmState: 'play'
+    });
   }
-
   render() {
     const pathname = (location.pathname + location.hash).replace('/#/', '/');
     const navClassName = 'ant-menu-item-selected';
     return (
-      <div id="header" style={{ position: 'relative' }}>
+      <div
+        id="header"
+        style={{
+          position: 'relative'
+        }}
+      >
         <div
           style={{
             width: '100%',
@@ -84,7 +88,7 @@ class Header extends Component {
             }}
           >
             <h2>Axetroy's NeverLand</h2>
-            <q>生活已经如此的艰难, 有些事情就不要拆穿...</q>
+            <q>人生已经如此的艰难, 有些事情就不要拆穿...</q>
           </div>
         </div>
         <Menu mode="horizontal">
@@ -136,7 +140,9 @@ class Header extends Component {
               this.setState({ rythmState: 'play' });
             } else {
               this.state.rythm.stop();
-              this.setState({ rythmState: 'stop' });
+              this.setState({
+                rythmState: 'stop'
+              });
             }
           }}
         />
