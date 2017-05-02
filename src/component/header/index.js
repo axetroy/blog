@@ -74,7 +74,7 @@ class Header extends Component {
           style={{
             width: '100%',
             height: '20rem',
-            backgroundImage: 'url(http://dota2hq.eu/wallpaper/dota2hq.eu-lina-the-slayer-wallpaper-hd-1920x1080.jpg)',
+            backgroundImage: 'url(./img/header-img.jpg)',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'inherit',
@@ -144,7 +144,7 @@ class Header extends Component {
                 />
               </Tooltip>
             </h2>
-            <q>人生已经如此的艰难, 有些事情就不要拆穿...</q>
+            <q>有些事现在不做 一辈子都不会做了</q>
           </div>
         </div>
         <Menu mode="horizontal">

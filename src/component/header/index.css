@@ -1,5 +1,5 @@
 .blur {
-  filter: blur(0.3rem);
+  filter: blur(0.2rem);
   transition: all 0.3s ease-in-out;
 }
 
