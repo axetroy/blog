@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin, Row, Col, Tag, Tooltip, Icon, Popover } from 'antd';
 import moment from 'moment';
-import QRCode from 'qrcode.react';
+let QRCode;
 
 import github from '../../lib/github';
 import * as postAction from '../../redux/post';
@@ -19,6 +19,9 @@ class Post extends Component {
 
   async componentWillMount() {
     let { number } = this.props.match.params;
+    require.ensure('qrcode.react', require => {
+      QRCode = require('qrcode.react');
+    });
     if (number) {
       await this.getPost(number);
     }
@@ -119,7 +122,7 @@ class Post extends Component {
                 trigger="click"
                 content={
                   <div className="text-center">
-                    <QRCode value={location.href} />
+                    {QRCode ? <QRCode value={location.href} /> : 'Loading...'}
                   </div>
                 }
               >

@@ -4,8 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import GitHubCalendar from 'github-calendar';
-import { Row, Col, Card } from 'antd';
+import { Card } from 'antd';
 
 import GithubUserInfo from '../../component/github-user-info';
 import GithubFollowers from '../../component/github-followers';
@@ -20,7 +19,10 @@ import pkg from '../../../package.json';
 
 class Github extends Component {
   componentDidMount() {
-    GitHubCalendar('.calendar', pkg.config.owner);
+    require.ensure('github-calendar', require => {
+      const GitHubCalendar = require('github-calendar');
+      GitHubCalendar('.calendar', pkg.config.owner);
+    });
   }
 
   render() {
