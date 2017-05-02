@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Tooltip } from 'antd';
 import { NavLink, matchPath } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import Rythm from 'rythm.js';
@@ -55,8 +55,8 @@ class Header extends Component {
     });
     // rythm.start();
     this.setState({
-      rythm,
-      rythmState: 'play'
+      rythm
+      // rythmState: 'play'
     });
   }
   render() {
@@ -106,7 +106,44 @@ class Header extends Component {
               src="https://avatars1.githubusercontent.com/u/9758711?v=3"
               alt=""
             />
-            <h2>Axetroy's NeverLand</h2>
+            <h2>
+              Axetroy's NeverLand
+              <Tooltip
+                placement="right"
+                title={
+                  this.state.rythmState === 'stop' ? 'Play Music' : 'Pause'
+                }
+              >
+                <div
+                  className="pulse2"
+                  style={{
+                    width: '2rem',
+                    height: '2rem',
+                    backgroundColor: this.state.rythmState === 'stop'
+                      ? '#F44336'
+                      : '#4CAF50',
+                    borderRadius: '50%',
+                    cursor: 'point',
+                    display: 'inline-block',
+                    marginLeft: '0.6rem',
+                    verticalAlign: 'middle'
+                  }}
+                  onClick={() => {
+                    if (this.state.rythmState === 'stop') {
+                      this.state.rythm.start();
+                      this.setState({
+                        rythmState: 'play'
+                      });
+                    } else {
+                      this.state.rythm.stop();
+                      this.setState({
+                        rythmState: 'stop'
+                      });
+                    }
+                  }}
+                />
+              </Tooltip>
+            </h2>
             <q>人生已经如此的艰难, 有些事情就不要拆穿...</q>
           </div>
         </div>
@@ -139,32 +176,6 @@ class Header extends Component {
             );
           })}
         </Menu>
-        <div
-          className="pulse2"
-          style={{
-            width: '2rem',
-            height: '2rem',
-            backgroundColor: this.state.rythmState === 'stop'
-              ? '#F44336'
-              : '#4CAF50',
-            borderRadius: '50%',
-            position: 'absolute',
-            right: '1.1rem',
-            bottom: '1.1rem',
-            cursor: 'point'
-          }}
-          onClick={() => {
-            if (this.state.rythmState === 'stop') {
-              this.state.rythm.start();
-              this.setState({ rythmState: 'play' });
-            } else {
-              this.state.rythm.stop();
-              this.setState({
-                rythmState: 'stop'
-              });
-            }
-          }}
-        />
       </div>
     );
   }
