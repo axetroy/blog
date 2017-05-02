@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon, message } from 'antd';
 import moment from 'moment';
-import prettyBytes from 'pretty-bytes';
+import prettyBytes from '../../lib/pretty-bytes';
 
 import Clipboard from '../../component/clipboard';
 
