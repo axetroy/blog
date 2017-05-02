@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
+import Octicon from 'react-octicon';
 
 import github from '../../lib/github';
 import * as gistsAction from '../../redux/gists';
@@ -59,6 +60,11 @@ class Gists extends Component {
                     overflow: 'hidden'
                   }}
                 >
+                  <Octicon
+                    style={{ fontSize: '1.6rem', marginRight: '0.5rem' }}
+                    name="gist"
+                    mega
+                  />
                   {gist.description}
                 </NavLink>
               </Menu.Item>

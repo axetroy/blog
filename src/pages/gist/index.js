@@ -89,6 +89,7 @@ class Gist extends Component {
     const gist = (this.props.GIST || {})[id] || {};
     return (
       <Spin spinning={!Object.keys(gist).length}>
+        <h2>{gist.description}</h2>
         <div className="edit-this-page-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
