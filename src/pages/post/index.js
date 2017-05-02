@@ -162,7 +162,7 @@ class Post extends Component {
           </h3>
 
           <div
-            className="markdown-body"
+            className="markdown-body post-content"
             style={{
               margin: '2rem 0',
               borderBottom: '1px solid #e6e6e6',
@@ -269,16 +269,13 @@ class Post extends Component {
 
           </div>
         </Row>
-
       </Spin>
     );
   }
 }
 export default connect(
   function mapStateToProps(state) {
-    return {
-      POST: state.POST
-    };
+    return { POST: state.POST };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({ setPost: postAction.set }, dispatch);

@@ -7,6 +7,8 @@ import { NavLink, matchPath } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import Rythm from 'rythm.js';
 
+import './index.css';
+
 class Header extends Component {
   state = {
     rythmState: 'stop',
@@ -51,7 +53,7 @@ class Header extends Component {
       min: 0.1,
       max: 1.5
     });
-    rythm.start();
+    // rythm.start();
     this.setState({
       rythm,
       rythmState: 'play'
@@ -68,25 +70,42 @@ class Header extends Component {
         }}
       >
         <div
+          className="blur"
           style={{
             width: '100%',
             height: '20rem',
-            backgroundImage: 'url(./img/header-image.jpg)',
+            backgroundImage: 'url(http://dota2hq.eu/wallpaper/dota2hq.eu-lina-the-slayer-wallpaper-hd-1920x1080.jpg)',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'inherit',
             backgroundPosition: 'center',
             position: 'relative'
           }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            textAlign: 'center',
+            color: '#fff',
+            width: '100%',
+            height: '100%'
+          }}
         >
           <div
             style={{
-              position: 'absolute',
-              top: '2rem',
-              left: '2rem',
-              color: '#607D8B'
+              marginTop: '3rem'
             }}
           >
+            <img
+              style={{
+                width: '10rem',
+                borderRadius: '50%'
+              }}
+              src="https://avatars1.githubusercontent.com/u/9758711?v=3"
+              alt=""
+            />
             <h2>Axetroy's NeverLand</h2>
             <q>人生已经如此的艰难, 有些事情就不要拆穿...</q>
           </div>

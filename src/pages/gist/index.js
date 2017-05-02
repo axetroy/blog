@@ -4,8 +4,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Tooltip, Icon } from 'antd';
+import { Spin, Tooltip, Icon, message } from 'antd';
 import moment from 'moment';
+import prettyBytes from 'pretty-bytes';
+
+import Clipboard from '../../component/clipboard';
 
 import github from '../../lib/github';
 import * as gistAction from '../../redux/gist';
@@ -49,16 +52,18 @@ class Gist extends Component {
       gist = data;
 
       for (let filename in gist.files) {
-        const file = gist.files[filename];
-        const res = await github.post(
-          '/markdown',
-          {
-            text: '```' + file.language + '\n' + file.content + '\n```',
-            mode: 'markdown'
-          },
-          { responseType: 'text' }
-        );
-        file.html = res.data;
+        if (gist.files.hasOwnProperty(filename)) {
+          const file = gist.files[filename];
+          const res = await github.post(
+            '/markdown',
+            {
+              text: '```' + file.language + '\n' + file.content + '\n```',
+              mode: 'markdown'
+            },
+            { responseType: 'text' }
+          );
+          file.html = res.data;
+        }
       }
     } catch (err) {
       console.error(err);
@@ -82,6 +87,42 @@ class Gist extends Component {
     }
     this.setState({ comments });
     return comments;
+  }
+
+  downloadFile(fileName, fileContent) {
+    function fake_click(obj) {
+      let ev = document.createEvent('MouseEvents');
+      ev.initMouseEvent(
+        'click',
+        true,
+        false,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      );
+      obj.dispatchEvent(ev);
+    }
+    function export_raw(name, data) {
+      let urlObject = window.URL || window.webkitURL || window;
+      let export_blob = new Blob([data]);
+      let save_link = document.createElementNS(
+        'http://www.w3.org/1999/xhtml',
+        'a'
+      );
+      save_link.href = urlObject.createObjectURL(export_blob);
+      save_link.download = name;
+      fake_click(save_link);
+    }
+    export_raw(fileName, fileContent);
   }
 
   render() {
@@ -109,7 +150,34 @@ class Gist extends Component {
           {(values(gist.files) || []).map(file => {
             return (
               <div key={file.filename} style={{}}>
-                <h3><Icon type="file" />{file.filename}</h3>
+                <h3>
+                  <span>
+                    <Icon type="file" />
+                    {file.filename}
+                  </span>
+                  <span
+                    style={{
+                      margin: '0 0.5rem'
+                    }}
+                  >
+                    <a
+                      href="javascript:"
+                      onClick={() =>
+                        this.downloadFile(file.filename, file.content)}
+                    >
+                      <Icon type="download" />{prettyBytes(file.size || 0)}
+                    </a>
+                  </span>
+                  <span>
+                    <Clipboard
+                      value={file.content}
+                      onSuccess={() => message.success('Copy Success!')}
+                      onError={() => message.error('Copy Fail!')}
+                    >
+                      <Icon type="copy" />Copy
+                    </Clipboard>
+                  </span>
+                </h3>
                 <div
                   className="markdown-body"
                   style={{

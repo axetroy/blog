@@ -94,3 +94,20 @@ body {
 .markdown-body ol {
   list-style: initial;
 }
+
+/*
+markdown style
+*/
+
+.markdown-body.post-content h1,
+.markdown-body.post-content h2,
+.markdown-body.post-content h3,
+.markdown-body.post-content h4,
+.markdown-body.post-content h5,
+.markdown-body.post-content h6 {
+  border-left: 0.5rem solid #64ceaa;
+  margin-left: -2.4rem;
+  margin-right: -2.4rem;
+  padding: 0.5rem 0 0.5rem 1.9rem;
+  background-color: #F5F5F5;
+}
