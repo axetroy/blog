@@ -70,10 +70,27 @@ class TodoList extends Component {
                     overflow: 'hidden'
                   }}
                 >
-                  <Tag color={todo.state === 'open' ? 'red' : 'green'}>
-                    {todo.state === 'open' ? '未完成' : '已完成'}
+                  <Tag color={todo.state === 'open' ? 'blue' : 'grey'}>
+                    {todo.state === 'open' ? 'Open' : 'Closed'}
                   </Tag>
-                  {todo.title}
+                  <span
+                    style={{
+                      textDecoration: todo.state !== 'open'
+                        ? 'line-through'
+                        : ''
+                    }}
+                  >
+                    {todo.title}
+                  </span>
+                  <span style={{ marginLeft: '0.5rem' }}>
+                    {todo.labels.map(label => {
+                      return (
+                        <Tag key={label.id} color={'#' + label.color}>
+                          {label.name}
+                        </Tag>
+                      );
+                    })}
+                  </span>
                 </NavLink>
               </Menu.Item>
             );
