@@ -133,7 +133,7 @@ class GithubOrganizations extends Component {
       console.error(err);
     }
     let total = 0;
-    contributions.forEach(v => total += v.contribution.changes);
+    contributions.forEach(v => (total += v.contribution.changes));
     return contributions.map(v => {
       v.contribution.total = total;
       return v;
@@ -296,10 +296,21 @@ class GithubOrganizations extends Component {
                 <Row>
                   <Col span={24}>
                     <div>
-                      <strong>{org.login}</strong>
-                      <p>{org.description}</p>
-                      <p>{org.location}</p>
-                      <p>创建于 {moment(org.created_at).format('YYYY-MM-DD')}</p>
+                      {org.login
+                        ? <strong><Icon type="team" />{org.login}</strong>
+                        : ''}
+                      {org.description
+                        ? <p><Icon type="bulb" />{org.description}</p>
+                        : ''}
+                      {org.location
+                        ? <p><Icon type="environment" />{org.location}</p>
+                        : ''}
+                      {org.created_at
+                        ? <p>
+                            <Icon type="calendar" />
+                            创建于{moment(org.created_at).format('YYYY-MM-DD')}
+                          </p>
+                        : ''}
                     </div>
                   </Col>
                 </Row>
