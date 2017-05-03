@@ -163,7 +163,7 @@ class Post extends Component {
                 fontSize: '2.4rem'
               }}
             >
-              <span>
+              <span style={{ margin: '0.5rem' }}>
                 <Tooltip title="编辑文章" placement="topRight">
                   <a
                     target="blank"
@@ -178,7 +178,8 @@ class Post extends Component {
               </span>
               <span
                 style={{
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  margin: '0.5rem'
                 }}
               >
                 <Popover
@@ -196,7 +197,8 @@ class Post extends Component {
               </span>
               <span
                 style={{
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  margin: '0.5rem'
                 }}
               >
                 <Dropdown overlay={this.getShareMenu(post)} trigger={['click']}>
