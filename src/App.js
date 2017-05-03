@@ -36,8 +36,8 @@ class App extends Component {
         <Router history={HashRouter}>
           <Row>
             <Col
-              lg={{ span: 12, offset: 6 }}
-              md={{ span: 16, offset: 4 }}
+              lg={{ span: 16, offset: 4 }}
+              md={{ span: 18, offset: 3 }}
               sm={{ span: 20, offset: 2 }}
               xs={{ span: 24 }}
             >
@@ -75,8 +75,8 @@ class App extends Component {
               </a>
             </Col>
             <Col
-              lg={{ span: 12, offset: 6 }}
-              md={{ span: 16, offset: 4 }}
+              lg={{ span: 16, offset: 4 }}
+              md={{ span: 18, offset: 3 }}
               sm={{ span: 20, offset: 2 }}
               xs={{ span: 24 }}
             >
@@ -102,8 +102,8 @@ class App extends Component {
               </Card>
             </Col>
             <Col
-              lg={{ span: 12, offset: 6 }}
-              md={{ span: 16, offset: 4 }}
+              lg={{ span: 16, offset: 4 }}
+              md={{ span: 18, offset: 3 }}
               sm={{ span: 20, offset: 2 }}
               xs={{ span: 24 }}
             >

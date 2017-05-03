@@ -122,7 +122,7 @@ class Posts extends Component {
                   </span>
                 </h3>
               </div>
-              <div>
+              <div style={{ color: '#9E9E9E' }}>
                 {post.body.slice(0, 500)}...
               </div>
               <div
