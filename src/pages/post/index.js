@@ -4,7 +4,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Row, Col, Tag, Tooltip, Icon, Popover } from 'antd';
+import {
+  Menu,
+  Spin,
+  Row,
+  Col,
+  Tag,
+  Tooltip,
+  Icon,
+  Popover,
+  Dropdown
+} from 'antd';
 import moment from 'moment';
 let QRCode;
 
@@ -78,6 +88,39 @@ class Post extends Component {
     return comments;
   }
 
+  getShareMenu(post) {
+    const shareMenu = [
+      {
+        title: '分享到新浪微博',
+        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' + post.title}&url=${location.href}&pic=&searchPic=false&style=simple`
+      },
+      {
+        title: '分享到 Twitter',
+        url: `https://twitter.com/intent/tweet?text=${'分享: ' + post.title}&url=${location.href}&via=Axetroy`
+      },
+      {
+        title: '分享到 Telegram',
+        url: `https://telegram.me/share/url?url=${location.href}&text=${'分享: ' + post.title}`
+      },
+      {
+        title: '分享到 QQ',
+        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' + post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${location.href}`
+      }
+    ];
+    return (
+      <Menu>
+        {shareMenu.map(menu => {
+          return (
+            <Menu.Item key={menu.title}>
+              <a target="_blank" href={menu.url}>
+                {menu.title}
+              </a>
+            </Menu.Item>
+          );
+        })}
+      </Menu>
+    );
+  }
   render() {
     const { number } = this.props.match.params;
     const post = this.props.POST[number] || {};
@@ -114,22 +157,32 @@ class Post extends Component {
               <p>{moment(new Date(post.created_at)).fromNow()}</p>
             </div>
             <div
-              style={{ textAlign: 'right', float: 'right', fontSize: '2.4rem' }}
+              style={{
+                textAlign: 'right',
+                float: 'right',
+                fontSize: '2.4rem'
+              }}
             >
-              <Popover
-                placement="topLeft"
-                title={'在其他设备中扫描二维码'}
-                trigger="click"
-                content={
-                  <div className="text-center">
-                    {QRCode ? <QRCode value={location.href} /> : 'Loading...'}
-                  </div>
-                }
+              <span
+                style={{
+                  cursor: 'pointer'
+                }}
               >
-                <Icon type="qrcode" />
-              </Popover>
+                <Popover
+                  placement="topLeft"
+                  title={'在其他设备中扫描二维码'}
+                  trigger="click"
+                  content={
+                    <div className="text-center">
+                      {QRCode ? <QRCode value={location.href} /> : 'Loading...'}
+                    </div>
+                  }
+                >
+                  <Icon type="qrcode" />
+                </Popover>
+              </span>
               <span>
-                <Tooltip title="编辑文章">
+                <Tooltip title="编辑文章" placement="topRight">
                   <a
                     target="blank"
                     href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
@@ -140,6 +193,11 @@ class Post extends Component {
                     <Icon type="edit" />
                   </a>
                 </Tooltip>
+              </span>
+              <span style={{ cursor: 'pointer' }}>
+                <Dropdown overlay={this.getShareMenu(post)} trigger={['click']}>
+                  <Icon type="share-alt" />
+                </Dropdown>
               </span>
             </div>
           </Col>
