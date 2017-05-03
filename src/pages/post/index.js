@@ -19,6 +19,7 @@ import moment from 'moment';
 let QRCode;
 
 import github from '../../lib/github';
+import { firstUpperCase } from '../../lib/utils';
 import * as postAction from '../../redux/post';
 import pkg from '../../../package.json';
 
@@ -153,8 +154,27 @@ class Post extends Component {
                 margin: '0 1rem'
               }}
             >
-              <strong>{post.user.login}</strong>
-              <p>{moment(new Date(post.created_at)).fromNow()}</p>
+              <strong>
+                <Icon
+                  type="user"
+                  style={{
+                    marginRight: '0.5rem'
+                  }}
+                />{firstUpperCase(post.user.login)}
+              </strong>
+              <p>
+                <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
+                {moment(new Date(post.created_at)).fromNow()}
+              </p>
+              <p>
+                <Icon
+                  type="message"
+                  style={{
+                    marginRight: '0.5rem'
+                  }}
+                />
+                {post.comments}
+              </p>
             </div>
             <div
               style={{

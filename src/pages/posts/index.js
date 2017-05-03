@@ -4,12 +4,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Pagination, Row, Col, Card, Tag } from 'antd';
+import { Spin, Pagination, Row, Col, Card, Tag, Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
 
 import github from '../../lib/github';
+import { firstUpperCase } from '../../lib/utils';
 
 import * as postAction from '../../redux/posts';
 
@@ -147,8 +148,22 @@ class Posts extends Component {
                 <div
                   style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
-                  <strong>{post.user.login}</strong>
-                  <p>{moment(new Date(post.created_at)).fromNow()}</p>
+                  <strong>
+                    <Icon
+                      type="user"
+                      style={{
+                        marginRight: '0.5rem'
+                      }}
+                    />{firstUpperCase(post.user.login)}
+                  </strong>
+                  <p>
+                    <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
+                    {moment(new Date(post.created_at)).fromNow()}
+                  </p>
+                  <p>
+                    <Icon type="message" style={{ marginRight: '0.5rem' }} />
+                    {post.comments}
+                  </p>
                 </div>
               </div>
             </Card>

@@ -2,6 +2,12 @@
  * Created by axetroy on 17-4-24.
  */
 
+export function firstUpperCase(str) {
+  return str.toLowerCase().replace(/\b[a-z]/g, function(s) {
+    return s.toUpperCase();
+  });
+}
+
 export function diffTime(time1) {
   return function(time2) {
     let seconds = Math.abs(time1 - time2) / 1000;
