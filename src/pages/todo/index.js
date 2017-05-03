@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Steps, Icon } from 'antd';
+import { Spin, Steps, Icon, Tooltip } from 'antd';
 import moment from 'moment';
 
 import github from '../../lib/github';
@@ -56,8 +56,22 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <Spin spinning={!Object.keys(todo).length}>
-        <h2>{todo.title}</h2>
-        <Steps style={{ margin: '2rem 0' }}>
+        <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
+          {todo.title}
+          <Tooltip placement="topLeft" title="编辑此页">
+            <a
+              href={`https://github.com/${pkg.config.owner}/${pkg.config.todo_repo}/issues/${todo.number}`}
+              target="_blank"
+            >
+              <Icon type="edit" />
+            </a>
+          </Tooltip>
+        </h2>
+        <Steps
+          style={{
+            margin: '2rem 0'
+          }}
+        >
           <Steps.Step
             status="finish"
             title="创建计划"

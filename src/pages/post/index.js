@@ -163,6 +163,19 @@ class Post extends Component {
                 fontSize: '2.4rem'
               }}
             >
+              <span>
+                <Tooltip title="编辑文章" placement="topRight">
+                  <a
+                    target="blank"
+                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                    style={{
+                      color: 'inherit'
+                    }}
+                  >
+                    <Icon type="edit" />
+                  </a>
+                </Tooltip>
+              </span>
               <span
                 style={{
                   cursor: 'pointer'
@@ -181,20 +194,11 @@ class Post extends Component {
                   <Icon type="qrcode" />
                 </Popover>
               </span>
-              <span>
-                <Tooltip title="编辑文章" placement="topRight">
-                  <a
-                    target="blank"
-                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-                    style={{
-                      color: 'inherit'
-                    }}
-                  >
-                    <Icon type="edit" />
-                  </a>
-                </Tooltip>
-              </span>
-              <span style={{ cursor: 'pointer' }}>
+              <span
+                style={{
+                  cursor: 'pointer'
+                }}
+              >
                 <Dropdown overlay={this.getShareMenu(post)} trigger={['click']}>
                   <Icon type="share-alt" />
                 </Dropdown>

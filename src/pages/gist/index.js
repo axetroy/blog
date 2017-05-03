@@ -130,150 +130,143 @@ class Gist extends Component {
     const gist = (this.props.GIST || {})[id] || {};
     return (
       <Spin spinning={!Object.keys(gist).length}>
-        <h2>{gist.description}</h2>
-        <div className="edit-this-page-container">
-          <div className="edit-this-page">
-            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-              <a
-                href={`https://gist.github.com/${gist.owner ? gist.owner.login : ''}/${gist.id}/edit`}
-                target="_blank"
-              >
-                <Icon
-                  type="edit"
+        <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
+          {gist.description}
+          <Tooltip placement="topLeft" title="编辑此页">
+            <a
+              href={`https://gist.github.com/${gist.owner ? gist.owner.login : ''}/${gist.id}/edit`}
+              target="_blank"
+            >
+              <Icon type="edit" />
+            </a>
+          </Tooltip>
+        </h2>
+        {(values(gist.files) || []).map(file => {
+          return (
+            <div key={file.filename} style={{}}>
+              <h3>
+                <span>
+                  <Icon type="file" />
+                  {file.filename}
+                </span>
+                <span
                   style={{
-                    fontSize: '3rem'
+                    margin: '0 0.5rem'
                   }}
-                />
-              </a>
-            </Tooltip>
-          </div>
-          {(values(gist.files) || []).map(file => {
-            return (
-              <div key={file.filename} style={{}}>
-                <h3>
-                  <span>
-                    <Icon type="file" />
-                    {file.filename}
-                  </span>
-                  <span
+                >
+                  <a
+                    href="javascript:"
+                    onClick={() =>
+                      this.downloadFile(file.filename, file.content)}
+                  >
+                    <Icon type="download" />{prettyBytes(file.size || 0)}
+                  </a>
+                </span>
+                <span>
+                  <Clipboard
+                    value={file.content}
+                    onSuccess={() => message.success('Copy Success!')}
+                    onError={() => message.error('Copy Fail!')}
+                  >
+                    <Icon type="copy" />Copy
+                  </Clipboard>
+                </span>
+              </h3>
+              <div
+                className="markdown-body"
+                style={{
+                  fontSize: '1.6rem'
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: file.html
+                }}
+              />
+            </div>
+          );
+        })}
+
+        <hr className="hr" />
+
+        <div>
+          <h3>
+            大牛们的评论:
+            <a
+              target="_blank"
+              href={gist.html_url}
+              style={{
+                float: 'right'
+              }}
+            >
+              朕有话说
+            </a>
+          </h3>
+
+          {this.state.comments.length
+            ? this.state.comments.map(comment => {
+                return (
+                  <div
+                    key={comment.id}
                     style={{
-                      margin: '0 0.5rem'
+                      border: '0.1rem solid #e2e2e2',
+                      borderRadius: '0.5rem',
+                      margin: '1rem 0'
                     }}
                   >
-                    <a
-                      href="javascript:"
-                      onClick={() =>
-                        this.downloadFile(file.filename, file.content)}
-                    >
-                      <Icon type="download" />{prettyBytes(file.size || 0)}
-                    </a>
-                  </span>
-                  <span>
-                    <Clipboard
-                      value={file.content}
-                      onSuccess={() => message.success('Copy Success!')}
-                      onError={() => message.error('Copy Fail!')}
-                    >
-                      <Icon type="copy" />Copy
-                    </Clipboard>
-                  </span>
-                </h3>
-                <div
-                  className="markdown-body"
-                  style={{
-                    fontSize: '1.6rem'
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: file.html
-                  }}
-                />
-              </div>
-            );
-          })}
-
-          <hr className="hr" />
-
-          <div>
-            <h3>
-              大牛们的评论:
-              <a
-                target="_blank"
-                href={gist.html_url}
-                style={{
-                  float: 'right'
-                }}
-              >
-                朕有话说
-              </a>
-            </h3>
-
-            {this.state.comments.length
-              ? this.state.comments.map(comment => {
-                  return (
                     <div
-                      key={comment.id}
+                      className="comment-header"
                       style={{
-                        border: '0.1rem solid #e2e2e2',
-                        borderRadius: '0.5rem',
-                        margin: '1rem 0'
+                        overflow: 'hidden'
                       }}
                     >
-                      <div
-                        className="comment-header"
+                      <img
                         style={{
-                          overflow: 'hidden'
+                          width: '3.2rem',
+                          verticalAlign: 'middle',
+                          borderRadius: '50%'
+                        }}
+                        src={comment.user.avatar_url}
+                        alt=""
+                      />
+                      &nbsp;&nbsp;
+                      <strong
+                        style={{
+                          color: '#586069'
                         }}
                       >
-                        <img
-                          style={{
-                            width: '3.2rem',
-                            verticalAlign: 'middle',
-                            borderRadius: '50%'
-                          }}
-                          src={comment.user.avatar_url}
-                          alt=""
-                        />
-                        &nbsp;&nbsp;
-                        <strong
-                          style={{
-                            color: '#586069'
-                          }}
+                        <a
+                          target="_blank"
+                          href={`https://github.com/${comment.user.login}`}
                         >
-                          <a
-                            target="_blank"
-                            href={`https://github.com/${comment.user.login}`}
-                          >
-                            {comment.user.login}
-                          </a>
-                        </strong>
+                          {comment.user.login}
+                        </a>
+                      </strong>
+                      &nbsp;&nbsp;
+                      <span>
+                        {' '}
+                        {`commented at ${moment(comment.created_at).fromNow()}`}
                         &nbsp;&nbsp;
-                        <span>
-                          {' '}
-                          {`commented at ${moment(comment.created_at).fromNow()}`}
-                          &nbsp;&nbsp;
-                          {`updated at ${moment(comment.updated_at).fromNow()}`}
-                        </span>
-                      </div>
-                      <div className="comment-body">
-                        <div
-                          className="markdown-body"
-                          style={{
-                            fontSize: '1.6rem',
-                            padding: '1.5rem'
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: comment.body_html
-                          }}
-                        />
-                      </div>
+                        {`updated at ${moment(comment.updated_at).fromNow()}`}
+                      </span>
                     </div>
-                  );
-                })
-              : <div>
-                  <p>还没有人评论哦，赶紧抢沙发!</p>
-                </div>}
+                    <div className="comment-body">
+                      <div
+                        className="markdown-body"
+                        style={{
+                          fontSize: '1.6rem',
+                          padding: '1.5rem'
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: comment.body_html
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            : <div>
+                <p>还没有人评论哦，赶紧抢沙发!</p>
+              </div>}
 
-          </div>
         </div>
 
       </Spin>
