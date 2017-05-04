@@ -12,19 +12,13 @@ import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
 import GithubLang from '../../component/github-lang';
+import GithubCalendar from '../../component/github-calendar';
 
 import './index.css';
 
 import pkg from '../../../package.json';
 
 class Github extends Component {
-  componentDidMount() {
-    require.ensure('github-calendar', require => {
-      const GitHubCalendar = require('github-calendar');
-      GitHubCalendar('.calendar', pkg.config.owner);
-    });
-  }
-
   render() {
     return (
       <div>
@@ -37,12 +31,12 @@ class Github extends Component {
             overflow: 'auto'
           }}
         >
-          <div
-            className="calendar"
+          <GithubCalendar
             style={{
               width: '100%',
               minWidth: '75rem'
             }}
+            name={pkg.config.owner}
           />
         </div>
 
