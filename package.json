@@ -11,6 +11,7 @@
     "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
   },
   "dependencies": {
+    "@axetroy/react-clipboard": "axetroy/react-clipboard",
     "@axetroy/roll": "^1.0.2",
     "antd": "^2.9.0",
     "axios": "^0.16.0",

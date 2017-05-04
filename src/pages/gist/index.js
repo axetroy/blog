@@ -8,7 +8,7 @@ import { Spin, Tooltip, Icon, message } from 'antd';
 import moment from 'moment';
 import prettyBytes from '../../lib/pretty-bytes';
 
-import Clipboard from '../../component/clipboard';
+import ReactClipboard from '@axetroy/react-clipboard';
 
 import github from '../../lib/github';
 import * as gistAction from '../../redux/gist';
@@ -163,13 +163,13 @@ class Gist extends Component {
                   </a>
                 </span>
                 <span>
-                  <Clipboard
+                  <ReactClipboard
                     value={file.content}
                     onSuccess={() => message.success('Copy Success!')}
                     onError={() => message.error('Copy Fail!')}
                   >
                     <Icon type="copy" />Copy
-                  </Clipboard>
+                  </ReactClipboard>
                 </span>
               </h3>
               <div

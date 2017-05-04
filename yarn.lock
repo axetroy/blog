@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@axetroy/react-clipboard@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/react-clipboard/-/react-clipboard-0.1.0.tgz#380afa457dd47673605fab478c1d445731429d52"
+
+"@axetroy/react-clipboard@axetroy/react-clipboard":
+  version "0.1.1"
+  resolved "https://codeload.github.com/axetroy/react-clipboard/tar.gz/f2f80671de68b1b4333ddcbb3dde4bc3a44eca19"
+
 "@axetroy/roll@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@axetroy/roll/-/roll-1.0.2.tgz#ae11792411dc4ecd329cc3749a8ed02612cadf3b"
