@@ -16,10 +16,14 @@ import pkg from '../../../package.json';
 class GithubRepositories extends Component {
   state = {};
   async componentWillMount() {
-    require.ensure(['chart.js', '@axetroy/react-chart.js'], require => {
-      const ReactChart = require('@axetroy/react-chart.js');
-      this.setState({ ReactChart: ReactChart.default });
-    });
+    require.ensure(
+      ['chart.js'],
+      require => {
+        const ReactChart = require('@axetroy/react-chart.js');
+        this.setState({ ReactChart: ReactChart.default });
+      },
+      'react-chart'
+    );
     const allRepos = await this.getAllRepos(1);
     this.props.setAllRepos(allRepos);
   }

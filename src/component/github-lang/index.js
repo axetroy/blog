@@ -39,10 +39,10 @@ class GithubLang extends Component {
   state = { ALL_REPOS: null };
 
   componentWillMount() {
-    require.ensure(['chart.js', '@axetroy/react-chart.js'], require => {
+    require.ensure(['chart.js'], require => {
       const ReactChart = require('@axetroy/react-chart.js');
       this.setState({ ReactChart: ReactChart.default });
-    });
+    }, 'react-chart');
   }
 
   componentWillReceiveProps(nextPros) {

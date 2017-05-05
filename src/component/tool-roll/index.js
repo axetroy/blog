@@ -51,15 +51,19 @@ class Roll extends Component {
   }
 
   roll() {
-    require.ensure(['@axetroy/roll'], require => {
-      const RollUp = require('@axetroy/roll');
-      const roller = new RollUp();
-      const list = this.props.ROLL_LIST;
-      list.forEach(v => roller.add(v.name, +v.rank));
-      const result = roller.roll();
-      console.info(result);
-      this.setState({ result, visible: true });
-    });
+    require.ensure(
+      [],
+      require => {
+        const RollUp = require('@axetroy/roll');
+        const roller = new RollUp();
+        const list = this.props.ROLL_LIST;
+        list.forEach(v => roller.add(v.name, +v.rank));
+        const result = roller.roll();
+        console.info(result);
+        this.setState({ result, visible: true });
+      },
+      'roll'
+    );
   }
 
   render() {

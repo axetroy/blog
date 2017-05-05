@@ -30,9 +30,13 @@ class Post extends Component {
 
   async componentWillMount() {
     let { number } = this.props.match.params;
-    require.ensure('qrcode.react', require => {
-      QRCode = require('qrcode.react');
-    });
+    require.ensure(
+      [],
+      require => {
+        QRCode = require('qrcode.react');
+      },
+      'react-qrcode'
+    );
     if (number) {
       await this.getPost(number);
     }
