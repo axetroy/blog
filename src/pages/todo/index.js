@@ -121,8 +121,7 @@ class Todo extends Component {
             fontSize: '1.6rem',
             minHeight: '20rem'
           }}
-          dangerouslySetInnerHTML={{
-            __html: todo.body_html
+          dangerouslySetInnerHTML={{ __html: todo.body_html
           }}
         />
       </Spin>

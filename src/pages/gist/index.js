@@ -164,6 +164,7 @@ class Gist extends Component {
                 </span>
                 <span>
                   <ReactClipboard
+                    style={{ cursor: 'pointer' }}
                     value={file.content}
                     onSuccess={() => message.success('Copy Success!')}
                     onError={() => message.error('Copy Fail!')}
