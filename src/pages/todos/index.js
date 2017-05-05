@@ -75,9 +75,7 @@ class TodoList extends Component {
                   </Tag>
                   <span
                     style={{
-                      textDecoration: todo.state !== 'open'
-                        ? 'line-through'
-                        : ''
+                      color: todo.state !== 'open' ? '#9E9E9E' : 'inherit'
                     }}
                   >
                     {todo.title}
