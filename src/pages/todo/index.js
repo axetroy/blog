@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Steps, Icon, Tooltip } from 'antd';
+import { Spin, Steps, Icon, Tooltip, Tag } from 'antd';
 import moment from 'moment';
 
 import github from '../../lib/github';
@@ -56,17 +56,19 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <Spin spinning={!Object.keys(todo).length}>
-        <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
-          {todo.title}
-          <Tooltip placement="topLeft" title="编辑此页">
-            <a
-              href={`https://github.com/${pkg.config.owner}/${pkg.config.todo_repo}/issues/${todo.number}`}
-              target="_blank"
-            >
-              <Icon type="edit" />
-            </a>
-          </Tooltip>
-        </h2>
+        {todo.title
+          ? <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
+              {todo.title}
+              <Tooltip placement="topLeft" title="编辑此页">
+                <a
+                  href={`https://github.com/${pkg.config.owner}/${pkg.config.todo_repo}/issues/${todo.number}`}
+                  target="_blank"
+                >
+                  <Icon type="edit" />
+                </a>
+              </Tooltip>
+            </h2>
+          : ''}
         <Steps
           style={{
             margin: '2rem 0'
@@ -95,7 +97,7 @@ class Todo extends Component {
           />
           <Steps.Step
             status={todo.closed_at ? 'finish' : 'wait'}
-            title="已完成"
+            title="关闭计划"
             description={
               todo.closed_at
                 ? `${moment(new Date(todo.closed_at)).format('YYYY-MM-DD HH:mm:ss')}`
@@ -104,6 +106,15 @@ class Todo extends Component {
             icon={<Icon type="check" />}
           />
         </Steps>
+        <div style={{ margin: '2rem 0' }}>
+          {todo.labels.map(label => {
+            return (
+              <Tag key={label.id} color={'#' + label.color}>
+                {label.name}
+              </Tag>
+            );
+          })}
+        </div>
         <div
           className="markdown-body"
           style={{
