@@ -8,6 +8,7 @@ import { Spin, Pagination, Row, Col, Card, Tag, Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
+import LazyImage from '@axetroy/react-img-lazy-load';
 
 import github from '../../lib/github';
 import { firstUpperCase } from '../../lib/utils';
@@ -133,7 +134,7 @@ class Posts extends Component {
                 }}
               >
                 {post.user.avatar_url
-                  ? <img
+                  ? <LazyImage
                       src={post.user.avatar_url}
                       alt=""
                       style={{

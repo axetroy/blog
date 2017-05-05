@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Spin, Pagination } from 'antd';
+import LazyImage from '@axetroy/react-img-lazy-load';
 
 import github from '../../lib/github';
 import { storeFollowings } from '../../redux/following';
@@ -79,7 +80,7 @@ class GithubFollowing extends Component {
                 key={user.login}
               >
                 <a href={user.html_url} target="_blank">
-                  <img
+                  <LazyImage
                     src={user.avatar_url}
                     style={{ width: '10rem', maxWidth: '100%' }}
                     alt=""
