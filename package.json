@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@axetroy/react-clipboard": "^0.1.2",
+    "@axetroy/react-github-calendar": "^0.1.0",
     "@axetroy/roll": "^1.0.2",
     "antd": "^2.9.3",
     "axios": "^0.16.1",

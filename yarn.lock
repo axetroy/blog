@@ -6,6 +6,12 @@
   version "0.1.2"
   resolved "https://registry.npmjs.org/@axetroy/react-clipboard/-/react-clipboard-0.1.2.tgz#9525f724f3f0b187cb929c2b87b3dbcef2b4de8f"
 
+"@axetroy/react-github-calendar@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/react-github-calendar/-/react-github-calendar-0.1.0.tgz#05a24b1993807b848bc580e3f9d5d0f2327395f9"
+  dependencies:
+    github-calendar "^1.1.12"
+
 "@axetroy/roll@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@axetroy/roll/-/roll-1.0.2.tgz#ae11792411dc4ecd329cc3749a8ed02612cadf3b"

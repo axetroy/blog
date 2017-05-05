@@ -12,7 +12,7 @@ import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
 import GithubLang from '../../component/github-lang';
-import GithubCalendar from '../../component/github-calendar';
+import GithubCalendar from '@axetroy/react-github-calendar';
 
 import './index.css';
 
