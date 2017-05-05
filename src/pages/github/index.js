@@ -12,14 +12,20 @@ import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
 import GithubLang from '../../component/github-lang';
-import GithubCalendar from '@axetroy/react-github-calendar';
 
 import './index.css';
 
 import pkg from '../../../package.json';
 
 class Github extends Component {
+  componentWillMount() {
+    require.ensure('@axetroy/react-github-calendar', require => {
+      const GithubCalendar = require('@axetroy/react-github-calendar');
+      this.setState({ GithubCalendar: GithubCalendar.default });
+    });
+  }
   render() {
+    const GithubCalendar = this.state ? this.state.GithubCalendar : null;
     return (
       <div>
         <h2 className="github-title">
@@ -31,13 +37,15 @@ class Github extends Component {
             overflow: 'auto'
           }}
         >
-          <GithubCalendar
-            style={{
-              width: '100%',
-              minWidth: '75rem'
-            }}
-            name={pkg.config.owner}
-          />
+          {GithubCalendar
+            ? <GithubCalendar
+                style={{
+                  width: '100%',
+                  minWidth: '75rem'
+                }}
+                name={pkg.config.owner}
+              />
+            : ''}
         </div>
 
         <h2 className="github-title">
