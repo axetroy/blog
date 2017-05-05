@@ -102,7 +102,7 @@ class Repos extends Component {
                 sm={12}
                 xs={24}
               >
-                <Card style={{ height: '30rem', margin: '2rem 0' }}>
+                <Card style={{ height: '30rem', margin: '2rem 0' }} className="repo-list">
                   <NavLink
                     exact={true}
                     to={`/repo/${repo.name}`}

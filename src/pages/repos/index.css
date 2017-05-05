@@ -7,3 +7,7 @@
   height: 1.2rem;
   border-radius: 50%;
 }
+
+.repo-list:hover {
+  background-color: #FAFAFA;
+}

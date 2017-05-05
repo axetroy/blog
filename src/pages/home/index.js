@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Spin, Icon, Tooltip } from 'antd';
+import { Spin, Icon, Tooltip } from 'antd';
 
 import pkg from '../../../package.json';
 import github from '../../lib/github';
