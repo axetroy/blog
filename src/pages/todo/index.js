@@ -107,7 +107,7 @@ class Todo extends Component {
           />
         </Steps>
         <div style={{ margin: '2rem 0' }}>
-          {todo.labels.map(label => {
+          {(todo.labels || []).map(label => {
             return (
               <Tag key={label.id} color={'#' + label.color}>
                 {label.name}
