@@ -48,17 +48,33 @@ class Header extends Component {
   };
   componentDidMount() {
     const rythm = new Rythm();
-    rythm.setMusic('./audio/bgm.mp3');
-    rythm.addRythm('pulse2', 'pulse', 0, 10, {
-      min: 0.1,
-      max: 1.5
-    });
-    // rythm.start();
-    this.setState({
-      rythm
-      // rythmState: 'play'
-    });
+    this.setState({ rythm });
   }
+
+  playMusic() {
+    const { rythm } = this.state;
+    if (rythm) {
+      if (!this.__bgmLoaded) {
+        rythm.setMusic('./audio/bgm.mp3');
+        rythm.addRythm('pulse2', 'pulse', 0, 10, {
+          min: 0.1,
+          max: 1.5
+        });
+        this.__bgmLoaded = true;
+      }
+      rythm.start();
+      this.setState({ rythmState: 'play' });
+    }
+  }
+
+  pauseMusic() {
+    const { rythm } = this.state;
+    if (rythm) {
+      rythm.stop();
+      this.setState({ rythmState: 'stop' });
+    }
+  }
+
   render() {
     const pathname = (location.pathname + location.hash).replace('/#/', '/');
     const navClassName = 'ant-menu-item-selected';
@@ -130,15 +146,9 @@ class Header extends Component {
                   }}
                   onClick={() => {
                     if (this.state.rythmState === 'stop') {
-                      this.state.rythm.start();
-                      this.setState({
-                        rythmState: 'play'
-                      });
+                      this.playMusic();
                     } else {
-                      this.state.rythm.stop();
-                      this.setState({
-                        rythmState: 'stop'
-                      });
+                      this.pauseMusic();
                     }
                   }}
                 />
