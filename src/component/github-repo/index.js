@@ -8,14 +8,18 @@ import { Row, Col, Spin, Tooltip } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
-import Chart from '../chart';
 import * as allReposAction from '../../redux/all-repos';
 
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 
 class GithubRepositories extends Component {
+  state = {};
   async componentWillMount() {
+    require.ensure(['chart.js', '@axetroy/react-chart.js'], require => {
+      const ReactChart = require('@axetroy/react-chart.js');
+      this.setState({ ReactChart: ReactChart.default });
+    });
     const allRepos = await this.getAllRepos(1);
     this.props.setAllRepos(allRepos);
   }
@@ -41,6 +45,7 @@ class GithubRepositories extends Component {
   }
 
   render() {
+    const { ReactChart } = this.state;
     return (
       <Spin spinning={false}>
         <Row
@@ -142,32 +147,32 @@ class GithubRepositories extends Component {
               const repos = this.props.ALL_REPOS || [];
               const fork = repos.filter(repo => repo.fork);
               const source = repos.filter(repo => !repo.fork);
-              return (
-                <Chart
-                  type="pie"
-                  data={{
-                    labels: ['原创仓库', 'Fork'],
-                    datasets: [
-                      {
-                        data: [source.length, fork.length],
-                        backgroundColor: ['#4CAF50'],
-                        hoverBackgroundColor: ['#4CAF50']
+              return ReactChart
+                ? <ReactChart
+                    type="pie"
+                    data={{
+                      labels: ['原创仓库', 'Fork'],
+                      datasets: [
+                        {
+                          data: [source.length, fork.length],
+                          backgroundColor: ['#4CAF50'],
+                          hoverBackgroundColor: ['#4CAF50']
+                        }
+                      ]
+                    }}
+                    options={{
+                      animation: false,
+                      title: {
+                        display: true,
+                        text: `${(source.length / repos.length * 100).toFixed(0)}% 原创仓库`
+                      },
+                      cutoutPercentage: 50,
+                      legend: {
+                        display: false
                       }
-                    ]
-                  }}
-                  options={{
-                    animation: false,
-                    title: {
-                      display: true,
-                      text: `${(source.length / repos.length * 100).toFixed(0)}% 原创仓库`
-                    },
-                    cutoutPercentage: 50,
-                    legend: {
-                      display: false
-                    }
-                  }}
-                />
-              );
+                    }}
+                  />
+                : '';
             })()}
           </Col>
           <Col md={12} sm={24} xs={24}>
@@ -177,32 +182,36 @@ class GithubRepositories extends Component {
                 repo => -repo.watchers_count
               );
               repos = [].concat(repos).slice(0, 10);
-              return (
-                <Chart
-                  type="pie"
-                  data={{
-                    labels: repos.map(repo => repo.name),
-                    datasets: [
-                      {
-                        data: repos.map(repo => repo.watchers_count),
-                        backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
-                        hoverBackgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9']
+              return ReactChart
+                ? <ReactChart
+                    type="pie"
+                    data={{
+                      labels: repos.map(repo => repo.name),
+                      datasets: [
+                        {
+                          data: repos.map(repo => repo.watchers_count),
+                          backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
+                          hoverBackgroundColor: [
+                            '#4CAF50',
+                            '#A5D6A7',
+                            '#E8F5E9'
+                          ]
+                        }
+                      ]
+                    }}
+                    options={{
+                      animation: false,
+                      title: {
+                        display: true,
+                        text: `Star比例`
+                      },
+                      cutoutPercentage: 50,
+                      legend: {
+                        display: false
                       }
-                    ]
-                  }}
-                  options={{
-                    animation: false,
-                    title: {
-                      display: true,
-                      text: `Star比例`
-                    },
-                    cutoutPercentage: 50,
-                    legend: {
-                      display: false
-                    }
-                  }}
-                />
-              );
+                    }}
+                  />
+                : '';
             })()}
           </Col>
         </Row>

@@ -18,6 +18,7 @@ import './index.css';
 import pkg from '../../../package.json';
 
 class Github extends Component {
+  state = {};
   componentWillMount() {
     require.ensure('@axetroy/react-github-calendar', require => {
       const GithubCalendar = require('@axetroy/react-github-calendar');

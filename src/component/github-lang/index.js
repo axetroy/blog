@@ -9,7 +9,6 @@ import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 
 import GithubColors from '../../lib/github-colors.json';
-import Chart from '../../component/chart';
 
 import github from '../../lib/github';
 
@@ -38,6 +37,13 @@ function sum(array) {
 
 class GithubLang extends Component {
   state = { ALL_REPOS: null };
+
+  componentWillMount() {
+    require.ensure(['chart.js', '@axetroy/react-chart.js'], require => {
+      const ReactChart = require('@axetroy/react-chart.js');
+      this.setState({ ReactChart: ReactChart.default });
+    });
+  }
 
   componentWillReceiveProps(nextPros) {
     if (nextPros.ALL_REPOS && this.state.ALL_REPOS !== this.props.ALL_REPOS) {
@@ -71,6 +77,7 @@ class GithubLang extends Component {
     this.props.storeLang(lang);
   }
   render() {
+    const { ReactChart } = this.state;
     const languages = Object.keys(this.props.ALL_REPO_LANGUAGES);
     const lines = values(this.props.ALL_REPO_LANGUAGES);
     const total = sum(lines);
@@ -117,64 +124,69 @@ class GithubLang extends Component {
         </Row>
         <Row>
           <Col md={12} xs={24}>
-            <Chart
-              type="radar"
-              data={{
-                labels: languages,
-                datasets: [
-                  {
-                    backgroundColor: 'rgba(179,181,198,0.2)',
-                    borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(179,181,198,1)',
-                    data: starPercent
-                  }
-                ]
-              }}
-              options={{
-                animation: false,
-                title: {
-                  display: true,
-                  text: '使用语言频次'
-                },
-                legend: {
-                  display: false
-                }
-              }}
-            />
+            {ReactChart
+              ? <ReactChart
+                  type="radar"
+                  data={{
+                    labels: languages,
+                    datasets: [
+                      {
+                        backgroundColor: 'rgba(179,181,198,0.2)',
+                        borderColor: 'rgba(179,181,198,1)',
+                        pointBackgroundColor: 'rgba(179,181,198,1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(179,181,198,1)',
+                        data: starPercent
+                      }
+                    ]
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: '使用语言频次'
+                    },
+                    legend: {
+                      display: false
+                    }
+                  }}
+                />
+              : ''}
           </Col>
 
           <Col md={12} xs={24}>
-            <Chart
-              type="polarArea"
-              data={{
-                labels: languages,
-                datasets: [
-                  {
-                    data: startNum,
-                    backgroundColor: languages.map(
-                      lang =>
-                        (GithubColors[lang] ? GithubColors[lang].color : '')
-                    )
-                  }
-                ]
-              }}
-              options={{
-                animation: false,
-                scale: {
-                  lineArc: true
-                },
-                title: {
-                  display: true,
-                  text: '语言 & 代码量'
-                },
-                legend: {
-                  display: true
-                }
-              }}
-            />
+            {ReactChart
+              ? <ReactChart
+                  type="polarArea"
+                  data={{
+                    labels: languages,
+                    datasets: [
+                      {
+                        data: startNum,
+                        backgroundColor: languages.map(
+                          lang =>
+                            GithubColors[lang] ? GithubColors[lang].color : ''
+                        )
+                      }
+                    ]
+                  }}
+                  options={{
+                    animation: false,
+                    scale: {
+                      lineArc: true
+                    },
+                    title: {
+                      display: true,
+                      text: '语言 & 代码量'
+                    },
+                    legend: {
+                      display: true
+                    }
+                  }}
+                />
+              : ''}
+
           </Col>
         </Row>
         <Row

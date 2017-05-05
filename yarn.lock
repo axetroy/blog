@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@axetroy/react-chart.js@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/react-chart.js/-/react-chart.js-0.1.0.tgz#cb4d5ed21a417d9d0b0c58496f0f6df33469b356"
+
 "@axetroy/react-clipboard@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@axetroy/react-clipboard/-/react-clipboard-0.1.2.tgz#9525f724f3f0b187cb929c2b87b3dbcef2b4de8f"
