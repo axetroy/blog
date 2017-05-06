@@ -18,6 +18,7 @@ import {
 import moment from 'moment';
 let QRCode;
 
+import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import { firstUpperCase } from '../../lib/utils';
 import * as postAction from '../../redux/post';
@@ -130,237 +131,244 @@ class Post extends Component {
     const { number } = this.props.match.params;
     const post = this.props.POST[number] || {};
     return (
-      <Spin spinning={!Object.keys(post).length}>
-        <Row>
-          <Col
-            style={{
-              marginBottom: '2rem',
-              paddingBottom: '2rem',
-              borderBottom: '1px solid #e6e6e6'
-            }}
-          >
-            {post.user && post.user.avatar_url
-              ? <img
-                  src={post.user.avatar_url}
-                  alt=""
-                  style={{
-                    width: '4.4rem',
-                    height: '100%',
-                    borderRadius: '50%',
-                    verticalAlign: 'middle'
-                  }}
-                />
-              : ''}
-            <div
+      <DocumentTitle title={post.title} suffix={['博客文章']}>
+        <Spin spinning={!Object.keys(post).length}>
+          <Row>
+            <Col
               style={{
-                display: 'inline-block',
-                verticalAlign: 'middle',
-                margin: '0 1rem'
+                marginBottom: '2rem',
+                paddingBottom: '2rem',
+                borderBottom: '1px solid #e6e6e6'
               }}
             >
-              <strong>
-                <Icon
-                  type="user"
-                  style={{
-                    marginRight: '0.5rem'
-                  }}
-                />{firstUpperCase(post.user.login)}
-              </strong>
-              <p>
-                <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
-                {moment(new Date(post.created_at)).fromNow()}
-              </p>
-              <p>
-                <Icon
-                  type="message"
-                  style={{
-                    marginRight: '0.5rem'
-                  }}
-                />
-                {post.comments}
-              </p>
-            </div>
-            <div
-              style={{
-                textAlign: 'right',
-                float: 'right',
-                fontSize: '2.4rem'
-              }}
-            >
-              <span style={{ margin: '0.5rem' }}>
-                <Tooltip title="编辑文章" placement="topRight">
-                  <a
-                    target="blank"
-                    href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+              {post.user && post.user.avatar_url
+                ? <img
+                    src={post.user.avatar_url}
+                    alt=""
                     style={{
-                      color: 'inherit'
+                      width: '4.4rem',
+                      height: '100%',
+                      borderRadius: '50%',
+                      verticalAlign: 'middle'
                     }}
-                  >
-                    <Icon type="edit" />
-                  </a>
-                </Tooltip>
-              </span>
-              <span
+                  />
+                : ''}
+              <div
                 style={{
-                  cursor: 'pointer',
-                  margin: '0.5rem'
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                  margin: '0 1rem'
                 }}
               >
-                <Popover
-                  placement="topLeft"
-                  title={'在其他设备中扫描二维码'}
-                  trigger="click"
-                  content={
-                    <div className="text-center">
-                      {QRCode ? <QRCode value={location.href} /> : 'Loading...'}
-                    </div>
-                  }
-                >
-                  <Icon type="qrcode" />
-                </Popover>
-              </span>
-              <span
+                <strong>
+                  <Icon
+                    type="user"
+                    style={{
+                      marginRight: '0.5rem'
+                    }}
+                  />{firstUpperCase(post.user.login)}
+                </strong>
+                <p>
+                  <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
+                  {moment(new Date(post.created_at)).fromNow()}
+                </p>
+                <p>
+                  <Icon
+                    type="message"
+                    style={{
+                      marginRight: '0.5rem'
+                    }}
+                  />
+                  {post.comments}
+                </p>
+              </div>
+              <div
                 style={{
-                  cursor: 'pointer',
-                  margin: '0.5rem'
+                  textAlign: 'right',
+                  float: 'right',
+                  fontSize: '2.4rem'
                 }}
               >
-                <Dropdown overlay={this.getShareMenu(post)} trigger={['click']}>
-                  <Icon type="share-alt" />
-                </Dropdown>
-              </span>
-            </div>
-          </Col>
-
-          <h3
-            style={{
-              textAlign: 'center'
-            }}
-          >
-            {post.title} <span
-              style={{
-                verticalAlign: 'top'
-              }}
-            >
-              {(post.labels || []).map(label => {
-                return (
-                  <Tag key={label.id} color={'#' + label.color}>
-                    {label.name}
-                  </Tag>
-                );
-              })}
-            </span>
-          </h3>
-
-          <div
-            className="markdown-body post-content"
-            style={{
-              margin: '2rem 0',
-              borderBottom: '1px solid #e6e6e6',
-              paddingBottom: '2rem'
-            }}
-            dangerouslySetInnerHTML={{
-              __html: post.body_html
-            }}
-          />
-
-          <blockquote>
-            <p>注意：</p>
-            <p>1. 若非声明文章为转载, 则为原创文章.</p>
-            <p>2. 欢迎转载, 但需要注明出处.</p>
-            <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
-          </blockquote>
-
-          <div
-            style={{
-              marginTop: '2rem',
-              paddingTop: '2rem',
-              borderTop: '1px solid #e6e6e6'
-            }}
-          >
-            <h3>
-              大牛们的评论:
-              <a
-                target="_blank"
-                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-                style={{
-                  float: 'right'
-                }}
-              >
-                朕有话说
-              </a>
-            </h3>
-
-            {this.state.comments.length
-              ? this.state.comments.map(comment => {
-                  return (
-                    <div
-                      key={comment.id}
+                <span style={{ margin: '0.5rem' }}>
+                  <Tooltip title="编辑文章" placement="topRight">
+                    <a
+                      target="blank"
+                      href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
                       style={{
-                        border: '0.1rem solid #e2e2e2',
-                        borderRadius: '0.5rem',
-                        margin: '1rem 0'
+                        color: 'inherit'
                       }}
                     >
-                      <div
-                        className="comment-header"
-                        style={{
-                          overflow: 'hidden'
-                        }}
-                      >
-                        <img
-                          style={{
-                            width: '3.2rem',
-                            verticalAlign: 'middle',
-                            borderRadius: '50%'
-                          }}
-                          src={comment.user.avatar_url}
-                          alt=""
-                        />
-                        &nbsp;&nbsp;
-                        <strong
-                          style={{
-                            color: '#586069'
-                          }}
-                        >
-                          <a
-                            target="_blank"
-                            href={`https://github.com/${comment.user.login}`}
-                          >
-                            {comment.user.login}
-                          </a>
-                        </strong>
-                        &nbsp;&nbsp;
-                        <span>
-                          {' '}
-                          {`commented at ${moment(comment.created_at).fromNow()}`}
-                          &nbsp;&nbsp;
-                          {`updated at ${moment(comment.updated_at).fromNow()}`}
-                        </span>
+                      <Icon type="edit" />
+                    </a>
+                  </Tooltip>
+                </span>
+                <span
+                  style={{
+                    cursor: 'pointer',
+                    margin: '0.5rem'
+                  }}
+                >
+                  <Popover
+                    placement="topLeft"
+                    title={'在其他设备中扫描二维码'}
+                    trigger="click"
+                    content={
+                      <div className="text-center">
+                        {QRCode
+                          ? <QRCode value={location.href} />
+                          : 'Loading...'}
                       </div>
+                    }
+                  >
+                    <Icon type="qrcode" />
+                  </Popover>
+                </span>
+                <span
+                  style={{
+                    cursor: 'pointer',
+                    margin: '0.5rem'
+                  }}
+                >
+                  <Dropdown
+                    overlay={this.getShareMenu(post)}
+                    trigger={['click']}
+                  >
+                    <Icon type="share-alt" />
+                  </Dropdown>
+                </span>
+              </div>
+            </Col>
+
+            <h3
+              style={{
+                textAlign: 'center'
+              }}
+            >
+              {post.title} <span
+                style={{
+                  verticalAlign: 'top'
+                }}
+              >
+                {(post.labels || []).map(label => {
+                  return (
+                    <Tag key={label.id} color={'#' + label.color}>
+                      {label.name}
+                    </Tag>
+                  );
+                })}
+              </span>
+            </h3>
+
+            <div
+              className="markdown-body post-content"
+              style={{
+                margin: '2rem 0',
+                borderBottom: '1px solid #e6e6e6',
+                paddingBottom: '2rem'
+              }}
+              dangerouslySetInnerHTML={{
+                __html: post.body_html
+              }}
+            />
+
+            <blockquote>
+              <p>注意：</p>
+              <p>1. 若非声明文章为转载, 则为原创文章.</p>
+              <p>2. 欢迎转载, 但需要注明出处.</p>
+              <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
+            </blockquote>
+
+            <div
+              style={{
+                marginTop: '2rem',
+                paddingTop: '2rem',
+                borderTop: '1px solid #e6e6e6'
+              }}
+            >
+              <h3>
+                大牛们的评论:
+                <a
+                  target="_blank"
+                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                  style={{
+                    float: 'right'
+                  }}
+                >
+                  朕有话说
+                </a>
+              </h3>
+
+              {this.state.comments.length
+                ? this.state.comments.map(comment => {
+                    return (
                       <div
-                        className="comment-body"
+                        key={comment.id}
                         style={{
-                          padding: '1.2rem'
+                          border: '0.1rem solid #e2e2e2',
+                          borderRadius: '0.5rem',
+                          margin: '1rem 0'
                         }}
                       >
                         <div
-                          className="markdown-body"
-                          dangerouslySetInnerHTML={{
-                            __html: comment.body_html
+                          className="comment-header"
+                          style={{
+                            overflow: 'hidden'
                           }}
-                        />
+                        >
+                          <img
+                            style={{
+                              width: '3.2rem',
+                              verticalAlign: 'middle',
+                              borderRadius: '50%'
+                            }}
+                            src={comment.user.avatar_url}
+                            alt=""
+                          />
+                          &nbsp;&nbsp;
+                          <strong
+                            style={{
+                              color: '#586069'
+                            }}
+                          >
+                            <a
+                              target="_blank"
+                              href={`https://github.com/${comment.user.login}`}
+                            >
+                              {comment.user.login}
+                            </a>
+                          </strong>
+                          &nbsp;&nbsp;
+                          <span>
+                            {' '}
+                            {`commented at ${moment(comment.created_at).fromNow()}`}
+                            &nbsp;&nbsp;
+                            {`updated at ${moment(comment.updated_at).fromNow()}`}
+                          </span>
+                        </div>
+                        <div
+                          className="comment-body"
+                          style={{
+                            padding: '1.2rem'
+                          }}
+                        >
+                          <div
+                            className="markdown-body"
+                            dangerouslySetInnerHTML={{
+                              __html: comment.body_html
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })
-              : <div>
-                  <p>还没有人评论哦，赶紧抢沙发!</p>
-                </div>}
+                    );
+                  })
+                : <div>
+                    <p>还没有人评论哦，赶紧抢沙发!</p>
+                  </div>}
 
-          </div>
-        </Row>
-      </Spin>
+            </div>
+          </Row>
+        </Spin>
+      </DocumentTitle>
     );
   }
 }

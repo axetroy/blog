@@ -11,6 +11,8 @@ import pkg from '../../../package.json';
 import github from '../../lib/github';
 import { store } from '../../redux/readme';
 
+import DocumentTitle from '../../component/document-title';
+
 class Home extends Component {
   componentDidMount() {
     const owner: string = pkg.config.owner;
@@ -49,31 +51,33 @@ class Home extends Component {
 
   render() {
     return (
-      <Spin spinning={!this.props.READ_ME}>
-        <div className="edit-this-page-container">
-          <div className="edit-this-page">
-            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-              <a
-                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
-                target="_blank"
-              >
-                <Icon
-                  type="edit"
-                  style={{
-                    fontSize: '3rem'
-                  }}
-                />
-              </a>
-            </Tooltip>
+      <DocumentTitle title="Home">
+        <Spin spinning={!this.props.READ_ME}>
+          <div className="edit-this-page-container">
+            <div className="edit-this-page">
+              <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+                <a
+                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
+                  target="_blank"
+                >
+                  <Icon
+                    type="edit"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </Tooltip>
+            </div>
+            <div
+              className="markdown-body"
+              dangerouslySetInnerHTML={{
+                __html: this.props.READ_ME
+              }}
+            />
           </div>
-          <div
-            className="markdown-body"
-            dangerouslySetInnerHTML={{
-              __html: this.props.READ_ME
-            }}
-          />
-        </div>
-      </Spin>
+        </Spin>
+      </DocumentTitle>
     );
   }
 }

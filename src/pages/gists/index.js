@@ -8,6 +8,7 @@ import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
 import Octicon from 'react-octicon';
 
+import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import * as gistsAction from '../../redux/gists';
 
@@ -37,7 +38,7 @@ class Gists extends Component {
 
   render() {
     return (
-      <div>
+      <DocumentTitle title="Gist List">
         <Menu
           mode="inline"
           style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
@@ -71,7 +72,7 @@ class Gists extends Component {
             );
           })}
         </Menu>
-      </div>
+      </DocumentTitle>
     );
   }
 }

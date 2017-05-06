@@ -9,6 +9,7 @@ import queryString from 'query-string';
 import { NavLink } from 'react-router-dom';
 import Octicon from 'react-octicon';
 
+import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 import * as repoAction from '../../redux/repos';
@@ -91,97 +92,102 @@ class Repos extends Component {
 
   render() {
     return (
-      <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
-        <Row gutter={8}>
-          {this.props.REPOS.map((repo, i) => {
-            return (
-              <Col
-                key={`${repo.owner.login}/${repo.name}/${i}`}
-                lg={8}
-                md={8}
-                sm={12}
-                xs={24}
-              >
-                <Card style={{ height: '30rem', margin: '2rem 0' }} className="repo-list">
-                  <NavLink
-                    exact={true}
-                    to={`/repo/${repo.name}`}
-                    style={{
-                      color: '#616161',
-                      wordBreak: 'break-word',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden'
-                    }}
+      <DocumentTitle title="开源项目">
+        <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
+          <Row gutter={8}>
+            {this.props.REPOS.map((repo, i) => {
+              return (
+                <Col
+                  key={`${repo.owner.login}/${repo.name}/${i}`}
+                  lg={8}
+                  md={8}
+                  sm={12}
+                  xs={24}
+                >
+                  <Card
+                    style={{ height: '30rem', margin: '2rem 0' }}
+                    className="repo-list"
                   >
-                    <Octicon
-                      name={repo.fork ? 'repo-forked' : 'repo'}
-                      mega
-                      style={{ marginRight: '0.5rem', fontSize: '2rem' }}
-                    />
-                    {repo.name}
-                  </NavLink>
-                  <p style={{ color: '#9E9E9E' }}>
-                    {repo.description}
-                  </p>
-                  <div>
-                    {(repo.topics || []).map(topic => {
-                      return <Tag key={topic}>{topic}</Tag>;
-                    })}
-                  </div>
-                  <div style={{ position: 'absolute', bottom: '1rem' }}>
-                    <span>
-                      <span
-                        className="repo-language-color"
-                        style={{
-                          backgroundColor: (GithubColors[repo.language] || {})
-                            .color
-                        }}
+                    <NavLink
+                      exact={true}
+                      to={`/repo/${repo.name}`}
+                      style={{
+                        color: '#616161',
+                        wordBreak: 'break-word',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Octicon
+                        name={repo.fork ? 'repo-forked' : 'repo'}
+                        mega
+                        style={{ marginRight: '0.5rem', fontSize: '2rem' }}
                       />
-                      {' '}
-                      {repo.language || 'Unknown'}
-                    </span>&nbsp;&nbsp;
-                    <span>
-                      <Octicon
-                        name="star"
-                        mega
-                        style={{
-                          fontSize: '1.4rem',
-                          margin: 0
-                        }}
-                      /> {repo.watchers_count}
-                    </span>&nbsp;&nbsp;
-                    <span>
-                      <Octicon
-                        name="repo-forked"
-                        mega
-                        style={{
-                          fontSize: '1.4rem',
-                          margin: 0
-                        }}
-                      /> {repo.forks_count}
-                    </span>&nbsp;&nbsp;
-                  </div>
-                </Card>
+                      {repo.name}
+                    </NavLink>
+                    <p style={{ color: '#9E9E9E' }}>
+                      {repo.description}
+                    </p>
+                    <div>
+                      {(repo.topics || []).map(topic => {
+                        return <Tag key={topic}>{topic}</Tag>;
+                      })}
+                    </div>
+                    <div style={{ position: 'absolute', bottom: '1rem' }}>
+                      <span>
+                        <span
+                          className="repo-language-color"
+                          style={{
+                            backgroundColor: (GithubColors[repo.language] || {})
+                              .color
+                          }}
+                        />
+                        {' '}
+                        {repo.language || 'Unknown'}
+                      </span>&nbsp;&nbsp;
+                      <span>
+                        <Octicon
+                          name="star"
+                          mega
+                          style={{
+                            fontSize: '1.4rem',
+                            margin: 0
+                          }}
+                        /> {repo.watchers_count}
+                      </span>&nbsp;&nbsp;
+                      <span>
+                        <Octicon
+                          name="repo-forked"
+                          mega
+                          style={{
+                            fontSize: '1.4rem',
+                            margin: 0
+                          }}
+                        /> {repo.forks_count}
+                      </span>&nbsp;&nbsp;
+                    </div>
+                  </Card>
 
-              </Col>
-            );
-          })}
-        </Row>
-        {this.state.meta.total > 0
-          ? <Row className="text-center">
-              <Col span={24} style={{ transition: 'all 1s' }}>
-                <Pagination
-                  simple
-                  onChange={page =>
-                    this.changePage(page, this.state.meta.per_page)}
-                  defaultCurrent={this.state.meta.page}
-                  defaultPageSize={this.state.meta.per_page}
-                  total={this.state.meta.total}
-                />
-              </Col>
-            </Row>
-          : ''}
-      </Spin>
+                </Col>
+              );
+            })}
+          </Row>
+          {this.state.meta.total > 0
+            ? <Row className="text-center">
+                <Col span={24} style={{ transition: 'all 1s' }}>
+                  <Pagination
+                    simple
+                    onChange={page =>
+                      this.changePage(page, this.state.meta.per_page)}
+                    defaultCurrent={this.state.meta.page}
+                    defaultPageSize={this.state.meta.per_page}
+                    total={this.state.meta.total}
+                  />
+                </Col>
+              </Row>
+            : ''}
+        </Spin>
+      </DocumentTitle>
     );
   }
 }

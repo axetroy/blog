@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Row, Col, Menu, Pagination, Spin, Tag } from 'antd';
 import { NavLink } from 'react-router-dom';
 
+import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 import * as todosAction from '../../redux/todos';
@@ -45,79 +46,81 @@ class TodoList extends Component {
 
   render() {
     return (
-      <Spin spinning={false}>
-        <Menu
-          mode="inline"
-          className={'h100'}
-          style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
-        >
-          {this.props.TODOS.map((todo, i) => {
-            return (
-              <Menu.Item
-                style={{
-                  borderBottom: '1px solid #e6e6e6'
-                }}
-                key={todo.number + '/' + i}
-              >
-                <NavLink
-                  exact={true}
-                  to={`/todo/${todo.number}`}
-                  title={todo.title}
+      <DocumentTitle title="TODO List">
+        <Spin spinning={false}>
+          <Menu
+            mode="inline"
+            className={'h100'}
+            style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
+          >
+            {this.props.TODOS.map((todo, i) => {
+              return (
+                <Menu.Item
                   style={{
-                    whiteSpace: 'nowrap',
-                    wordBreak: 'break-all',
-                    textOverflow: 'ellipsis',
-                    overflow: 'hidden'
+                    borderBottom: '1px solid #e6e6e6'
                   }}
+                  key={todo.number + '/' + i}
                 >
-                  <Tag color={todo.state === 'open' ? 'blue' : 'grey'}>
-                    {todo.state === 'open' ? 'Open' : 'Closed'}
-                  </Tag>
-                  <span
+                  <NavLink
+                    exact={true}
+                    to={`/todo/${todo.number}`}
+                    title={todo.title}
                     style={{
-                      color: todo.state !== 'open' ? '#9E9E9E' : 'inherit'
+                      whiteSpace: 'nowrap',
+                      wordBreak: 'break-all',
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden'
                     }}
                   >
-                    {todo.title}
-                  </span>
-                  <span style={{ marginLeft: '0.5rem' }}>
-                    {todo.labels.map(label => {
-                      return (
-                        <Tag key={label.id} color={'#' + label.color}>
-                          {label.name}
-                        </Tag>
-                      );
-                    })}
-                  </span>
-                </NavLink>
-              </Menu.Item>
-            );
-          })}
+                    <Tag color={todo.state === 'open' ? 'blue' : 'grey'}>
+                      {todo.state === 'open' ? 'Open' : 'Closed'}
+                    </Tag>
+                    <span
+                      style={{
+                        color: todo.state !== 'open' ? '#9E9E9E' : 'inherit'
+                      }}
+                    >
+                      {todo.title}
+                    </span>
+                    <span style={{ marginLeft: '0.5rem' }}>
+                      {todo.labels.map(label => {
+                        return (
+                          <Tag key={label.id} color={'#' + label.color}>
+                            {label.name}
+                          </Tag>
+                        );
+                      })}
+                    </span>
+                  </NavLink>
+                </Menu.Item>
+              );
+            })}
 
-          {this.state.meta.total > 0
-            ? <Menu.Item>
-                <Row className="text-center">
-                  <Col
-                    span={24}
-                    style={{
-                      transition: 'all 1s'
-                    }}
-                  >
-                    <Pagination
-                      simple
-                      onChange={page =>
-                        this.changePage(page, this.state.meta.per_page)}
-                      defaultCurrent={this.state.meta.page}
-                      defaultPageSize={this.state.meta.per_page}
-                      total={this.state.meta.total}
-                    />
-                  </Col>
-                </Row>
-              </Menu.Item>
-            : ''}
+            {this.state.meta.total > 0
+              ? <Menu.Item>
+                  <Row className="text-center">
+                    <Col
+                      span={24}
+                      style={{
+                        transition: 'all 1s'
+                      }}
+                    >
+                      <Pagination
+                        simple
+                        onChange={page =>
+                          this.changePage(page, this.state.meta.per_page)}
+                        defaultCurrent={this.state.meta.page}
+                        defaultPageSize={this.state.meta.per_page}
+                        total={this.state.meta.total}
+                      />
+                    </Col>
+                  </Row>
+                </Menu.Item>
+              : ''}
 
-        </Menu>
-      </Spin>
+          </Menu>
+        </Spin>
+      </DocumentTitle>
     );
   }
 }

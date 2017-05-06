@@ -10,6 +10,8 @@ import github from '../../lib/github';
 
 import * as aboutAction from '../../redux/about';
 
+import DocumentTitle from '../../component/document-title';
+
 class About extends Component {
   componentDidMount() {
     const { owner, repo } = pkg.config;
@@ -42,31 +44,33 @@ class About extends Component {
 
   render() {
     return (
-      <Spin spinning={!this.props.ABOUT_ME}>
-        <div className="edit-this-page-container">
-          <div className="edit-this-page">
-            <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
-              <a
-                href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/ABOUTME.md`}
-                target="_blank"
-              >
-                <Icon
-                  type="edit"
-                  style={{
-                    fontSize: '3rem'
-                  }}
-                />
-              </a>
-            </Tooltip>
+      <DocumentTitle title="关于我">
+        <Spin spinning={!this.props.ABOUT_ME}>
+          <div className="edit-this-page-container">
+            <div className="edit-this-page">
+              <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
+                <a
+                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/ABOUTME.md`}
+                  target="_blank"
+                >
+                  <Icon
+                    type="edit"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </Tooltip>
+            </div>
+            <div
+              className="markdown-body"
+              dangerouslySetInnerHTML={{
+                __html: this.props.ABOUT_ME
+              }}
+            />
           </div>
-          <div
-            className="markdown-body"
-            dangerouslySetInnerHTML={{
-              __html: this.props.ABOUT_ME
-            }}
-          />
-        </div>
-      </Spin>
+        </Spin>
+      </DocumentTitle>
     );
   }
 }
