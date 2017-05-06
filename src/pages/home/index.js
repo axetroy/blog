@@ -1,3 +1,4 @@
+// @flow
 /**
  * Created by axetroy on 17-4-6.
  */
@@ -11,9 +12,10 @@ import github from '../../lib/github';
 import { store } from '../../redux/readme';
 
 class Home extends Component {
-  async componentDidMount() {
-    const { owner, repo } = pkg.config;
-    await this.getReadme(owner, repo);
+  componentDidMount() {
+    const owner: string = pkg.config.owner;
+    const repo: string = pkg.config.repo;
+    this.getReadme(owner, repo);
   }
 
   setStateAsync(newState) {
@@ -28,8 +30,8 @@ class Home extends Component {
     return this.props.storeReadMe(...arguments);
   }
 
-  async getReadme(owner, repo) {
-    let html = '';
+  async getReadme(owner: string, repo: string) {
+    let html: string = '';
     try {
       const response = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {

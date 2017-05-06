@@ -69,6 +69,7 @@
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
+    "flow-bin": "^0.45.0",
     "fs-extra": "0.30.0",
     "gh-pages": "^0.12.0",
     "html-webpack-plugin": "2.24.0",
@@ -91,7 +92,8 @@
     "build": "node scripts/build.js && python scripts/domain.py",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
-    "generate": "./node_modules/.bin/all-contributors generate"
+    "generate": "./node_modules/.bin/all-contributors generate",
+    "flow": "flow"
   },
   "jest": {
     "collectCoverageFrom": [
