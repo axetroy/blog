@@ -15,6 +15,7 @@
 - [ ] Progressive Web Apps
 - [x] 数据持久化
 - [x] 按需加载
+- [x] 静态类型检查
 - [ ] i18n
 - [x] 部署教程
 - [x] 分析Github相关数据
@@ -24,6 +25,7 @@
 - React全家桶
 - ant-design
 - Github Api
+- Flow
 
 ### 为什么不使用Hexo之类的静态站点
 
