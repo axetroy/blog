@@ -48,6 +48,13 @@ class TodoList extends Component {
     return (
       <DocumentTitle title="TODO List">
         <Spin spinning={false}>
+          <div style={{ padding: '0 2.4rem', fontSize: '1.6rem' }}>
+            <p>我觉得我的拖延症还可以抢救一下</p>
+            <p>采取的措施是，用任务B去拖延任务A</p>
+            <p>虽然我没有完成任务A, 但是我完成了任务B</p>
+            <p>而完成任务的成就感支持着我进行下一个任务</p>
+            <p>这也是斯坦福教授John Perry提倡的“结构化拖延法”, 还得了诺贝尔奖:)</p>
+          </div>
           <Menu
             mode="inline"
             className={'h100'}
