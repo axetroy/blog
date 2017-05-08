@@ -22,6 +22,10 @@
   dependencies:
     lodash.debounce "^4.0.8"
 
+"@axetroy/react-now@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/@axetroy/react-now/-/react-now-0.1.1.tgz#59904a4eef2062fe61543825819af91130c7dd54"
+
 "@axetroy/roll@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@axetroy/roll/-/roll-1.0.2.tgz#ae11792411dc4ecd329cc3749a8ed02612cadf3b"
