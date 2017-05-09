@@ -136,7 +136,7 @@ class Posts extends Component {
                   }}
                 >
                   {post.user.avatar_url
-                    ? <LazyLoad>
+                    ? <LazyLoad height={44}>
                         <img
                           src={post.user.avatar_url}
                           alt=""
