@@ -3,6 +3,8 @@
  */
 import React, { Component } from 'react';
 import { Tooltip } from 'antd';
+import { lazyload } from 'react-lazyload';
+
 import GithubColors from '../../lib/github-colors.json';
 
 function values(obj) {
@@ -25,6 +27,11 @@ function sum(array) {
   return result;
 }
 
+@lazyload({
+  height: 200,
+  offset: 100,
+  once: true
+})
 class GithubLangIngredient extends Component {
   componentDidMount() {}
 
@@ -79,4 +86,3 @@ class GithubLangIngredient extends Component {
   }
 }
 export default GithubLangIngredient;
-

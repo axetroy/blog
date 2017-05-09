@@ -14,8 +14,8 @@ import pkg from '../../../package.json';
 
 @lazyload({
   height: 200,
-  once: true,
-  offset: 100
+  offset: 100,
+  once: true
 })
 class GithubFollowing extends Component {
   state = {

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Row, Col, Tag, Spin } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
+import { lazyload } from 'react-lazyload';
 
 import GithubColors from '../../lib/github-colors.json';
 
@@ -35,14 +36,23 @@ function sum(array) {
   return result;
 }
 
+@lazyload({
+  height: 200,
+  offset: 100,
+  once: true
+})
 class GithubLang extends Component {
   state = { ALL_REPOS: null };
 
   componentWillMount() {
-    require.ensure(['chart.js'], require => {
-      const ReactChart = require('@axetroy/react-chart.js');
-      this.setState({ ReactChart: ReactChart.default });
-    }, 'react-chart');
+    require.ensure(
+      ['chart.js'],
+      require => {
+        const ReactChart = require('@axetroy/react-chart.js');
+        this.setState({ ReactChart: ReactChart.default });
+      },
+      'react-chart'
+    );
   }
 
   componentWillReceiveProps(nextPros) {

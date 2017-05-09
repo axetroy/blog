@@ -37,8 +37,8 @@ const styles = {
 
 @lazyload({
   height: 200,
-  once: true,
-  offset: 100
+  offset: 100,
+  once: true
 })
 class GithubOrganizations extends Component {
   state = {

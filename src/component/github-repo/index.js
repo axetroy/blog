@@ -8,11 +8,18 @@ import { Row, Col, Spin, Tooltip } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
+import { lazyload } from 'react-lazyload';
+
 import * as allReposAction from '../../redux/all-repos';
 
 import github from '../../lib/github';
 import pkg from '../../../package.json';
 
+@lazyload({
+  height: 200,
+  offset: 100,
+  once: true
+})
 class GithubRepositories extends Component {
   state = {};
   async componentWillMount() {
