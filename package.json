@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://www.axetroy.xyz",
+  "keywords": [
+    "axetroy",
+    "blog",
+    "serverless",
+    "github",
+    "todo",
+    "gist",
+    "open-source"
+  ],
   "config": {
     "owner": "axetroy",
     "repo": "blog",
