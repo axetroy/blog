@@ -114,7 +114,10 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
         query: {
-          plugins: [['import', [{ libraryName: 'antd', style: 'css' }]]]
+          plugins: [
+            ['import', [{ libraryName: 'antd', style: 'css' }]],
+            'transform-decorators-legacy'
+          ]
         }
       },
       // The notation here is somewhat confusing.
