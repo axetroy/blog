@@ -5010,6 +5010,12 @@ react-lazy-load@^3.0.10:
     lodash.debounce "^4.0.0"
     lodash.throttle "^4.0.0"
 
+react-lazyload@^2.2.7:
+  version "2.2.7"
+  resolved "http://registry.npm.taobao.org/react-lazyload/download/react-lazyload-2.2.7.tgz#6adf0713f32240a21c630ab5d1e8cf62d0c264af"
+  dependencies:
+    prop-types "^15.5.6"
+
 react-octicon@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/react-octicon/download/react-octicon-2.0.0.tgz#5d56ea962d7bf4d5042a3708345f55abdbb71ff2"

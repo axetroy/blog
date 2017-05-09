@@ -8,7 +8,7 @@ import { Spin, Pagination, Row, Col, Card, Tag, Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
-import LazyImage from '@axetroy/react-img-lazy-load';
+import LazyLoad from 'react-lazyload';
 
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
@@ -136,17 +136,19 @@ class Posts extends Component {
                   }}
                 >
                   {post.user.avatar_url
-                    ? <LazyImage
-                        src={post.user.avatar_url}
-                        alt=""
-                        style={{
-                          width: '4.4rem',
-                          height: '100%',
-                          borderRadius: '50%',
-                          marginRight: '0.5rem',
-                          verticalAlign: 'middle'
-                        }}
-                      />
+                    ? <LazyLoad>
+                        <img
+                          src={post.user.avatar_url}
+                          alt=""
+                          style={{
+                            width: '4.4rem',
+                            height: '100%',
+                            borderRadius: '50%',
+                            marginRight: '0.5rem',
+                            verticalAlign: 'middle'
+                          }}
+                        />
+                      </LazyLoad>
                     : ''}
                   <div
                     style={{ display: 'inline-block', verticalAlign: 'middle' }}

@@ -35,6 +35,7 @@
     "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-lazyload": "^2.2.7",
     "react-octicon": "^2.0.0",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",

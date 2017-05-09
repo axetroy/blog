@@ -8,7 +8,7 @@ import { Row, Col, Spin, Popover, Tabs, Icon } from 'antd';
 import sortBy from 'lodash.sortby';
 import Octicon from 'react-octicon';
 import moment from 'moment';
-import LazyImage from '@axetroy/react-img-lazy-load';
+import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
 
@@ -35,6 +35,11 @@ const styles = {
   }
 };
 
+@lazyload({
+  height: 200,
+  once: true,
+  offset: 100
+})
 class GithubOrganizations extends Component {
   state = {
     currentOrg: null,
@@ -282,7 +287,7 @@ class GithubOrganizations extends Component {
                       textAlign: 'center'
                     }}
                   >
-                    <LazyImage
+                    <img
                       src={org.avatar_url}
                       style={{
                         width: '10rem',

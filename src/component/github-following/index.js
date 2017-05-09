@@ -5,13 +5,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Spin, Pagination } from 'antd';
-import LazyImage from '@axetroy/react-img-lazy-load';
+import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
 import { storeFollowings } from '../../redux/following';
 
 import pkg from '../../../package.json';
 
+@lazyload({
+  height: 200,
+  once: true,
+  offset: 100
+})
 class GithubFollowing extends Component {
   state = {
     meta: {
@@ -80,7 +85,7 @@ class GithubFollowing extends Component {
                 key={user.login}
               >
                 <a href={user.html_url} target="_blank">
-                  <LazyImage
+                  <img
                     src={user.avatar_url}
                     style={{ width: '10rem', maxWidth: '100%' }}
                     alt=""

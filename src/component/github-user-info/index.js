@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Spin, Tag } from 'antd';
 import moment from 'moment';
-import LazyImage from '@axetroy/react-img-lazy-load';
+import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
 import * as userAction from '../../redux/owner';
@@ -23,6 +23,11 @@ const styles = {
   strong: { fontSize: '2em' }
 };
 
+@lazyload({
+  height: 200,
+  once: true,
+  offset: 100
+})
 class GithubUserInfo extends Component {
   async componentWillMount() {
     try {
@@ -43,7 +48,7 @@ class GithubUserInfo extends Component {
         <Row>
           <Col span={4}>
             <a href={this.props.OWNER.html_url} target="_blank">
-              <LazyImage
+              <img
                 alt={this.props.OWNER.avatar_url}
                 style={{
                   width: '70%',
