@@ -3,9 +3,5 @@
 }
 
 .todo-list:hover {
-  background-color: #607D8B !important;
-}
-
-.todo-list:hover a {
-  color: #fff !important;
+  background-color: #FAFAFA !important;
 }
