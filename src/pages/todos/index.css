@@ -1,0 +1,11 @@
+.active-tag {
+  margin: 0 2rem;
+}
+
+.todo-list:hover {
+  background-color: #607D8B !important;
+}
+
+.todo-list:hover a {
+  color: #fff !important;
+}
