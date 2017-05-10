@@ -81,7 +81,7 @@
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
-    "flow-bin": "^0.45.0",
+    "flow-bin": "^0.46.0",
     "fs-extra": "0.30.0",
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "2.24.0",
