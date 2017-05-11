@@ -47,7 +47,7 @@ class Repos extends Component {
       const {
         data,
         headers
-      } = await github.get(`/users/${pkg.config.owner}/repos?sort=pushed`, {
+      } = await github.get(`/users/${pkg.config.owner}/repos?sort=created`, {
         params: { page, per_page },
         headers: {
           Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8'
