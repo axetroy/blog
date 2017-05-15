@@ -141,7 +141,7 @@ class TodoList extends Component {
                     >
                       {todo.title}
                     </span>
-                    <span style={{ marginLeft: '0.5rem' }}>
+                    <span style={{ float: 'right' }}>
                       {todo.labels.map(label => {
                         return (
                           <Tag key={label.id} color={'#' + label.color}>
