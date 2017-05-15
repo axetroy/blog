@@ -46,6 +46,14 @@ Hexo的流程:
 > 我的目标是：
 > 部署之后，不用再care源码，也不依赖于生产环境，登陆Github就操作。
 
+### 使用条件
+
+- 站点：有一个仓库存放最终输出的代码，例如我的axetroy/axetroy.github.io
+- 博客：有一个仓库，issues存放文章，例如我的axetroy/blog
+- TODO：有一个仓库，issues存放todo
+- GIST：创建有代码片段
+- 申请有 github_client_id和 github_client_secret
+
 ### 使用
 
 ```bash
