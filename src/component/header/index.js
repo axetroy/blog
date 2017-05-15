@@ -1,15 +1,20 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Menu, Icon, Tooltip } from 'antd';
-import { NavLink, matchPath } from 'react-router-dom';
+import { NavLink, matchPath, withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import Rythm from 'rythm.js';
 
 import './index.css';
 
 class Header extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
   state = {
     rythmState: 'stop',
     nav: [
@@ -156,6 +161,31 @@ class Header extends Component {
             </h2>
             <q>有些事现在不做 一辈子都不会做了</q>
           </div>
+          <div
+            style={{
+              float: 'right',
+              marginRight: '2rem'
+            }}
+          >
+            <Icon
+              type="search"
+              style={{
+                fontSize: '3rem',
+                color: '#fff',
+                cursor: 'pointer',
+                border: '1px solid #64ceaa',
+                borderRadius: '50%',
+                backgroundColor: '#64ceaa',
+                padding: '0.5rem'
+              }}
+              onClick={() => {
+                this.props.history.push({
+                  ...this.props.location,
+                  pathname: '/search'
+                });
+              }}
+            />
+          </div>
         </div>
         <Menu mode="horizontal">
           {this.state.nav.map(nav => {
@@ -190,4 +220,4 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+export default withRouter(Header);

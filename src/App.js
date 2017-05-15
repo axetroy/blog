@@ -21,6 +21,7 @@ import Todos from './pages/todos';
 import Todo from './pages/todo';
 import Gists from './pages/gists';
 import Gist from './pages/gist';
+import Search from './pages/search';
 import Footer from './component/footer';
 import Header from './component/header';
 import ClickMaterial from './component/click-material';
@@ -101,6 +102,7 @@ class App extends Component {
                     <Route exact path="/todo" component={Todos} />
                     <Route exact path="/gist/:id" component={Gist} />
                     <Route exact path="/gist" component={Gists} />
+                    <Route exact path="/search" component={Search} />
                   </Switch>
                 </Card>
               </Col>
