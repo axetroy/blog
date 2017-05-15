@@ -30,7 +30,7 @@ class Click extends Component {
     const ele = this.__ele__.cloneNode(true);
     ele.style.left = `${pageX - width / 2}px`;
     ele.style.top = `${pageY - height / 2}px`;
-    document.body.appendChild(ele);
+    this.refs.container.appendChild(ele);
 
     this.__timer__ = this.__timer__ || [];
     this.__timer__ = this.__timer__.concat([
@@ -42,7 +42,7 @@ class Click extends Component {
 
   render() {
     return (
-      <div onClick={this.onClick.bind(this)}>
+      <div onClick={this.onClick.bind(this)} ref="container">
         {this.props.children}
       </div>
     );
