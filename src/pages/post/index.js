@@ -166,7 +166,7 @@ class Post extends Component {
                     style={{
                       marginRight: '0.5rem'
                     }}
-                  />{firstUpperCase(post.user.login)}
+                  />{firstUpperCase(post && post.user ? post.user.login : '')}
                 </strong>
                 <p>
                   <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
