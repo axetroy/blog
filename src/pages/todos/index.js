@@ -73,13 +73,14 @@ class TodoList extends Component {
               <p>而完成任务的成就感支持着我进行下一个任务</p>
               <p>这也是斯坦福教授John Perry提倡的“结构化拖延法”, 还得了诺贝尔奖:)</p>
             </div>
-            <div style={{ margin: '2rem 0' }}>
+            <div style={{ margin: '2rem 0rem' }}>
               {(this.props.TODO_LABELS || []).map(label => {
                 return (
                   <Tag
                     className={
                       label.name === this.state.currentLabel ? 'active-tag' : ''
                     }
+                    style={{ marginTop: '1rem' }}
                     key={label.id}
                     color={'#' + label.color}
                     onClick={() => {
