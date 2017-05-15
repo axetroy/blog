@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Input } from 'antd';
+import { Row, Col, Input, Spin } from 'antd';
 import queryString from 'query-string';
 import github from '../../lib/github';
 
@@ -13,8 +13,11 @@ const Search = Input.Search;
 
 import DocumentTitle from '../../component/document-title';
 
+import './index.css';
+
 class SearchComponent extends Component {
   state = {
+    pending: false,
     posts: [],
     repos: [],
     todos: []
@@ -27,10 +30,13 @@ class SearchComponent extends Component {
   }
 
   async search(keyword) {
-    this.setState({ keyword });
-    this.searchPost(keyword);
-    this.searchRepo(keyword);
-    this.searchTodo(keyword);
+    this.setState({ keyword, pending: true });
+    await [
+      this.searchPost(keyword),
+      this.searchRepo(keyword),
+      this.searchTodo(keyword)
+    ];
+    this.setState({ pending: false });
   }
 
   async searchPost(keyword) {
@@ -73,7 +79,7 @@ class SearchComponent extends Component {
         {this.state.posts.length
           ? this.state.posts.map(post => {
               return (
-                <div key={post.id}>
+                <div key={post.id} className="search-r">
                   <h4>
                     <Link to={`/post/${post.number}`}>{post.title}</Link>
                   </h4>
@@ -94,7 +100,7 @@ class SearchComponent extends Component {
         {this.state.repos.length
           ? this.state.repos.map(repo => {
               return (
-                <div key={repo.name}>
+                <div key={repo.name} className="search-r">
                   <h4>
                     <Link to={`/repo/${repo.name}`}>{repo.name}</Link>
                   </h4>
@@ -115,7 +121,7 @@ class SearchComponent extends Component {
         {this.state.todos.length
           ? this.state.todos.map(todo => {
               return (
-                <div key={todo.id}>
+                <div key={todo.id} className="search-r">
                   <h4>
                     <Link to={`/todo/${todo.number}`}>{todo.title}</Link>
                   </h4>
@@ -131,7 +137,9 @@ class SearchComponent extends Component {
 
   render() {
     return (
-      <DocumentTitle title="搜索">
+      <DocumentTitle
+        title={this.state.keyword ? '搜索: ' + this.state.keyword : '搜索'}
+      >
         <div>
           <div style={{ textAlign: 'center' }}>
             <Search
@@ -155,17 +163,19 @@ class SearchComponent extends Component {
             />
           </div>
 
-          <Row>
-            <Col span={8}>
-              {this.renderPost()}
-            </Col>
-            <Col span={8}>
-              {this.renderRepo()}
-            </Col>
-            <Col span={8}>
-              {this.renderTodo()}
-            </Col>
-          </Row>
+          <Spin tip="searching..." spinning={this.state.pending}>
+            <Row>
+              <Col span={8}>
+                {this.renderPost()}
+              </Col>
+              <Col span={8}>
+                {this.renderRepo()}
+              </Col>
+              <Col span={8}>
+                {this.renderTodo()}
+              </Col>
+            </Row>
+          </Spin>
 
         </div>
       </DocumentTitle>
