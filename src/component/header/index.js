@@ -81,7 +81,7 @@ class Header extends Component {
   }
 
   render() {
-    const pathname = (location.pathname + location.hash).replace('/#/', '/');
+    const pathname = this.props.location.pathname;
     const navClassName = 'ant-menu-item-selected';
     return (
       <div
