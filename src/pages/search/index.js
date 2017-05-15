@@ -12,6 +12,8 @@ import github from '../../lib/github';
 const Search = Input.Search;
 
 import DocumentTitle from '../../component/document-title';
+import pkg from '../../../package.json';
+const { owner, repo: blog_repo, todo_repo } = pkg.config;
 
 import './index.css';
 
@@ -42,7 +44,7 @@ class SearchComponent extends Component {
   async searchPost(keyword) {
     try {
       const { data } = await github.get(
-        `/search/issues?q=${keyword}+repo:axetroy/blog+author:axetroy+is:open`
+        `/search/issues?q=${keyword}+repo:${owner}/${blog_repo}+author:${owner}+is:open`
       );
       this.setState({ posts: data.items });
     } catch (err) {
@@ -53,7 +55,7 @@ class SearchComponent extends Component {
   async searchTodo(keyword) {
     try {
       const { data } = await github.get(
-        `/search/issues?q=${keyword}+repo:axetroy/todo+author:axetroy`
+        `/search/issues?q=${keyword}+repo:${owner}/${todo_repo}+author:${owner}`
       );
       this.setState({ todos: data.items });
     } catch (err) {
@@ -64,7 +66,7 @@ class SearchComponent extends Component {
   async searchRepo(keyword) {
     try {
       const { data } = await github.get(
-        `/search/repositories?q=${keyword}+user:axetroy`
+        `/search/repositories?q=${keyword}+user:${owner}`
       );
       this.setState({ repos: data.items });
     } catch (err) {
