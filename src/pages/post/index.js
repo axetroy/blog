@@ -23,11 +23,12 @@ import github from '../../lib/github';
 import { firstUpperCase } from '../../lib/utils';
 import * as postAction from '../../redux/post';
 import pkg from '../../../package.json';
+import Comments from '../../component/comments';
 
 import './post.css';
 
 class Post extends Component {
-  state = { comments: [] };
+  state = {};
 
   async componentWillMount() {
     let { number } = this.props.match.params;
@@ -65,33 +66,11 @@ class Post extends Component {
         }
       );
       post = data;
-      this.getComments(pkg.config.owner, pkg.config.repo, number);
     } catch (err) {
       console.error(err);
     }
     this.props.setPost({ [number]: post });
     return post;
-  }
-
-  async getComments(owner, repo, number) {
-    let comments = [];
-    try {
-      const {
-        data
-      } = await github.get(
-        `/repos/${owner}/${repo}/issues/${number}/comments`,
-        {
-          headers: {
-            Accept: 'application/vnd.github.v3.html'
-          },
-          responseType: 'text'
-        }
-      );
-      this.setState({ comments: data });
-    } catch (err) {
-      console.error(err);
-    }
-    return comments;
   }
 
   getShareMenu(post) {
@@ -285,86 +264,12 @@ class Post extends Component {
                 borderTop: '1px solid #e6e6e6'
               }}
             >
-              <h3>
-                大牛们的评论:
-                <a
-                  target="_blank"
-                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
-                  style={{
-                    float: 'right'
-                  }}
-                >
-                  朕有话说
-                </a>
-              </h3>
-
-              {this.state.comments.length
-                ? this.state.comments.map(comment => {
-                    return (
-                      <div
-                        key={comment.id}
-                        style={{
-                          border: '0.1rem solid #e2e2e2',
-                          borderRadius: '0.5rem',
-                          margin: '1rem 0'
-                        }}
-                      >
-                        <div
-                          className="comment-header"
-                          style={{
-                            overflow: 'hidden'
-                          }}
-                        >
-                          <img
-                            style={{
-                              width: '3.2rem',
-                              verticalAlign: 'middle',
-                              borderRadius: '50%'
-                            }}
-                            src={comment.user.avatar_url}
-                            alt=""
-                          />
-                          &nbsp;&nbsp;
-                          <strong
-                            style={{
-                              color: '#586069'
-                            }}
-                          >
-                            <a
-                              target="_blank"
-                              href={`https://github.com/${comment.user.login}`}
-                            >
-                              {comment.user.login}
-                            </a>
-                          </strong>
-                          &nbsp;&nbsp;
-                          <span>
-                            {' '}
-                            {`commented at ${moment(comment.created_at).fromNow()}`}
-                            &nbsp;&nbsp;
-                            {`updated at ${moment(comment.updated_at).fromNow()}`}
-                          </span>
-                        </div>
-                        <div
-                          className="comment-body"
-                          style={{
-                            padding: '1.2rem'
-                          }}
-                        >
-                          <div
-                            className="markdown-body"
-                            dangerouslySetInnerHTML={{
-                              __html: comment.body_html
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })
-                : <div>
-                    <p>还没有人评论哦，赶紧抢沙发!</p>
-                  </div>}
-
+              <Comments
+                type="issues"
+                owner={pkg.config.owner}
+                repo={pkg.config.repo}
+                number={post.number}
+              />
             </div>
           </Row>
         </Spin>
