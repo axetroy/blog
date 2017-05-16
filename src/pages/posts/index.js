@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin, Pagination, Row, Col, Card, Tag, Icon } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
 import LazyLoad from 'react-lazyload';
@@ -209,4 +209,4 @@ export default connect(
       dispatch
     );
   }
-)(Posts);
+)(withRouter(Posts));

@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Spin, Tabs, Tag } from 'antd';
+import { withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
@@ -200,4 +201,4 @@ class Repo extends Component {
     );
   }
 }
-export default Repo;
+export default withRouter(Repo);

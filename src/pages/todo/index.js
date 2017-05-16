@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Spin, Steps, Icon, Tooltip, Tag } from 'antd';
 import moment from 'moment';
@@ -144,4 +145,4 @@ export default connect(
       dispatch
     );
   }
-)(Todo);
+)(withRouter(Todo));

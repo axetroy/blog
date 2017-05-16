@@ -4,6 +4,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon, message } from 'antd';
 import ReactClipboard from '@axetroy/react-clipboard';
@@ -197,4 +198,4 @@ export default connect(
       dispatch
     );
   }
-)(Gist);
+)(withRouter(Gist));

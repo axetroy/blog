@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Menu } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 
 import DocumentTitle from '../../component/document-title';
@@ -88,4 +88,4 @@ export default connect(
       dispatch
     );
   }
-)(Gists);
+)(withRouter(Gists));

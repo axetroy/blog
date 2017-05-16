@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Menu, Pagination, Spin, Tag } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import DocumentTitle from '../../component/document-title';
@@ -200,4 +200,4 @@ export default connect(
       dispatch
     );
   }
-)(TodoList);
+)(withRouter(TodoList));

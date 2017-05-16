@@ -15,9 +15,10 @@ import github from '../../lib/github';
 class Comments extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    owner: PropTypes.string.isRequired,
-    repo: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired
+    owner: PropTypes.string,
+    repo: PropTypes.string,
+    number: PropTypes.number,
+    gistId: PropTypes.string
   };
   state = {
     comments: []

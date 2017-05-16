@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon } from 'antd';
 import pkg from '../../../package.json';
@@ -88,4 +89,4 @@ export default connect(
       dispatch
     );
   }
-)(About);
+)(withRouter(About));

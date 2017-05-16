@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Input, Spin } from 'antd';
@@ -192,4 +192,4 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch);
   }
-)(SearchComponent);
+)(withRouter(SearchComponent));

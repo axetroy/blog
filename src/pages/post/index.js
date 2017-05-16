@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import {
   Menu,
@@ -284,4 +285,4 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({ setPost: postAction.set }, dispatch);
   }
-)(Post);
+)(withRouter(Post));

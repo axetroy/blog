@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Pagination, Spin, Card, Tag } from 'antd';
 import queryString from 'query-string';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 
 import DocumentTitle from '../../component/document-title';
@@ -205,4 +205,4 @@ export default connect(
       dispatch
     );
   }
-)(Repos);
+)(withRouter(Repos));

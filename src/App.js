@@ -10,18 +10,10 @@ import { Provider } from 'react-redux';
 import { Row, Col, Card } from 'antd';
 
 import Home from './pages/home';
-import Github from './pages/github';
 import About from './pages/about';
 import Posts from './pages/posts';
 import Post from './pages/post';
-import Repos from './pages/repos';
-import Repo from './pages/repo';
 import Tool from './pages/tool';
-import Todos from './pages/todos';
-import Todo from './pages/todo';
-import Gists from './pages/gists';
-import Gist from './pages/gist';
-import Search from './pages/search';
 import Footer from './component/footer';
 import Header from './component/header';
 import ClickMaterial from './component/click-material';
@@ -31,6 +23,39 @@ import store from './redux/index';
 import './App.css';
 
 import pkg from '../package.json';
+
+class Load extends Component {
+  state = {
+    component: ''
+  };
+
+  componentWillMount() {
+    const { promise } = this.props;
+    this.load(promise);
+  }
+  componentWillReceiveProps(nextProps) {
+    const { promise } = nextProps;
+    this.load(promise);
+  }
+  load(promise) {
+    if (promise && typeof promise.then === 'function') {
+      promise
+        .then(component => {
+          this.setState({ component });
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+  render() {
+    return (
+      <div>
+        {this.state.component}
+      </div>
+    );
+  }
+}
 
 class App extends Component {
   render() {
@@ -91,18 +116,260 @@ class App extends Component {
                 >
                   <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/github" component={Github} />
-                    <Route exact path="/about" component={About} />
+                    <Route
+                      exact
+                      path="/github"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/github')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'github.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/about"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/about')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'about.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
                     <Route exact path="/tool" component={Tool} />
-                    <Route exact path="/post/:number" component={Post} />
-                    <Route exact path="/post" component={Posts} />
-                    <Route exact path="/repo/:repo" component={Repo} />
-                    <Route exact path="/repo" component={Repos} />
-                    <Route exact path="/todo/:number" component={Todo} />
-                    <Route exact path="/todo" component={Todos} />
-                    <Route exact path="/gist/:id" component={Gist} />
-                    <Route exact path="/gist" component={Gists} />
-                    <Route exact path="/search" component={Search} />
+                    <Route
+                      exact
+                      path="/post/:number"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/post')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'post.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/post"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/posts')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'posts.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/repo/:repo"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/repo')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'repo.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/repo"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/repos')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'repos.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/todo/:number"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/todo')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'todo.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/todo"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/todos')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'todos.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/gist/:id"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/gist')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'gist.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/gist"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/gists')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'gists.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Route
+                      exact
+                      path="/search"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/search')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'search.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
                   </Switch>
                 </Card>
               </Col>
