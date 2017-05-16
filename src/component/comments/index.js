@@ -13,7 +13,7 @@ import github from '../../lib/github';
   once: true
 })
 class Comments extends Component {
-  static PropTypes = {
+  static propTypes = {
     type: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     repo: PropTypes.string.isRequired,
