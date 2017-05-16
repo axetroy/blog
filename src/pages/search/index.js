@@ -151,6 +151,7 @@ class SearchComponent extends Component {
               onChange={e => {
                 this.setState({ keyword: e.currentTarget.value });
               }}
+              size="large"
               onSearch={value => {
                 const oldQuery = queryString.parse(this.props.location.search);
                 this.props.history.push({
