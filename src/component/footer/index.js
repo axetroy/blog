@@ -4,9 +4,15 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import Now from '@axetroy/react-now';
+import { lazyload } from 'react-lazyload';
 
 import { diffTime } from '../../lib/utils';
 
+@lazyload({
+  height: 200,
+  offset: 100,
+  once: true
+})
 class Footer extends Component {
   state = {
     created: new Date('2016-11-09 14:22:33')
