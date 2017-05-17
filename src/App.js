@@ -9,10 +9,6 @@ import { Provider } from 'react-redux';
 
 import { Row, Col, Card } from 'antd';
 
-import Home from './pages/home';
-import About from './pages/about';
-import Posts from './pages/posts';
-import Post from './pages/post';
 import Tool from './pages/tool';
 import Footer from './component/footer';
 import Header from './component/header';
@@ -115,7 +111,29 @@ class App extends Component {
                   }}
                 >
                   <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route
+                      exact
+                      path="/"
+                      render={() => {
+                        return (
+                          <Load
+                            promise={
+                              new Promise(resolve => {
+                                require.ensure(
+                                  [],
+                                  require => {
+                                    const View = require('./pages/home')
+                                      .default;
+                                    resolve(<View />);
+                                  },
+                                  'home.page'
+                                );
+                              })
+                            }
+                          />
+                        );
+                      }}
+                    />
                     <Route
                       exact
                       path="/github"
