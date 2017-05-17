@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon, message } from 'antd';
 import ReactClipboard from '@axetroy/react-clipboard';
+import Download from '@axetroy/react-download';
 
 import prettyBytes from '../../lib/pretty-bytes';
 import DocumentTitle from '../../component/document-title';
@@ -77,42 +78,6 @@ class Gist extends Component {
     return gist;
   }
 
-  downloadFile(fileName, fileContent) {
-    function fake_click(obj) {
-      let ev: any = document.createEvent('MouseEvents');
-      ev.initMouseEvent(
-        'click',
-        true,
-        false,
-        window,
-        0,
-        0,
-        0,
-        0,
-        0,
-        false,
-        false,
-        false,
-        false,
-        0,
-        null
-      );
-      obj.dispatchEvent(ev);
-    }
-    function export_raw(name, data) {
-      let urlObject = window.URL || window.webkitURL || window;
-      let export_blob = new Blob([data]);
-      let save_link: any = document.createElementNS(
-        'http://www.w3.org/1999/xhtml',
-        'a'
-      );
-      save_link.href = urlObject.createObjectURL(export_blob);
-      save_link.download = name;
-      fake_click(save_link);
-    }
-    export_raw(fileName, fileContent);
-  }
-
   render() {
     const { id } = this.props.match.params;
     const gist = (this.props.GIST || {})[id] || {};
@@ -143,13 +108,15 @@ class Gist extends Component {
                       margin: '0 0.5rem'
                     }}
                   >
-                    <a
-                      href="javascript:"
-                      onClick={() =>
-                        this.downloadFile(file.filename, file.content)}
+                    <Download
+                      file={file.filename}
+                      content={file.content}
+                      style={{ display: 'inline' }}
                     >
-                      <Icon type="download" />{prettyBytes(file.size || 0)}
-                    </a>
+                      <a href="javascript:">
+                        <Icon type="download" />{prettyBytes(file.size || 0)}
+                      </a>
+                    </Download>
                   </span>
                   <span>
                     <ReactClipboard
