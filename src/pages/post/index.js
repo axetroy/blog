@@ -5,17 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import {
-  Menu,
-  Spin,
-  Row,
-  Col,
-  Tag,
-  Tooltip,
-  Icon,
-  Popover,
-  Dropdown
-} from 'antd';
+import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from 'antd';
 import moment from 'moment';
 let QRCode;
 
@@ -29,7 +19,9 @@ import Comments from '../../component/comments';
 import './post.css';
 
 class Post extends Component {
-  state = {};
+  state = {
+    banner: `img/banner/material-${parseInt(Math.random() * 10 + 1)}.png`
+  };
 
   async componentWillMount() {
     let { number } = this.props.match.params;
@@ -67,11 +59,37 @@ class Post extends Component {
         }
       );
       post = data;
+      post.filter_html = this.htmlFilter(data.body_html);
     } catch (err) {
       console.error(err);
     }
     this.props.setPost({ [number]: post });
     return post;
+  }
+
+  htmlFilter(html) {
+    // 提取第一张图片作为封面
+    let $div = document.createElement('div');
+    $div.innerHTML = html;
+    let $banner = $div.querySelector('img[alt=banner]');
+
+    // 如果存在banner，则删除该行的ｐ标签
+    if ($banner) {
+      if ($banner.src) {
+        this.setState({ banner: $banner.src });
+      }
+      const $parent = $banner.parentElement;
+      if ($parent && $parent.tagName === 'A') {
+        if ($parent.parentNode && $parent.parentElement.tagName === 'P') {
+          $parent.parentElement.remove();
+        } else {
+          $parent.remove();
+        }
+      } else {
+        $banner.remove();
+      }
+    }
+    return $div.innerHTML;
   }
 
   getShareMenu(post) {
@@ -113,12 +131,48 @@ class Post extends Component {
     return (
       <DocumentTitle title={post.title} suffix={['博客文章']}>
         <Spin spinning={!Object.keys(post).length}>
-          <Row>
-            <Col
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '20rem',
+              backgroundImage: `url(${this.state.banner})`,
+              backgroundOrigin: 'border-box',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
+            }}
+          >
+            <h2
               style={{
-                marginBottom: '2rem',
-                paddingBottom: '2rem',
-                borderBottom: '1px solid #e6e6e6'
+                textAlign: 'center',
+                position: 'absolute',
+                width: '100%',
+                color: '#fff',
+                top: '20%'
+              }}
+            >
+              {post.title} <span
+                style={{
+                  verticalAlign: 'top'
+                }}
+              >
+                {(post.labels || []).map(label => {
+                  return (
+                    <Tag key={label.id} color={'#' + label.color}>
+                      {label.name}
+                    </Tag>
+                  );
+                })}
+              </span>
+            </h2>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                padding: '2rem',
+                backgroundColor: 'rgba(245, 245, 245, 0.23)'
               }}
             >
               {post.user && post.user.avatar_url
@@ -217,62 +271,42 @@ class Post extends Component {
                   </Dropdown>
                 </span>
               </div>
-            </Col>
-
-            <h3
-              style={{
-                textAlign: 'center'
-              }}
-            >
-              {post.title} <span
-                style={{
-                  verticalAlign: 'top'
-                }}
-              >
-                {(post.labels || []).map(label => {
-                  return (
-                    <Tag key={label.id} color={'#' + label.color}>
-                      {label.name}
-                    </Tag>
-                  );
-                })}
-              </span>
-            </h3>
-
-            <div
-              className="markdown-body post-content"
-              style={{
-                margin: '2rem 0',
-                borderBottom: '1px solid #e6e6e6',
-                paddingBottom: '2rem'
-              }}
-              dangerouslySetInnerHTML={{
-                __html: post.body_html
-              }}
-            />
-
-            <blockquote>
-              <p>注意：</p>
-              <p>1. 若非声明文章为转载, 则为原创文章.</p>
-              <p>2. 欢迎转载, 但需要注明出处.</p>
-              <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
-            </blockquote>
-
-            <div
-              style={{
-                marginTop: '2rem',
-                paddingTop: '2rem',
-                borderTop: '1px solid #e6e6e6'
-              }}
-            >
-              <Comments
-                type="issues"
-                owner={pkg.config.owner}
-                repo={pkg.config.repo}
-                number={post.number}
-              />
             </div>
-          </Row>
+          </div>
+
+          <div
+            className="markdown-body post-content"
+            style={{
+              margin: '2rem 0',
+              borderBottom: '1px solid #e6e6e6',
+              paddingBottom: '2rem'
+            }}
+            dangerouslySetInnerHTML={{
+              __html: post.filter_html
+            }}
+          />
+
+          <blockquote>
+            <p>注意：</p>
+            <p>1. 若非声明文章为转载, 则为原创文章.</p>
+            <p>2. 欢迎转载, 但需要注明出处.</p>
+            <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
+          </blockquote>
+
+          <div
+            style={{
+              marginTop: '2rem',
+              paddingTop: '2rem',
+              borderTop: '1px solid #e6e6e6'
+            }}
+          >
+            <Comments
+              type="issues"
+              owner={pkg.config.owner}
+              repo={pkg.config.repo}
+              number={post.number}
+            />
+          </div>
         </Spin>
       </DocumentTitle>
     );

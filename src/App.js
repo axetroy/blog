@@ -3,7 +3,8 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  HashRouter
+  HashRouter,
+  withRouter
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -20,7 +21,7 @@ import './App.css';
 
 import pkg from '../package.json';
 
-class Load extends Component {
+class PureLoad extends Component {
   state = {
     component: ''
   };
@@ -35,23 +36,27 @@ class Load extends Component {
   }
   load(promise) {
     if (promise && typeof promise.then === 'function') {
+      const id = Math.random();
+      this.__id__ = id;
       promise
         .then(component => {
-          this.setState({ component });
+          // 防止多个promise请求组件, 不知道应该渲染哪个组件
+          if (id === this.__id__) {
+            this.setState({ component });
+          }
         })
         .catch(err => {
+          this.props.history.goBack();
           console.error(err);
         });
     }
   }
   render() {
-    return (
-      <div>
-        {this.state.component}
-      </div>
-    );
+    return this.state.component || <div />;
   }
 }
+
+const Load = withRouter(PureLoad);
 
 class App extends Component {
   render() {
