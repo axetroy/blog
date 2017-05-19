@@ -7,17 +7,17 @@ import { withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
-const TabPane = Tabs.TabPane;
-
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import RepoReadme from '../../component/repo-readme';
 import RepoEvents from '../../component/repo-events';
 import GithubLangIngredient from '../../component/github-lang-ingredient';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 import './index.css';
+
+const TabPane = Tabs.TabPane;
 
 class Repo extends Component {
   state = {
@@ -49,7 +49,7 @@ class Repo extends Component {
   async getData(props) {
     if (this.state.loading) return;
     const { repo } = props.match.params;
-    const data = await this.getRepo(pkg.config.owner, repo);
+    const data = await this.getRepo(CONFIG.owner, repo);
     await this.getLang(data.owner.login, data.name);
   }
 
@@ -182,14 +182,14 @@ class Repo extends Component {
             <Tabs defaultActiveKey="readme">
               <TabPane tab="项目介绍" key="readme">
                 <RepoReadme
-                  owner={pkg.config.owner}
+                  owner={CONFIG.owner}
                   repo={this.state.repo}
                   {...this.props.match.params}
                 />
               </TabPane>
               <TabPane tab="最近活动" key="events">
                 <RepoEvents
-                  owner={pkg.config.owner}
+                  owner={CONFIG.owner}
                   repo={this.state.repo}
                   {...this.props.match.params}
                 />

@@ -17,7 +17,7 @@ import DocumentTitle from '../../component/document-title';
 
 import './index.css';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 class Github extends Component {
   state = {};
@@ -51,7 +51,7 @@ class Github extends Component {
                     width: '100%',
                     minWidth: '75rem'
                   }}
-                  name={pkg.config.owner}
+                  name={CONFIG.owner}
                 />
               : ''}
           </div>

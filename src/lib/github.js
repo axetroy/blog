@@ -4,14 +4,14 @@
 
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import pkg from '../../package.json';
+import CONFIG from '../config.json';
 
 const instance = axios.create({
   baseURL: 'https://api.github.com',
   // timeout: 1000 * 10,
   params: {
-    client_id: pkg.config.github_client_id,
-    client_secret: pkg.config.github_client_secret
+    client_id: CONFIG.github_client_id,
+    client_secret: CONFIG.github_client_secret
   },
   withCredentials: false,
   responseType: 'json',

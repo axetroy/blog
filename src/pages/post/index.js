@@ -7,16 +7,17 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from 'antd';
 import moment from 'moment';
-let QRCode;
 
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import { firstUpperCase } from '../../lib/utils';
 import * as postAction from '../../redux/post';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import Comments from '../../component/comments';
 
 import './post.css';
+
+let QRCode;
 
 class Post extends Component {
   state = {
@@ -50,7 +51,7 @@ class Post extends Component {
       const {
         data
       } = await github.get(
-        `/repos/${pkg.config.owner}/${pkg.config.repo}/issues/${number}`,
+        `/repos/${CONFIG.owner}/${CONFIG.repo}/issues/${number}`,
         {
           headers: {
             Accept: 'application/vnd.github.v3.html'
@@ -96,19 +97,19 @@ class Post extends Component {
     const shareMenu = [
       {
         title: '分享到新浪微博',
-        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' + post.title}&url=${location.href}&pic=&searchPic=false&style=simple`
+        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' + post.title}&url=${window.location.href}&pic=&searchPic=false&style=simple`
       },
       {
         title: '分享到 Twitter',
-        url: `https://twitter.com/intent/tweet?text=${'分享: ' + post.title}&url=${location.href}&via=Axetroy`
+        url: `https://twitter.com/intent/tweet?text=${'分享: ' + post.title}&url=${window.location.href}&via=Axetroy`
       },
       {
         title: '分享到 Telegram',
-        url: `https://telegram.me/share/url?url=${location.href}&text=${'分享: ' + post.title}`
+        url: `https://telegram.me/share/url?url=${window.location.href}&text=${'分享: ' + post.title}`
       },
       {
         title: '分享到 QQ',
-        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' + post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${location.href}`
+        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' + post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${window.location.href}`
       }
     ];
     return (
@@ -227,7 +228,7 @@ class Post extends Component {
                   <Tooltip title="编辑文章" placement="topRight">
                     <a
                       target="blank"
-                      href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/issues/${post.number}`}
+                      href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/issues/${post.number}`}
                       style={{
                         color: 'inherit'
                       }}
@@ -249,7 +250,7 @@ class Post extends Component {
                     content={
                       <div className="text-center">
                         {QRCode
-                          ? <QRCode value={location.href} />
+                          ? <QRCode value={window.location.href} />
                           : 'Loading...'}
                       </div>
                     }
@@ -302,8 +303,8 @@ class Post extends Component {
           >
             <Comments
               type="issues"
-              owner={pkg.config.owner}
-              repo={pkg.config.repo}
+              owner={CONFIG.owner}
+              repo={CONFIG.repo}
               number={post.number}
             />
           </div>

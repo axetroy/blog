@@ -9,13 +9,13 @@ import { Row, Col, Input, Spin } from 'antd';
 import queryString from 'query-string';
 import github from '../../lib/github';
 
-const Search = Input.Search;
-
 import DocumentTitle from '../../component/document-title';
-import pkg from '../../../package.json';
-const { owner, repo: blog_repo, todo_repo } = pkg.config;
+import CONFIG from '../../config.json';
 
 import './index.css';
+
+const { owner, repo: blog_repo, todo_repo } = CONFIG;
+const Search = Input.Search;
 
 class SearchComponent extends Component {
   state = {

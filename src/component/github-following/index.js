@@ -10,7 +10,7 @@ import { lazyload } from 'react-lazyload';
 import github from '../../lib/github';
 import { storeFollowings } from '../../redux/following';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 @lazyload({
   height: 200,
@@ -35,7 +35,7 @@ class GithubFollowing extends Component {
       const {
         data,
         headers
-      } = await github.get(`/users/${pkg.config.owner}/following`, {
+      } = await github.get(`/users/${CONFIG.owner}/following`, {
         params: { page, per_page }
       });
       followings = data;

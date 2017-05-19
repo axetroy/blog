@@ -13,7 +13,7 @@ import { lazyload } from 'react-lazyload';
 import * as allReposAction from '../../redux/all-repos';
 
 import github from '../../lib/github';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 @lazyload({
   height: 200,
@@ -41,7 +41,7 @@ class GithubRepositories extends Component {
       const {
         data,
         headers
-      } = await github.get(`/users/${pkg.config.owner}/repos`, {
+      } = await github.get(`/users/${CONFIG.owner}/repos`, {
         params: { page }
       });
       repos = data;

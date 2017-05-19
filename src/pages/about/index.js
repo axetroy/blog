@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon } from 'antd';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import github from '../../lib/github';
 
 import * as aboutAction from '../../redux/about';
@@ -15,7 +15,7 @@ import DocumentTitle from '../../component/document-title';
 
 class About extends Component {
   componentDidMount() {
-    const { owner, repo } = pkg.config;
+    const { owner, repo } = CONFIG;
     this.getAbout(owner, repo);
   }
 
@@ -51,7 +51,7 @@ class About extends Component {
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
-                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/ABOUTME.md`}
+                  href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/edit/master/ABOUTME.md`}
                   target="_blank"
                 >
                   <Icon

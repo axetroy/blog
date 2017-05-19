@@ -11,7 +11,7 @@ import moment from 'moment';
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
 import * as todoAction from '../../redux/todo';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import { diffTime } from '../../lib/utils';
 
 class Todo extends Component {
@@ -37,7 +37,7 @@ class Todo extends Component {
       const {
         data
       } = await github.get(
-        `/repos/${pkg.config.owner}/${pkg.config.todo_repo}/issues/${number}`,
+        `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${number}`,
         {
           headers: {
             Accept: 'application/vnd.github.v3.html'
@@ -64,7 +64,7 @@ class Todo extends Component {
                 {todo.title}
                 <Tooltip placement="topLeft" title="编辑此页">
                   <a
-                    href={`https://github.com/${pkg.config.owner}/${pkg.config.todo_repo}/issues/${todo.number}`}
+                    href={`https://github.com/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${todo.number}`}
                     target="_blank"
                   >
                     <Icon type="edit" />

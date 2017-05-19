@@ -19,7 +19,7 @@ import store from './redux/index';
 
 import './App.css';
 
-import pkg from '../package.json';
+import CONFIG from './config.json';
 
 class PureLoad extends Component {
   state = {
@@ -74,7 +74,7 @@ class App extends Component {
                 <Header />
                 <a
                   target="_blank"
-                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}`}
+                  href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}`}
                 >
                   <svg
                     width="80"

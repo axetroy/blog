@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin, Icon, Tooltip } from 'antd';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import github from '../../lib/github';
 import { store } from '../../redux/readme';
 
@@ -15,8 +15,8 @@ import DocumentTitle from '../../component/document-title';
 
 class Home extends Component {
   componentDidMount() {
-    const owner: string = pkg.config.owner;
-    const repo: string = pkg.config.repo;
+    const owner: string = CONFIG.owner;
+    const repo: string = CONFIG.repo;
     this.getReadme(owner, repo);
   }
 
@@ -57,7 +57,7 @@ class Home extends Component {
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
-                  href={`https://github.com/${pkg.config.owner}/${pkg.config.repo}/edit/master/README.md`}
+                  href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/edit/master/README.md`}
                   target="_blank"
                 >
                   <Icon

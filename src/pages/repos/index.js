@@ -11,7 +11,7 @@ import Octicon from 'react-octicon';
 
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import * as repoAction from '../../redux/repos';
 import GithubColors from '../../lib/github-colors.json';
 
@@ -47,7 +47,7 @@ class Repos extends Component {
       const {
         data,
         headers
-      } = await github.get(`/users/${pkg.config.owner}/repos?sort=created`, {
+      } = await github.get(`/users/${CONFIG.owner}/repos?sort=created`, {
         params: { page, per_page },
         headers: {
           Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8'

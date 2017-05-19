@@ -10,7 +10,7 @@ import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
 import * as userAction from '../../redux/owner';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 const styles = {
   infoBlock: {
@@ -31,7 +31,7 @@ const styles = {
 class GithubUserInfo extends Component {
   async componentWillMount() {
     try {
-      const response = await github.get(`/users/${pkg.config.owner}`);
+      const response = await github.get(`/users/${CONFIG.owner}`);
       this.props.storeOwnerInfo(response.data);
     } catch (err) {
       console.error(err);

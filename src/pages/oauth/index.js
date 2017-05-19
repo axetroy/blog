@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import github from '../../lib/github';
 
 import * as oauthActions from '../../redux/oauth';
@@ -28,8 +28,8 @@ class OAuth extends Component {
         },
         params: {
           code,
-          client_id: pkg.config.github_client_id,
-          client_secret: pkg.config.github_client_secret
+          client_id: CONFIG.github_client_id,
+          client_secret: CONFIG.github_client_secret
         },
         withCredentials: true
       }

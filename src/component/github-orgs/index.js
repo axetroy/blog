@@ -16,7 +16,7 @@ import { store } from '../../redux/orgs';
 import { setStat } from '../../redux/repo-stat';
 import * as allOrgRepos from '../../redux/all-orgs-repos';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 const TabPane = Tabs.TabPane;
 
@@ -57,7 +57,7 @@ class GithubOrganizations extends Component {
 
   async componentWillMount() {
     // 获取所在的组织列表
-    await this.getOrgs(pkg.config.owner);
+    await this.getOrgs(CONFIG.owner);
     this.setState({
       currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null
     }); // 进行统计
@@ -352,7 +352,7 @@ class GithubOrganizations extends Component {
                                       stat =>
                                         stat &&
                                         stat.author &&
-                                        stat.author.login === pkg.config.owner
+                                        stat.author.login === CONFIG.owner
                                     );
                                     if (myStat) {
                                       return (
@@ -398,7 +398,7 @@ class GithubOrganizations extends Component {
                                         stat =>
                                           stat &&
                                           stat.author &&
-                                          stat.author.login === pkg.config.owner
+                                          stat.author.login === CONFIG.owner
                                       );
                                       if (myStat) {
                                         return (

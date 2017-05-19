@@ -16,7 +16,7 @@ import { firstUpperCase } from '../../lib/utils';
 
 import * as postAction from '../../redux/posts';
 
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 
 import './index.css';
 
@@ -47,9 +47,9 @@ class Posts extends Component {
     let posts = this.props.POSTS;
     try {
       const res = await github.get(
-        `/repos/${pkg.config.owner}/${pkg.config.repo}/issues`,
+        `/repos/${CONFIG.owner}/${CONFIG.repo}/issues`,
         {
-          params: { creator: pkg.config.owner, page, per_page, state: 'open' }
+          params: { creator: CONFIG.owner, page, per_page, state: 'open' }
         }
       );
 

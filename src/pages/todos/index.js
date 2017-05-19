@@ -10,7 +10,7 @@ import moment from 'moment';
 
 import DocumentTitle from '../../component/document-title';
 import github from '../../lib/github';
-import pkg from '../../../package.json';
+import CONFIG from '../../config.json';
 import * as todosAction from '../../redux/todos';
 import * as todoLabelAction from '../../redux/todo-laberls';
 
@@ -35,7 +35,7 @@ class TodoList extends Component {
   async getLabels() {
     try {
       const { data } = await github.get(
-        `/repos/${pkg.config.owner}/${pkg.config.todo_repo}/labels`
+        `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/labels`
       );
       this.props.setLabels(data);
     } catch (err) {
@@ -49,9 +49,9 @@ class TodoList extends Component {
       const {
         data
       } = await github.get(
-        `/repos/${pkg.config.owner}/${pkg.config.todo_repo}/issues`,
+        `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
         {
-          params: { creator: pkg.config.owner, page, per_page, state: 'all' }
+          params: { creator: CONFIG.owner, page, per_page, state: 'all' }
         }
       );
       todoList = data;
