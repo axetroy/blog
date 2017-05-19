@@ -12,7 +12,7 @@
 - [x] 工具集合
 - [x] TODO计划任务
 - [x] 响应式
-- [ ] Progressive Web Apps
+- [x] Progressive Web Apps
 - [x] 数据持久化
 - [x] 按需加载
 - [x] 静态类型检查
@@ -48,9 +48,9 @@ Hexo的流程:
 
 ### 使用条件
 
-- 站点：有一个仓库存放最终输出的代码，例如我的axetroy/axetroy.github.io
-- 博客：有一个仓库，issues存放文章，例如我的axetroy/blog
-- TODO：有一个仓库，issues存放todo
+- 站点: 一个静态文件服务器或Github Pages
+- 博客: 一个Github仓库. issues用于存放文章
+- TODO: 一个Github仓库. issues用于存放TODO
 - GIST：创建有代码片段
 - 申请有 github_client_id和 github_client_secret
 
@@ -62,26 +62,106 @@ yarn
 yarn start
 ```
 
+### 源码目录
+
+```bash
+./src
+├── App.css
+├── App.js
+├── App.test.js
+├── component
+│   ├── click-material
+│   ├── comments
+│   ├── document-title
+│   ├── footer
+│   ├── github-followers
+│   ├── github-following
+│   ├── github-lang
+│   ├── github-lang-ingredient
+│   ├── github-orgs
+│   ├── github-repo
+│   ├── github-user-info
+│   ├── header
+│   ├── repo-events
+│   ├── repo-readme
+│   ├── tool-md-preview
+│   └── tool-roll
+├── config.json
+├── index.css
+├── index.js
+├── lib
+│   ├── github-colors.json
+│   ├── github.js
+│   ├── github-markdown-parser.js
+│   ├── pretty-bytes.js
+│   └── utils.js
+├── logo.svg
+├── pages
+│   ├── about
+│   ├── gist
+│   ├── gists
+│   ├── github
+│   ├── home
+│   ├── oauth
+│   ├── post
+│   ├── posts
+│   ├── repo
+│   ├── repos
+│   ├── search
+│   ├── todo
+│   ├── todos
+│   └── tool
+├── redux
+│   ├── about.js
+│   ├── all-orgs-repos.js
+│   ├── all-repo-languages.js
+│   ├── all-repos.js
+│   ├── createStore.js
+│   ├── follower.js
+│   ├── following.js
+│   ├── gist.js
+│   ├── gists.js
+│   ├── index.js
+│   ├── oauth.js
+│   ├── orgs.js
+│   ├── owner.js
+│   ├── post.js
+│   ├── posts.js
+│   ├── readme.js
+│   ├── repo-languages.js
+│   ├── repos.js
+│   ├── repo-stat.js
+│   ├── rollList.js
+│   ├── todo.js
+│   ├── todo-laberls.js
+│   ├── todos.js
+│   └── tool-md-preview.js
+└── registerServiceWorker.js
+```
+
 ### 部署
 
-部署教程稍微有点麻烦
+#### 修改配置信息``./src/config.json``
 
-真要部署的可以在Github的issues问我
+```json
+{
+  "owner": "axetroy",
+  "repo": "blog",
+  "todo_repo": "todo",
+  "github_client_id": "b8257841dd7ca5eef2aa",
+  "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
+}
+```
 
-#### 1.修改成你自己的相关信息
+#### 修改部署的Github仓库地址``./package.json``
 
-**package.json**
-
-```yarm
-- config
-    - owner: axetroy                                                        # 你的名字
-    - repo: blog                                                            # 博客的仓库名字
-    - todo_repo: todo                                                       # TODO计划的仓库名字
-    - github_client_id: b8257841dd7ca5eef2aa                                # github的client_id
-    - github_client_secret: 4da33dd6fcb0a01d395945ad18613ecf9c12079e        # github的client_secret
-    
-- scripts
-    - deploy: gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build     # 修改成你要部署的仓库
+```json
+{
+  "homepage": "http://www.axetroy.xyz",
+  "scripts":{
+    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"
+  }
+}
 ```
 
 #### 2.运行命令部署
@@ -89,7 +169,7 @@ yarn start
 ```bash
 yarn
 yarn run build
-yarn run deploy
+yarn run deploy # 部署到Github Pages
 ```
 
 ### 贡献代码
@@ -102,6 +182,8 @@ yarn start      # 监听10086端口
 ```
 
 You can flow [Contribute Guide](https://github.com/axetroy/blog/blob/master/contributing.md)
+
+**Welcome PR :)**
 
 ### 贡献者
 
