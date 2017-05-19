@@ -75,6 +75,14 @@ class Posts extends Component {
       console.error(err);
     }
 
+    posts.forEach(post => {
+      // 获取第一张图片作为缩略图
+      let match = /!\[[^\]]+\]\(([^\)]+)\)/im.exec(post.body);
+      if (match && match[1]) {
+        post.thumbnails = match[1];
+      }
+    });
+
     this.props.setPosts(posts);
 
     return posts;

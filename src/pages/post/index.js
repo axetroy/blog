@@ -136,11 +136,12 @@ class Post extends Component {
             style={{
               position: 'relative',
               width: '100%',
-              height: '20rem',
+              height: '24rem',
               backgroundImage: `url(${this.state.banner})`,
               backgroundOrigin: 'border-box',
               backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
+              backgroundPositionY: '25%'
             }}
           >
             <h2
