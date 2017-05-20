@@ -26,6 +26,7 @@
     "chart.js": "^2.5.0",
     "clipboard": "^1.6.1",
     "fastclick": "^1.0.6",
+    "firebase": "^4.0.0",
     "github-calendar": "^1.1.12",
     "github-markdown-css": "^2.6.0",
     "localforage": "^1.5.0",

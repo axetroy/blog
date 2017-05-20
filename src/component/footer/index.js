@@ -7,6 +7,7 @@ import Now from '@axetroy/react-now';
 import { lazyload } from 'react-lazyload';
 
 import { diffTime } from '../../lib/utils';
+import firebase from '../../lib/firebase';
 
 @lazyload({
   height: 200,
@@ -15,8 +16,17 @@ import { diffTime } from '../../lib/utils';
 })
 class Footer extends Component {
   state = {
+    totalVisited: 0,
     created: new Date('2016-11-09 14:22:33')
   };
+
+  componentDidMount() {
+    const visited = firebase.database().ref('statistics/visited/total');
+    visited.once('value', data => {
+      let value = data.val();
+      this.setState({ totalVisited: value });
+    });
+  }
 
   render() {
     return (
@@ -29,6 +39,7 @@ class Footer extends Component {
         }}
       >
         <Col span={24}>
+          {this.state.totalVisited ? <p>总访问{this.state.totalVisited}次</p> : ''}
           <p>Copyright © 2017</p>
           <Now>
             {now => {

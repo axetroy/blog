@@ -16,6 +16,7 @@ import Header from './component/header';
 import ClickMaterial from './component/click-material';
 
 import store from './redux/index';
+import Statistics from './lib/statistics';
 
 import './App.css';
 
@@ -411,4 +412,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default Statistics(App);
