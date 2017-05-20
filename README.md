@@ -19,6 +19,7 @@
 - [ ] i18n
 - [x] 部署教程
 - [x] 分析Github相关数据
+- [x] 集成[firebase](https://firebase.google.com/)
 
 ### 技术栈
 
