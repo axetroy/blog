@@ -3,22 +3,13 @@
  * help information: https://firebase.google.com/docs/web/setup
  */
 import firebase from 'firebase/firebase-browser';
+import CONFIG from '../config.json';
 
-const config = {
-  apiKey: 'AIzaSyDTCaJ23z7O393k_5w79z40XBNVURiAxb8',
-  authDomain: 'blog-9281a.firebaseapp.com',
-  databaseURL: 'https://blog-9281a.firebaseio.com',
-  projectId: 'blog-9281a',
-  storageBucket: 'blog-9281a.appspot.com',
-  messagingSenderId: '989620354189'
-};
+const FIREBASE_CONFIG = CONFIG.firebase;
 
-const user = {
-  email: 'troy450409405@gmail.com',
-  password: '123123'
-};
+const user = FIREBASE_CONFIG.account;
 
-const app = firebase.initializeApp(config);
+const app = firebase.initializeApp(FIREBASE_CONFIG.config);
 
 function main() {
   return app;
