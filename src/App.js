@@ -3,8 +3,7 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  HashRouter,
-  withRouter
+  HashRouter
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -14,57 +13,32 @@ import Tool from './pages/tool';
 import Footer from './component/footer';
 import Header from './component/header';
 import ClickMaterial from './component/click-material';
+import DynamicLoad from './component/dynamic-load';
 
 import store from './redux/index';
 import Statistics from './lib/statistics';
+import RouterListener from './lib/router-listener';
 
 import './App.css';
 
 import CONFIG from './config.json';
 
-class PureLoad extends Component {
-  state = {
-    component: ''
-  };
-
-  componentWillMount() {
-    const { promise } = this.props;
-    this.load(promise);
-  }
-  componentWillReceiveProps(nextProps) {
-    const { promise } = nextProps;
-    this.load(promise);
-  }
-  load(promise) {
-    if (promise && typeof promise.then === 'function') {
-      const id = Math.random();
-      this.__id__ = id;
-      promise
-        .then(component => {
-          // 防止多个promise请求组件, 不知道应该渲染哪个组件
-          if (id === this.__id__) {
-            this.setState({ component });
-          }
-        })
-        .catch(err => {
-          this.props.history.goBack();
-          console.error(err);
-        });
-    }
-  }
-  render() {
-    return this.state.component || <div />;
-  }
-}
-
-const Load = withRouter(PureLoad);
+const ClickMaterialWithStatRouterListener = RouterListener(ClickMaterial);
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router history={HashRouter}>
-          <ClickMaterial>
+          <ClickMaterialWithStatRouterListener
+            onRouterChange={(location, action) => {
+              // location is an object like window.location
+              window.ga('set', {
+                page: location.pathname,
+                title: document.title
+              });
+            }}
+          >
             <Row>
               <Col
                 lg={{ span: 16, offset: 4 }}
@@ -122,7 +96,7 @@ class App extends Component {
                       path="/"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -145,7 +119,7 @@ class App extends Component {
                       path="/github"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -168,7 +142,7 @@ class App extends Component {
                       path="/about"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -192,7 +166,7 @@ class App extends Component {
                       path="/post/:number"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -215,7 +189,7 @@ class App extends Component {
                       path="/post"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -238,7 +212,7 @@ class App extends Component {
                       path="/repo/:repo"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -261,7 +235,7 @@ class App extends Component {
                       path="/repo"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -284,7 +258,7 @@ class App extends Component {
                       path="/todo/:number"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -307,7 +281,7 @@ class App extends Component {
                       path="/todo"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -330,7 +304,7 @@ class App extends Component {
                       path="/gist/:id"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -353,7 +327,7 @@ class App extends Component {
                       path="/gist"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -376,7 +350,7 @@ class App extends Component {
                       path="/search"
                       render={() => {
                         return (
-                          <Load
+                          <DynamicLoad
                             promise={
                               new Promise(resolve => {
                                 require.ensure(
@@ -406,7 +380,7 @@ class App extends Component {
                 <Footer />
               </Col>
             </Row>
-          </ClickMaterial>
+          </ClickMaterialWithStatRouterListener>
         </Router>
       </Provider>
     );
