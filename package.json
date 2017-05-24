@@ -80,7 +80,7 @@
     "gh-pages": "^1.0.0",
     "html-webpack-plugin": "2.28.0",
     "inquirer": "3.0.6",
-    "jest": "20.0.3",
+    "jest": "20.0.4",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",
