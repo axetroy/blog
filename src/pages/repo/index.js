@@ -2,12 +2,13 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import { Spin, Tabs, Tag } from 'antd';
+import { Spin, Tabs, Tag, Icon, Tooltip } from 'antd';
 import { withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
 import moment from 'moment';
 
 import DocumentTitle from '../../component/document-title';
+import ViewSourceCode from '../../component/view-source-code';
 import github from '../../lib/github';
 import RepoReadme from '../../component/repo-readme';
 import RepoEvents from '../../component/repo-events';
@@ -104,7 +105,21 @@ class Repo extends Component {
 
     return (
       <DocumentTitle title={this.state.repo.name} suffix={['开源项目']}>
-        <div>
+        <div className="toolbar-container">
+          <div className="edit-this-page">
+            <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+              <ViewSourceCode file="pages/repo/index.js">
+                <a href="javascript: void 0" target="_blank">
+                  <Icon
+                    type="code"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </ViewSourceCode>
+            </Tooltip>
+          </div>
           <Spin spinning={this.state.repoLoading} delay={0} tip="Loading...">
             <div>
               <h1>

@@ -5,11 +5,13 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Input, Spin } from 'antd';
+import { Row, Col, Input, Spin, Icon, Tooltip } from 'antd';
 import queryString from 'query-string';
 import github from '../../lib/github';
 
 import DocumentTitle from '../../component/document-title';
+import ViewSourceCode from '../../component/view-source-code';
+
 import CONFIG from '../../config.json';
 
 import './index.css';
@@ -142,7 +144,23 @@ class SearchComponent extends Component {
       <DocumentTitle
         title={this.state.keyword ? '搜索: ' + this.state.keyword : '搜索'}
       >
-        <div>
+        <div className="toolbar-container">
+
+          <div className="edit-this-page">
+            <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+              <ViewSourceCode file="pages/search/index.js">
+                <a href="javascript: void 0" target="_blank">
+                  <Icon
+                    type="code"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </ViewSourceCode>
+            </Tooltip>
+          </div>
+
           <div style={{ textAlign: 'center' }}>
             <Search
               value={this.state.keyword}

@@ -12,6 +12,7 @@ import github from '../../lib/github';
 import * as aboutAction from '../../redux/about';
 
 import DocumentTitle from '../../component/document-title';
+import ViewSourceCode from '../../component/view-source-code';
 
 class About extends Component {
   componentDidMount() {
@@ -47,7 +48,7 @@ class About extends Component {
     return (
       <DocumentTitle title="关于我">
         <Spin spinning={!this.props.ABOUT_ME}>
-          <div className="edit-this-page-container">
+          <div className="toolbar-container">
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
@@ -61,6 +62,18 @@ class About extends Component {
                     }}
                   />
                 </a>
+              </Tooltip>
+              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+                <ViewSourceCode file="pages/about/index.js">
+                  <a href="javascript: void 0" target="_blank">
+                    <Icon
+                      type="code"
+                      style={{
+                        fontSize: '3rem'
+                      }}
+                    />
+                  </a>
+                </ViewSourceCode>
               </Tooltip>
             </div>
             <div

@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Card } from 'antd';
+import { Card, Icon, Tooltip } from 'antd';
 
 import GithubUserInfo from '../../component/github-user-info';
 import GithubFollowers from '../../component/github-followers';
@@ -12,6 +12,7 @@ import GithubFollowing from '../../component/github-following';
 import GithubRepositories from '../../component/github-repo';
 import GithubOrgs from '../../component/github-orgs';
 import GithubLang from '../../component/github-lang';
+import ViewSourceCode from '../../component/view-source-code';
 
 import DocumentTitle from '../../component/document-title';
 
@@ -35,7 +36,23 @@ class Github extends Component {
     const GithubCalendar = this.state ? this.state.GithubCalendar : null;
     return (
       <DocumentTitle title="Github">
-        <div>
+        <div className="toolbar-container">
+
+          <div className="edit-this-page">
+            <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+              <ViewSourceCode file="pages/github/index.js">
+                <a href="javascript: void 0" target="_blank">
+                  <Icon
+                    type="code"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </ViewSourceCode>
+            </Tooltip>
+          </div>
+
           <h2 className="github-title">
             活跃度
           </h2>
