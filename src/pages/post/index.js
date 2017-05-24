@@ -14,6 +14,7 @@ import { firstUpperCase } from '../../lib/utils';
 import * as postAction from '../../redux/post';
 import CONFIG from '../../config.json';
 import Comments from '../../component/comments';
+import ViewSourceCode from '../../component/view-source-code';
 
 import './post.css';
 
@@ -236,6 +237,19 @@ class Post extends Component {
                     >
                       <Icon type="edit" />
                     </a>
+                  </Tooltip>
+                </span>
+                <span style={{ margin: '0.5rem' }}>
+                  <Tooltip placement="topLeft" title="查看源码">
+                    <ViewSourceCode file="pages/post/index.js">
+                      <a
+                        href="javascript: void 0"
+                        target="_blank"
+                        style={{ color: 'inherit' }}
+                      >
+                        <Icon type="code" />
+                      </a>
+                    </ViewSourceCode>
                   </Tooltip>
                 </span>
                 <span
