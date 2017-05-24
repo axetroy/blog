@@ -42,7 +42,7 @@ class ViewSourceCode extends Component {
           maskClosable={true}
           closable={true}
         >
-          <SourceCode file={'pages/home/index.js'} />
+          <SourceCode file={this.props.file} />
         </Modal>
       </span>
     );

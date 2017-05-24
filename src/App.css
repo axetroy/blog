@@ -46,7 +46,7 @@ body {
   z-index: 999;
 }
 
-.edit-this-page-container:hover .edit-this-page {
+.toolbar-container:hover .edit-this-page {
   padding: 0.5rem 0;
   opacity: 1;
   transition: all .5s;

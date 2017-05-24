@@ -50,7 +50,7 @@ class Home extends Component {
     return (
       <DocumentTitle title="Home">
         <Spin spinning={!this.props.READ_ME}>
-          <div className="edit-this-page-container">
+          <div className="toolbar-container">
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
@@ -67,7 +67,7 @@ class Home extends Component {
               </Tooltip>
 
               <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                <ViewSourceCode>
+                <ViewSourceCode file="pages/home/index.js">
                   <a href="javascript: void 0" target="_blank">
                     <Icon
                       type="code"
