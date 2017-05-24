@@ -5,27 +5,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spin, Icon, Tooltip } from 'antd';
+import { Spin, Icon, Tooltip, Modal } from 'antd';
 
 import CONFIG from '../../config.json';
 import github from '../../lib/github';
 import { store } from '../../redux/readme';
 
 import DocumentTitle from '../../component/document-title';
+import SourceCode from '../../component/source-code';
 
 class Home extends Component {
+  state = {
+    source: {},
+    visible: false
+  };
   componentDidMount() {
     const owner: string = CONFIG.owner;
     const repo: string = CONFIG.repo;
     this.getReadme(owner, repo);
-  }
-
-  setStateAsync(newState) {
-    return new Promise(resolve => {
-      this.setState(newState, () => {
-        resolve();
-      });
-    });
   }
 
   storeReadme() {
@@ -49,11 +46,34 @@ class Home extends Component {
     return html;
   }
 
+  showSourceCode() {
+    this.setState({
+      visible: true
+    });
+  }
+
+  hideSourceCode() {
+    this.setState({
+      visible: false
+    });
+  }
+
   render() {
     return (
       <DocumentTitle title="Home">
         <Spin spinning={!this.props.READ_ME}>
           <div className="edit-this-page-container">
+            <Modal
+              width={'80%'}
+              visible={this.state.visible}
+              footer={null}
+              onCancel={this.hideSourceCode.bind(this)}
+              onOk={this.hideSourceCode.bind(this)}
+              maskClosable={true}
+              closable={true}
+            >
+              <SourceCode file={'pages/home/index.js'} />
+            </Modal>
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
@@ -62,6 +82,20 @@ class Home extends Component {
                 >
                   <Icon
                     type="edit"
+                    style={{
+                      fontSize: '3rem'
+                    }}
+                  />
+                </a>
+              </Tooltip>
+              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+                <a
+                  href="javascript: void 0"
+                  target="_blank"
+                  onClick={this.showSourceCode.bind(this)}
+                >
+                  <Icon
+                    type="code"
                     style={{
                       fontSize: '3rem'
                     }}

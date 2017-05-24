@@ -15,7 +15,7 @@ const instance = axios.create({
   },
   withCredentials: false,
   responseType: 'json',
-  headers: { Accept: 'application/json' }
+  headers: { Accept: 'application/json;charset=utf-8' }
 });
 
 instance.interceptors.response.use(
