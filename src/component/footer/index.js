@@ -6,6 +6,8 @@ import { Row, Col } from 'antd';
 import Now from '@axetroy/react-now';
 import { lazyload } from 'react-lazyload';
 
+import moment from 'moment';
+
 import { diffTime } from '../../lib/utils';
 import firebase from '../../lib/firebase';
 
@@ -29,6 +31,7 @@ class Footer extends Component {
   }
 
   render() {
+    const LAST_UPDATE_TIME = new Date(+process.env.REACT_APP_PUBLISH_DATE);
     return (
       <Row
         className="text-center"
@@ -45,14 +48,20 @@ class Footer extends Component {
             {now => {
               const diff = diffTime(this.state.created)(now);
               return (
-                <p>
-                  {`已运行
+                <div>
+                  <p>
+                    {`已运行
                   ${diff.days}天
                   ${diff.hours}时
                   ${diff.minutes}分
                   ${diff.seconds}秒
                   `}
-                </p>
+                  </p>
+                  <p>
+                    最近更新&nbsp;
+                    {moment(LAST_UPDATE_TIME).fromNow()}
+                  </p>
+                </div>
               );
             }}
           </Now>
