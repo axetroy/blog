@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin } from 'antd';
+import axios from 'axios';
 
 import CONFIG from '../../config.json';
 import github from '../../lib/github';
@@ -26,7 +27,11 @@ class SourceCode extends Component {
       const { data } = await github.get(
         `/repos/${owner}/${repo}/contents/src/${file}`
       );
-      let raw = window.atob(data.content);
+      const downloadRes = await axios.get(data.download_url, {
+        responseType: 'text'
+      });
+
+      let raw = downloadRes.data;
 
       this.setState({ source: data });
 
