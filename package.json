@@ -96,7 +96,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "cross-env PORT=10086 && node scripts/now.js && node scripts/start.js",
+    "start": "node scripts/now.js && cross-env PORT=10086 node scripts/start.js",
     "build": "node scripts/now.js && node scripts/build.js && python scripts/domain.py",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
