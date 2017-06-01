@@ -23,14 +23,9 @@ import CONFIG from '../../config.json';
 class GithubRepositories extends Component {
   state = {};
   async componentWillMount() {
-    require.ensure(
-      ['chart.js'],
-      require => {
-        const ReactChart = require('@axetroy/react-chart.js');
-        this.setState({ ReactChart: ReactChart.default });
-      },
-      'react-chart'
-    );
+    import('@axetroy/react-chart.js').then(module => {
+      this.setState({ ReactChart: module.default });
+    });
     const allRepos = await this.getAllRepos(1);
     this.props.setAllRepos(allRepos);
   }

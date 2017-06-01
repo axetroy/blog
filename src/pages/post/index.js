@@ -18,8 +18,6 @@ import ViewSourceCode from '../../component/view-source-code';
 
 import './post.css';
 
-let QRCode;
-
 class Post extends Component {
   state = {
     banner: `img/banner/material-${parseInt(Math.random() * 10 + 1)}.png`
@@ -27,13 +25,10 @@ class Post extends Component {
 
   async componentWillMount() {
     let { number } = this.props.match.params;
-    require.ensure(
-      [],
-      require => {
-        QRCode = require('qrcode.react');
-      },
-      'react-qrcode'
-    );
+
+    import('qrcode.react').then(module => {
+      this.setState({ QRCode: module });
+    });
     if (number) {
       await this.getPost(number);
     }
@@ -128,6 +123,7 @@ class Post extends Component {
     );
   }
   render() {
+    const { QRCode } = this.state;
     const { number } = this.props.match.params;
     const post = this.props.POST[number] || {};
     return (

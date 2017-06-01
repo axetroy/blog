@@ -22,15 +22,9 @@ import CONFIG from '../../config.json';
 
 class Github extends Component {
   state = {};
-  componentWillMount() {
-    require.ensure(
-      [],
-      require => {
-        const GithubCalendar = require('@axetroy/react-github-calendar');
-        this.setState({ GithubCalendar: GithubCalendar.default });
-      },
-      'react-github-calendar'
-    );
+  async componentWillMount() {
+    const module = await import('@axetroy/react-github-calendar');
+    this.setState({ GithubCalendar: module.default });
   }
   render() {
     const GithubCalendar = this.state ? this.state.GithubCalendar : null;

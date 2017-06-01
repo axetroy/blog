@@ -45,14 +45,9 @@ class GithubLang extends Component {
   state = { ALL_REPOS: null };
 
   componentWillMount() {
-    require.ensure(
-      ['chart.js'],
-      require => {
-        const ReactChart = require('@axetroy/react-chart.js');
-        this.setState({ ReactChart: ReactChart.default });
-      },
-      'react-chart'
-    );
+    import('@axetroy/react-chart.js').then(module => {
+      this.setState({ ReactChart: module.default });
+    });
   }
 
   componentWillReceiveProps(nextPros) {
@@ -176,7 +171,7 @@ class GithubLang extends Component {
                         data: startNum,
                         backgroundColor: languages.map(
                           lang =>
-                            GithubColors[lang] ? GithubColors[lang].color : ''
+                            (GithubColors[lang] ? GithubColors[lang].color : '')
                         )
                       }
                     ]
