@@ -9,7 +9,6 @@ import { Provider } from 'react-redux';
 
 import { Row, Col, Card } from 'antd';
 
-import Tool from './pages/tool';
 import Footer from './component/footer';
 import Header from './component/header';
 import ClickMaterial from './component/click-material';
@@ -112,7 +111,6 @@ class App extends Component {
                         <DynamicLoad promise={import('./pages/about')} />
                       )}
                     />
-                    <Route exact path="/tool" component={Tool} />
                     <Route
                       exact
                       path="/post/:number"
