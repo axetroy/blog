@@ -94,279 +94,87 @@ class App extends Component {
                     <Route
                       exact
                       path="/"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/home')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'home.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/home')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/github"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/github')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'github.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/github')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/about"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/about')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'about.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/about')} />
+                      )}
                     />
                     <Route exact path="/tool" component={Tool} />
                     <Route
                       exact
                       path="/post/:number"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/post')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'post.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/post')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/post"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/posts')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'posts.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/posts')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/repo/:repo"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/repo')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'repo.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/repo')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/repo"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/repos')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'repos.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/repos')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/todo/:number"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/todo')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'todo.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/todo')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/todo"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/todos')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'todos.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/todos')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/gist/:id"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/gist')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'gist.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/gist')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/gist"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/gists')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'gists.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/gists')} />
+                      )}
                     />
                     <Route
                       exact
                       path="/search"
-                      render={() => {
-                        return (
-                          <DynamicLoad
-                            promise={
-                              new Promise(resolve => {
-                                require.ensure(
-                                  [],
-                                  require => {
-                                    const View = require('./pages/search')
-                                      .default;
-                                    resolve(<View />);
-                                  },
-                                  'search.page'
-                                );
-                              })
-                            }
-                          />
-                        );
-                      }}
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/search')} />
+                      )}
                     />
                   </Switch>
                 </Card>
