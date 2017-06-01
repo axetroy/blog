@@ -174,6 +174,13 @@ class App extends Component {
                         <DynamicLoad promise={import('./pages/search')} />
                       )}
                     />
+                    <Route
+                      exact
+                      path="/case"
+                      render={() => (
+                        <DynamicLoad promise={import('./pages/case')} />
+                      )}
+                    />
                   </Switch>
                 </Card>
               </Col>

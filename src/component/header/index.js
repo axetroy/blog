@@ -45,6 +45,11 @@ class Header extends Component {
         icon: <Octicon name="mark-github" mega />
       },
       {
+        path: '/case',
+        title: '案例展示',
+        icon: <Icon type="book" />
+      },
+      {
         path: '/about',
         title: '关于我',
         icon: <Icon type="question-circle" />
