@@ -10,6 +10,10 @@ import { Spin, Tooltip, Icon, Col, Row } from 'antd';
 import DocumentTitle from '../../component/document-title';
 import ViewSourceCode from '../../component/view-source-code';
 
+function img(name) {
+  return `img/showcase/${name}`;
+}
+
 class Case extends Component {
   state = {
     case: [
@@ -26,7 +30,7 @@ class Case extends Component {
         desc: `
         光彩钱包是一个以虚拟币钱包，管理虚拟币的运营/走向和资金流动
 `,
-        screenshot: '',
+        screenshot: img(`gcb-wallet-1.png`),
         homepage: ``
       },
       {
@@ -34,7 +38,15 @@ class Case extends Component {
         desc: `
         光彩交易平台是一个以虚拟币为主导的流通/投资平台
 `,
-        screenshot: '',
+        screenshot: img(`gcb-2.png`),
+        homepage: ``
+      },
+      {
+        name: 'K币交易平台',
+        desc: `
+        K币忘交易平台
+`,
+        screenshot: img(`kcoin-1.png`),
         homepage: ``
       },
       {
@@ -42,7 +54,14 @@ class Case extends Component {
         desc: `
         象宝交易平台是一个以虚拟币为主导的流通/投资平台，与光彩交易平台类似
 `,
-        screenshot: '',
+        screenshot: img(`dob-1.png`),
+        homepage: ``
+      },
+      {
+        name: 'GRATICULE 全球币交易平台',
+        desc: `
+`,
+        screenshot: img(`woqi-1.png`),
         homepage: ``
       }
     ],
@@ -76,11 +95,12 @@ class Case extends Component {
         desc: `
         一个实体店点餐/外卖的小程序，后因种种原因，开发途中死于胎腹.
 `,
-        screenshot: '',
+        screenshot: img('kaopu-3.png'),
         homepage: ``
       }
     ]
   };
+
   render() {
     return (
       <DocumentTitle title="关于我">
