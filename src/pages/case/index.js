@@ -171,7 +171,7 @@ class Case extends Component {
     let images = ['blog-1.png', 'blog-2.png', 'blog-3.png'].map(v => img(v));
     const { photoIndex, isOpen, lightboxImages } = this.state;
     return (
-      <DocumentTitle title="关于我">
+      <DocumentTitle title="案例展示">
         <Spin spinning={false}>
           <div className="toolbar-container">
             <div className="edit-this-page">
