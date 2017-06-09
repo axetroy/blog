@@ -5,7 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { Spin, Tooltip, Icon, Col, Row } from 'antd';
+import { Spin, Tooltip, Icon, Col, Row, Card } from 'antd';
+import Lightbox from 'react-image-lightbox';
+import LazyLoad from 'react-lazyload';
 
 import DocumentTitle from '../../component/document-title';
 import ViewSourceCode from '../../component/view-source-code';
@@ -16,92 +18,158 @@ function img(name) {
 
 class Case extends Component {
   state = {
-    case: [
+    lightboxImages: [],
+    photoIndex: 0,
+    isOpen: false,
+
+    done: [
+      {
+        name: '个人博客',
+        desc: `博客从最初的wordpress，再到hexo，然后到现在自己写的react实现。总要有个地方记录些什么东西...`,
+        screenshot: [1, 2, 3].map(i => img(`blog-${i}.png`)),
+        homepage: `https://axetroy.github.io`
+      },
       {
         name: '中菁商城',
-        desc: `
-        中菁商城是一个以生物产品为主导的在线P2P商城，提供生物/基因产品和技术服务.
-`,
+        desc: `以生物产品为主导的在线P2P商城，提供生物/基因产品和技术服务.`,
         screenshot: '',
         homepage: ``
       },
       {
         name: '光彩钱包',
-        desc: `
-        光彩钱包是一个以虚拟币钱包，管理虚拟币的运营/走向和资金流动
-`,
-        screenshot: img(`gcb-wallet-1.png`),
+        desc: `虚拟币钱包，管理虚拟币的运营/走向和资金流动`,
+        screenshot: [1].map(i => img(`gcb-wallet-${i}.png`)),
         homepage: ``
       },
       {
         name: '光彩交易平台',
-        desc: `
-        光彩交易平台是一个以虚拟币为主导的流通/投资平台
-`,
-        screenshot: img(`gcb-2.png`),
+        desc: `以虚拟币为主导的流通/投资平台`,
+        screenshot: [1, 2, 3].map(i => img(`gcb-${i}.png`)),
         homepage: ``
       },
       {
         name: 'K币交易平台',
-        desc: `
-        K币忘交易平台
-`,
-        screenshot: img(`kcoin-1.png`),
-        homepage: ``
+        desc: `以虚拟币为主导的流通/投资平台`,
+        screenshot: [1, 2].map(i => img(`kcoin-${i}.png`)),
+        homepage: `http://kcoin.biz`
       },
       {
         name: '象宝交易平台',
-        desc: `
-        象宝交易平台是一个以虚拟币为主导的流通/投资平台，与光彩交易平台类似
-`,
-        screenshot: img(`dob-1.png`),
+        desc: `以虚拟币为主导的流通/投资平台`,
+        screenshot: [1, 2, 3].map(i => img(`dob-${i}.png`)),
         homepage: ``
       },
       {
-        name: 'GRATICULE 全球币交易平台',
-        desc: `
-`,
-        screenshot: img(`woqi-1.png`),
+        name: '全球币交易平台',
+        desc: `以虚拟币为主导的流通/投资平台`,
+        screenshot: [1, 2].map(i => img(`woqi-${i}.png`)),
         homepage: ``
+      },
+      {
+        name: 'KAO好吃后台管理',
+        desc: `KAO好吃微信公众号后台管理`,
+        screenshot: [1, 2, 3].map(i => img(`kaopu-${i}.png`)),
+        homepage: `http://cy.hydhmy.com/hyc/m/per.html`
       }
     ],
-    baby: [
+    undone: [
       {
         name: '虚拟币交易平台v3',
         desc: `
-        名字待定，乃虚拟币交易平台第三版. 前端基于Angular@2构建，后因种种原因，开发途中死于胎腹.
+        名字待定，乃虚拟币交易平台第三版. 前端基于Angular@2构建.
 `,
         screenshot: '',
         homepage: ``
       },
       {
         name: '旅游向导类微信小程序',
-        desc: `
-        关于旅游向导类微信小程序，后因种种原因，开发途中死于胎腹.
-`,
-        screenshot: '',
+        desc: `类似嗨牛旅行`,
+        screenshot: [1, 2].map(i => img(`tuanjian-${i}.png`)),
         homepage: ``
       },
       {
         name: 'OA系统APP',
-        desc: `
-        办公类的app，主体是android java和ios object-c. 部分内容嵌套webview，后因种种原因，开发途中死于胎腹.
-`,
+        desc: `办公类的app，主体是android java和ios object-c. 部分内容嵌套webview`,
         screenshot: '',
         homepage: ``
       },
       {
-        name: '烤好吃微信小程序',
-        desc: `
-        一个实体店点餐/外卖的小程序，后因种种原因，开发途中死于胎腹.
-`,
-        screenshot: img('kaopu-3.png'),
+        name: 'KAO好吃微信小程序',
+        desc: `一个实体店点餐/外卖的小程序.`,
+        screenshot: [1, 2, 3].map(i => img(`wxapp-kaopu-${i}.png`)),
         homepage: ``
       }
     ]
   };
 
+  rendCase(title, cases) {
+    const noScreenshotImg = 'img/no-img.jpg';
+    return (
+      <LazyLoad height={300} offset={100}>
+        <div>
+          <h2 style={{ textAlign: 'center' }}>{title}</h2>
+          <Row gutter={16}>
+            {cases.map(c => {
+              return (
+                <Col md={8} xs={24} key={c.name} style={{ margin: '1rem 0' }}>
+                  <Card>
+                    <div
+                      style={{
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minHeight: '30rem'
+                      }}
+                    >
+                      <div
+                        style={{
+                          backgroundImage: `url(${c.screenshot && c.screenshot.length ? c.screenshot[0] : noScreenshotImg})`,
+                          backgroundSize: 'cover',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundAttachment: 'interit',
+                          verticalAlign: 'middle',
+                          width: '100%',
+                          height: '30rem'
+                        }}
+                        onClick={() =>
+                          this.setState({
+                            isOpen: true,
+                            photoIndex: 0,
+                            lightboxImages: c.screenshot && c.screenshot.length
+                              ? c.screenshot
+                              : [noScreenshotImg]
+                          })}
+                      />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          left: 0,
+                          backgroundColor: '#FAFAFA',
+                          padding: '1rem',
+                          width: '100%'
+                        }}
+                      >
+                        <h3>
+                          {c.homepage
+                            ? <a href={c.homepage} target="_blank">{c.name}</a>
+                            : c.name}
+                        </h3>
+                        <p>{c.desc}</p>
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </div>
+      </LazyLoad>
+    );
+  }
+
   render() {
+    let images = ['blog-1.png', 'blog-2.png', 'blog-3.png'].map(v => img(v));
+    const { photoIndex, isOpen, lightboxImages } = this.state;
     return (
       <DocumentTitle title="关于我">
         <Spin spinning={false}>
@@ -120,78 +188,32 @@ class Case extends Component {
                 </ViewSourceCode>
               </Tooltip>
             </div>
-            <div>
-              <h2 style={{ textAlign: 'center' }}>成年项目</h2>
-              <Row gutter={16}>
-                {this.state.case.map(c => {
-                  return (
-                    <Col
-                      md={8}
-                      xs={24}
-                      key={c.name}
-                      style={{ margin: '1rem 0' }}
-                    >
-                      <div style={{ position: 'relative', overflow: 'hidden' }}>
-                        <img
-                          src={c.screenshot || 'img/no-img.jpg'}
-                          alt="案例截图"
-                          style={{ width: '100%', height: 'auto' }}
-                        />
-                        <div
-                          style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            backgroundColor: '#FAFAFA',
-                            padding: '1rem',
-                            width: '100%'
-                          }}
-                        >
-                          <h3>{c.name}</h3>
-                          <p>{c.desc}</p>
-                        </div>
-                      </div>
-                    </Col>
-                  );
-                })}
-              </Row>
-            </div>
-            <div>
-              <h2 style={{ textAlign: 'center' }}>怀孕期项目</h2>
-              <Row gutter={16}>
-                {this.state.baby.map(c => {
-                  return (
-                    <Col
-                      xs={24}
-                      md={8}
-                      key={c.name}
-                      style={{ margin: '1rem 0' }}
-                    >
-                      <div style={{ position: 'relative', overflow: 'hidden' }}>
-                        <img
-                          src={c.screenshot || 'img/no-img.jpg'}
-                          alt="案例截图"
-                          style={{ width: '100%', height: 'auto' }}
-                        />
-                        <div
-                          style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            backgroundColor: '#FAFAFA',
-                            padding: '1rem',
-                            width: '100%'
-                          }}
-                        >
-                          <h3>{c.name}</h3>
-                          <p>{c.desc}</p>
-                        </div>
-                      </div>
-                    </Col>
-                  );
-                })}
-              </Row>
-            </div>
+            {this.rendCase('顺产项目', this.state.done)}
+            {this.rendCase('难产项目', this.state.undone)}
+            {isOpen
+              ? <Lightbox
+                  mainSrc={lightboxImages[photoIndex]}
+                  nextSrc={
+                    lightboxImages[(photoIndex + 1) % lightboxImages.length]
+                  }
+                  prevSrc={
+                    lightboxImages[
+                      (photoIndex + images.length - 1) % lightboxImages.length
+                    ]
+                  }
+                  onCloseRequest={() =>
+                    this.setState({ isOpen: false, photoIndex: 0 })}
+                  onMovePrevRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + lightboxImages.length - 1) %
+                        lightboxImages.length
+                    })}
+                  onMoveNextRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + 1) % lightboxImages.length
+                    })}
+                />
+              : null}
           </div>
         </Spin>
       </DocumentTitle>
