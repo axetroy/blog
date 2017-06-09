@@ -47,22 +47,6 @@ Hexo的流程:
 > 我的目标是：
 > 部署之后，不用再care源码，也不依赖于生产环境，登陆Github就操作。
 
-### 使用条件
-
-- 站点: 一个静态文件服务器或Github Pages
-- 博客: 一个Github仓库. issues用于存放文章
-- TODO: 一个Github仓库. issues用于存放TODO
-- GIST：创建有代码片段
-- 申请有 github_client_id和 github_client_secret
-
-### 使用
-
-```bash
-git clone https://github.com/axetroy/blog.git
-yarn
-yarn start
-```
-
 ### 源码目录
 
 ```bash
@@ -138,39 +122,6 @@ yarn start
 │   ├── todos.js
 │   └── tool-md-preview.js
 └── registerServiceWorker.js
-```
-
-### 部署
-
-#### 修改配置信息``./src/config.json``
-
-```json
-{
-  "owner": "axetroy",
-  "repo": "blog",
-  "todo_repo": "todo",
-  "github_client_id": "b8257841dd7ca5eef2aa",
-  "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e"
-}
-```
-
-#### 修改部署的Github仓库地址``./package.json``
-
-```json
-{
-  "homepage": "http://www.axetroy.xyz",
-  "scripts":{
-    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"
-  }
-}
-```
-
-#### 2.运行命令部署
-
-```bash
-yarn
-yarn run build
-yarn run deploy # 部署到Github Pages
 ```
 
 ### 贡献代码
