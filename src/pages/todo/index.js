@@ -58,7 +58,7 @@ class Todo extends Component {
     const { number } = this.props.match.params;
     const todo = this.props.TODO[number] || {};
     return (
-      <DocumentTitle title={todo.title} suffix={['TODO']}>
+      <DocumentTitle title={[todo.title, 'TODO']}>
         <Spin spinning={!Object.keys(todo).length}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -96,7 +96,9 @@ class Todo extends Component {
               <Steps.Step
                 status="finish"
                 title="创建计划"
-                description={`${moment(new Date(todo.created_at)).format('YYYY-MM-DD HH:mm:ss')}`}
+                description={`${moment(new Date(todo.created_at)).format(
+                  'YYYY-MM-DD HH:mm:ss'
+                )}`}
                 icon={<Icon type="book" />}
               />
               <Steps.Step
@@ -108,7 +110,13 @@ class Todo extends Component {
                         const diff = diffTime(new Date(todo.created_at))(
                           new Date(todo.closed_at)
                         );
-                        return `耗时${diff.days ? diff.days + '天' : ''} ${diff.hours || diff.days ? diff.hours + '时' : ''}${diff.minutes || diff.hours ? diff.minutes + '分' : ''}${diff.seconds}秒`;
+                        return `耗时${diff.days
+                          ? diff.days + '天'
+                          : ''} ${diff.hours || diff.days
+                          ? diff.hours + '时'
+                          : ''}${diff.minutes || diff.hours
+                          ? diff.minutes + '分'
+                          : ''}${diff.seconds}秒`;
                       })()
                     : '进行中...'
                 }
@@ -119,7 +127,9 @@ class Todo extends Component {
                 title="关闭计划"
                 description={
                   todo.closed_at
-                    ? `${moment(new Date(todo.closed_at)).format('YYYY-MM-DD HH:mm:ss')}`
+                    ? `${moment(new Date(todo.closed_at)).format(
+                        'YYYY-MM-DD HH:mm:ss'
+                      )}`
                     : ''
                 }
                 icon={<Icon type="check" />}

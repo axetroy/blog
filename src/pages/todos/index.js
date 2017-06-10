@@ -64,7 +64,7 @@ class TodoList extends Component {
 
   render() {
     return (
-      <DocumentTitle title="TODO List">
+      <DocumentTitle title={['TODO List']}>
         <Spin spinning={false}>
           <div className="toolbar-container">
             <div className="edit-this-page">

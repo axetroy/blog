@@ -29,7 +29,7 @@ class Github extends Component {
   render() {
     const GithubCalendar = this.state ? this.state.GithubCalendar : null;
     return (
-      <DocumentTitle title="Github">
+      <DocumentTitle title={['Github']}>
         <div className="toolbar-container">
 
           <div className="edit-this-page">

@@ -13,7 +13,8 @@ with open(pkgPath, 'r') as f:
 
     pkg = json.loads(pkgRaw)
 
-    homepage = pkg["homepage"]
+    # homepage = pkg["homepage"]
+    homepage = "axetroy.xyz"
 
     if homepage:
         with open(os.path.join(cwd, 'build', 'CNAME'), 'w') as cnameFile:

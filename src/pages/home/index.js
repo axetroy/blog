@@ -48,7 +48,7 @@ class Home extends Component {
 
   render() {
     return (
-      <DocumentTitle title="Home">
+      <DocumentTitle title={['Home']}>
         <Spin spinning={!this.props.READ_ME}>
           <div className="toolbar-container">
             <div className="edit-this-page">

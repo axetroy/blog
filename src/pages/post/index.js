@@ -93,19 +93,25 @@ class Post extends Component {
     const shareMenu = [
       {
         title: '分享到新浪微博',
-        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' + post.title}&url=${window.location.href}&pic=&searchPic=false&style=simple`
+        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' +
+          post.title}&url=${window.location
+          .href}&pic=&searchPic=false&style=simple`
       },
       {
         title: '分享到 Twitter',
-        url: `https://twitter.com/intent/tweet?text=${'分享: ' + post.title}&url=${window.location.href}&via=Axetroy`
+        url: `https://twitter.com/intent/tweet?text=${'分享: ' +
+          post.title}&url=${window.location.href}&via=Axetroy`
       },
       {
         title: '分享到 Telegram',
-        url: `https://telegram.me/share/url?url=${window.location.href}&text=${'分享: ' + post.title}`
+        url: `https://telegram.me/share/url?url=${window.location
+          .href}&text=${'分享: ' + post.title}`
       },
       {
         title: '分享到 QQ',
-        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' + post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${window.location.href}`
+        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' +
+          post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${window
+          .location.href}`
       }
     ];
     return (
@@ -127,7 +133,7 @@ class Post extends Component {
     const { number } = this.props.match.params;
     const post = this.props.POST[number] || {};
     return (
-      <DocumentTitle title={post.title} suffix={['博客文章']}>
+      <DocumentTitle title={[post.title, '博客文章']}>
         <Spin spinning={!Object.keys(post).length}>
           <div
             style={{
@@ -150,7 +156,9 @@ class Post extends Component {
                 top: '20%'
               }}
             >
-              {post.title} <span
+              {post.title}
+              {' '}
+              <span
                 style={{
                   verticalAlign: 'top'
                 }}
@@ -199,7 +207,8 @@ class Post extends Component {
                     style={{
                       marginRight: '0.5rem'
                     }}
-                  />{firstUpperCase(post && post.user ? post.user.login : '')}
+                  />
+                  {firstUpperCase(post && post.user ? post.user.login : '')}
                 </strong>
                 <p>
                   <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
