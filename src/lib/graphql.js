@@ -14,7 +14,9 @@ export default function(query = '') {
         responseType: 'json',
         headers: {
           Accept: 'application/json;charset=utf-8',
-          Authorization: `bearer 436b5cce2a568749d82cee33f7009b71329c7047`
+          Authorization: `bearer ${atob(
+            'M2ZkYmU2ZmY1NjlhYTlmMzNhYzVhYjJmODRjZWUxY2Q1YzdkNjE5Zg=='
+          )}`
         }
       }
     );
