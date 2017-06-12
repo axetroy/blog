@@ -9,6 +9,7 @@ import moment from 'moment';
 import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
+import graphql from '../../lib/graphql';
 import * as userAction from '../../redux/owner';
 import CONFIG from '../../config.json';
 
@@ -31,8 +32,25 @@ const styles = {
 class GithubUserInfo extends Component {
   async componentWillMount() {
     try {
-      const response = await github.get(`/users/${CONFIG.owner}`);
-      this.props.storeOwnerInfo(response.data);
+      const response = await graphql(
+        `
+query {
+  viewer { 
+    name login bio avatarUrl url createdAt isHireable, 
+    followers(first:100){
+      totalCount
+    }
+    following(first:100){
+      totalCount
+    }
+    repositories(privacy:PUBLIC){
+      totalCount, totalDiskUsage
+    }
+  }
+}
+      `
+      )();
+      this.props.storeOwnerInfo(response.data.data.viewer);
     } catch (err) {
       console.error(err);
     }
@@ -43,34 +61,34 @@ class GithubUserInfo extends Component {
   }
 
   render() {
+    const owner = this.props.OWNER || {};
     return (
-      <Spin spinning={!this.props.OWNER}>
+      <Spin spinning={!owner}>
         <Row>
           <Col span={4}>
-            <a href={this.props.OWNER.html_url} target="_blank">
+            <a href={owner.url} target="_blank">
               <img
-                alt={this.props.OWNER.avatar_url}
+                alt={owner.avatarUrl}
                 style={{
                   width: '70%',
                   height: 'auto',
                   borderRadius: '50%',
                   verticalAlign: 'middle'
                 }}
-                src={this.props.OWNER.avatar_url}
+                src={owner.avatarUrl}
               />
             </a>
           </Col>
           <Col span={20}>
-            <p>{this.props.OWNER.name}</p>
+            <p>{owner.name}</p>
             <p>
               加入时间：
-              {this.props.OWNER.created_at &&
-                moment(this.props.OWNER.created_at).format('YYYY-MM-DD')}
+              {owner.createdAt && moment(owner.createdAt).format('YYYY-MM-DD')}
             </p>
             <p>
               编程经历：
-              {this.props.OWNER.created_at
-                ? ((new Date() - new Date(this.props.OWNER.created_at)) /
+              {owner.createdAt
+                ? ((new Date() - new Date(owner.createdAt)) /
                     1000 /
                     3600 /
                     24 /
@@ -79,11 +97,11 @@ class GithubUserInfo extends Component {
               年
             </p>
             <blockquote>
-              {this.props.OWNER.bio}
+              {owner.bio}
             </blockquote>
             <div>
-              状态:<Tag color={this.props.OWNER.hireable ? '#4CAF50' : '#FF5722'}>
-                {!!this.props.OWNER.hireable ? '待业' : '在职'}
+              状态:<Tag color={owner.hireable ? '#4CAF50' : '#FF5722'}>
+                {!!owner.isHireable ? '待业' : '在职'}
               </Tag>
             </div>
           </Col>
@@ -100,7 +118,7 @@ class GithubUserInfo extends Component {
           <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
-                {this.props.OWNER.public_repos}
+                {owner.repositories && owner.repositories.totalCount}
               </span>
               {' '}
               Repositories
@@ -109,7 +127,7 @@ class GithubUserInfo extends Component {
           <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
-                {this.props.OWNER.followers}
+                {owner.followers && owner.followers.totalCount}
               </span>
               {' '}
               Followers
@@ -118,7 +136,7 @@ class GithubUserInfo extends Component {
           <Col md={8} xs={24}>
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
-                {this.props.OWNER.following}
+                {owner.following && owner.following.totalCount}
               </span>
               {' '}
               Following

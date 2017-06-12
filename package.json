@@ -15,6 +15,7 @@
   "dependencies": {
     "@axetroy/react-chart.js": "^0.1.0",
     "@axetroy/react-clipboard": "^0.1.2",
+    "@axetroy/react-document-title": "^0.1.0",
     "@axetroy/react-download": "^0.1.0",
     "@axetroy/react-github-calendar": "^0.1.0",
     "@axetroy/react-img-lazy-load": "^0.1.1",

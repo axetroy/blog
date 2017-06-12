@@ -8,6 +8,7 @@ import { Row, Col, Spin, Pagination } from 'antd';
 import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
+import graphql from '../../lib/graphql';
 import { storeFollowings } from '../../redux/following';
 
 import CONFIG from '../../config.json';
@@ -26,7 +27,40 @@ class GithubFollowing extends Component {
   };
 
   async componentWillMount() {
-    await this.getFollowings(this.state.meta.page, this.state.meta.per_page);
+    // await this.getFollowings(this.state.meta.page, this.state.meta.per_page);
+
+    const response = await graphql(
+      `
+query {
+  viewer {
+    following(first:${this.state.meta.per_page}){
+      nodes{
+        login url avatarUrl
+      }
+      pageInfo{
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+    followers(first:${this.state.meta.per_page}){
+      nodes{
+        login url avatarUrl
+      }
+      pageInfo{
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+  }
+}
+    `
+    )();
+
+    this.props.storeFollowings(response.data.data.viewer.following.nodes);
   }
 
   async getFollowings(page, per_page) {
@@ -72,10 +106,11 @@ class GithubFollowing extends Component {
   }
 
   render() {
+    const followings = this.props.FOLLOWING;
     return (
-      <Spin spinning={!this.props.FOLLOWING || !this.props.FOLLOWING.length}>
+      <Spin spinning={!followings || !followings.length}>
         <Row>
-          {this.props.FOLLOWING.map(user => {
+          {followings.map(user => {
             return (
               <Col
                 className="text-center"
@@ -84,9 +119,9 @@ class GithubFollowing extends Component {
                 xs={6}
                 key={user.login}
               >
-                <a href={user.html_url} target="_blank">
+                <a href={user.url} target="_blank">
                   <img
-                    src={user.avatar_url}
+                    src={user.avatarUrl}
                     style={{ width: '10rem', maxWidth: '100%' }}
                     alt=""
                   />

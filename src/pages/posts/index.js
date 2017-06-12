@@ -100,7 +100,7 @@ class Posts extends Component {
 
   render() {
     return (
-      <DocumentTitle title="博客文章">
+      <DocumentTitle title={['博客文章']}>
         <Spin spinning={false}>
           <div className={'toolbar-container'}>
             <div className="edit-this-page">

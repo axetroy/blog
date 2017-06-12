@@ -8,6 +8,7 @@ import { Row, Col, Spin, Pagination } from 'antd';
 import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
+import graphql from '../../lib/graphql';
 import { storeFollower } from '../../redux/follower';
 import CONFIG from '../../config.json';
 
@@ -25,7 +26,29 @@ class GithubFollowers extends Component {
   };
 
   async componentWillMount() {
-    await this.getFollowers(this.state.meta.page, this.state.meta.per_page);
+    // await this.getFollowers(this.state.meta.page, this.state.meta.per_page);
+
+    const response = await graphql(
+      `
+query {
+  viewer {
+    followers(first:${this.state.meta.per_page}){
+      nodes{
+        login url avatarUrl
+      }
+      pageInfo{
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+  }
+}
+    `
+    )();
+
+    this.props.storeFollower(response.data.data.viewer.followers.nodes);
   }
 
   async getFollowers(page, per_page) {
@@ -71,10 +94,11 @@ class GithubFollowers extends Component {
   }
 
   render() {
+    const followers = this.props.FOLLOWER;
     return (
-      <Spin spinning={!this.props.FOLLOWER || !this.props.FOLLOWER.length}>
+      <Spin spinning={!followers || !followers.length}>
         <Row>
-          {this.props.FOLLOWER.map(user => {
+          {followers.map(user => {
             return (
               <Col
                 className="text-center"
@@ -83,9 +107,9 @@ class GithubFollowers extends Component {
                 xs={6}
                 key={user.login}
               >
-                <a href={user.html_url} target="_blank">
+                <a href={user.url} target="_blank">
                   <img
-                    src={user.avatar_url}
+                    src={user.avatarUrl}
                     style={{ width: '10rem', maxWidth: '100%' }}
                     alt=""
                   />

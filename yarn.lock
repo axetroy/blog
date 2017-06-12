@@ -10,6 +10,10 @@
   version "0.1.3"
   resolved "https://registry.npmjs.org/@axetroy/react-clipboard/-/react-clipboard-0.1.3.tgz#80541ce8c703dce4cd56a7e430182f376cd190e1"
 
+"@axetroy/react-document-title@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/react-document-title/-/react-document-title-0.1.0.tgz#a9ebbd20ef3807b172a7f16fd792bd625a23bb95"
+
 "@axetroy/react-download@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@axetroy/react-download/-/react-download-0.1.0.tgz#8eac9f187172e2c29cad04c9fd78d16ce95df410"

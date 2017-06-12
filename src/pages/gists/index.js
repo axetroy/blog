@@ -39,7 +39,7 @@ class Gists extends Component {
 
   render() {
     return (
-      <DocumentTitle title="Gist List">
+      <DocumentTitle title={['Gist List']}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>

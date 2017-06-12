@@ -104,7 +104,7 @@ class Repo extends Component {
     ];
 
     return (
-      <DocumentTitle title={this.state.repo.name} suffix={['开源项目']}>
+      <DocumentTitle title={[this.state.repo.name, '开源项目']}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>

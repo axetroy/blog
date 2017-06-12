@@ -46,7 +46,7 @@ class About extends Component {
 
   render() {
     return (
-      <DocumentTitle title="关于我">
+      <DocumentTitle title={['关于我']}>
         <Spin spinning={!this.props.ABOUT_ME}>
           <div className="toolbar-container">
             <div className="edit-this-page">

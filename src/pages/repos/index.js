@@ -93,7 +93,7 @@ class Repos extends Component {
 
   render() {
     return (
-      <DocumentTitle title="开源项目">
+      <DocumentTitle title={['开源项目']}>
         <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
           <div className={'toolbar-container'}>
             <div className="edit-this-page">

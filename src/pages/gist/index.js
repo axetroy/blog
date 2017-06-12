@@ -83,7 +83,7 @@ class Gist extends Component {
     const { id } = this.props.match.params;
     const gist = (this.props.GIST || {})[id] || {};
     return (
-      <DocumentTitle title={gist.description} suffix={['Gist']}>
+      <DocumentTitle title={[gist.description, 'Gist']}>
         <Spin spinning={!Object.keys(gist).length}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -104,7 +104,9 @@ class Gist extends Component {
               {gist.description}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
-                  href={`https://gist.github.com/${gist.owner ? gist.owner.login : ''}/${gist.id}/edit`}
+                  href={`https://gist.github.com/${gist.owner
+                    ? gist.owner.login
+                    : ''}/${gist.id}/edit`}
                   target="_blank"
                 >
                   <Icon type="edit" />

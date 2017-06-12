@@ -142,7 +142,7 @@ class SearchComponent extends Component {
   render() {
     return (
       <DocumentTitle
-        title={this.state.keyword ? '搜索: ' + this.state.keyword : '搜索'}
+        title={[this.state.keyword ? '搜索: ' + this.state.keyword : '搜索']}
       >
         <div className="toolbar-container">
 
