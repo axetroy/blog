@@ -44,6 +44,17 @@ query {
         hasPreviousPage
       }
     }
+    followers(first:${this.state.meta.per_page}){
+      nodes{
+        login url avatarUrl
+      }
+      pageInfo{
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
   }
 }
     `
