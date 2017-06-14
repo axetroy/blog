@@ -397,7 +397,12 @@ class GithubRepositories extends Component {
           </Col>
         </Row>
         <Row>
-          <Col span="24">
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 24 }}
+            md={{ span: 16, offset: 4 }}
+            lg={{ span: 12, offset: 6 }}
+          >
             {(() => {
               const starredLanguage = this.state.starredLanguage;
               return ReactChart && starredLanguage
@@ -429,7 +434,9 @@ class GithubRepositories extends Component {
                       }
                     }}
                   />
-                : '';
+                : <div className="text-center" style={{ padding: '2rem' }}>
+                    Loading...
+                  </div>;
             })()}
           </Col>
         </Row>
