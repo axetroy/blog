@@ -171,7 +171,7 @@ class GithubLang extends Component {
                         data: startNum,
                         backgroundColor: languages.map(
                           lang =>
-                            (GithubColors[lang] ? GithubColors[lang].color : '')
+                            GithubColors[lang] ? GithubColors[lang].color : ''
                         )
                       }
                     ]
@@ -235,7 +235,7 @@ class GithubLang extends Component {
               }
               return sortBy(
                 this.props.ALL_REPOS.filter(repo => list.includes(repo.name)),
-                v => -v.watchers_count
+                repo => -(repo.stargazers ? repo.stargazers.totalCount : 0)
               )
                 .slice(0, 10)
                 .map(repo => {
@@ -249,7 +249,7 @@ class GithubLang extends Component {
                     >
                       <Col span={20}>
                         <h3>
-                          <a href={repo.html_url} target="_blank">
+                          <a href={repo.url} target="_blank">
                             {repo.name}
                           </a>
                         </h3>
@@ -269,7 +269,7 @@ class GithubLang extends Component {
                           name="star"
                           mega
                         />
-                        {repo.watchers_count}
+                        {repo.stargazers ? repo.stargazers.totalCount : 0}
                       </Col>
                     </Row>
                   );
