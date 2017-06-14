@@ -11,6 +11,7 @@ import moment from 'moment';
 import { lazyload } from 'react-lazyload';
 
 import github from '../../lib/github';
+import graphql from '../../lib/graphql';
 
 import { store } from '../../redux/orgs';
 import { setStat } from '../../redux/repo-stat';
@@ -46,6 +47,51 @@ class GithubOrganizations extends Component {
     orgMemberShip: {}
   };
 
+  async getOrganizations(
+    organizations = {
+      totalCount: 0,
+      nodes: []
+    },
+    endCursor
+  ) {
+    try {
+      const response = await graphql(`
+query{
+  viewer{
+    organizations(first:100 ${endCursor
+      ? 'after:' + '"' + endCursor + '"'
+      : ''}){
+      nodes{
+        members(first:100){
+          nodes{
+            name login
+          }
+        }
+        repositories(first:100){
+          pageInfo{
+            endCursor
+            hasNextPage
+          }
+          nodes{
+            name
+          }
+        }
+      }
+      pageInfo{
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+      `)();
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+    return organizations;
+  }
+
   async componentWillReceiveProps(nextProp) {
     if (nextProp.orgs && nextProp.orgs.length) {
       const current = nextProp.orgs[0];
@@ -56,6 +102,7 @@ class GithubOrganizations extends Component {
   }
 
   async componentWillMount() {
+    // this.getOrganizations();
     // 获取所在的组织列表
     await this.getOrgs(CONFIG.owner);
     this.setState({
@@ -345,9 +392,8 @@ class GithubOrganizations extends Component {
                                 <p>
                                   贡献比例:
                                   {(() => {
-                                    const stats = this.props.REPOS_STAT[
-                                      repo.name
-                                    ] || [];
+                                    const stats =
+                                      this.props.REPOS_STAT[repo.name] || [];
                                     const myStat = stats.find(
                                       stat =>
                                         stat &&
@@ -391,9 +437,8 @@ class GithubOrganizations extends Component {
                                   style={{
                                     ...styles.contributionBar,
                                     width: (() => {
-                                      const stats = this.props.REPOS_STAT[
-                                        repo.name
-                                      ] || [];
+                                      const stats =
+                                        this.props.REPOS_STAT[repo.name] || [];
                                       const myStat = stats.find(
                                         stat =>
                                           stat &&
