@@ -26,8 +26,30 @@ class GithubRepositories extends Component {
       this.setState({ ReactChart: module.default });
     });
     this.getContributeRepos().then(res => {
-      console.log(res);
       this.setState({ contributedRepositories: res });
+    });
+    this.getStarredRepos().then(res => {
+      let language = {};
+      res.nodes.forEach(node => {
+        const { primaryLanguage } = node;
+        if (primaryLanguage) {
+          const { name } = primaryLanguage;
+          if (language[name] === void 0) {
+            language[name] = {
+              ...primaryLanguage,
+              ...{ count: 0 }
+            };
+          } else {
+            language[name].count++;
+          }
+        } else {
+        }
+      });
+      let starredLanguage = [];
+      for (const lang in language) {
+        starredLanguage.push(language[lang]);
+      }
+      this.setState({ starredRepositories: res, starredLanguage });
     });
     const repositories = await this.getAllRepos();
     this.props.setAllRepos(repositories.nodes);
@@ -141,6 +163,51 @@ class GithubRepositories extends Component {
       // 继续获取下一页
       if (pageInfo.hasNextPage === true) {
         return await this.getContributeRepos(repositories, pageInfo.endCursor);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    return repositories;
+  }
+
+  async getStarredRepos(
+    repositories = {
+      totalCount: 0,
+      nodes: []
+    },
+    endCursor
+  ) {
+    try {
+      const response = await graphql(`
+        query{
+          viewer{
+            starredRepositories(first:100 ${endCursor
+              ? 'after:' + '"' + endCursor + '"'
+              : ''}){
+              totalCount
+              pageInfo{
+                hasNextPage endCursor
+              }
+              nodes{
+                name nameWithOwner url
+                primaryLanguage{
+                  name color
+                }
+              }
+            }
+          }
+        }
+      `)();
+
+      const { starredRepositories } = response.data.data.viewer;
+
+      const { pageInfo, totalCount } = starredRepositories;
+      repositories.totalCount = totalCount;
+      repositories.nodes = repositories.nodes.concat(starredRepositories.nodes);
+
+      // 继续获取下一页
+      if (pageInfo.hasNextPage === true) {
+        return await this.getStarredRepos(repositories, pageInfo.endCursor);
       }
     } catch (err) {
       console.error(err);
@@ -329,6 +396,43 @@ class GithubRepositories extends Component {
             })()}
           </Col>
         </Row>
+        <Row>
+          <Col span="24">
+            {(() => {
+              const starredLanguage = this.state.starredLanguage;
+              return ReactChart && starredLanguage
+                ? <ReactChart
+                    type="pie"
+                    data={{
+                      labels: starredLanguage.map(lang => lang.name),
+                      datasets: [
+                        {
+                          data: starredLanguage.map(lang => lang.count),
+                          backgroundColor: starredLanguage.map(
+                            lang => lang.color
+                          ),
+                          hoverBackgroundColor: starredLanguage.map(
+                            lang => lang.color
+                          )
+                        }
+                      ]
+                    }}
+                    options={{
+                      animation: false,
+                      title: {
+                        display: true,
+                        text: `Star语言偏好`
+                      },
+                      cutoutPercentage: 50,
+                      legend: {
+                        display: false
+                      }
+                    }}
+                  />
+                : '';
+            })()}
+          </Col>
+        </Row>
         <Row
           className="text-center"
           style={{
@@ -338,11 +442,11 @@ class GithubRepositories extends Component {
           }}
         >
           <Col span={24}>
-            <h4>
+            <p>
               参与贡献了{contributedRepositories
                 ? contributedRepositories.totalCount
                 : 0}个项目:
-            </h4>
+            </p>
             {contributedRepositories
               ? contributedRepositories.nodes.map(v => {
                   return (
