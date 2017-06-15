@@ -65,7 +65,9 @@ class DynamicLoad extends Component {
           spinning={isLoading}
           style={isLoading ? { marginTop: '4rem' } : { textAlign: 'left' }}
         >
-          {this.state.component}
+          <div style={{ textAlign: 'left' }}>
+            {this.state.component}
+          </div>
         </Spin>
       </div>
     );
