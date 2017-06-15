@@ -70,7 +70,7 @@
     "dotenv": "4.0.0",
     "eslint": "3.19.0",
     "eslint-config-react-app": "^1.0.0",
-    "eslint-loader": "1.7.1",
+    "eslint-loader": "1.8.0",
     "eslint-plugin-flowtype": "2.33.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
