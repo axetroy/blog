@@ -115,8 +115,11 @@ class Gist extends Component {
             </h2>
             {(values(gist.files) || []).map(file => {
               return (
-                <div key={file.filename} style={{}}>
-                  <h3>
+                <div
+                  key={file.filename}
+                  style={{ border: '0.1rem solid #ececec', margin: '2rem 0' }}
+                >
+                  <h3 style={{ backgroundColor: '#eaeaea', padding: '0.5rem' }}>
                     <span>
                       <Icon type="file" />
                       {file.filename}
