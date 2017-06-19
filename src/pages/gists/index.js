@@ -11,6 +11,7 @@ import Octicon from 'react-octicon';
 import DocumentTitle from '../../component/document-title';
 import ViewSourceCode from '../../component/view-source-code';
 import github from '../../lib/github';
+import graphql from '../../lib/graphql';
 import * as gistsAction from '../../redux/gists';
 
 class Gists extends Component {
@@ -22,6 +23,7 @@ class Gists extends Component {
     }
   };
   async componentDidMount() {
+    // await this.getList();
     await this.getGistList();
   }
 
@@ -35,6 +37,30 @@ class Gists extends Component {
     }
     this.props.setGists(gists);
     return gists;
+  }
+
+  async getList(endCursor) {
+    try {
+      const {data} = await graphql(`
+query{
+  viewer{
+    gists(first:${this.state.meta.per_page} ${endCursor
+        ? 'after:' + '"' + endCursor + '"'
+        : ''}){
+      totalCount
+      nodes{
+        name description id
+      }
+      pageInfo{
+        hasNextPage endCursor
+      }
+    }
+  }
+}
+      `)();
+      const gists = data.data.viewer.gists.nodes;
+      this.props.setGists(gists);
+    } catch (err) {}
   }
 
   render() {
