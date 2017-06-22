@@ -71,6 +71,12 @@ class Case extends Component {
         desc: `KAO好吃微信公众号后台管理`,
         screenshot: [1, 2, 3].map(i => img(`kaopu-${i}.png`)),
         homepage: `http://cy.hydhmy.com/hyc/m/per.html`
+      },
+      {
+        name: 'KAO好吃微信小程序',
+        desc: `一个实体店点餐/外卖的小程序.`,
+        screenshot: [1, 2, 3].map(i => img(`wxapp-kaopu-${i}.png`)),
+        homepage: ``
       }
     ],
     undone: [
@@ -92,12 +98,6 @@ class Case extends Component {
         name: 'OA系统APP',
         desc: `办公类的app，主体是android java和ios object-c. 部分内容嵌套webview`,
         screenshot: '',
-        homepage: ``
-      },
-      {
-        name: 'KAO好吃微信小程序',
-        desc: `一个实体店点餐/外卖的小程序.`,
-        screenshot: [1, 2, 3].map(i => img(`wxapp-kaopu-${i}.png`)),
         homepage: ``
       }
     ]
