@@ -26,55 +26,100 @@ class Case extends Component {
     done: [
       {
         name: '个人博客',
-        desc: `博客从最初的wordpress，再到hexo，然后到现在自己写的react实现。总要有个地方记录些什么东西...`,
+        desc: (
+          <div>
+            <p>技术架构: React全家桶 + Webpack</p>
+            <p>博客从最初的wordpress，再到hexo，然后到现在自己写的react实现。总要有个地方记录些什么东西...</p>
+          </div>
+        ),
         screenshot: [1, 2, 3].map(i => img(`blog-${i}.png`)),
         homepage: `https://axetroy.github.io`
       },
       {
         name: '中菁商城',
-        desc: `以生物产品为主导的在线P2P商城，提供生物/基因产品和技术服务.`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>以生物产品为主导的在线P2P商城，提供生物/基因产品和技术服务.</p>
+          </div>
+        ),
         screenshot: '',
         homepage: ``
       },
       {
         name: '光彩钱包',
-        desc: `虚拟币钱包，管理虚拟币的运营/走向和资金流动`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>虚拟币钱包，管理虚拟币的运营/走向和资金流动</p>
+          </div>
+        ),
         screenshot: [1].map(i => img(`gcb-wallet-${i}.png`)),
         homepage: ``
       },
       {
         name: '光彩交易平台',
-        desc: `以虚拟币为主导的流通/投资平台`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>以虚拟币为主导的流通/投资平台</p>
+          </div>
+        ),
         screenshot: [1, 2, 3].map(i => img(`gcb-${i}.png`)),
         homepage: ``
       },
       {
         name: 'K币交易平台',
-        desc: `以虚拟币为主导的流通/投资平台`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>以虚拟币为主导的流通/投资平台</p>
+          </div>
+        ),
         screenshot: [1, 2].map(i => img(`kcoin-${i}.png`)),
         homepage: `http://kcoin.biz`
       },
       {
         name: '象宝交易平台',
-        desc: `以虚拟币为主导的流通/投资平台`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>以虚拟币为主导的流通/投资平台</p>
+          </div>
+        ),
         screenshot: [1, 2, 3].map(i => img(`dob-${i}.png`)),
         homepage: ``
       },
       {
         name: '全球币交易平台',
-        desc: `以虚拟币为主导的流通/投资平台`,
+        desc: (
+          <div>
+            <p>技术架构: Angular1.x + Gulp + Webpack</p>
+            <p>以虚拟币为主导的流通/投资平台</p>
+          </div>
+        ),
         screenshot: [1, 2].map(i => img(`woqi-${i}.png`)),
         homepage: ``
       },
       {
         name: 'KAO好吃后台管理',
-        desc: `KAO好吃微信公众号后台管理`,
+        desc: (
+          <div>
+            <p>技术架构: thinkPHP + requireJS</p>
+            <p>KAO好吃微信公众号后台管理</p>
+          </div>
+        ),
         screenshot: [1, 2, 3].map(i => img(`kaopu-${i}.png`)),
         homepage: `http://cy.hydhmy.com/hyc/m/per.html`
       },
       {
         name: 'KAO好吃微信小程序',
-        desc: `一个实体店点餐/外卖的小程序.`,
+        desc: (
+          <div>
+            <p>技术架构: Wepy</p>
+            <p>一个实体店点餐/外卖的小程序.</p>
+          </div>
+        ),
         screenshot: [1, 2, 3].map(i => img(`wxapp-kaopu-${i}.png`)),
         homepage: ``
       }
@@ -82,21 +127,34 @@ class Case extends Component {
     undone: [
       {
         name: '虚拟币交易平台v3',
-        desc: `
-        名字待定，乃虚拟币交易平台第三版. 前端基于Angular@2构建.
-`,
+        desc: (
+          <div>
+            <p>技术架构: Angular2.x + Typescript + Webpack</p>
+            <p>名字待定，乃虚拟币交易平台第三版.</p>
+          </div>
+        ),
         screenshot: '',
         homepage: ``
       },
       {
         name: '旅游向导类微信小程序',
-        desc: `类似嗨牛旅行`,
+        desc: (
+          <div>
+            <p>技术架构: Labarador</p>
+            <p>类似嗨牛旅行</p>
+          </div>
+        ),
         screenshot: [1, 2].map(i => img(`tuanjian-${i}.png`)),
         homepage: ``
       },
       {
         name: 'OA系统APP',
-        desc: `办公类的app，主体是android java和ios object-c. 部分内容嵌套webview`,
+        desc: (
+          <div>
+            <p>技术架构: 安卓/IOS原生嵌套webview，web使用react + Webpack</p>
+            <p>办公类的app，主体是android java和ios object-c. 部分内容嵌套webview</p>
+          </div>
+        ),
         screenshot: '',
         homepage: ``
       }
@@ -171,7 +229,7 @@ class Case extends Component {
                             ? <a href={c.homepage} target="_blank">{c.name}</a>
                             : c.name}
                         </h3>
-                        <p>{c.desc}</p>
+                        <div>{c.desc}</div>
                       </div>
                     </div>
                   </Card>
