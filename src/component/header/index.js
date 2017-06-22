@@ -15,47 +15,61 @@ class Header extends Component {
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
   };
-  state = {
-    rythmState: 'stop',
-    nav: [
-      { path: '/', name: 'home', title: 'Home', icon: <Icon type="home" /> },
-      {
-        path: '/post',
-        title: '博客文章',
-        icon: <Octicon name="book" mega />
-      },
-      {
-        path: '/repo',
-        title: '开源项目',
-        icon: <Octicon name="repo" mega />
-      },
-      {
-        path: '/todo',
-        title: 'TODO',
-        icon: <Icon type="exception" />
-      },
-      {
-        path: '/gist',
-        title: 'Gist',
-        icon: <Octicon name="gist" mega />
-      },
-      {
-        path: '/github',
-        title: 'Github',
-        icon: <Octicon name="mark-github" mega />
-      },
-      {
-        path: '/case',
-        title: '案例展示',
-        icon: <Icon type="book" />
-      },
-      {
-        path: '/about',
-        title: '关于我',
-        icon: <Icon type="question-circle" />
-      }
-    ]
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      rythmState: 'stop',
+      nav: [
+        { path: '/', name: 'home', title: 'Home', icon: <Icon type="home" /> },
+        {
+          path: '/post',
+          title: '博客文章',
+          icon: <Octicon name="book" mega />
+        },
+        {
+          path: '/repo',
+          title: '开源项目',
+          icon: <Octicon name="repo" mega />
+        },
+        {
+          path: '/todo',
+          title: 'TODO',
+          icon: <Icon type="exception" />
+        },
+        {
+          path: '/gist',
+          title: 'Gist',
+          icon: <Octicon name="gist" mega />
+        },
+        {
+          path: '/github',
+          title: 'Github',
+          icon: <Octicon name="mark-github" mega />
+        },
+        (() => {
+          const location = this.props.location;
+          if (
+            window.__IS_ADMIN__ === true ||
+            location.search.indexOf('viewer=admin') >= 0
+          ) {
+            window.__IS_ADMIN__ = true;
+            return {
+              path: '/case',
+              title: '案例展示',
+              icon: <Icon type="book" />
+            };
+          } else {
+            return null;
+          }
+        })(),
+        {
+          path: '/about',
+          title: '关于我',
+          icon: <Icon type="question-circle" />
+        }
+      ].filter(v => v)
+    };
+  }
   componentDidMount() {
     const rythm = new Rythm();
     this.setState({ rythm });

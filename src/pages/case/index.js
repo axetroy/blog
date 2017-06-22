@@ -18,6 +18,7 @@ function img(name) {
 
 class Case extends Component {
   state = {
+    shouldRend: false,
     lightboxImages: [],
     photoIndex: 0,
     isOpen: false,
@@ -102,6 +103,19 @@ class Case extends Component {
     ]
   };
 
+  componentWillMount() {
+    const location = this.props.location;
+    if (
+      window.__IS_ADMIN__ === true ||
+      location.search.indexOf('viewer=admin') >= 0
+    ) {
+      window.__IS_ADMIN__ = true;
+      this.setState({ shouldRend: true });
+    } else {
+      this.props.history.goBack();
+    }
+  }
+
   rendCase(title, cases) {
     const noScreenshotImg = 'img/no-img.jpg';
     return (
@@ -122,7 +136,10 @@ class Case extends Component {
                     >
                       <div
                         style={{
-                          backgroundImage: `url(${c.screenshot && c.screenshot.length ? c.screenshot[0] : noScreenshotImg})`,
+                          backgroundImage: `url(${c.screenshot &&
+                            c.screenshot.length
+                            ? c.screenshot[0]
+                            : noScreenshotImg})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat',
                           backgroundAttachment: 'interit',
@@ -169,55 +186,56 @@ class Case extends Component {
 
   render() {
     let images = ['blog-1.png', 'blog-2.png', 'blog-3.png'].map(v => img(v));
-    const { photoIndex, isOpen, lightboxImages } = this.state;
-    return (
-      <DocumentTitle title={['案例展示']}>
-        <Spin spinning={false}>
-          <div className="toolbar-container">
-            <div className="edit-this-page">
-              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                <ViewSourceCode file="pages/case/index.js">
-                  <a href="javascript: void 0" target="_blank">
-                    <Icon
-                      type="code"
-                      style={{
-                        fontSize: '3rem'
-                      }}
-                    />
-                  </a>
-                </ViewSourceCode>
-              </Tooltip>
+    const { photoIndex, isOpen, lightboxImages, shouldRend } = this.state;
+    return shouldRend
+      ? <DocumentTitle title={['案例展示']}>
+          <Spin spinning={false}>
+            <div className="toolbar-container">
+              <div className="edit-this-page">
+                <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+                  <ViewSourceCode file="pages/case/index.js">
+                    <a href="javascript: void 0" target="_blank">
+                      <Icon
+                        type="code"
+                        style={{
+                          fontSize: '3rem'
+                        }}
+                      />
+                    </a>
+                  </ViewSourceCode>
+                </Tooltip>
+              </div>
+              {this.rendCase('顺产项目', this.state.done)}
+              {this.rendCase('难产项目', this.state.undone)}
+              {isOpen
+                ? <Lightbox
+                    mainSrc={lightboxImages[photoIndex]}
+                    nextSrc={
+                      lightboxImages[(photoIndex + 1) % lightboxImages.length]
+                    }
+                    prevSrc={
+                      lightboxImages[
+                        (photoIndex + images.length - 1) % lightboxImages.length
+                      ]
+                    }
+                    onCloseRequest={() =>
+                      this.setState({ isOpen: false, photoIndex: 0 })}
+                    onMovePrevRequest={() =>
+                      this.setState({
+                        photoIndex:
+                          (photoIndex + lightboxImages.length - 1) %
+                            lightboxImages.length
+                      })}
+                    onMoveNextRequest={() =>
+                      this.setState({
+                        photoIndex: (photoIndex + 1) % lightboxImages.length
+                      })}
+                  />
+                : null}
             </div>
-            {this.rendCase('顺产项目', this.state.done)}
-            {this.rendCase('难产项目', this.state.undone)}
-            {isOpen
-              ? <Lightbox
-                  mainSrc={lightboxImages[photoIndex]}
-                  nextSrc={
-                    lightboxImages[(photoIndex + 1) % lightboxImages.length]
-                  }
-                  prevSrc={
-                    lightboxImages[
-                      (photoIndex + images.length - 1) % lightboxImages.length
-                    ]
-                  }
-                  onCloseRequest={() =>
-                    this.setState({ isOpen: false, photoIndex: 0 })}
-                  onMovePrevRequest={() =>
-                    this.setState({
-                      photoIndex: (photoIndex + lightboxImages.length - 1) %
-                        lightboxImages.length
-                    })}
-                  onMoveNextRequest={() =>
-                    this.setState({
-                      photoIndex: (photoIndex + 1) % lightboxImages.length
-                    })}
-                />
-              : null}
-          </div>
-        </Spin>
-      </DocumentTitle>
-    );
+          </Spin>
+        </DocumentTitle>
+      : <div />;
   }
 }
 export default connect(
