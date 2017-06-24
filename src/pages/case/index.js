@@ -46,7 +46,7 @@ class Case extends Component {
         name: '光彩交易平台',
         desc: `以虚拟币为主导的流通/投资平台`,
         screenshot: [1, 2, 3].map(i => img(`gcb-${i}.png`)),
-        homepage: ``
+        homepage: `http://gloriouspay.com/`
       },
       {
         name: 'K币交易平台',
@@ -57,8 +57,14 @@ class Case extends Component {
       {
         name: '象宝交易平台',
         desc: `以虚拟币为主导的流通/投资平台`,
+        screenshot: [1].map(i => img(`kongbow-${i}.png`)),
+        homepage: `http://kongbow.com/`
+      },
+      {
+        name: 'DOB交易平台',
+        desc: `以虚拟币为主导的流通/投资平台`,
         screenshot: [1, 2, 3].map(i => img(`dob-${i}.png`)),
-        homepage: ``
+        homepage: `http://www.db63.com/`
       },
       {
         name: '全球币交易平台',
