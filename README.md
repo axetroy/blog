@@ -6,6 +6,8 @@
 
 ### 特性
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/blog.svg)](https://greenkeeper.io/)
+
 - [x] 博客
 - [x] 代码片段Gist
 - [x] 仓库集合
