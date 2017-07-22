@@ -37,7 +37,7 @@
     "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
     "qrcode.react": "^0.7.1",
-    "query-string": "^4.3.4",
+    "query-string": "^5.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-image-lightbox": "^4.0.0",
