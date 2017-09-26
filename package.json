@@ -38,7 +38,7 @@
     "normalize.css": "^7.0.0",
     "qrcode.react": "^0.7.1",
     "query-string": "^5.0.0",
-    "react": "^15.5.4",
+    "react": "^16.0.0",
     "react-dom": "^15.5.4",
     "react-image-lightbox": "^4.0.0",
     "react-lazyload": "^2.2.7",
