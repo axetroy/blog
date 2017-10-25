@@ -173,16 +173,7 @@ class Case extends Component {
   };
 
   componentWillMount() {
-    const location = this.props.location;
-    if (
-      window.__IS_ADMIN__ === true ||
-      location.search.indexOf('viewer=admin') >= 0
-    ) {
-      window.__IS_ADMIN__ = true;
-      this.setState({ shouldRend: true });
-    } else {
-      this.props.history.goBack();
-    }
+    this.setState({ shouldRend: true });
   }
 
   rendCase(title, cases) {

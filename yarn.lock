@@ -428,9 +428,9 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios-retry@^2.0.0:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/axios-retry/download/axios-retry-2.0.1.tgz#c08b27f3588f61dca7cf82a81cd4cbab14a51da4"
+axios-retry@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/axios-retry/-/axios-retry-3.0.1.tgz#519305b0ae34b68d67fd92e45e5f18057879febd"
   dependencies:
     is-retry-allowed "^1.1.0"
 
@@ -1999,6 +1999,10 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/decamelize/download/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
+decode-uri-component@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+
 deep-diff@^0.3.5:
   version "0.3.8"
   resolved "http://registry.npm.taobao.org/deep-diff/download/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
@@ -2935,9 +2939,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/flatten/download/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.50.0:
-  version "0.50.0"
-  resolved "http://registry.npm.taobao.org/flow-bin/download/flow-bin-0.50.0.tgz#d4cdb2430dee1a3599f0eb6fe551146e3027256a"
+flow-bin@^0.55.0:
+  version "0.55.0"
+  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.55.0.tgz#9083da9327bd8cab6b4076d63d85f2247a7eae1b"
 
 follow-redirects@^1.2.3:
   version "1.2.4"
@@ -5613,10 +5617,18 @@ qs@~6.4.0:
   version "6.4.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
-query-string@^4.1.0, query-string@^4.3.4:
+query-string@^4.1.0:
   version "4.3.4"
   resolved "http://registry.npm.taobao.org/query-string/download/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   dependencies:
+    object-assign "^4.1.0"
+    strict-uri-encode "^1.0.0"
+
+query-string@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/query-string/-/query-string-5.0.1.tgz#6e2b86fe0e08aef682ecbe86e85834765402bd88"
+  dependencies:
+    decode-uri-component "^0.2.0"
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
@@ -7411,9 +7423,9 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.5.3"
 
-webpack@3.5.1:
-  version "3.5.1"
-  resolved "http://registry.npm.taobao.org/webpack/download/webpack-3.5.1.tgz#b749ee3d2b5a118dad53e8e41585b3f71e75499a"
+webpack@3.5.6:
+  version "3.5.6"
+  resolved "https://registry.npmjs.org/webpack/-/webpack-3.5.6.tgz#a492fb6c1ed7f573816f90e00c8fbb5a20cc5c36"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

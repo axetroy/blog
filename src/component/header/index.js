@@ -46,22 +46,11 @@ class Header extends Component {
           title: 'Github',
           icon: <Octicon name="mark-github" mega />
         },
-        (() => {
-          const location = this.props.location;
-          if (
-            window.__IS_ADMIN__ === true ||
-            location.search.indexOf('viewer=admin') >= 0
-          ) {
-            window.__IS_ADMIN__ = true;
-            return {
-              path: '/case',
-              title: '案例展示',
-              icon: <Icon type="book" />
-            };
-          } else {
-            return null;
-          }
-        })(),
+        {
+          path: '/case',
+          title: '案例展示',
+          icon: <Icon type="book" />
+        },
         {
           path: '/about',
           title: '关于我',
