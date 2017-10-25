@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { Spin, Tooltip, Icon, Col, Row, Card } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import LazyLoad from 'react-lazyload';
+import github from '../../lib/github';
 
 import DocumentTitle from '../../component/document-title';
 import ViewSourceCode from '../../component/view-source-code';
@@ -172,7 +173,60 @@ class Case extends Component {
     ]
   };
 
-  componentWillMount() {
+  async componentWillMount() {
+    // get case
+    try {
+      const res = await github.get(`/repos/axetroy/showcase/issues`);
+      const data = res.data || [];
+      data.map(d => {
+        const body = d.body;
+
+        const lines = body.split('\n');
+
+        let descriptionStartLineNumber = -1;
+        let descriptionEndLineNumber = -1;
+        let galleryStartLineNumber = -1;
+        let galleryEndLineNumber = -1;
+
+        for (let i = 0; i < lines.length - 1; i++) {
+          const line = lines[i].trim();
+          console.log(i, line);
+          if (line.indexOf(`<!-- description-start -->`) >= 0) {
+            descriptionStartLineNumber = i + 1;
+          } else if (line.indexOf(`<!-- description-end -->`) >= 0) {
+            descriptionEndLineNumber = i - 1;
+          } else if (line.indexOf(`<!-- gallery-start -->`) >= 0) {
+            galleryStartLineNumber = i + 1;
+          } else if (line.indexOf(`<!-- gallery-end -->`) >= 0) {
+            galleryEndLineNumber = i - 1;
+          }
+        }
+
+        const description = [];
+        const gallery = [];
+
+        body.split('\n').forEach((line, i) => {
+          if (
+            i >= descriptionStartLineNumber &&
+            i <= descriptionEndLineNumber
+          ) {
+            description.push(line);
+          } else if (i >= galleryStartLineNumber && i <= galleryEndLineNumber) {
+            gallery.push(line);
+          }
+        });
+
+        console.info(description.join('\n'));
+        console.info(gallery.join('\n'));
+
+        gallery.map(line => {
+          const match = line.match(/\[(\w+)\]\(([^\)]+)\)/gim);
+          console.log(match);
+        });
+      });
+      this.setState({ showcases: data });
+    } catch (err) {}
+
     this.setState({ shouldRend: true });
   }
 
@@ -197,7 +251,7 @@ class Case extends Component {
                       <div
                         style={{
                           backgroundImage: `url(${c.screenshot &&
-                            c.screenshot.length
+                          c.screenshot.length
                             ? c.screenshot[0]
                             : noScreenshotImg})`,
                           backgroundSize: 'cover',
@@ -211,9 +265,10 @@ class Case extends Component {
                           this.setState({
                             isOpen: true,
                             photoIndex: 0,
-                            lightboxImages: c.screenshot && c.screenshot.length
-                              ? c.screenshot
-                              : [noScreenshotImg]
+                            lightboxImages:
+                              c.screenshot && c.screenshot.length
+                                ? c.screenshot
+                                : [noScreenshotImg]
                           })}
                       />
                       <div
@@ -227,9 +282,13 @@ class Case extends Component {
                         }}
                       >
                         <h3>
-                          {c.homepage
-                            ? <a href={c.homepage} target="_blank">{c.name}</a>
-                            : c.name}
+                          {c.homepage ? (
+                            <a href={c.homepage} target="_blank">
+                              {c.name}
+                            </a>
+                          ) : (
+                            c.name
+                          )}
                         </h3>
                         <div>{c.desc}</div>
                       </div>
@@ -247,55 +306,57 @@ class Case extends Component {
   render() {
     let images = ['blog-1.png', 'blog-2.png', 'blog-3.png'].map(v => img(v));
     const { photoIndex, isOpen, lightboxImages, shouldRend } = this.state;
-    return shouldRend
-      ? <DocumentTitle title={['案例展示']}>
-          <Spin spinning={false}>
-            <div className="toolbar-container">
-              <div className="edit-this-page">
-                <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                  <ViewSourceCode file="pages/case/index.js">
-                    <a href="javascript: void 0" target="_blank">
-                      <Icon
-                        type="code"
-                        style={{
-                          fontSize: '3rem'
-                        }}
-                      />
-                    </a>
-                  </ViewSourceCode>
-                </Tooltip>
-              </div>
-              {this.rendCase('顺产项目', this.state.done)}
-              {this.rendCase('难产项目', this.state.undone)}
-              {isOpen
-                ? <Lightbox
-                    mainSrc={lightboxImages[photoIndex]}
-                    nextSrc={
-                      lightboxImages[(photoIndex + 1) % lightboxImages.length]
-                    }
-                    prevSrc={
-                      lightboxImages[
-                        (photoIndex + images.length - 1) % lightboxImages.length
-                      ]
-                    }
-                    onCloseRequest={() =>
-                      this.setState({ isOpen: false, photoIndex: 0 })}
-                    onMovePrevRequest={() =>
-                      this.setState({
-                        photoIndex:
-                          (photoIndex + lightboxImages.length - 1) %
-                            lightboxImages.length
-                      })}
-                    onMoveNextRequest={() =>
-                      this.setState({
-                        photoIndex: (photoIndex + 1) % lightboxImages.length
-                      })}
-                  />
-                : null}
+    return shouldRend ? (
+      <DocumentTitle title={['案例展示']}>
+        <Spin spinning={false}>
+          <div className="toolbar-container">
+            <div className="edit-this-page">
+              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
+                <ViewSourceCode file="pages/case/index.js">
+                  <a href="javascript: void 0" target="_blank">
+                    <Icon
+                      type="code"
+                      style={{
+                        fontSize: '3rem'
+                      }}
+                    />
+                  </a>
+                </ViewSourceCode>
+              </Tooltip>
             </div>
-          </Spin>
-        </DocumentTitle>
-      : <div />;
+            {this.rendCase('顺产项目', this.state.done)}
+            {this.rendCase('难产项目', this.state.undone)}
+            {isOpen ? (
+              <Lightbox
+                mainSrc={lightboxImages[photoIndex]}
+                nextSrc={
+                  lightboxImages[(photoIndex + 1) % lightboxImages.length]
+                }
+                prevSrc={
+                  lightboxImages[
+                    (photoIndex + images.length - 1) % lightboxImages.length
+                  ]
+                }
+                onCloseRequest={() =>
+                  this.setState({ isOpen: false, photoIndex: 0 })}
+                onMovePrevRequest={() =>
+                  this.setState({
+                    photoIndex:
+                      (photoIndex + lightboxImages.length - 1) %
+                      lightboxImages.length
+                  })}
+                onMoveNextRequest={() =>
+                  this.setState({
+                    photoIndex: (photoIndex + 1) % lightboxImages.length
+                  })}
+              />
+            ) : null}
+          </div>
+        </Spin>
+      </DocumentTitle>
+    ) : (
+      <div />
+    );
   }
 }
 export default connect(
