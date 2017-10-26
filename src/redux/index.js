@@ -24,6 +24,7 @@ import allRepoLanguagesReducer from './all-repo-languages';
 import repoLanguagesReducer from './repo-languages';
 import oauthReducer from './oauth';
 import todoLabelsReducer from './todo-laberls';
+import showcasesReducer from './showcases';
 
 function createStore() {
   const rootReducer = combineReducers({
@@ -48,7 +49,8 @@ function createStore() {
     GISTS: gistsReducer,
     GIST: gistReducer,
     OAUTH: oauthReducer,
-    TODO_LABELS: todoLabelsReducer
+    TODO_LABELS: todoLabelsReducer,
+    SHOW_CASES: showcasesReducer
   });
 
   return configureStore(rootReducer);
