@@ -256,7 +256,7 @@ class GithubRepositories extends Component {
               <Octicon className="font-size-2rem mr5" name="repo" mega />
               {repositories.filter(repo => !repo.isFork).length}
             </p>
-            <p>创建的仓库数</p>
+            <p>原创仓库数</p>
           </Col>
         </Row>
         <Row

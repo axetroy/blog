@@ -126,7 +126,11 @@ class Case extends Component {
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
                 <ViewSourceCode file="pages/case/index.js">
-                  <a href="javascript: void 0" rel="noopener noreferrer" target="_blank">
+                  <a
+                    href="javascript: void 0"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <Icon
                       type="code"
                       style={{
@@ -166,6 +170,7 @@ class Case extends Component {
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundAttachment: 'interit',
+                                backgroundPosition: 'center center',
                                 verticalAlign: 'middle',
                                 width: '100%',
                                 height: '30rem'

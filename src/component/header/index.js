@@ -136,7 +136,7 @@ class Header extends Component {
               alt=""
             />
             <h2>
-              Axetroy's NeverLand
+              <span style={{ color: '#fff' }}>Axetroy</span>
               <Tooltip
                 placement="right"
                 title={
@@ -148,9 +148,8 @@ class Header extends Component {
                   style={{
                     width: '2rem',
                     height: '2rem',
-                    backgroundColor: this.state.rythmState === 'stop'
-                      ? '#F44336'
-                      : '#4CAF50',
+                    backgroundColor:
+                      this.state.rythmState === 'stop' ? '#F44336' : '#4CAF50',
                     borderRadius: '50%',
                     cursor: 'point',
                     display: 'inline-block',
@@ -218,7 +217,8 @@ class Header extends Component {
                     fontSize: '1.4rem'
                   }}
                 >
-                  {nav.icon ? nav.icon : ''}{nav.title}
+                  {nav.icon ? nav.icon : ''}
+                  {nav.title}
                 </NavLink>
               </Menu.Item>
             );
