@@ -21,7 +21,7 @@ class TodoList extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 50,
+      per_page: 100,
       total: 0
     },
     currentLabel: ''
@@ -47,19 +47,22 @@ class TodoList extends Component {
   async getTodoList(page, per_page) {
     let todoList = [];
     try {
-      const {
-        data
-      } = await github.get(
+      const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
         {
           params: { creator: CONFIG.owner, page, per_page, state: 'all' }
         }
       );
-      todoList = data;
-      this.props.setTodo(todoList);
+      if (data.length > 0 && data.length >= per_page) {
+        todoList = todoList
+          .concat(data)
+          .concat(await this.getTodoList(page + 1, per_page));
+      }
     } catch (err) {
       console.error(err);
     }
+    todoList.length && this.props.setTodo(todoList);
+    return todoList;
   }
 
   render() {
@@ -82,13 +85,6 @@ class TodoList extends Component {
               </Tooltip>
             </div>
             <div style={{ padding: '0 2.4rem' }}>
-              <div style={{ fontSize: '1.6rem' }}>
-                <p>我觉得我的拖延症还可以抢救一下</p>
-                <p>采取的措施是，用任务B去拖延任务A</p>
-                <p>虽然我没有完成任务A, 但是我完成了任务B</p>
-                <p>而完成任务的成就感支持着我进行下一个任务</p>
-                <p>这也是斯坦福教授John Perry提倡的“结构化拖延法”, 还得了诺贝尔奖:)</p>
-              </div>
               <div style={{ margin: '2rem 0rem' }}>
                 {(this.props.TODO_LABELS || []).map(label => {
                   return (
@@ -126,12 +122,12 @@ class TodoList extends Component {
                     className="todo-list"
                     style={{
                       borderBottom: '1px solid #e6e6e6',
-                      backgroundColor: (todo.labels || [])
-                        .findIndex(
+                      backgroundColor:
+                        (todo.labels || []).findIndex(
                           label => label.name === this.state.currentLabel
                         ) >= 0
-                        ? '#E0E0E0'
-                        : null
+                          ? '#E0E0E0'
+                          : null
                     }}
                     key={todo.number + '/' + i}
                   >
@@ -146,9 +142,11 @@ class TodoList extends Component {
                       }}
                     >
                       <Tag color={todo.state === 'open' ? 'blue' : 'grey'}>
-                        {todo.state === 'open'
-                          ? <span>&nbsp;Open&nbsp;</span>
-                          : <span>Closed</span>}
+                        {todo.state === 'open' ? (
+                          <span>&nbsp;Open&nbsp;</span>
+                        ) : (
+                          <span>Closed</span>
+                        )}
                       </Tag>
                       <span style={{ marginRight: '0.5rem' }}>
                         {moment(todo.created_at).format('DD/MM/YY')}
@@ -174,28 +172,30 @@ class TodoList extends Component {
                 );
               })}
 
-              {this.state.meta.total > 0
-                ? <Menu.Item>
-                    <Row className="text-center">
-                      <Col
-                        span={24}
-                        style={{
-                          transition: 'all 1s'
-                        }}
-                      >
-                        <Pagination
-                          simple
-                          onChange={page =>
-                            this.changePage(page, this.state.meta.per_page)}
-                          defaultCurrent={this.state.meta.page}
-                          defaultPageSize={this.state.meta.per_page}
-                          total={this.state.meta.total}
-                        />
-                      </Col>
-                    </Row>
-                  </Menu.Item>
-                : ''}
-
+              {this.state.meta.total > 0 ? (
+                <Menu.Item>
+                  <Row className="text-center">
+                    <Col
+                      span={24}
+                      style={{
+                        transition: 'all 1s'
+                      }}
+                    >
+                      <Pagination
+                        simple
+                        onChange={page =>
+                          this.changePage(page, this.state.meta.per_page)
+                        }
+                        defaultCurrent={this.state.meta.page}
+                        defaultPageSize={this.state.meta.per_page}
+                        total={this.state.meta.total}
+                      />
+                    </Col>
+                  </Row>
+                </Menu.Item>
+              ) : (
+                ''
+              )}
             </Menu>
           </div>
         </Spin>
