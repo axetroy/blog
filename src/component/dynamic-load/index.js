@@ -1,7 +1,8 @@
 /**
  * Created by axetroy on 17-5-22.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import { withRouter } from 'react-router-dom';
 import { Spin } from 'antd';
 
@@ -64,9 +65,7 @@ class DynamicLoad extends Component {
           spinning={isLoading}
           style={isLoading ? { marginTop: '4rem' } : {}}
         >
-          <div style={{ textAlign: 'left' }}>
-            {this.state.component}
-          </div>
+          <div style={{ textAlign: 'left' }}>{this.state.component}</div>
         </Spin>
       </div>
     );

@@ -1,7 +1,8 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import { lazyload } from 'react-lazyload';
 import moment from 'moment';
 
@@ -36,9 +37,7 @@ class Comments extends Component {
   async getIssuesComments(owner, repo, number) {
     let comments = [];
     try {
-      const {
-        data
-      } = await github.get(
+      const { data } = await github.get(
         `/repos/${owner}/${repo}/issues/${number}/comments`,
         {
           headers: {
@@ -84,8 +83,8 @@ class Comments extends Component {
               type === 'issues'
                 ? `https://github.com/${owner}/${repo}/issues/${number}`
                 : type === 'gist'
-                    ? `https://gist.github.com/${gistId}`
-                    : 'javascript:void 0'
+                  ? `https://gist.github.com/${gistId}`
+                  : 'javascript:void 0'
             }
             style={{
               float: 'right'
@@ -95,72 +94,74 @@ class Comments extends Component {
           </a>
         </h3>
 
-        {this.state.comments.length
-          ? this.state.comments.map(comment => {
-              return (
+        {this.state.comments.length ? (
+          this.state.comments.map(comment => {
+            return (
+              <div
+                key={comment.id}
+                style={{
+                  border: '0.1rem solid #e2e2e2',
+                  borderRadius: '0.5rem',
+                  margin: '1rem 0'
+                }}
+              >
                 <div
-                  key={comment.id}
+                  className="comment-header"
                   style={{
-                    border: '0.1rem solid #e2e2e2',
-                    borderRadius: '0.5rem',
-                    margin: '1rem 0'
+                    overflow: 'hidden'
+                  }}
+                >
+                  <img
+                    style={{
+                      width: '3.2rem',
+                      verticalAlign: 'middle',
+                      borderRadius: '50%'
+                    }}
+                    src={comment.user.avatar_url}
+                    alt=""
+                  />
+                  &nbsp;&nbsp;
+                  <strong
+                    style={{
+                      color: '#586069'
+                    }}
+                  >
+                    <a
+                      target="_blank"
+                      href={`https://github.com/${comment.user.login}`}
+                    >
+                      {comment.user.login}
+                    </a>
+                  </strong>
+                  &nbsp;&nbsp;
+                  <span>
+                    {' '}
+                    {`commented at ${moment(comment.created_at).fromNow()}`}
+                    &nbsp;&nbsp;
+                    {`updated at ${moment(comment.updated_at).fromNow()}`}
+                  </span>
+                </div>
+                <div
+                  className="comment-body"
+                  style={{
+                    padding: '1.2rem'
                   }}
                 >
                   <div
-                    className="comment-header"
-                    style={{
-                      overflow: 'hidden'
+                    className="markdown-body"
+                    dangerouslySetInnerHTML={{
+                      __html: comment.body_html
                     }}
-                  >
-                    <img
-                      style={{
-                        width: '3.2rem',
-                        verticalAlign: 'middle',
-                        borderRadius: '50%'
-                      }}
-                      src={comment.user.avatar_url}
-                      alt=""
-                    />
-                    &nbsp;&nbsp;
-                    <strong
-                      style={{
-                        color: '#586069'
-                      }}
-                    >
-                      <a
-                        target="_blank"
-                        href={`https://github.com/${comment.user.login}`}
-                      >
-                        {comment.user.login}
-                      </a>
-                    </strong>
-                    &nbsp;&nbsp;
-                    <span>
-                      {' '}
-                      {`commented at ${moment(comment.created_at).fromNow()}`}
-                      &nbsp;&nbsp;
-                      {`updated at ${moment(comment.updated_at).fromNow()}`}
-                    </span>
-                  </div>
-                  <div
-                    className="comment-body"
-                    style={{
-                      padding: '1.2rem'
-                    }}
-                  >
-                    <div
-                      className="markdown-body"
-                      dangerouslySetInnerHTML={{
-                        __html: comment.body_html
-                      }}
-                    />
-                  </div>
+                  />
                 </div>
-              );
-            })
-          : <div>
-              <p>还没有人评论哦，赶紧抢沙发!</p>
-            </div>}
+              </div>
+            );
+          })
+        ) : (
+          <div>
+            <p>还没有人评论哦，赶紧抢沙发!</p>
+          </div>
+        )}
       </div>
     );
   }

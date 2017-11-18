@@ -1,7 +1,8 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
 import DocumentTitle from '@axetroy/react-document-title';
 
 export default class extends Component {
