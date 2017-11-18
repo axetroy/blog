@@ -19,7 +19,7 @@
     "@axetroy/react-download": "^0.1.0",
     "@axetroy/react-github-calendar": "^0.1.0",
     "@axetroy/react-img-lazy-load": "^0.1.1",
-    "@axetroy/react-now": "^0.1.1",
+    "@axetroy/react-now": "^0.2.0",
     "@axetroy/roll": "^1.0.2",
     "antd": "^2.9.3",
     "axios": "^0.16.1",
