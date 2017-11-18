@@ -18,35 +18,46 @@ class Gists extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 50,
+      per_page: 100,
+
       total: 0
     }
   };
   async componentDidMount() {
-    // await this.getList();
-    await this.getGistList();
+    const { page, per_page } = this.state.meta;
+    await this.getGistList(page, per_page);
   }
 
-  async getGistList() {
-    let gists = [];
+  async getAllGistList(page, per_page, gists = []) {
     try {
-      const { data } = await github.get('/users/axetroy/gists');
+      const { data } = await github.get('/users/axetroy/gists', {
+        params: { page, per_page }
+      });
       gists = gists.concat(data || []);
+      // 如果往后还有下一页，则继续请求，直到完为止
+      if (data.length > 0 && data.length >= per_page) {
+        gists = await this.getAllGistList(page + 1, per_page, gists);
+      }
     } catch (err) {
       console.error(err);
     }
+    return gists;
+  }
+
+  async getGistList(page, per_page) {
+    const gists = await this.getAllGistList(page, per_page);
     this.props.setGists(gists);
     return gists;
   }
 
   async getList(endCursor) {
     try {
-      const {data} = await graphql(`
+      const { data } = await graphql(`
 query{
   viewer{
-    gists(first:${this.state.meta.per_page} ${endCursor
-        ? 'after:' + '"' + endCursor + '"'
-        : ''}){
+    gists(first:${this.state.meta.per_page} ${
+        endCursor ? 'after:' + '"' + endCursor + '"' : ''
+      }){
       totalCount
       nodes{
         name description id

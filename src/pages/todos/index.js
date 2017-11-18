@@ -53,14 +53,10 @@ class TodoList extends Component {
           params: { creator: CONFIG.owner, page, per_page, state: 'all' }
         }
       );
-      todoList = data || [];
+      todoList = todoList.concat(data || []);
       // 如果往后还有下一页，则继续请求，知道完为止
       if (data.length > 0 && data.length >= per_page) {
-        todoList = await this.getAllTodoList(
-          page + 1,
-          per_page,
-          todoList.concat(data)
-        );
+        todoList = await this.getAllTodoList(page + 1, per_page, todoList);
       }
     } catch (err) {
       console.error(err);
