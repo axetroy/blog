@@ -24,7 +24,8 @@ class TodoList extends Component {
       per_page: 100,
       total: 0
     },
-    currentLabel: ''
+    currentLabel: '',
+    badge: {}
   };
 
   componentWillMount() {
@@ -44,8 +45,7 @@ class TodoList extends Component {
     }
   }
 
-  async getTodoList(page, per_page) {
-    let todoList = [];
+  async getAllTodoList(page, per_page, todoList = []) {
     try {
       const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
@@ -53,11 +53,25 @@ class TodoList extends Component {
           params: { creator: CONFIG.owner, page, per_page, state: 'all' }
         }
       );
+      todoList = data || [];
+      // 如果往后还有下一页，则继续请求，知道完为止
       if (data.length > 0 && data.length >= per_page) {
-        todoList = todoList
-          .concat(data)
-          .concat(await this.getTodoList(page + 1, per_page));
+        todoList = await this.getAllTodoList(
+          page + 1,
+          per_page,
+          todoList.concat(data)
+        );
       }
+    } catch (err) {
+      console.error(err);
+    }
+    return todoList;
+  }
+
+  async getTodoList(page, per_page) {
+    let todoList = [];
+    try {
+      todoList = await this.getAllTodoList(page, per_page);
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +79,28 @@ class TodoList extends Component {
     return todoList;
   }
 
+  parseBadge() {
+    const badge = {};
+    const todoList = this.props.TODOS || [];
+    todoList.forEach(todo => {
+      const labels = todo.labels;
+      while (labels.length) {
+        const label = labels.shift();
+        if (!badge[label.name]) {
+          badge[label.name] = {
+            count: 1,
+            label: label
+          };
+        } else {
+          badge[label.name].count = badge[label.name].count + 1;
+        }
+      }
+    });
+    this.setState({ badge });
+  }
+
   render() {
+    const todoList = this.props.TODOS || [];
     return (
       <DocumentTitle title={['TODO List']}>
         <Spin spinning={false}>
@@ -85,38 +120,14 @@ class TodoList extends Component {
               </Tooltip>
             </div>
             <div style={{ padding: '0 2.4rem' }}>
-              <div style={{ margin: '2rem 0rem' }}>
-                {(this.props.TODO_LABELS || []).map(label => {
-                  return (
-                    <Tag
-                      className={
-                        label.name === this.state.currentLabel
-                          ? 'active-tag'
-                          : ''
-                      }
-                      style={{ marginTop: '1rem' }}
-                      key={label.id}
-                      color={'#' + label.color}
-                      onClick={() => {
-                        if (label.name === this.state.currentLabel) {
-                          this.setState({ currentLabel: '' });
-                        } else {
-                          this.setState({ currentLabel: label.name });
-                        }
-                      }}
-                    >
-                      {label.name}
-                    </Tag>
-                  );
-                })}
-              </div>
+              <h2 style={{ textAlign: 'center' }}>待办事项</h2>
             </div>
             <Menu
               mode="inline"
               className={'h100'}
               style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
             >
-              {this.props.TODOS.map((todo, i) => {
+              {todoList.map((todo, i) => {
                 return (
                   <Menu.Item
                     className="todo-list"
@@ -141,15 +152,21 @@ class TodoList extends Component {
                         overflow: 'hidden'
                       }}
                     >
-                      <Tag color={todo.state === 'open' ? 'blue' : 'grey'}>
+                      <Tag
+                        color={todo.state === 'open' ? 'blue' : 'grey'}
+                        className="hidden-xs"
+                      >
                         {todo.state === 'open' ? (
                           <span>&nbsp;Open&nbsp;</span>
                         ) : (
                           <span>Closed</span>
                         )}
                       </Tag>
-                      <span style={{ marginRight: '0.5rem' }}>
-                        {moment(todo.created_at).format('DD/MM/YY')}
+                      <span
+                        style={{ marginRight: '0.5rem' }}
+                        className="hidden-xs"
+                      >
+                        {moment(todo.created_at).format('YY/MM/DD')}
                       </span>
                       <span
                         style={{
@@ -158,7 +175,7 @@ class TodoList extends Component {
                       >
                         {todo.title}
                       </span>
-                      <span style={{ float: 'right' }}>
+                      <span style={{ float: 'right' }} className="hidden-xs">
                         {todo.labels.map(label => {
                           return (
                             <Tag key={label.id} color={'#' + label.color}>
