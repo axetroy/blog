@@ -1,6 +1,6 @@
 // lib
 import { createStore, applyMiddleware, compose } from 'redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import { createLogger } from 'redux-logger';
 import localForage from 'localforage';
 
@@ -23,27 +23,27 @@ export default function(rootReducer) {
   const enhancers = [];
 
   // log中间件
-  // middleware.push(createLogMiddleWare());
+  middleware.push(createLogMiddleWare());
 
   // 合并中间件
   enhancers.push(applyMiddleware(...middleware));
 
-  // persist rehydrate
-  enhancers.push(autoRehydrate());
-
-  const store = createStore(rootReducer, compose(...enhancers));
+  const store = createStore(
+    persistCombineReducers(
+      {
+        key: '[A]',
+        storage: localForage
+      },
+      rootReducer
+    ),
+    compose(...enhancers)
+  );
 
   // 持久化数据
-  persistStore(
-    store,
-    {
-      storage: localForage,
-      keyPrefix: '[A]'
-    },
-    function() {
-      storeInitCallback();
-    }
-  );
+  persistStore(store, null, function() {
+    console.log(store.getState());
+    storeInitCallback();
+  });
 
   return store;
 }

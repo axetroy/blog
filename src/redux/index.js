@@ -27,7 +27,7 @@ import todoLabelsReducer from './todo-laberls';
 import showcasesReducer from './showcases';
 
 function createStore() {
-  const rootReducer = combineReducers({
+  return configureStore({
     READ_ME: homeReadMeReducer,
     ABOUT_ME: aboutMeReducer,
     POSTS: postsReducer,
@@ -52,8 +52,6 @@ function createStore() {
     TODO_LABELS: todoLabelsReducer,
     SHOW_CASES: showcasesReducer
   });
-
-  return configureStore(rootReducer);
 }
 
 // 返回一个store，供全局使用

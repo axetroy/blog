@@ -45,7 +45,7 @@ class Posts extends Component {
   }
 
   async getPosts(page, per_page) {
-    let posts = this.props.POSTS;
+    let posts = this.props.POSTS || [];
     try {
       const res = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.repo}/issues`,
@@ -159,21 +159,23 @@ class Posts extends Component {
                       borderTop: '1px solid #e6e6e6'
                     }}
                   >
-                    {post.user.avatar_url
-                      ? <LazyLoad height={44}>
-                          <img
-                            src={post.user.avatar_url}
-                            alt=""
-                            style={{
-                              width: '4.4rem',
-                              height: '100%',
-                              borderRadius: '50%',
-                              marginRight: '0.5rem',
-                              verticalAlign: 'middle'
-                            }}
-                          />
-                        </LazyLoad>
-                      : ''}
+                    {post.user.avatar_url ? (
+                      <LazyLoad height={44}>
+                        <img
+                          src={post.user.avatar_url}
+                          alt=""
+                          style={{
+                            width: '4.4rem',
+                            height: '100%',
+                            borderRadius: '50%',
+                            marginRight: '0.5rem',
+                            verticalAlign: 'middle'
+                          }}
+                        />
+                      </LazyLoad>
+                    ) : (
+                      ''
+                    )}
                     <div
                       style={{
                         display: 'inline-block',
@@ -186,7 +188,8 @@ class Posts extends Component {
                           style={{
                             marginRight: '0.5rem'
                           }}
-                        />{firstUpperCase(post.user.login)}
+                        />
+                        {firstUpperCase(post.user.login)}
                       </strong>
                       <p>
                         <Icon
@@ -208,22 +211,24 @@ class Posts extends Component {
               );
             })}
 
-            {this.state.meta.total > 0
-              ? <Row className="text-center">
-                  <Col span={24} style={{ transition: 'all 1s' }}>
-                    <Pagination
-                      simple
-                      onChange={page =>
-                        this.changePage(page, this.state.meta.per_page)}
-                      defaultCurrent={this.state.meta.page}
-                      defaultPageSize={this.state.meta.per_page}
-                      total={this.state.meta.total}
-                    />
-                  </Col>
-                </Row>
-              : ''}
+            {this.state.meta.total > 0 ? (
+              <Row className="text-center">
+                <Col span={24} style={{ transition: 'all 1s' }}>
+                  <Pagination
+                    simple
+                    onChange={page =>
+                      this.changePage(page, this.state.meta.per_page)
+                    }
+                    defaultCurrent={this.state.meta.page}
+                    defaultPageSize={this.state.meta.per_page}
+                    total={this.state.meta.total}
+                  />
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
           </div>
-
         </Spin>
       </DocumentTitle>
     );
