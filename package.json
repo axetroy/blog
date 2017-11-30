@@ -78,7 +78,7 @@
     "file-loader": "1.1.5",
     "flow-bin": "^0.55.0",
     "fs-extra": "4.0.0",
-    "gh-pages": "^1.0.0",
+    "gh-pages": "^1.1.0",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "object-assign": "4.1.1",
@@ -101,7 +101,7 @@
     "start": "node scripts/now.js && cross-env PORT=10086 node scripts/start.js",
     "build": "node scripts/now.js && node scripts/build.js && python scripts/domain.py",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
+    "deploy": "gh-pages --repo git@github.com:axetroy/axetroy.github.io.git --branch master -d build",
     "generate": "./node_modules/.bin/all-contributors generate",
     "flow": "flow"
   },
