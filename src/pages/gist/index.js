@@ -165,7 +165,7 @@ class Gist extends Component {
 
             <hr className="hr" />
 
-            <Comments type="gist" gistId={gist.id} />
+            <Comments type="gist" gistId={this.props.match.params.id} />
           </div>
         </Spin>
       </DocumentTitle>
