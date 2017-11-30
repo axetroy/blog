@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/axetroy/blog.svg?branch=master)](https://travis-ci.org/axetroy/blog)
-[![Dependency](https://david-dm.org/axetroy/blog.svg)](https://david-dm.org/axetroy/blog)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
@@ -17,15 +16,13 @@
 - [x] 博客
 - [x] 代码片段Gist
 - [x] 仓库集合
-- [x] 工具集合
-- [x] TODO计划任务
+- [x] 计划任务TODO
 - [x] 响应式
 - [x] Progressive Web Apps
 - [x] 数据持久化
 - [x] 按需加载
 - [x] 静态类型检查
 - [ ] i18n
-- [x] 部署教程
 - [x] 分析Github相关数据
 - [x] 集成[firebase](https://firebase.google.com/)
 - [x] 支持[Github GraphQL API v4](https://developer.github.com/v4/)
