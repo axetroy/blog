@@ -2,7 +2,6 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
-[![npm version](https://badge.fury.io/js/blog.svg)](https://badge.fury.io/js/blog)
 ![Size](https://github-size-badge.herokuapp.com/axetroy/blog.svg)
 
 欢迎来到我的个人主页
