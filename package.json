@@ -43,7 +43,7 @@
     "react-dom": "^15.6.2",
     "react-image-lightbox": "^4.3.0",
     "react-lazyload": "^2.3.0",
-    "react-octicon": "^2.0.0",
+    "react-octicon": "^3.0.0",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
