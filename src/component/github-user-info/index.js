@@ -34,21 +34,28 @@ class GithubUserInfo extends Component {
     try {
       const response = await graphql(
         `
-query {
-  viewer { 
-    name login bio avatarUrl url createdAt isHireable, 
-    followers(first:100){
-      totalCount
-    }
-    following(first:100){
-      totalCount
-    }
-    repositories(privacy:PUBLIC){
-      totalCount, totalDiskUsage
-    }
-  }
-}
-      `
+          query {
+            viewer {
+              name
+              login
+              bio
+              avatarUrl
+              url
+              createdAt
+              isHireable
+              followers(first: 100) {
+                totalCount
+              }
+              following(first: 100) {
+                totalCount
+              }
+              repositories(privacy: PUBLIC) {
+                totalCount
+                totalDiskUsage
+              }
+            }
+          }
+        `
       )();
       this.props.storeOwnerInfo(response.data.data.viewer);
     } catch (err) {
@@ -88,19 +95,22 @@ query {
             <p>
               编程经历：
               {owner.createdAt
-                ? ((new Date() - new Date(owner.createdAt)) /
+                ? (
+                    (new Date() - new Date(owner.createdAt)) /
                     1000 /
                     3600 /
                     24 /
-                    365).toFixed(1)
+                    365
+                  ).toFixed(1)
                 : ''}
               年
             </p>
-            <blockquote>
-              {owner.bio}
-            </blockquote>
+            <blockquote>{owner.bio}</blockquote>
             <div>
-              状态:<Tag color={owner.hireable ? '#4CAF50' : '#FF5722'}>
+              状态:<Tag
+                color={owner.hireable ? '#4CAF50' : '#FF5722'}
+                style={{ marginLeft: '0.5rem' }}
+              >
                 {!!owner.isHireable ? '待业' : '在职'}
               </Tag>
             </div>
@@ -119,8 +129,7 @@ query {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.repositories && owner.repositories.totalCount}
-              </span>
-              {' '}
+              </span>{' '}
               Repositories
             </div>
           </Col>
@@ -128,8 +137,7 @@ query {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.followers && owner.followers.totalCount}
-              </span>
-              {' '}
+              </span>{' '}
               Followers
             </div>
           </Col>
@@ -137,13 +145,11 @@ query {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.following && owner.following.totalCount}
-              </span>
-              {' '}
+              </span>{' '}
               Following
             </div>
           </Col>
         </Row>
-
       </Spin>
     );
   }

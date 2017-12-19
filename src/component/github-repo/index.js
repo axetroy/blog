@@ -239,7 +239,7 @@ class GithubRepositories extends Component {
           </Col>
           <Col span={8}>
             <p>
-              <Octicon className="font-size-2rem mr5" name="gist-fork" mega />
+              <Octicon className="font-size-2rem mr5" name="repo-forked" mega />
               {repositories
                 .map(repo => (repo.forks ? repo.forks.totalCount : 0))
                 .reduce((a, b) => a + b, 0) || 0}
