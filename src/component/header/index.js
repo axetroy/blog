@@ -14,7 +14,7 @@ class Header extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
   constructor(props) {
     super(props);
@@ -25,39 +25,39 @@ class Header extends Component {
         {
           path: '/post',
           title: '博客文章',
-          icon: <Octicon name="book" mega />,
+          icon: <Octicon name="book" mega />
         },
         {
           path: '/repo',
           title: '开源项目',
-          icon: <Octicon name="repo" mega />,
+          icon: <Octicon name="repo" mega />
         },
         {
           path: '/todo',
           title: 'TODO',
-          icon: <Icon type="exception" />,
+          icon: <Icon type="exception" />
         },
         {
           path: '/gist',
           title: 'Gist',
-          icon: <Octicon name="gist" mega />,
+          icon: <Octicon name="gist" mega />
         },
         {
           path: '/github',
           title: 'Github',
-          icon: <Octicon name="mark-github" mega />,
+          icon: <Octicon name="mark-github" mega />
         },
         {
           path: '/case',
           title: '案例展示',
-          icon: <Icon type="book" />,
+          icon: <Icon type="book" />
         },
         {
           path: '/about',
           title: '关于我',
-          icon: <Icon type="question-circle" />,
-        },
-      ].filter(v => v),
+          icon: <Icon type="question-circle" />
+        }
+      ].filter(v => v)
     };
   }
   componentDidMount() {
@@ -72,7 +72,7 @@ class Header extends Component {
         rythm.setMusic('./audio/bgm.mp3');
         rythm.addRythm('pulse2', 'pulse', 0, 10, {
           min: 0.1,
-          max: 1.5,
+          max: 1.5
         });
         this.__bgmLoaded = true;
       }
@@ -96,7 +96,7 @@ class Header extends Component {
       <div
         id="header"
         style={{
-          position: 'relative',
+          position: 'relative'
         }}
       >
         <div
@@ -109,7 +109,7 @@ class Header extends Component {
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'inherit',
             backgroundPosition: 'center',
-            position: 'relative',
+            position: 'relative'
           }}
         />
         <div
@@ -120,18 +120,18 @@ class Header extends Component {
             textAlign: 'center',
             color: '#fff',
             width: '100%',
-            height: '100%',
+            height: '100%'
           }}
         >
           <div
             style={{
-              marginTop: '3rem',
+              marginTop: '3rem'
             }}
           >
             <img
               style={{
                 width: '10rem',
-                borderRadius: '50%',
+                borderRadius: '50%'
               }}
               src="https://avatars1.githubusercontent.com/u/9758711?v=3"
               alt=""
@@ -157,7 +157,7 @@ class Header extends Component {
                     display: 'inline-block',
                     marginLeft: '0.6rem',
                     marginTop: '0.4rem',
-                    verticalAlign: 'middle',
+                    verticalAlign: 'middle'
                   }}
                   onClick={() => {
                     if (this.state.rythmState === 'stop') {
@@ -174,7 +174,7 @@ class Header extends Component {
           <div
             style={{
               float: 'right',
-              marginRight: '2rem',
+              marginRight: '2rem'
             }}
           >
             <Icon
@@ -186,12 +186,12 @@ class Header extends Component {
                 border: '1px solid #64ceaa',
                 borderRadius: '50%',
                 backgroundColor: '#64ceaa',
-                padding: '0.5rem',
+                padding: '0.5rem'
               }}
               onClick={() => {
                 this.props.history.push({
                   ...this.props.location,
-                  pathname: '/search',
+                  pathname: '/search'
                 });
               }}
             />
@@ -205,7 +205,7 @@ class Header extends Component {
                 className={(() => {
                   const navPath = nav.path;
                   const isMatchRoute = matchPath(pathname, {
-                    path: navPath,
+                    path: navPath
                   });
                   if (pathname === '/') {
                     return pathname === navPath ? navClassName : '';
@@ -217,7 +217,7 @@ class Header extends Component {
                 <NavLink
                   to={nav.path}
                   style={{
-                    fontSize: '1.4rem',
+                    fontSize: '1.4rem'
                   }}
                 >
                   {nav.icon ? nav.icon : ''}
