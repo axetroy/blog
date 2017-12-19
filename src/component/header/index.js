@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from 'react';
-import PropTypes from 'proptypes'
+import PropTypes from 'proptypes';
 import { Menu, Icon, Tooltip } from 'antd';
 import { NavLink, matchPath, withRouter } from 'react-router-dom';
 import Octicon from 'react-octicon';
@@ -147,6 +147,7 @@ class Header extends Component {
                 <div
                   className="pulse2"
                   style={{
+                    position: 'absolute',
                     width: '2rem',
                     height: '2rem',
                     backgroundColor:
@@ -155,6 +156,7 @@ class Header extends Component {
                     cursor: 'point',
                     display: 'inline-block',
                     marginLeft: '0.6rem',
+                    marginTop: '0.4rem',
                     verticalAlign: 'middle'
                   }}
                   onClick={() => {
