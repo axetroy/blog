@@ -1,8 +1,0 @@
-.active-tag {
-  margin: 0 2rem;
-  transform: translateY(-1rem);
-}
-
-.todo-list:hover {
-  background-color: #fafafa !important;
-}
