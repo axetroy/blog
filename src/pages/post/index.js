@@ -20,7 +20,7 @@ import './post.css';
 
 class Post extends Component {
   state = {
-    banner: `img/banner/material-${parseInt(Math.random() * 10 + 1)}.png`
+    banner: `img/banner/material-${parseInt(Math.random() * 10 + 1)}.png`,
   };
 
   async componentWillMount() {
@@ -44,15 +44,13 @@ class Post extends Component {
   async getPost(number) {
     let post = {};
     try {
-      const {
-        data
-      } = await github.get(
+      const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.repo}/issues/${number}`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html'
+            Accept: 'application/vnd.github.v3.html',
           },
-          responseType: 'text'
+          responseType: 'text',
         }
       );
       post = data;
@@ -94,25 +92,28 @@ class Post extends Component {
       {
         title: '分享到新浪微博',
         url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' +
-          post.title}&url=${window.location
-          .href}&pic=&searchPic=false&style=simple`
+          post.title}&url=${
+          window.location.href
+        }&pic=&searchPic=false&style=simple`,
       },
       {
         title: '分享到 Twitter',
         url: `https://twitter.com/intent/tweet?text=${'分享: ' +
-          post.title}&url=${window.location.href}&via=Axetroy`
+          post.title}&url=${window.location.href}&via=Axetroy`,
       },
       {
         title: '分享到 Telegram',
-        url: `https://telegram.me/share/url?url=${window.location
-          .href}&text=${'分享: ' + post.title}`
+        url: `https://telegram.me/share/url?url=${
+          window.location.href
+        }&text=${'分享: ' + post.title}`,
       },
       {
         title: '分享到 QQ',
         url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' +
-          post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${window
-          .location.href}`
-      }
+          post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${
+          window.location.href
+        }`,
+      },
     ];
     return (
       <Menu>
@@ -144,7 +145,7 @@ class Post extends Component {
               backgroundOrigin: 'border-box',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
-              backgroundPositionY: '25%'
+              backgroundPositionY: '25%',
             }}
           >
             <h2
@@ -153,14 +154,13 @@ class Post extends Component {
                 position: 'absolute',
                 width: '100%',
                 color: '#fff',
-                top: '20%'
+                top: '20%',
               }}
             >
-              {post.title}
-              {' '}
+              {post.title}{' '}
               <span
                 style={{
-                  verticalAlign: 'top'
+                  verticalAlign: 'top',
                 }}
               >
                 {(post.labels || []).map(label => {
@@ -179,33 +179,35 @@ class Post extends Component {
                 left: 0,
                 width: '100%',
                 padding: '2rem',
-                backgroundColor: 'rgba(245, 245, 245, 0.23)'
+                backgroundColor: 'rgba(245, 245, 245, 0.23)',
               }}
             >
-              {post.user && post.user.avatar_url
-                ? <img
-                    src={post.user.avatar_url}
-                    alt=""
-                    style={{
-                      width: '4.4rem',
-                      height: '100%',
-                      borderRadius: '50%',
-                      verticalAlign: 'middle'
-                    }}
-                  />
-                : ''}
+              {post.user && post.user.avatar_url ? (
+                <img
+                  src={post.user.avatar_url}
+                  alt=""
+                  style={{
+                    width: '4.4rem',
+                    height: '100%',
+                    borderRadius: '50%',
+                    verticalAlign: 'middle',
+                  }}
+                />
+              ) : (
+                ''
+              )}
               <div
                 style={{
                   display: 'inline-block',
                   verticalAlign: 'middle',
-                  margin: '0 1rem'
+                  margin: '0 1rem',
                 }}
               >
                 <strong>
                   <Icon
                     type="user"
                     style={{
-                      marginRight: '0.5rem'
+                      marginRight: '0.5rem',
                     }}
                   />
                   {firstUpperCase(post && post.user ? post.user.login : '')}
@@ -218,7 +220,7 @@ class Post extends Component {
                   <Icon
                     type="message"
                     style={{
-                      marginRight: '0.5rem'
+                      marginRight: '0.5rem',
                     }}
                   />
                   {post.comments}
@@ -228,16 +230,18 @@ class Post extends Component {
                 style={{
                   textAlign: 'right',
                   float: 'right',
-                  fontSize: '2.4rem'
+                  fontSize: '2.4rem',
                 }}
               >
                 <span style={{ margin: '0.5rem' }}>
                   <Tooltip title="编辑文章" placement="topRight">
                     <a
                       target="blank"
-                      href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/issues/${post.number}`}
+                      href={`https://github.com/${CONFIG.owner}/${
+                        CONFIG.repo
+                      }/issues/${post.number}`}
                       style={{
-                        color: 'inherit'
+                        color: 'inherit',
                       }}
                     >
                       <Icon type="edit" />
@@ -260,7 +264,7 @@ class Post extends Component {
                 <span
                   style={{
                     cursor: 'pointer',
-                    margin: '0.5rem'
+                    margin: '0.5rem',
                   }}
                 >
                   <Popover
@@ -269,9 +273,11 @@ class Post extends Component {
                     trigger="click"
                     content={
                       <div className="text-center">
-                        {QRCode
-                          ? <QRCode value={window.location.href} />
-                          : 'Loading...'}
+                        {QRCode ? (
+                          <QRCode value={window.location.href} />
+                        ) : (
+                          'Loading...'
+                        )}
                       </div>
                     }
                   >
@@ -281,7 +287,7 @@ class Post extends Component {
                 <span
                   style={{
                     cursor: 'pointer',
-                    margin: '0.5rem'
+                    margin: '0.5rem',
                   }}
                 >
                   <Dropdown
@@ -300,10 +306,10 @@ class Post extends Component {
             style={{
               margin: '2rem 0',
               borderBottom: '1px solid #e6e6e6',
-              paddingBottom: '2rem'
+              paddingBottom: '2rem',
             }}
             dangerouslySetInnerHTML={{
-              __html: post.filter_html
+              __html: post.filter_html,
             }}
           />
 
@@ -318,7 +324,7 @@ class Post extends Component {
             style={{
               marginTop: '2rem',
               paddingTop: '2rem',
-              borderTop: '1px solid #e6e6e6'
+              borderTop: '1px solid #e6e6e6',
             }}
           >
             <Comments

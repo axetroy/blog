@@ -12,7 +12,7 @@ const reducer = handleActions(
   {
     [STORE]: function(state, { payload }) {
       return INITIAL_STATE.concat(payload);
-    }
+    },
   },
   INITIAL_STATE
 );

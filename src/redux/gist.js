@@ -12,9 +12,9 @@ const reducer = handleActions(
       return {
         ...INITIAL_STATE,
         ...state,
-        ...payload
+        ...payload,
       };
-    }
+    },
   },
   INITIAL_STATE
 );

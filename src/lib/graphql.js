@@ -16,8 +16,8 @@ export default function(query = '') {
           Accept: 'application/json;charset=utf-8',
           Authorization: `bearer ${atob(
             'M2ZkYmU2ZmY1NjlhYTlmMzNhYzVhYjJmODRjZWUxY2Q1YzdkNjE5Zg=='
-          )}`
-        }
+          )}`,
+        },
       }
     );
   };

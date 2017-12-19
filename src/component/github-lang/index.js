@@ -39,7 +39,7 @@ function sum(array) {
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubLang extends Component {
   state = { ALL_REPOS: null };
@@ -70,7 +70,7 @@ class GithubLang extends Component {
       );
       this.props.storeRepoLang({
         repo: repo.name,
-        languages: data
+        languages: data,
       });
       for (let language in data) {
         if (data.hasOwnProperty(language)) {
@@ -97,7 +97,7 @@ class GithubLang extends Component {
                 width: '100%',
                 height: '1rem',
                 backgroundColor: '#6e6e6e',
-                display: 'table'
+                display: 'table',
               }}
             >
               {(() => {
@@ -106,7 +106,7 @@ class GithubLang extends Component {
                   if (this.props.ALL_REPO_LANGUAGES.hasOwnProperty(lang)) {
                     entity.push({
                       lang,
-                      percent: this.props.ALL_REPO_LANGUAGES[lang] / total
+                      percent: this.props.ALL_REPO_LANGUAGES[lang] / total,
                     });
                   }
                 }
@@ -118,7 +118,7 @@ class GithubLang extends Component {
                       style={{
                         display: 'table-cell',
                         width: v.percent * 100 + '%',
-                        backgroundColor: (GithubColors[v.lang] || {}).color
+                        backgroundColor: (GithubColors[v.lang] || {}).color,
                       }}
                     />
                   );
@@ -129,74 +129,77 @@ class GithubLang extends Component {
         </Row>
         <Row>
           <Col md={12} xs={24}>
-            {ReactChart
-              ? <ReactChart
-                  type="radar"
-                  data={{
-                    labels: languages,
-                    datasets: [
-                      {
-                        backgroundColor: 'rgba(179,181,198,0.2)',
-                        borderColor: 'rgba(179,181,198,1)',
-                        pointBackgroundColor: 'rgba(179,181,198,1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(179,181,198,1)',
-                        data: starPercent
-                      }
-                    ]
-                  }}
-                  options={{
-                    animation: false,
-                    title: {
-                      display: true,
-                      text: '使用语言频次'
+            {ReactChart ? (
+              <ReactChart
+                type="radar"
+                data={{
+                  labels: languages,
+                  datasets: [
+                    {
+                      backgroundColor: 'rgba(179,181,198,0.2)',
+                      borderColor: 'rgba(179,181,198,1)',
+                      pointBackgroundColor: 'rgba(179,181,198,1)',
+                      pointBorderColor: '#fff',
+                      pointHoverBackgroundColor: '#fff',
+                      pointHoverBorderColor: 'rgba(179,181,198,1)',
+                      data: starPercent,
                     },
-                    legend: {
-                      display: false
-                    }
-                  }}
-                />
-              : ''}
+                  ],
+                }}
+                options={{
+                  animation: false,
+                  title: {
+                    display: true,
+                    text: '使用语言频次',
+                  },
+                  legend: {
+                    display: false,
+                  },
+                }}
+              />
+            ) : (
+              ''
+            )}
           </Col>
 
           <Col md={12} xs={24}>
-            {ReactChart
-              ? <ReactChart
-                  type="polarArea"
-                  data={{
-                    labels: languages,
-                    datasets: [
-                      {
-                        data: startNum,
-                        backgroundColor: languages.map(
-                          lang =>
-                            GithubColors[lang] ? GithubColors[lang].color : ''
-                        )
-                      }
-                    ]
-                  }}
-                  options={{
-                    animation: false,
-                    scale: {
-                      lineArc: true
+            {ReactChart ? (
+              <ReactChart
+                type="polarArea"
+                data={{
+                  labels: languages,
+                  datasets: [
+                    {
+                      data: startNum,
+                      backgroundColor: languages.map(
+                        lang =>
+                          GithubColors[lang] ? GithubColors[lang].color : ''
+                      ),
                     },
-                    title: {
-                      display: true,
-                      text: '语言 & 代码量'
-                    },
-                    legend: {
-                      display: true
-                    }
-                  }}
-                />
-              : ''}
-
+                  ],
+                }}
+                options={{
+                  animation: false,
+                  scale: {
+                    lineArc: true,
+                  },
+                  title: {
+                    display: true,
+                    text: '语言 & 代码量',
+                  },
+                  legend: {
+                    display: true,
+                  },
+                }}
+              />
+            ) : (
+              ''
+            )}
           </Col>
         </Row>
         <Row
           style={{
-            margin: '2rem 0'
+            margin: '2rem 0',
           }}
         >
           <Col span={24}>
@@ -206,12 +209,13 @@ class GithubLang extends Component {
                   key={lang}
                   color={GithubColors[lang] ? GithubColors[lang].color : ''}
                   style={{
-                    margin: '1rem 0.5rem'
+                    margin: '1rem 0.5rem',
                   }}
                   onClick={() =>
                     this.setState({
-                      currentLang: lang
-                    })}
+                      currentLang: lang,
+                    })
+                  }
                 >
                   {lang}
                 </Tag>
@@ -244,7 +248,7 @@ class GithubLang extends Component {
                       key={repo.name}
                       style={{
                         margin: '1rem 0',
-                        padding: '1rem 0'
+                        padding: '1rem 0',
                       }}
                     >
                       <Col span={20}>
@@ -255,7 +259,7 @@ class GithubLang extends Component {
                         </h3>
                         <p
                           style={{
-                            color: '#c0c0c0'
+                            color: '#c0c0c0',
                           }}
                         >
                           {repo.description}
@@ -264,7 +268,7 @@ class GithubLang extends Component {
                       <Col span={4}>
                         <Octicon
                           style={{
-                            fontSize: '2rem'
+                            fontSize: '2rem',
                           }}
                           name="star"
                           mega
@@ -286,14 +290,14 @@ export default connect(
     return {
       ALL_REPOS: state.ALL_REPOS,
       REPO_LANGUAGES: state.REPO_LANGUAGES,
-      ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES
+      ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
         storeLang: allRepoLanguages.store,
-        storeRepoLang: repoLanguages.push
+        storeRepoLang: repoLanguages.push,
       },
       dispatch
     );

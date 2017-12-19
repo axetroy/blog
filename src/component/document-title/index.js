@@ -8,13 +8,13 @@ import DocumentTitle from '@axetroy/react-document-title';
 export default class extends Component {
   PropTypes = {
     title: PropTypes.array,
-    revert: PropTypes.bool
+    revert: PropTypes.bool,
   };
   render() {
     let title = (this.props.title || []).concat([`Axetroy's NeverLand`]);
     const props = {
       ...this.props,
-      ...{ title }
+      ...{ title },
     };
     return <DocumentTitle {...props} />;
   }

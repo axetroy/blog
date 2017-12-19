@@ -22,10 +22,10 @@ class TodoList extends Component {
     meta: {
       page: 1,
       per_page: 100,
-      total: 0
+      total: 0,
     },
     currentLabel: '',
-    badge: {}
+    badge: {},
   };
 
   componentWillMount() {
@@ -50,7 +50,7 @@ class TodoList extends Component {
       const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
         {
-          params: { creator: CONFIG.owner, page, per_page, state: 'all' }
+          params: { creator: CONFIG.owner, page, per_page, state: 'all' },
         }
       );
       todoList = todoList.concat(data || []);
@@ -85,7 +85,7 @@ class TodoList extends Component {
         if (!badge[label.name]) {
           badge[label.name] = {
             count: 1,
-            label: label
+            label: label,
           };
         } else {
           badge[label.name].count = badge[label.name].count + 1;
@@ -108,7 +108,7 @@ class TodoList extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -134,7 +134,7 @@ class TodoList extends Component {
                           label => label.name === this.state.currentLabel
                         ) >= 0
                           ? '#E0E0E0'
-                          : null
+                          : null,
                     }}
                     key={todo.number + '/' + i}
                   >
@@ -145,7 +145,7 @@ class TodoList extends Component {
                         whiteSpace: 'nowrap',
                         wordBreak: 'break-all',
                         textOverflow: 'ellipsis',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
                       }}
                     >
                       <Tag
@@ -166,7 +166,7 @@ class TodoList extends Component {
                       </span>
                       <span
                         style={{
-                          color: todo.state !== 'open' ? '#9E9E9E' : 'inherit'
+                          color: todo.state !== 'open' ? '#9E9E9E' : 'inherit',
                         }}
                       >
                         {todo.title}
@@ -191,7 +191,7 @@ class TodoList extends Component {
                     <Col
                       span={24}
                       style={{
-                        transition: 'all 1s'
+                        transition: 'all 1s',
                       }}
                     >
                       <Pagination
@@ -220,14 +220,14 @@ export default connect(
   function mapStateToProps(state) {
     return {
       TODOS: state.TODOS,
-      TODO_LABELS: state.TODO_LABELS
+      TODO_LABELS: state.TODO_LABELS,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
         setTodo: todosAction.set,
-        setLabels: todoLabelAction.set
+        setLabels: todoLabelAction.set,
       },
       dispatch
     );

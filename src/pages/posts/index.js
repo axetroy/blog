@@ -26,8 +26,8 @@ class Posts extends Component {
     meta: {
       page: 1,
       per_page: 10,
-      total: 0
-    }
+      total: 0,
+    },
   };
 
   async componentWillMount() {
@@ -38,8 +38,8 @@ class Posts extends Component {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page: +page, per_page: +per_page }
-      }
+        ...{ page: +page, per_page: +per_page },
+      },
     });
     await this.getPosts(page, per_page);
   }
@@ -50,7 +50,7 @@ class Posts extends Component {
       const res = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.repo}/issues`,
         {
-          params: { creator: CONFIG.owner, page, per_page, state: 'open' }
+          params: { creator: CONFIG.owner, page, per_page, state: 'open' },
         }
       );
 
@@ -66,8 +66,8 @@ class Posts extends Component {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page }
-          }
+            ...{ page, per_page, total: lastPage * per_page },
+          },
         });
       }
 
@@ -93,7 +93,9 @@ class Posts extends Component {
     const oldQuery = queryString.parse(this.props.location.search);
     this.props.history.push({
       ...this.props.location,
-      search: queryString.stringify(Object.assign(oldQuery, { page, per_page }))
+      search: queryString.stringify(
+        Object.assign(oldQuery, { page, per_page })
+      ),
     });
     this.getPosts(page, per_page);
   }
@@ -110,7 +112,7 @@ class Posts extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -133,7 +135,7 @@ class Posts extends Component {
                         style={{
                           wordBreak: 'break-word',
                           textOverflow: 'ellipsis',
-                          overflow: 'hidden'
+                          overflow: 'hidden',
                         }}
                       >
                         {post.title}
@@ -156,7 +158,7 @@ class Posts extends Component {
                     style={{
                       marginTop: '2rem',
                       paddingTop: '2rem',
-                      borderTop: '1px solid #e6e6e6'
+                      borderTop: '1px solid #e6e6e6',
                     }}
                   >
                     {post.user.avatar_url ? (
@@ -169,7 +171,7 @@ class Posts extends Component {
                             height: '100%',
                             borderRadius: '50%',
                             marginRight: '0.5rem',
-                            verticalAlign: 'middle'
+                            verticalAlign: 'middle',
                           }}
                         />
                       </LazyLoad>
@@ -179,14 +181,14 @@ class Posts extends Component {
                     <div
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle'
+                        verticalAlign: 'middle',
                       }}
                     >
                       <strong>
                         <Icon
                           type="user"
                           style={{
-                            marginRight: '0.5rem'
+                            marginRight: '0.5rem',
                           }}
                         />
                         {firstUpperCase(post.user.login)}
@@ -237,13 +239,13 @@ class Posts extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      POSTS: state.POSTS
+      POSTS: state.POSTS,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setPosts: postAction.set
+        setPosts: postAction.set,
       },
       dispatch
     );

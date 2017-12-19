@@ -13,7 +13,7 @@ import github from '../../lib/github';
 class SourceCode extends Component {
   state = {
     source: null,
-    invalidFile: false
+    invalidFile: false,
   };
   componentDidMount() {
     const { file } = this.props;
@@ -28,7 +28,7 @@ class SourceCode extends Component {
         `/repos/${owner}/${repo}/contents/src/${file}`
       );
       const downloadRes = await axios.get(data.download_url, {
-        responseType: 'text'
+        responseType: 'text',
       });
 
       let raw = downloadRes.data;
@@ -43,7 +43,7 @@ class SourceCode extends Component {
 ${raw}
 \`\`\`
 `,
-          mode: 'markdown'
+          mode: 'markdown',
         },
         { responseType: 'text' }
       );
@@ -58,20 +58,20 @@ ${raw}
     const source = this.state.source;
     return (
       <Spin spinning={!source}>
-        {source
-          ? <div>
-              <h2>{this.state.source.path}</h2>
-              <div
-                className="markdown-body"
-                dangerouslySetInnerHTML={{
-                  __html: this.state.html
-                }}
-              />
-              <pre>
-                {this.state.source.raw}
-              </pre>
-            </div>
-          : ''}
+        {source ? (
+          <div>
+            <h2>{this.state.source.path}</h2>
+            <div
+              className="markdown-body"
+              dangerouslySetInnerHTML={{
+                __html: this.state.html,
+              }}
+            />
+            <pre>{this.state.source.raw}</pre>
+          </div>
+        ) : (
+          ''
+        )}
       </Spin>
     );
   }

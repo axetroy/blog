@@ -50,7 +50,7 @@ function createStore() {
     GIST: gistReducer,
     OAUTH: oauthReducer,
     TODO_LABELS: todoLabelsReducer,
-    SHOW_CASES: showcasesReducer
+    SHOW_CASES: showcasesReducer,
   });
 }
 

@@ -11,7 +11,7 @@ import github from '../../lib/github';
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class Comments extends Component {
   static propTypes = {
@@ -19,10 +19,10 @@ class Comments extends Component {
     owner: PropTypes.string,
     repo: PropTypes.string,
     number: PropTypes.number,
-    gistId: PropTypes.string
+    gistId: PropTypes.string,
   };
   state = {
-    comments: []
+    comments: [],
   };
 
   async componentWillMount() {
@@ -41,9 +41,9 @@ class Comments extends Component {
         `/repos/${owner}/${repo}/issues/${number}/comments`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html'
+            Accept: 'application/vnd.github.v3.html',
           },
-          responseType: 'text'
+          responseType: 'text',
         }
       );
       this.setState({ comments: data });
@@ -58,9 +58,9 @@ class Comments extends Component {
     try {
       const { data } = await github.get(`/gists/${gist_id}/comments`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html'
+          Accept: 'application/vnd.github.v3.html',
         },
-        responseType: 'text'
+        responseType: 'text',
       });
       comments = comments.concat(data || []);
 
@@ -87,7 +87,7 @@ class Comments extends Component {
                   : 'javascript:void 0'
             }
             style={{
-              float: 'right'
+              float: 'right',
             }}
           >
             朕有话说
@@ -102,20 +102,20 @@ class Comments extends Component {
                 style={{
                   border: '0.1rem solid #e2e2e2',
                   borderRadius: '0.5rem',
-                  margin: '1rem 0'
+                  margin: '1rem 0',
                 }}
               >
                 <div
                   className="comment-header"
                   style={{
-                    overflow: 'hidden'
+                    overflow: 'hidden',
                   }}
                 >
                   <img
                     style={{
                       width: '3.2rem',
                       verticalAlign: 'middle',
-                      borderRadius: '50%'
+                      borderRadius: '50%',
                     }}
                     src={comment.user.avatar_url}
                     alt=""
@@ -123,7 +123,7 @@ class Comments extends Component {
                   &nbsp;&nbsp;
                   <strong
                     style={{
-                      color: '#586069'
+                      color: '#586069',
                     }}
                   >
                     <a
@@ -144,13 +144,13 @@ class Comments extends Component {
                 <div
                   className="comment-body"
                   style={{
-                    padding: '1.2rem'
+                    padding: '1.2rem',
                   }}
                 >
                   <div
                     className="markdown-body"
                     dangerouslySetInnerHTML={{
-                      __html: comment.body_html
+                      __html: comment.body_html,
                     }}
                   />
                 </div>

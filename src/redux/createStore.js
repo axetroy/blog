@@ -32,7 +32,7 @@ export default function(rootReducer) {
     persistCombineReducers(
       {
         key: '[A]',
-        storage: localForage
+        storage: localForage,
       },
       rootReducer
     ),

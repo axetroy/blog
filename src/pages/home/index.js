@@ -17,7 +17,7 @@ import ViewSourceCode from '../../component/view-source-code';
 class Home extends Component {
   state = {
     source: {},
-    visible: false
+    visible: false,
   };
   componentDidMount() {
     const owner: string = CONFIG.owner;
@@ -34,9 +34,9 @@ class Home extends Component {
     try {
       const response = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html'
+          Accept: 'application/vnd.github.v3.html',
         },
-        responseType: 'text'
+        responseType: 'text',
       });
       html = response.data;
     } catch (err) {
@@ -54,13 +54,15 @@ class Home extends Component {
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
-                  href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/edit/master/README.md`}
+                  href={`https://github.com/${CONFIG.owner}/${
+                    CONFIG.repo
+                  }/edit/master/README.md`}
                   target="_blank"
                 >
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -72,7 +74,7 @@ class Home extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -82,7 +84,7 @@ class Home extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.READ_ME
+                __html: this.props.READ_ME,
               }}
             />
           </div>
@@ -94,13 +96,13 @@ class Home extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      READ_ME: state.READ_ME
+      READ_ME: state.READ_ME,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeReadMe: store
+        storeReadMe: store,
       },
       dispatch
     );

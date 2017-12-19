@@ -20,8 +20,8 @@ class Gists extends Component {
       page: 1,
       per_page: 100,
 
-      total: 0
-    }
+      total: 0,
+    },
   };
   async componentDidMount() {
     const { page, per_page } = this.state.meta;
@@ -31,7 +31,7 @@ class Gists extends Component {
   async getAllGistList(page, per_page, gists = []) {
     try {
       const { data } = await github.get('/users/axetroy/gists', {
-        params: { page, per_page }
+        params: { page, per_page },
       });
       gists = gists.concat(data || []);
       // 如果往后还有下一页，则继续请求，直到完为止
@@ -85,7 +85,7 @@ query{
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -104,7 +104,7 @@ query{
                 <Menu.Item
                   key={gist.id}
                   style={{
-                    borderBottom: '1px solid #e6e6e6'
+                    borderBottom: '1px solid #e6e6e6',
                   }}
                 >
                   <NavLink
@@ -114,7 +114,7 @@ query{
                       whiteSpace: 'nowrap',
                       wordBreak: 'break-all',
                       textOverflow: 'ellipsis',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
                     }}
                   >
                     <Octicon
@@ -140,7 +140,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setGists: gistsAction.set
+        setGists: gistsAction.set,
       },
       dispatch
     );

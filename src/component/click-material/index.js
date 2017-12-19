@@ -36,7 +36,7 @@ class Click extends Component {
     this.__timer__ = this.__timer__.concat([
       setTimeout(() => {
         ele.remove();
-      }, 750)
+      }, 750),
     ]);
   }
 

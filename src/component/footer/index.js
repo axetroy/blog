@@ -14,12 +14,12 @@ import firebase from '../../lib/firebase';
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class Footer extends Component {
   state = {
     totalVisited: 0,
-    created: new Date('2016-11-09 14:22:33')
+    created: new Date('2016-11-09 14:22:33'),
   };
 
   componentDidMount() {
@@ -38,11 +38,15 @@ class Footer extends Component {
         style={{
           marginTop: '2rem',
           padding: '2rem 0',
-          backgroundColor: '#fff'
+          backgroundColor: '#fff',
         }}
       >
         <Col span={24}>
-          {this.state.totalVisited ? <p>总访问{this.state.totalVisited}次</p> : ''}
+          {this.state.totalVisited ? (
+            <p>总访问{this.state.totalVisited}次</p>
+          ) : (
+            ''
+          )}
           <p>Copyright © 2017</p>
           <Now>
             {now => {
@@ -67,7 +71,9 @@ class Footer extends Component {
           </Now>
           <p>
             Created by{' '}
-            <a target="_blank" href="https://github.com/axetroy">Axetroy</a>
+            <a target="_blank" href="https://github.com/axetroy">
+              Axetroy
+            </a>
           </p>
           <p>
             <a

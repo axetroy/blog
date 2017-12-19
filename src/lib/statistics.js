@@ -13,7 +13,7 @@ function visitorsTrack() {
     ip: '',
     userAgent: window.navigator.userAgent,
     language: window.navigator.language,
-    date: new Date().toString()
+    date: new Date().toString(),
   });
 }
 

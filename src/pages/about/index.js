@@ -27,9 +27,9 @@ class About extends Component {
         `/repos/${owner}/${repo}/contents/ABOUTME.md`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html'
+            Accept: 'application/vnd.github.v3.html',
           },
-          responseType: 'text'
+          responseType: 'text',
         }
       );
       html = response.data;
@@ -52,13 +52,15 @@ class About extends Component {
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
                 <a
-                  href={`https://github.com/${CONFIG.owner}/${CONFIG.repo}/edit/master/ABOUTME.md`}
+                  href={`https://github.com/${CONFIG.owner}/${
+                    CONFIG.repo
+                  }/edit/master/ABOUTME.md`}
                   target="_blank"
                 >
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -69,7 +71,7 @@ class About extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -79,7 +81,7 @@ class About extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.ABOUT_ME
+                __html: this.props.ABOUT_ME,
               }}
             />
           </div>
@@ -91,13 +93,13 @@ class About extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      ABOUT_ME: state.ABOUT_ME
+      ABOUT_ME: state.ABOUT_ME,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeAboutMe: aboutAction.store
+        storeAboutMe: aboutAction.store,
       },
       dispatch
     );

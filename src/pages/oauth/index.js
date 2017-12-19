@@ -17,21 +17,19 @@ class OAuth extends Component {
     const code = matcher && matcher[1] ? matcher[1] : null;
     this.props.setCode({ code });
 
-    const {
-      data
-    } = await axios.get(
+    const { data } = await axios.get(
       `https://crossorigin.me/https://github.com/login/oauth/access_token`,
       null,
       {
         headers: {
-          Origin: location.host
+          Origin: location.host,
         },
         params: {
           code,
           client_id: CONFIG.github_client_id,
-          client_secret: CONFIG.github_client_secret
+          client_secret: CONFIG.github_client_secret,
         },
-        withCredentials: true
+        withCredentials: true,
       }
     );
     console.log(data);
@@ -51,7 +49,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setCode: oauthActions.store
+        setCode: oauthActions.store,
       },
       dispatch
     );

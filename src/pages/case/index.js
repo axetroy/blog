@@ -70,7 +70,7 @@ function dataParser(d) {
       const url = match[2];
       return {
         name,
-        url
+        url,
       };
     } else {
       return void 0;
@@ -83,7 +83,7 @@ function dataParser(d) {
     gallery: _gallery.filter(v => v),
     screenshot: _gallery.filter(v => v).map(v => v.url),
     labels: d.labels,
-    homepage: homepage
+    homepage: homepage,
   };
 }
 
@@ -91,7 +91,7 @@ class Case extends Component {
   state = {
     lightboxImages: [],
     photoIndex: 0,
-    isOpen: false
+    isOpen: false,
   };
 
   async componentWillMount() {
@@ -134,7 +134,7 @@ class Case extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -158,22 +158,23 @@ class Case extends Component {
                             style={{
                               position: 'relative',
                               overflow: 'hidden',
-                              minHeight: '30rem'
+                              minHeight: '30rem',
                             }}
                           >
                             <div
                               style={{
-                                backgroundImage: `url(${c.screenshot &&
-                                c.screenshot.length
-                                  ? c.screenshot[0]
-                                  : noScreenshotImg})`,
+                                backgroundImage: `url(${
+                                  c.screenshot && c.screenshot.length
+                                    ? c.screenshot[0]
+                                    : noScreenshotImg
+                                })`,
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundAttachment: 'interit',
                                 backgroundPosition: 'center center',
                                 verticalAlign: 'middle',
                                 width: '100%',
-                                height: '30rem'
+                                height: '30rem',
                               }}
                               onClick={() =>
                                 this.setState({
@@ -182,8 +183,9 @@ class Case extends Component {
                                   lightboxImages:
                                     c.screenshot && c.screenshot.length
                                       ? c.screenshot
-                                      : [noScreenshotImg]
-                                })}
+                                      : [noScreenshotImg],
+                                })
+                              }
                             />
                             <div
                               style={{
@@ -192,7 +194,7 @@ class Case extends Component {
                                 left: 0,
                                 backgroundColor: '#FAFAFA',
                                 padding: '1rem',
-                                width: '100%'
+                                width: '100%',
                               }}
                             >
                               <h3>
@@ -243,17 +245,20 @@ class Case extends Component {
                   ]
                 }
                 onCloseRequest={() =>
-                  this.setState({ isOpen: false, photoIndex: 0 })}
+                  this.setState({ isOpen: false, photoIndex: 0 })
+                }
                 onMovePrevRequest={() =>
                   this.setState({
                     photoIndex:
                       (photoIndex + lightboxImages.length - 1) %
-                      lightboxImages.length
-                  })}
+                      lightboxImages.length,
+                  })
+                }
                 onMoveNextRequest={() =>
                   this.setState({
-                    photoIndex: (photoIndex + 1) % lightboxImages.length
-                  })}
+                    photoIndex: (photoIndex + 1) % lightboxImages.length,
+                  })
+                }
               />
             ) : null}
           </div>
@@ -269,7 +274,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setShowCases: showCaseAction.set
+        setShowCases: showCaseAction.set,
       },
       dispatch
     );

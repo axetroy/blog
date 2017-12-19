@@ -1,11 +1,11 @@
 .ripple {
   position: absolute;
-  z-index:99999999;
-  background: rgba(0,0,0,.15);
+  z-index: 99999999;
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 100%;
   transform: scale(0);
   pointer-events: none;
-  animation: ripple .75s ease-out;
+  animation: ripple 0.75s ease-out;
 }
 
 @keyframes ripple {

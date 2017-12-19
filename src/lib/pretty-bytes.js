@@ -19,7 +19,10 @@ module.exports = num => {
     return (neg ? '-' : '') + num + ' B';
   }
 
-  const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), UNITS.length - 1);
+  const exponent = Math.min(
+    Math.floor(Math.log(num) / Math.log(1000)),
+    UNITS.length - 1
+  );
   const numStr = Number((num / Math.pow(1000, exponent)).toPrecision(3));
   const unit = UNITS[exponent];
 

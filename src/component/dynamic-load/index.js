@@ -8,12 +8,12 @@ import { Spin } from 'antd';
 
 class DynamicLoad extends Component {
   static PropTypes = {
-    promise: PropTypes.isPrototypeOf(Promise).isRequire
+    promise: PropTypes.isPrototypeOf(Promise).isRequire,
   };
 
   state = {
     loading: true,
-    component: ''
+    component: '',
   };
 
   componentWillMount() {
@@ -56,7 +56,7 @@ class DynamicLoad extends Component {
                 minHeight: '20rem',
                 backgroundColor: 'rgba(0,0,0,0.05)',
                 borderRadius: '0.4rem',
-                zIndex: 99999999
+                zIndex: 99999999,
               }
             : {}
         }

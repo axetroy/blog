@@ -17,7 +17,7 @@ import graphql from '../../lib/graphql';
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubRepositories extends Component {
   state = {};
@@ -37,7 +37,7 @@ class GithubRepositories extends Component {
           if (language[name] === void 0) {
             language[name] = {
               ...primaryLanguage,
-              ...{ count: 0 }
+              ...{ count: 0 },
             };
           } else {
             language[name].count++;
@@ -59,7 +59,7 @@ class GithubRepositories extends Component {
     repositories = {
       totalCount: 0,
       totalDiskUsage: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -67,9 +67,9 @@ class GithubRepositories extends Component {
       const response = await graphql(`
         query {
           viewer { 
-            repositories(privacy:PUBLIC first:100 ${endCursor
-              ? 'after:' + '"' + endCursor + '"'
-              : ''}){
+            repositories(privacy:PUBLIC first:100 ${
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
+            }){
               totalCount totalDiskUsage
               nodes{
                 name url description isFork diskUsage createdAt updatedAt
@@ -108,7 +108,7 @@ class GithubRepositories extends Component {
       const {
         pageInfo,
         totalCount,
-        totalDiskUsage
+        totalDiskUsage,
       } = response.data.data.viewer.repositories;
       repositories.totalCount = totalCount;
       repositories.totalDiskUsage = totalDiskUsage;
@@ -129,7 +129,7 @@ class GithubRepositories extends Component {
   async getContributeRepos(
     repositories = {
       totalCount: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -137,9 +137,9 @@ class GithubRepositories extends Component {
       const response = await graphql(`
         query{
           viewer{
-            contributedRepositories(first:100 ${endCursor
-              ? 'after:' + '"' + endCursor + '"'
-              : ''}){
+            contributedRepositories(first:100 ${
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
+            }){
               totalCount
               pageInfo{
                 hasNextPage endCursor
@@ -173,7 +173,7 @@ class GithubRepositories extends Component {
   async getStarredRepos(
     repositories = {
       totalCount: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -181,9 +181,9 @@ class GithubRepositories extends Component {
       const response = await graphql(`
         query{
           viewer{
-            starredRepositories(first:100 ${endCursor
-              ? 'after:' + '"' + endCursor + '"'
-              : ''}){
+            starredRepositories(first:100 ${
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
+            }){
               totalCount
               pageInfo{
                 hasNextPage endCursor
@@ -225,7 +225,7 @@ class GithubRepositories extends Component {
           style={{
             borderBottom: '0.1rem solid #e6e6e6',
             padding: '0 0 2rem 0',
-            fontSize: '1.6rem'
+            fontSize: '1.6rem',
           }}
         >
           <Col span={8} style={{ borderRight: '0.1rem solid #e6e6e6' }}>
@@ -249,7 +249,7 @@ class GithubRepositories extends Component {
           <Col
             span={8}
             style={{
-              borderLeft: '0.1rem solid #e6e6e6'
+              borderLeft: '0.1rem solid #e6e6e6',
             }}
           >
             <p>
@@ -264,13 +264,13 @@ class GithubRepositories extends Component {
           style={{
             padding: '2rem 0',
             fontSize: '1.5rem',
-            borderBottom: '0.1rem solid #e6e6e6'
+            borderBottom: '0.1rem solid #e6e6e6',
           }}
         >
           <Col
             span={12}
             style={{
-              borderRight: '0.1rem solid #e6e6e6'
+              borderRight: '0.1rem solid #e6e6e6',
             }}
           >
             <p>
@@ -281,15 +281,19 @@ class GithubRepositories extends Component {
                   repo => -(repo.stargazers ? repo.stargazers.totalCount : 0)
                 );
                 const mostStarRepo = sortByStar[0];
-                return mostStarRepo
-                  ? <Tooltip
-                      title={`Star ${mostStarRepo.stargazers
+                return mostStarRepo ? (
+                  <Tooltip
+                    title={`Star ${
+                      mostStarRepo.stargazers
                         ? mostStarRepo.stargazers.totalCount
-                        : 0}`}
-                    >
-                      {mostStarRepo.name}
-                    </Tooltip>
-                  : '';
+                        : 0
+                    }`}
+                  >
+                    {mostStarRepo.name}
+                  </Tooltip>
+                ) : (
+                  ''
+                );
               })()}
             </p>
             <p>最受欢迎的仓库</p>
@@ -301,20 +305,20 @@ class GithubRepositories extends Component {
                 repo => -(new Date(repo.updatedAt) - new Date(repo.createdAt))
               );
               const mostLongTimeRepo = sortByTime[0];
-              return mostLongTimeRepo
-                ? <Tooltip title={mostLongTimeRepo.name} text>
-                    <Octicon className="font-size-2rem mr5" name="clock" mega />
-                    <span>
-                      {moment(mostLongTimeRepo.createdAt).format('YYYY-MM-DD')}
-                      ~
-                      {moment(mostLongTimeRepo.updatedAt).format('YYYY-MM-DD')}
-                    </span>
-                  </Tooltip>
-                : '';
+              return mostLongTimeRepo ? (
+                <Tooltip title={mostLongTimeRepo.name} text>
+                  <Octicon className="font-size-2rem mr5" name="clock" mega />
+                  <span>
+                    {moment(mostLongTimeRepo.createdAt).format('YYYY-MM-DD')}
+                    ~
+                    {moment(mostLongTimeRepo.updatedAt).format('YYYY-MM-DD')}
+                  </span>
+                </Tooltip>
+              ) : (
+                ''
+              );
             })()}
-            <p>
-              贡献最久的仓库
-            </p>
+            <p>贡献最久的仓库</p>
           </Col>
         </Row>
         <Row style={{ padding: '2rem 0' }}>
@@ -323,34 +327,36 @@ class GithubRepositories extends Component {
               const repos = repositories || [];
               const fork = repos.filter(repo => repo.isFork);
               const source = repos.filter(repo => !repo.isFork);
-              return ReactChart
-                ? <ReactChart
-                    type="pie"
-                    data={{
-                      labels: ['原创仓库', 'Fork'],
-                      datasets: [
-                        {
-                          data: [source.length, fork.length],
-                          backgroundColor: ['#4CAF50'],
-                          hoverBackgroundColor: ['#4CAF50']
-                        }
-                      ]
-                    }}
-                    options={{
-                      animation: false,
-                      title: {
-                        display: true,
-                        text: `${(source.length / repos.length * 100).toFixed(
-                          0
-                        )}% 原创仓库`
+              return ReactChart ? (
+                <ReactChart
+                  type="pie"
+                  data={{
+                    labels: ['原创仓库', 'Fork'],
+                    datasets: [
+                      {
+                        data: [source.length, fork.length],
+                        backgroundColor: ['#4CAF50'],
+                        hoverBackgroundColor: ['#4CAF50'],
                       },
-                      cutoutPercentage: 50,
-                      legend: {
-                        display: false
-                      }
-                    }}
-                  />
-                : '';
+                    ],
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: `${(source.length / repos.length * 100).toFixed(
+                        0
+                      )}% 原创仓库`,
+                    },
+                    cutoutPercentage: 50,
+                    legend: {
+                      display: false,
+                    },
+                  }}
+                />
+              ) : (
+                ''
+              );
             })()}
           </Col>
           <Col md={12} sm={24} xs={24}>
@@ -360,39 +366,37 @@ class GithubRepositories extends Component {
                 repo => -(repo.stargazers ? repo.stargazers.totalCount : 0)
               );
               repos = [].concat(repos).slice(0, 10);
-              return ReactChart
-                ? <ReactChart
-                    type="pie"
-                    data={{
-                      labels: repos.map(repo => repo.name),
-                      datasets: [
-                        {
-                          data: repos.map(
-                            repo =>
-                              repo.stargazers ? repo.stargazers.totalCount : 0
-                          ),
-                          backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
-                          hoverBackgroundColor: [
-                            '#4CAF50',
-                            '#A5D6A7',
-                            '#E8F5E9'
-                          ]
-                        }
-                      ]
-                    }}
-                    options={{
-                      animation: false,
-                      title: {
-                        display: true,
-                        text: `Star比例`
+              return ReactChart ? (
+                <ReactChart
+                  type="pie"
+                  data={{
+                    labels: repos.map(repo => repo.name),
+                    datasets: [
+                      {
+                        data: repos.map(
+                          repo =>
+                            repo.stargazers ? repo.stargazers.totalCount : 0
+                        ),
+                        backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
+                        hoverBackgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
                       },
-                      cutoutPercentage: 50,
-                      legend: {
-                        display: false
-                      }
-                    }}
-                  />
-                : '';
+                    ],
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: `Star比例`,
+                    },
+                    cutoutPercentage: 50,
+                    legend: {
+                      display: false,
+                    },
+                  }}
+                />
+              ) : (
+                ''
+              );
             })()}
           </Col>
         </Row>
@@ -405,38 +409,40 @@ class GithubRepositories extends Component {
           >
             {(() => {
               const starredLanguage = this.state.starredLanguage;
-              return ReactChart && starredLanguage
-                ? <ReactChart
-                    type="pie"
-                    data={{
-                      labels: starredLanguage.map(lang => lang.name),
-                      datasets: [
-                        {
-                          data: starredLanguage.map(lang => lang.count),
-                          backgroundColor: starredLanguage.map(
-                            lang => lang.color
-                          ),
-                          hoverBackgroundColor: starredLanguage.map(
-                            lang => lang.color
-                          )
-                        }
-                      ]
-                    }}
-                    options={{
-                      animation: false,
-                      title: {
-                        display: true,
-                        text: `Star语言偏好`
+              return ReactChart && starredLanguage ? (
+                <ReactChart
+                  type="pie"
+                  data={{
+                    labels: starredLanguage.map(lang => lang.name),
+                    datasets: [
+                      {
+                        data: starredLanguage.map(lang => lang.count),
+                        backgroundColor: starredLanguage.map(
+                          lang => lang.color
+                        ),
+                        hoverBackgroundColor: starredLanguage.map(
+                          lang => lang.color
+                        ),
                       },
-                      cutoutPercentage: 50,
-                      legend: {
-                        display: false
-                      }
-                    }}
-                  />
-                : <div className="text-center" style={{ padding: '2rem' }}>
-                    Loading...
-                  </div>;
+                    ],
+                  }}
+                  options={{
+                    animation: false,
+                    title: {
+                      display: true,
+                      text: `Star语言偏好`,
+                    },
+                    cutoutPercentage: 50,
+                    legend: {
+                      display: false,
+                    },
+                  }}
+                />
+              ) : (
+                <div className="text-center" style={{ padding: '2rem' }}>
+                  Loading...
+                </div>
+              );
             })()}
           </Col>
         </Row>
@@ -445,7 +451,7 @@ class GithubRepositories extends Component {
           style={{
             borderTop: '0.1rem solid #e6e6e6',
             padding: '2rem  0 0 0',
-            fontSize: '1.6rem'
+            fontSize: '1.6rem',
           }}
         >
           <Col span={24}>
@@ -454,20 +460,22 @@ class GithubRepositories extends Component {
                 ? contributedRepositories.totalCount
                 : 0}个项目:
             </p>
-            {contributedRepositories
-              ? contributedRepositories.nodes.map(v => {
-                  return (
-                    <Tag
-                      style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
-                      key={v.nameWithOwner || v.name}
-                    >
-                      <a href={v.url} target="_blank" rel="nofollow">
-                        @{v.nameWithOwner || v.name}
-                      </a>
-                    </Tag>
-                  );
-                })
-              : <div className="text-center">Loading...</div>}
+            {contributedRepositories ? (
+              contributedRepositories.nodes.map(v => {
+                return (
+                  <Tag
+                    style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
+                    key={v.nameWithOwner || v.name}
+                  >
+                    <a href={v.url} target="_blank" rel="nofollow">
+                      @{v.nameWithOwner || v.name}
+                    </a>
+                  </Tag>
+                );
+              })
+            ) : (
+              <div className="text-center">Loading...</div>
+            )}
           </Col>
         </Row>
       </Spin>
@@ -477,13 +485,13 @@ class GithubRepositories extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      ALL_REPOS: state.ALL_REPOS
+      ALL_REPOS: state.ALL_REPOS,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setAllRepos: allReposAction.set
+        setAllRepos: allReposAction.set,
       },
       dispatch
     );

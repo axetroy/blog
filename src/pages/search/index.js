@@ -24,7 +24,7 @@ class SearchComponent extends Component {
     pending: false,
     posts: [],
     repos: [],
-    todos: []
+    todos: [],
   };
   componentDidMount() {
     const query = queryString.parse(this.props.location.search);
@@ -38,7 +38,7 @@ class SearchComponent extends Component {
     await [
       this.searchPost(keyword),
       this.searchRepo(keyword),
-      this.searchTodo(keyword)
+      this.searchTodo(keyword),
     ];
     this.setState({ pending: false });
   }
@@ -80,19 +80,19 @@ class SearchComponent extends Component {
     return (
       <div>
         <h2>博客文章</h2>
-        {this.state.posts.length
-          ? this.state.posts.map(post => {
-              return (
-                <div key={post.id} className="search-r">
-                  <h4>
-                    <Link to={`/post/${post.number}`}>{post.title}</Link>
-                  </h4>
-                </div>
-              );
-            })
-          : <div>
-              Not Found!
-            </div>}
+        {this.state.posts.length ? (
+          this.state.posts.map(post => {
+            return (
+              <div key={post.id} className="search-r">
+                <h4>
+                  <Link to={`/post/${post.number}`}>{post.title}</Link>
+                </h4>
+              </div>
+            );
+          })
+        ) : (
+          <div>Not Found!</div>
+        )}
       </div>
     );
   }
@@ -101,19 +101,19 @@ class SearchComponent extends Component {
     return (
       <div>
         <h2>开源项目</h2>
-        {this.state.repos.length
-          ? this.state.repos.map(repo => {
-              return (
-                <div key={repo.name} className="search-r">
-                  <h4>
-                    <Link to={`/repo/${repo.name}`}>{repo.name}</Link>
-                  </h4>
-                </div>
-              );
-            })
-          : <div>
-              Not Found!
-            </div>}
+        {this.state.repos.length ? (
+          this.state.repos.map(repo => {
+            return (
+              <div key={repo.name} className="search-r">
+                <h4>
+                  <Link to={`/repo/${repo.name}`}>{repo.name}</Link>
+                </h4>
+              </div>
+            );
+          })
+        ) : (
+          <div>Not Found!</div>
+        )}
       </div>
     );
   }
@@ -122,19 +122,19 @@ class SearchComponent extends Component {
     return (
       <div>
         <h2>计划任务</h2>
-        {this.state.todos.length
-          ? this.state.todos.map(todo => {
-              return (
-                <div key={todo.id} className="search-r">
-                  <h4>
-                    <Link to={`/todo/${todo.number}`}>{todo.title}</Link>
-                  </h4>
-                </div>
-              );
-            })
-          : <div>
-              Not Found!
-            </div>}
+        {this.state.todos.length ? (
+          this.state.todos.map(todo => {
+            return (
+              <div key={todo.id} className="search-r">
+                <h4>
+                  <Link to={`/todo/${todo.number}`}>{todo.title}</Link>
+                </h4>
+              </div>
+            );
+          })
+        ) : (
+          <div>Not Found!</div>
+        )}
       </div>
     );
   }
@@ -145,7 +145,6 @@ class SearchComponent extends Component {
         title={[this.state.keyword ? '搜索: ' + this.state.keyword : '搜索']}
       >
         <div className="toolbar-container">
-
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
               <ViewSourceCode file="pages/search/index.js">
@@ -153,7 +152,7 @@ class SearchComponent extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -176,8 +175,8 @@ class SearchComponent extends Component {
                   ...this.props.location,
                   search: queryString.stringify({
                     ...oldQuery,
-                    ...{ q: value }
-                  })
+                    ...{ q: value },
+                  }),
                 });
                 this.search(value);
               }}
@@ -186,18 +185,11 @@ class SearchComponent extends Component {
 
           <Spin tip="searching..." spinning={this.state.pending}>
             <Row>
-              <Col span={8}>
-                {this.renderPost()}
-              </Col>
-              <Col span={8}>
-                {this.renderRepo()}
-              </Col>
-              <Col span={8}>
-                {this.renderTodo()}
-              </Col>
+              <Col span={8}>{this.renderPost()}</Col>
+              <Col span={8}>{this.renderRepo()}</Col>
+              <Col span={8}>{this.renderTodo()}</Col>
             </Row>
           </Spin>
-
         </div>
       </DocumentTitle>
     );

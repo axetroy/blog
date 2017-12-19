@@ -12,18 +12,18 @@ import SourceCode from '../source-code';
 
 class ViewSourceCode extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
   showSourceCode() {
     this.setState({
-      visible: true
+      visible: true,
     });
   }
 
   hideSourceCode() {
     this.setState({
-      visible: false
+      visible: false,
     });
   }
 

@@ -12,7 +12,7 @@ export default (async function(owner, repo, raw, mode = 'markdown') {
       {
         text: raw,
         mode,
-        context: owner + '/' + repo
+        context: owner + '/' + repo,
       },
       { responseType: 'text' }
     );

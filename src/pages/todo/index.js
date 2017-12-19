@@ -35,15 +35,13 @@ class Todo extends Component {
   async getTodo(number) {
     let todo = {};
     try {
-      const {
-        data
-      } = await github.get(
+      const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${number}`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html'
+            Accept: 'application/vnd.github.v3.html',
           },
-          responseType: 'text'
+          responseType: 'text',
         }
       );
       todo = data;
@@ -68,29 +66,33 @@ class Todo extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
                 </ViewSourceCode>
               </Tooltip>
             </div>
-            {todo.title
-              ? <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
-                  {todo.title}
-                  <Tooltip placement="topLeft" title="编辑此页">
-                    <a
-                      href={`https://github.com/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${todo.number}`}
-                      target="_blank"
-                    >
-                      <Icon type="edit" />
-                    </a>
-                  </Tooltip>
-                </h2>
-              : ''}
+            {todo.title ? (
+              <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
+                {todo.title}
+                <Tooltip placement="topLeft" title="编辑此页">
+                  <a
+                    href={`https://github.com/${CONFIG.owner}/${
+                      CONFIG.todo_repo
+                    }/issues/${todo.number}`}
+                    target="_blank"
+                  >
+                    <Icon type="edit" />
+                  </a>
+                </Tooltip>
+              </h2>
+            ) : (
+              ''
+            )}
             <Steps
               style={{
-                margin: '2rem 0'
+                margin: '2rem 0',
               }}
             >
               <Steps.Step
@@ -110,13 +112,11 @@ class Todo extends Component {
                         const diff = diffTime(new Date(todo.created_at))(
                           new Date(todo.closed_at)
                         );
-                        return `耗时${diff.days
-                          ? diff.days + '天'
-                          : ''} ${diff.hours || diff.days
-                          ? diff.hours + '时'
-                          : ''}${diff.minutes || diff.hours
-                          ? diff.minutes + '分'
-                          : ''}${diff.seconds}秒`;
+                        return `耗时${diff.days ? diff.days + '天' : ''} ${
+                          diff.hours || diff.days ? diff.hours + '时' : ''
+                        }${
+                          diff.minutes || diff.hours ? diff.minutes + '分' : ''
+                        }${diff.seconds}秒`;
                       })()
                     : '进行中...'
                 }
@@ -148,10 +148,10 @@ class Todo extends Component {
               className="markdown-body"
               style={{
                 fontSize: '1.6rem',
-                minHeight: '20rem'
+                minHeight: '20rem',
               }}
               dangerouslySetInnerHTML={{
-                __html: todo.body_html
+                __html: todo.body_html,
               }}
             />
           </div>
@@ -167,7 +167,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setTodo: todoAction.set
+        setTodo: todoAction.set,
       },
       dispatch
     );

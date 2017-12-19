@@ -25,7 +25,7 @@ class Repo extends Component {
     repo: {},
     readme: '',
     events: [],
-    repoLoading: false
+    repoLoading: false,
   };
 
   async componentWillMount() {
@@ -60,8 +60,8 @@ class Repo extends Component {
       await this.setStateAsync({ repoLoading: true });
       const res = await github.get(`/repos/${owner}/${repo}`, {
         headers: {
-          Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8'
-        }
+          Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8',
+        },
       });
       data = res.data;
     } catch (err) {
@@ -87,20 +87,20 @@ class Repo extends Component {
     const metas = [
       {
         icon: 'eye',
-        field: 'subscribers_count'
+        field: 'subscribers_count',
       },
       {
         icon: 'star',
-        field: 'watchers_count'
+        field: 'watchers_count',
       },
       {
         icon: 'repo-forked',
-        field: 'forks_count'
+        field: 'forks_count',
       },
       {
         icon: 'issue-opened',
-        field: 'open_issues_count'
-      }
+        field: 'open_issues_count',
+      },
     ];
 
     return (
@@ -113,7 +113,7 @@ class Repo extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -133,7 +133,7 @@ class Repo extends Component {
                       key={meta.field}
                       className="mr5"
                       style={{
-                        fontSize: '1.4rem'
+                        fontSize: '1.4rem',
                       }}
                     >
                       <Octicon
@@ -141,14 +141,16 @@ class Repo extends Component {
                         name={meta.icon}
                         mega
                         style={{
-                          fontSize: '1.4rem'
+                          fontSize: '1.4rem',
                         }}
                       />
-                      {meta.icon === 'home'
-                        ? <a href={this.state.repo.homepage} target="_blank">
-                            {this.state.repo.homepage}
-                          </a>
-                        : this.state.repo[meta.field]}
+                      {meta.icon === 'home' ? (
+                        <a href={this.state.repo.homepage} target="_blank">
+                          {this.state.repo.homepage}
+                        </a>
+                      ) : (
+                        this.state.repo[meta.field]
+                      )}
                     </span>
                   );
                 })}
@@ -158,13 +160,14 @@ class Repo extends Component {
 
               <div className="github-meta">
                 <span>{this.state.repo.description}</span>
-                &nbsp;
-                &nbsp;
-                {this.state.repo.homepage
-                  ? <a href={this.state.repo.homepage} target="_blank">
-                      {this.state.repo.homepage}
-                    </a>
-                  : ''}
+                &nbsp; &nbsp;
+                {this.state.repo.homepage ? (
+                  <a href={this.state.repo.homepage} target="_blank">
+                    {this.state.repo.homepage}
+                  </a>
+                ) : (
+                  ''
+                )}
               </div>
 
               <div className="github-meta">
@@ -180,14 +183,12 @@ class Repo extends Component {
               </div>
 
               <div className="github-meta">
-                Create at
-                {' '}
+                Create at{' '}
                 {this.state.repo.created_at &&
                   moment(this.state.repo.created_at).fromNow()}
               </div>
               <div className="github-meta">
-                Update at
-                {' '}
+                Update at{' '}
                 {this.state.repo.updated_at &&
                   moment(this.state.repo.updated_at).fromNow()}
               </div>

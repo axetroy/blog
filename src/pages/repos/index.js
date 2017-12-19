@@ -23,8 +23,8 @@ class Repos extends Component {
     meta: {
       page: 1,
       per_page: 24,
-      total: 0
-    }
+      total: 0,
+    },
   };
 
   async componentWillMount() {
@@ -35,8 +35,8 @@ class Repos extends Component {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page: +page, per_page: +per_page }
-      }
+        ...{ page: +page, per_page: +per_page },
+      },
     });
     await this.getRepos(page, per_page);
   }
@@ -45,15 +45,15 @@ class Repos extends Component {
     let repos = [];
 
     try {
-      const {
-        data,
-        headers
-      } = await github.get(`/users/${CONFIG.owner}/repos?sort=created`, {
-        params: { page, per_page },
-        headers: {
-          Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8'
+      const { data, headers } = await github.get(
+        `/users/${CONFIG.owner}/repos?sort=created`,
+        {
+          params: { page, per_page },
+          headers: {
+            Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8',
+          },
         }
-      });
+      );
 
       repos = data;
 
@@ -69,8 +69,8 @@ class Repos extends Component {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page }
-          }
+            ...{ page, per_page, total: lastPage * per_page },
+          },
         });
       }
     } catch (err) {
@@ -86,7 +86,9 @@ class Repos extends Component {
     const oldQuery = queryString.parse(this.props.location.search);
     this.props.history.push({
       ...this.props.location,
-      search: queryString.stringify(Object.assign(oldQuery, { page, per_page }))
+      search: queryString.stringify(
+        Object.assign(oldQuery, { page, per_page })
+      ),
     });
     this.getRepos(page, per_page);
   }
@@ -103,7 +105,7 @@ class Repos extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -131,7 +133,7 @@ class Repos extends Component {
                           color: '#616161',
                           wordBreak: 'break-word',
                           textOverflow: 'ellipsis',
-                          overflow: 'hidden'
+                          overflow: 'hidden',
                         }}
                       >
                         <Octicon
@@ -141,9 +143,7 @@ class Repos extends Component {
                         />
                         {repo.name}
                       </NavLink>
-                      <p style={{ color: '#9E9E9E' }}>
-                        {repo.description}
-                      </p>
+                      <p style={{ color: '#9E9E9E' }}>{repo.description}</p>
                       <div>
                         {(repo.topics || []).map(topic => {
                           return <Tag key={topic}>{topic}</Tag>;
@@ -154,11 +154,11 @@ class Repos extends Component {
                           <span
                             className="repo-language-color"
                             style={{
-                              backgroundColor: (GithubColors[repo.language] || {
-                              }).color
+                              backgroundColor: (
+                                GithubColors[repo.language] || {}
+                              ).color,
                             }}
-                          />
-                          {' '}
+                          />{' '}
                           {repo.language || 'Unknown'}
                         </span>&nbsp;&nbsp;
                         <span>
@@ -167,9 +167,10 @@ class Repos extends Component {
                             mega
                             style={{
                               fontSize: '1.4rem',
-                              margin: 0
+                              margin: 0,
                             }}
-                          /> {repo.watchers_count}
+                          />{' '}
+                          {repo.watchers_count}
                         </span>&nbsp;&nbsp;
                         <span>
                           <Octicon
@@ -177,31 +178,34 @@ class Repos extends Component {
                             mega
                             style={{
                               fontSize: '1.4rem',
-                              margin: 0
+                              margin: 0,
                             }}
-                          /> {repo.forks_count}
+                          />{' '}
+                          {repo.forks_count}
                         </span>&nbsp;&nbsp;
                       </div>
                     </Card>
-
                   </Col>
                 );
               })}
             </Row>
-            {this.state.meta.total > 0
-              ? <Row className="text-center">
-                  <Col span={24} style={{ transition: 'all 1s' }}>
-                    <Pagination
-                      simple
-                      onChange={page =>
-                        this.changePage(page, this.state.meta.per_page)}
-                      defaultCurrent={this.state.meta.page}
-                      defaultPageSize={this.state.meta.per_page}
-                      total={this.state.meta.total}
-                    />
-                  </Col>
-                </Row>
-              : ''}
+            {this.state.meta.total > 0 ? (
+              <Row className="text-center">
+                <Col span={24} style={{ transition: 'all 1s' }}>
+                  <Pagination
+                    simple
+                    onChange={page =>
+                      this.changePage(page, this.state.meta.per_page)
+                    }
+                    defaultCurrent={this.state.meta.page}
+                    defaultPageSize={this.state.meta.per_page}
+                    total={this.state.meta.total}
+                  />
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
           </div>
         </Spin>
       </DocumentTitle>
@@ -211,13 +215,13 @@ class Repos extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      REPOS: state.REPOS
+      REPOS: state.REPOS,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setRepos: repoAction.setRepos
+        setRepos: repoAction.setRepos,
       },
       dispatch
     );

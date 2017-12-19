@@ -3,7 +3,7 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  HashRouter
+  HashRouter,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -34,7 +34,7 @@ class App extends Component {
               // location is an object like window.location
               window.ga('set', {
                 page: location.pathname,
-                title: document.title
+                title: document.title,
               });
             }}
           >
@@ -60,7 +60,7 @@ class App extends Component {
                       position: 'absolute',
                       top: '0',
                       border: 0,
-                      right: 0
+                      right: 0,
                     }}
                   >
                     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
@@ -86,7 +86,7 @@ class App extends Component {
               >
                 <Card
                   style={{
-                    marginTop: '2rem'
+                    marginTop: '2rem',
                   }}
                 >
                   <Switch>

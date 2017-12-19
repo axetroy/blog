@@ -15,14 +15,14 @@ import CONFIG from '../../config.json';
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubFollowers extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 30
-    }
+      per_page: 30,
+    },
   };
 
   async componentWillMount() {
@@ -54,12 +54,12 @@ query {
   async getFollowers(page, per_page) {
     let followers = [];
     try {
-      const {
-        data,
-        headers
-      } = await github.get(`/users/${CONFIG.owner}/followers`, {
-        params: { page, per_page }
-      });
+      const { data, headers } = await github.get(
+        `/users/${CONFIG.owner}/followers`,
+        {
+          params: { page, per_page },
+        }
+      );
       followers = data;
 
       /**
@@ -72,8 +72,8 @@ query {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page }
-          }
+            ...{ page, per_page, total: lastPage * per_page },
+          },
         });
       }
     } catch (err) {
@@ -82,8 +82,8 @@ query {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page, per_page }
-      }
+        ...{ page, per_page },
+      },
     });
     if (page === 1) this.props.storeFollower(followers);
     return followers;
@@ -120,17 +120,18 @@ query {
             );
           })}
         </Row>
-        {this.state.meta.total > 0
-          ? <Row className="text-center">
-              <Pagination
-                onChange={page =>
-                  this.changePage(page, this.state.meta.per_page)}
-                defaultCurrent={this.state.meta.page}
-                defaultPageSize={this.state.meta.per_page}
-                total={this.state.meta.total}
-              />
-            </Row>
-          : ''}
+        {this.state.meta.total > 0 ? (
+          <Row className="text-center">
+            <Pagination
+              onChange={page => this.changePage(page, this.state.meta.per_page)}
+              defaultCurrent={this.state.meta.page}
+              defaultPageSize={this.state.meta.per_page}
+              total={this.state.meta.total}
+            />
+          </Row>
+        ) : (
+          ''
+        )}
       </Spin>
     );
   }
@@ -143,7 +144,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeFollower: storeFollower
+        storeFollower: storeFollower,
       },
       dispatch
     );

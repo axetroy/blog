@@ -28,29 +28,29 @@ const styles = {
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   orgRow: {
     padding: '0 0 2rem 0',
-    borderBottom: '0.1rem solid #e6e6e6'
-  }
+    borderBottom: '0.1rem solid #e6e6e6',
+  },
 };
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubOrganizations extends Component {
   state = {
     currentOrg: null,
-    orgMemberShip: {}
+    orgMemberShip: {},
   };
 
   async getOrganizations(
     organizations = {
       totalCount: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -58,9 +58,9 @@ class GithubOrganizations extends Component {
       const response = await graphql(`
 query{
   viewer{
-    organizations(first:100 ${endCursor
-      ? 'after:' + '"' + endCursor + '"'
-      : ''}){
+    organizations(first:100 ${
+      endCursor ? 'after:' + '"' + endCursor + '"' : ''
+    }){
       nodes{
         members(first:100){
           nodes{
@@ -106,11 +106,11 @@ query{
     // 获取所在的组织列表
     await this.getOrgs(CONFIG.owner);
     this.setState({
-      currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null
+      currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null,
     }); // 进行统计
     const organizations = {
       ...{},
-      ...this.props.ALL_ORG_REPOS
+      ...this.props.ALL_ORG_REPOS,
     };
     for (let org in organizations) {
       const repositories = organizations[org];
@@ -119,7 +119,7 @@ query{
         const stats = await this.statRepo(repo.owner.login, repo.name);
         this.props.setRepoStat({
           name: repo.name,
-          stat: stats
+          stat: stats,
         });
       }
     }
@@ -128,9 +128,7 @@ query{
    * 获取owner当前所在的组织列表
    * @param owner
    * @returns {Promise.<Array>}
-   */ async getOrgs(
-    owner
-  ) {
+   */ async getOrgs(owner) {
     let organizations = [];
     try {
       const { data } = await github.get(`/users/${owner}/orgs`);
@@ -167,7 +165,7 @@ query{
         let contribution = {
           add: 0,
           delete: 0,
-          changes: 0
+          changes: 0,
         };
         weeks &&
           weeks.forEach(item => {
@@ -178,8 +176,8 @@ query{
         contributions = [].concat(contributions).concat([
           {
             author: author,
-            contribution
-          }
+            contribution,
+          },
         ]);
       });
     } catch (err) {
@@ -212,9 +210,9 @@ query{
       orgMemberShip: {
         ...this.state.orgMemberShip,
         ...{
-          [org]: allMemberShip
-        }
-      }
+          [org]: allMemberShip,
+        },
+      },
     });
     return allMemberShip;
   } /**
@@ -228,8 +226,8 @@ query{
     try {
       const { data, headers } = await github.get(`/orgs/${org}/repos`, {
         params: {
-          page
-        }
+          page,
+        },
       });
       repos = data;
       const { link } = headers;
@@ -241,7 +239,7 @@ query{
     }
     this.props.setOrgAllRepos({
       name: org,
-      repos
+      repos,
     });
     return repos;
   } /**
@@ -254,13 +252,13 @@ query{
         className="text-center"
         style={{
           ...styles.orgRow,
-          ...{ fontSize: '1.5rem' }
+          ...{ fontSize: '1.5rem' },
         }}
       >
         <Col
           span={8}
           style={{
-            borderRight: '0.1rem solid #e6e6e6'
+            borderRight: '0.1rem solid #e6e6e6',
           }}
         >
           <p>
@@ -286,7 +284,7 @@ query{
         <Col
           span={8}
           style={{
-            borderLeft: '0.1rem solid #e6e6e6'
+            borderLeft: '0.1rem solid #e6e6e6',
           }}
         >
           <p>
@@ -310,7 +308,6 @@ query{
   render() {
     return (
       <Spin spinning={!this.props.ALL_ORG_REPOS}>
-
         {this.orgMetaRender()}
 
         <Tabs
@@ -321,24 +318,24 @@ query{
           }
           onChange={tab =>
             this.setState({
-              currentOrg: tab
-            })}
+              currentOrg: tab,
+            })
+          }
         >
-
           {this.props.ORGS.map(org => {
             return (
               <TabPane
                 tab={
                   <span
                     style={{
-                      textAlign: 'center'
+                      textAlign: 'center',
                     }}
                   >
                     <img
                       src={org.avatar_url}
                       style={{
                         width: '10rem',
-                        maxWidth: '100%'
+                        maxWidth: '100%',
                       }}
                       alt=""
                     />
@@ -349,21 +346,38 @@ query{
                 <Row>
                   <Col span={24}>
                     <div>
-                      {org.login
-                        ? <strong><Icon type="team" />{org.login}</strong>
-                        : ''}
-                      {org.description
-                        ? <p><Icon type="bulb" />{org.description}</p>
-                        : ''}
-                      {org.location
-                        ? <p><Icon type="environment" />{org.location}</p>
-                        : ''}
-                      {org.created_at
-                        ? <p>
-                            <Icon type="calendar" />
-                            创建于{moment(org.created_at).format('YYYY-MM-DD')}
-                          </p>
-                        : ''}
+                      {org.login ? (
+                        <strong>
+                          <Icon type="team" />
+                          {org.login}
+                        </strong>
+                      ) : (
+                        ''
+                      )}
+                      {org.description ? (
+                        <p>
+                          <Icon type="bulb" />
+                          {org.description}
+                        </p>
+                      ) : (
+                        ''
+                      )}
+                      {org.location ? (
+                        <p>
+                          <Icon type="environment" />
+                          {org.location}
+                        </p>
+                      ) : (
+                        ''
+                      )}
+                      {org.created_at ? (
+                        <p>
+                          <Icon type="calendar" />
+                          创建于{moment(org.created_at).format('YYYY-MM-DD')}
+                        </p>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   </Col>
                 </Row>
@@ -402,9 +416,11 @@ query{
                                     );
                                     if (myStat) {
                                       return (
-                                        (myStat.contribution.changes /
+                                        (
+                                          myStat.contribution.changes /
                                           myStat.contribution.total *
-                                          100).toFixed(2) + '%'
+                                          100
+                                        ).toFixed(2) + '%'
                                       );
                                     } else {
                                       return '0%';
@@ -418,7 +434,7 @@ query{
                               style={{
                                 position: 'relative',
                                 padding: '0.5rem',
-                                margin: '1rem 0 0 0'
+                                margin: '1rem 0 0 0',
                               }}
                             >
                               <div
@@ -429,7 +445,7 @@ query{
                                   className="greasy-bar"
                                   style={{
                                     ...styles.contributionBar,
-                                    backgroundColor: '#d2d2d2'
+                                    backgroundColor: '#d2d2d2',
                                   }}
                                 />
                                 <div
@@ -447,15 +463,17 @@ query{
                                       );
                                       if (myStat) {
                                         return (
-                                          (myStat.contribution.changes /
+                                          (
+                                            myStat.contribution.changes /
                                             myStat.contribution.total *
-                                            100).toFixed(2) + '%'
+                                            100
+                                          ).toFixed(2) + '%'
                                         );
                                       } else {
                                         return '0%';
                                       }
                                     })(),
-                                    backgroundColor: '#008000'
+                                    backgroundColor: '#008000',
                                   }}
                                 />
                               </div>
@@ -463,14 +481,13 @@ query{
                               <span
                                 style={{
                                   position: 'absolute',
-                                  color: '#fff'
+                                  color: '#fff',
                                 }}
                               >
                                 <span> {repo.name} </span>
                               </span>
 
                               <span>^_^</span>
-
                             </div>
                           </Popover>
                         );
@@ -482,7 +499,6 @@ query{
             );
           })}
         </Tabs>
-
       </Spin>
     );
   }
@@ -492,7 +508,7 @@ export default connect(
     return {
       ORGS: state.ORGS,
       REPOS_STAT: state.REPOS_STAT,
-      ALL_ORG_REPOS: state.ALL_ORG_REPOS
+      ALL_ORG_REPOS: state.ALL_ORG_REPOS,
     };
   },
   function mapDispatchToProps(dispatch) {
@@ -500,7 +516,7 @@ export default connect(
       {
         storeOrgs: store,
         setRepoStat: setStat,
-        setOrgAllRepos: allOrgRepos.set
+        setOrgAllRepos: allOrgRepos.set,
       },
       dispatch
     );

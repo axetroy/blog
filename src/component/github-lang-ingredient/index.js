@@ -30,7 +30,7 @@ function sum(array) {
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubLangIngredient extends Component {
   componentDidMount() {}
@@ -63,7 +63,7 @@ class GithubLangIngredient extends Component {
                   <span
                     className="repo-language-color mr5"
                     style={{
-                      backgroundColor: bgColor
+                      backgroundColor: bgColor,
                     }}
                   />
                   {language}: {percent}%
@@ -75,7 +75,7 @@ class GithubLangIngredient extends Component {
                   display: 'table-cell',
                   width: percent + '%',
                   backgroundColor: bgColor,
-                  transition: 'all 1s'
+                  transition: 'all 1s',
                 }}
               />
             </Tooltip>

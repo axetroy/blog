@@ -24,7 +24,7 @@ export function diffTime(time1) {
       days,
       hours,
       minutes,
-      seconds: parseInt(seconds)
+      seconds: parseInt(seconds),
     };
   };
 }

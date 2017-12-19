@@ -17,15 +17,15 @@ const styles = {
     margin: '1rem auto',
     textAlign: 'center',
     color: '#fff',
-    padding: '2rem'
+    padding: '2rem',
   },
-  strong: { fontSize: '2em' }
+  strong: { fontSize: '2em' },
 };
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubUserInfo extends Component {
   async componentWillMount() {
@@ -78,7 +78,7 @@ class GithubUserInfo extends Component {
                   width: '70%',
                   height: 'auto',
                   borderRadius: '50%',
-                  verticalAlign: 'middle'
+                  verticalAlign: 'middle',
                 }}
                 src={owner.avatarUrl}
               />
@@ -118,7 +118,7 @@ class GithubUserInfo extends Component {
         <div
           style={{
             borderTop: '1px solid #e6e6e6',
-            margin: '2rem'
+            margin: '2rem',
           }}
         />
 
@@ -159,7 +159,7 @@ export default connect(
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        storeOwnerInfo: userAction.store
+        storeOwnerInfo: userAction.store,
       },
       dispatch
     );

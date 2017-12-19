@@ -31,7 +31,6 @@ class Github extends Component {
     return (
       <DocumentTitle title={['Github']}>
         <div className="toolbar-container">
-
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
               <ViewSourceCode file="pages/github/index.js">
@@ -39,7 +38,7 @@ class Github extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem'
+                      fontSize: '3rem',
                     }}
                   />
                 </a>
@@ -47,29 +46,27 @@ class Github extends Component {
             </Tooltip>
           </div>
 
-          <h2 className="github-title">
-            活跃度
-          </h2>
+          <h2 className="github-title">活跃度</h2>
 
           <div
             style={{
-              overflow: 'auto'
+              overflow: 'auto',
             }}
           >
-            {GithubCalendar
-              ? <GithubCalendar
-                  style={{
-                    width: '100%',
-                    minWidth: '75rem'
-                  }}
-                  name={CONFIG.owner}
-                />
-              : ''}
+            {GithubCalendar ? (
+              <GithubCalendar
+                style={{
+                  width: '100%',
+                  minWidth: '75rem',
+                }}
+                name={CONFIG.owner}
+              />
+            ) : (
+              ''
+            )}
           </div>
 
-          <h2 className="github-title">
-            基本信息
-          </h2>
+          <h2 className="github-title">基本信息</h2>
 
           <Card>
             <GithubUserInfo />

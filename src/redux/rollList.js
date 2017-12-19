@@ -32,7 +32,7 @@ const reducer = handleActions(
     },
     [CLEAN]: function(state, { payload }) {
       return INITIAL_STATE;
-    }
+    },
   },
   INITIAL_STATE
 );

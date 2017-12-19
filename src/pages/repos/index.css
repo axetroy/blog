@@ -1,4 +1,4 @@
-.repo-language-color{
+.repo-language-color {
   background-color: grey;
   position: relative;
   top: 0.1rem;
@@ -9,5 +9,5 @@
 }
 
 .repo-list:hover {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }

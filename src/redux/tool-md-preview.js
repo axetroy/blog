@@ -14,7 +14,7 @@ const reducer = handleActions(
     },
     [STORE_HTML]: function(state, { payload }) {
       return { ...INITIAL_STATE, ...state, ...{ html: payload } };
-    }
+    },
   },
   INITIAL_STATE
 );

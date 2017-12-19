@@ -16,10 +16,10 @@ const reducer = handleActions(
         ...INITIAL_STATE,
         ...state,
         ...{
-          [name]: repos
-        }
+          [name]: repos,
+        },
       };
-    }
+    },
   },
   INITIAL_STATE
 );

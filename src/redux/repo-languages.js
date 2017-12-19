@@ -19,7 +19,7 @@ const reducer = handleActions(
         languages = { ...languages, ..._languages };
       }
       return { ...INITIAL_STATE, ...state, ...{ [repo]: languages } };
-    }
+    },
   },
   INITIAL_STATE
 );

@@ -51,9 +51,9 @@ class Gist extends Component {
     try {
       const { data } = await github.get(`/gists/${id}`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html'
+          Accept: 'application/vnd.github.v3.html',
         },
-        responseType: 'text'
+        responseType: 'text',
       });
       gist = data;
 
@@ -64,7 +64,7 @@ class Gist extends Component {
             '/markdown',
             {
               text: '```' + file.language + '\n' + file.content + '\n```',
-              mode: 'markdown'
+              mode: 'markdown',
             },
             { responseType: 'text' }
           );
@@ -93,7 +93,7 @@ class Gist extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem'
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -104,9 +104,9 @@ class Gist extends Component {
               {gist.description}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
-                  href={`https://gist.github.com/${gist.owner
-                    ? gist.owner.login
-                    : ''}/${gist.id}/edit`}
+                  href={`https://gist.github.com/${
+                    gist.owner ? gist.owner.login : ''
+                  }/${gist.id}/edit`}
                   target="_blank"
                 >
                   <Icon type="edit" />
@@ -126,7 +126,7 @@ class Gist extends Component {
                     </span>
                     <span
                       style={{
-                        margin: '0 0.5rem'
+                        margin: '0 0.5rem',
                       }}
                     >
                       <Download
@@ -135,7 +135,8 @@ class Gist extends Component {
                         style={{ display: 'inline' }}
                       >
                         <a href="javascript:">
-                          <Icon type="download" />{prettyBytes(file.size || 0)}
+                          <Icon type="download" />
+                          {prettyBytes(file.size || 0)}
                         </a>
                       </Download>
                     </span>
@@ -153,10 +154,10 @@ class Gist extends Component {
                   <div
                     className="markdown-body"
                     style={{
-                      fontSize: '1.6rem'
+                      fontSize: '1.6rem',
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: file.html
+                      __html: file.html,
                     }}
                   />
                 </div>
@@ -175,13 +176,13 @@ class Gist extends Component {
 export default connect(
   function mapStateToProps(state) {
     return {
-      GIST: state.GIST
+      GIST: state.GIST,
     };
   },
   function mapDispatchToProps(dispatch) {
     return bindActionCreators(
       {
-        setGist: gistAction.set
+        setGist: gistAction.set,
       },
       dispatch
     );

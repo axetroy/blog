@@ -24,9 +24,9 @@ class RepoReadme extends Component {
     try {
       const { data } = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html'
+          Accept: 'application/vnd.github.v3.html',
         },
-        responseType: 'text'
+        responseType: 'text',
       });
       html = data;
     } catch (err) {
