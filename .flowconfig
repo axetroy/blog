@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/draft-js/lib/.*
+
+
+[include]
+./src
+
+[libs]
+react
+
+[options]
+emoji=true
+module.use_strict=true

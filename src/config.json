@@ -1,0 +1,21 @@
+{
+  "owner": "axetroy",
+  "repo": "blog",
+  "todo_repo": "todo",
+  "github_client_id": "b8257841dd7ca5eef2aa",
+  "github_client_secret": "4da33dd6fcb0a01d395945ad18613ecf9c12079e",
+  "firebase": {
+    "config": {
+      "apiKey": "AIzaSyDTCaJ23z7O393k_5w79z40XBNVURiAxb8",
+      "authDomain": "blog-9281a.firebaseapp.com",
+      "databaseURL": "https://blog-9281a.firebaseio.com",
+      "projectId": "blog-9281a",
+      "storageBucket": "blog-9281a.appspot.com",
+      "messagingSenderId": "989620354189"
+    },
+    "account": {
+      "email": "troy450409405@gmail.com",
+      "password": "123123"
+    }
+  }
+}
