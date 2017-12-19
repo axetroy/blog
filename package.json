@@ -101,7 +101,11 @@
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages --repo git@github.com:axetroy/axetroy.github.io.git --branch master -d build",
     "generate": "./node_modules/.bin/all-contributors generate",
-    "flow": "flow"
+    "flow": "flow",
+    "format": "npm run format:js && npm run format:css && npm run format:json",
+    "format:js": "prettier --single-quote --trailing-comma es5 --write '{src,app,__{tests,mocks}__}/**/*.js'",
+    "format:css": "prettier --single-quote --write '{src,app}/**/*.css'",
+    "format:json": "prettier --single-quote --write '{src,app}/**/*.json'"
   },
   "jest": {
     "collectCoverageFrom": [
