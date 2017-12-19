@@ -8,10 +8,8 @@ import { Row, Col, Spin, Tag } from 'antd';
 import moment from 'moment';
 import { lazyload } from 'react-lazyload';
 
-import github from '../../lib/github';
 import graphql from '../../lib/graphql';
 import * as userAction from '../../redux/owner';
-import CONFIG from '../../config.json';
 
 const styles = {
   infoBlock: {
