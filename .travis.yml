@@ -13,4 +13,4 @@ cache:
     - node_modules
 
 script:
-  - rm -rf ./node_modules && yarn && npm run build
+  - rm -rf ./node_modules && yarn && node ./scripts/build.js
