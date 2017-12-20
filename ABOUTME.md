@@ -1,14 +1,14 @@
-### 教育信息
+## 教育信息
 
 **2011.9-2015.7** Guilin University of Technology - Civil Engineering
 
-### 职业技能
+## 职业技能
 
-#### 语言
+### 语言
 
 Javascript/NodeJs/Go/Dart
 
-#### 编辑器
+### 编辑器
 
 **懵懂期**: Dreamweaver
 
@@ -18,7 +18,7 @@ Javascript/NodeJs/Go/Dart
 
 **文艺期**: VSCode
 
-### 野生程序员的职业生涯
+## 野生程序员的职业生涯
 
 从我小时候，就特别羡慕懂计算机的
 
@@ -61,7 +61,7 @@ Javascript/NodeJs/Go/Dart
 
 且行且珍惜
 
-### 个人特点
+## 个人特点
 
 喜欢折腾
 
@@ -71,7 +71,7 @@ Javascript/NodeJs/Go/Dart
 
 Linux/脚本/扩展/库/框架的折腾，介我所爱
 
-#### 联系信息
+### 联系信息
 
 大家交个朋友，不过分吧?
 
