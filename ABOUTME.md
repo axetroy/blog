@@ -75,6 +75,7 @@ Linux/脚本/扩展/库/框架的折腾，介我所爱
 
 大家交个朋友，不过分吧?
 
+- [x] 坐标: 南宁
 - [x] 手机: 133******42
 - [x] 邮箱: troy450409405@gmail.com
 - [x] 博客: [axetroy.xyz](http://axetroy.xyz)
