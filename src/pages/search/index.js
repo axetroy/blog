@@ -1,20 +1,20 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Row, Col, Input, Spin, Icon, Tooltip } from 'antd';
-import queryString from 'query-string';
-import github from '../../lib/github';
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Row, Col, Input, Spin, Icon, Tooltip } from "antd";
+import queryString from "query-string";
+import github from "../../lib/github";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
-import CONFIG from '../../config.json';
+import CONFIG from "../../config.json";
 
-import './index.css';
+import "./index.css";
 
 const { owner, repo: blog_repo, todo_repo } = CONFIG;
 const Search = Input.Search;
@@ -24,7 +24,7 @@ class SearchComponent extends Component {
     pending: false,
     posts: [],
     repos: [],
-    todos: [],
+    todos: []
   };
   componentDidMount() {
     const query = queryString.parse(this.props.location.search);
@@ -38,7 +38,7 @@ class SearchComponent extends Component {
     await [
       this.searchPost(keyword),
       this.searchRepo(keyword),
-      this.searchTodo(keyword),
+      this.searchTodo(keyword)
     ];
     this.setState({ pending: false });
   }
@@ -77,72 +77,60 @@ class SearchComponent extends Component {
   }
 
   renderPost() {
-    return (
+    return this.state.posts.length ? (
       <div>
         <h2>博客文章</h2>
-        {this.state.posts.length ? (
-          this.state.posts.map(post => {
-            return (
-              <div key={post.id} className="search-r">
-                <h4>
-                  <Link to={`/post/${post.number}`}>{post.title}</Link>
-                </h4>
-              </div>
-            );
-          })
-        ) : (
-          <div>Not Found!</div>
-        )}
+        {this.state.posts.map(post => {
+          return (
+            <div key={post.id} className="search-r">
+              <h4>
+                <Link to={`/post/${post.number}`}>{post.title}</Link>
+              </h4>
+            </div>
+          );
+        })}
       </div>
-    );
+    ) : null;
   }
 
   renderRepo() {
-    return (
+    return this.state.repos.length ? (
       <div>
         <h2>开源项目</h2>
-        {this.state.repos.length ? (
-          this.state.repos.map(repo => {
-            return (
-              <div key={repo.name} className="search-r">
-                <h4>
-                  <Link to={`/repo/${repo.name}`}>{repo.name}</Link>
-                </h4>
-              </div>
-            );
-          })
-        ) : (
-          <div>Not Found!</div>
-        )}
+        {this.state.repos.map(repo => {
+          return (
+            <div key={repo.name} className="search-r">
+              <h4>
+                <Link to={`/repo/${repo.name}`}>{repo.name}</Link>
+              </h4>
+            </div>
+          );
+        })}
       </div>
-    );
+    ) : null;
   }
 
   renderTodo() {
-    return (
+    return this.state.todos.length ? (
       <div>
         <h2>计划任务</h2>
-        {this.state.todos.length ? (
-          this.state.todos.map(todo => {
-            return (
-              <div key={todo.id} className="search-r">
-                <h4>
-                  <Link to={`/todo/${todo.number}`}>{todo.title}</Link>
-                </h4>
-              </div>
-            );
-          })
-        ) : (
-          <div>Not Found!</div>
-        )}
+        {this.state.todos.map(todo => {
+          return (
+            <div key={todo.id} className="search-r">
+              <h4>
+                <Link to={`/todo/${todo.number}`}>{todo.title}</Link>
+              </h4>
+            </div>
+          );
+        })}
       </div>
-    );
+    ) : null;
   }
 
   render() {
     return (
       <DocumentTitle
-        title={[this.state.keyword ? '搜索: ' + this.state.keyword : '搜索']}
+        title={[this.state.keyword ? "搜索: " + this.state.keyword : "搜索"]}
       >
         <div className="toolbar-container">
           <div className="edit-this-page">
@@ -152,7 +140,7 @@ class SearchComponent extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -160,11 +148,11 @@ class SearchComponent extends Component {
             </Tooltip>
           </div>
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: "center" }}>
             <Search
               value={this.state.keyword}
-              placeholder="Search and Press Enter!"
-              style={{ width: '30rem', marginBottom: '2rem' }}
+              placeholder="Type keyword and press Enter!"
+              style={{ width: "30rem", marginBottom: "2rem" }}
               onChange={e => {
                 this.setState({ keyword: e.currentTarget.value });
               }}
@@ -175,8 +163,8 @@ class SearchComponent extends Component {
                   ...this.props.location,
                   search: queryString.stringify({
                     ...oldQuery,
-                    ...{ q: value },
-                  }),
+                    ...{ q: value }
+                  })
                 });
                 this.search(value);
               }}
@@ -185,9 +173,15 @@ class SearchComponent extends Component {
 
           <Spin tip="searching..." spinning={this.state.pending}>
             <Row>
-              <Col sm={24} md={8}>{this.renderPost()}</Col>
-              <Col sm={24} md={8}>{this.renderRepo()}</Col>
-              <Col sm={24} md={8}>{this.renderTodo()}</Col>
+              <Col sm={24} md={8}>
+                {this.renderPost()}
+              </Col>
+              <Col sm={24} md={8}>
+                {this.renderRepo()}
+              </Col>
+              <Col sm={24} md={8}>
+                {this.renderTodo()}
+              </Col>
             </Row>
           </Spin>
         </div>
