@@ -185,9 +185,9 @@ class SearchComponent extends Component {
 
           <Spin tip="searching..." spinning={this.state.pending}>
             <Row>
-              <Col span={8}>{this.renderPost()}</Col>
-              <Col span={8}>{this.renderRepo()}</Col>
-              <Col span={8}>{this.renderTodo()}</Col>
+              <Col sm={24} md={8}>{this.renderPost()}</Col>
+              <Col sm={24} md={8}>{this.renderRepo()}</Col>
+              <Col sm={24} md={8}>{this.renderTodo()}</Col>
             </Row>
           </Spin>
         </div>
