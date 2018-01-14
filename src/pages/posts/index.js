@@ -193,20 +193,22 @@ class Posts extends Component {
                         />
                         {firstUpperCase(post.user.login)}
                       </strong>
-                      <p>
+                      <br/>
+                      <span>
                         <Icon
                           type="calendar"
                           style={{ marginRight: "0.5rem" }}
                         />
                         {moment(new Date(post.created_at)).fromNow()}
-                      </p>
-                      <p>
+                      </span>
+                      <br/>
+                      <span>
                         <Icon
                           type="message"
                           style={{ marginRight: "0.5rem" }}
                         />
                         {post.comments}
-                      </p>
+                      </span>
                     </div>
                   </div>
                 </Card>
@@ -217,7 +219,6 @@ class Posts extends Component {
               <Row className="text-center">
                 <Col span={24} style={{ transition: "all 1s" }}>
                   <Pagination
-                    simple
                     onChange={page =>
                       this.changePage(page, this.state.meta.per_page)
                     }

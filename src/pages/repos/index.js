@@ -193,7 +193,6 @@ class Repos extends Component {
               <Row className="text-center">
                 <Col span={24} style={{ transition: 'all 1s' }}>
                   <Pagination
-                    simple
                     onChange={page =>
                       this.changePage(page, this.state.meta.per_page)
                     }
