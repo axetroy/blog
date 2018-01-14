@@ -23,7 +23,7 @@
 - [x] 静态类型检查
 - [ ] i18n
 - [x] 分析Github相关数据
-- [x] 集成[firebase](https://firebase.google.com/)
+- [x] 集成[FireBase](https://firebase.google.com/)
 - [x] 支持[Github GraphQL API v4](https://developer.github.com/v4/)
 
 ### 技术栈
