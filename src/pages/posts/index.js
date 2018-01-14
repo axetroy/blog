@@ -138,7 +138,10 @@ class Posts extends Component {
                       >
                         {post.title}
                       </NavLink>
-                      <span style={{ marginLeft: "1rem" }}>
+                    </h3>
+                  </div>
+                  <div style={{ margin: "0.5rem 0" }}>
+                    <span>
                         {(post.labels || []).map(label => {
                           return (
                             <Tag key={label.id} color={"#" + label.color}>
@@ -147,7 +150,6 @@ class Posts extends Component {
                           );
                         })}
                       </span>
-                    </h3>
                   </div>
                   <div style={{ color: "#9E9E9E", wordBreak: "break-all" }}>
                     {post.body.slice(0, 500)}...
