@@ -1,32 +1,56 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from 'antd';
-import moment from 'moment';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
+import moment from "moment";
 
-import DocumentTitle from '../../component/document-title';
-import github from '../../lib/github';
-import { firstUpperCase } from '../../lib/utils';
-import * as postAction from '../../redux/post';
-import CONFIG from '../../config.json';
-import Comments from '../../component/comments';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import github from "../../lib/github";
+import { firstUpperCase } from "../../lib/utils";
+import * as postAction from "../../redux/post";
+import CONFIG from "../../config.json";
+import Comments from "../../component/comments";
+import ViewSourceCode from "../../component/view-source-code";
 
-import './post.css';
+import "./post.css";
 
 class Post extends Component {
   state = {
-    banner: `img/banner/material-${parseInt(Math.random() * 10 + 1)}.png`,
+    banners: [
+      "https://user-images.githubusercontent.com/9758711/35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713.png",
+      "https://user-images.githubusercontent.com/9758711/35051427-28b5ed6e-fbe0-11e7-90b5-a5c3f0c9cba2.png",
+      "https://user-images.githubusercontent.com/9758711/35051446-3424927c-fbe0-11e7-9e41-5c3725781867.png",
+      "https://user-images.githubusercontent.com/9758711/35051488-4c3c2de8-fbe0-11e7-9c5c-0d35a171a15b.png",
+      "https://user-images.githubusercontent.com/9758711/35051508-5b01e00c-fbe0-11e7-85e6-ca93570ee11f.png",
+      "https://user-images.githubusercontent.com/9758711/35051527-66aaa218-fbe0-11e7-9821-9390595c4ae6.png",
+      "https://user-images.githubusercontent.com/9758711/35051549-73e310a0-fbe0-11e7-87ed-3b023cab3019.png",
+      "https://user-images.githubusercontent.com/9758711/35051561-7e618ae8-fbe0-11e7-9355-a7285cb4821f.png",
+      "https://user-images.githubusercontent.com/9758711/35051580-8a893db6-fbe0-11e7-93ff-5bd11e96630e.png",
+      "https://user-images.githubusercontent.com/9758711/35051598-95948738-fbe0-11e7-96c3-dbd6f7c93f71.png",
+      "https://user-images.githubusercontent.com/9758711/35051610-9f056a9e-fbe0-11e7-92d4-502b449a4c51.png",
+      "https://user-images.githubusercontent.com/9758711/35051630-a956162e-fbe0-11e7-86a0-fd4c4dea6e75.png",
+      "https://user-images.githubusercontent.com/9758711/35051654-b3af78fe-fbe0-11e7-9a61-d8a89a4ddf66.png",
+      "https://user-images.githubusercontent.com/9758711/35051683-c78c5360-fbe0-11e7-831c-60b5e25188fb.png",
+      "https://user-images.githubusercontent.com/9758711/35051708-d447aeb0-fbe0-11e7-8e62-a1042f373488.png",
+      "https://user-images.githubusercontent.com/9758711/35051727-dee8460e-fbe0-11e7-8b35-7c4bf8f6d8a9.png",
+      "https://user-images.githubusercontent.com/9758711/35051749-e8af347c-fbe0-11e7-951b-2d9e03ee443a.png",
+      "https://user-images.githubusercontent.com/9758711/35051761-f24f0c0a-fbe0-11e7-893f-6bfcbb036c3e.png",
+      "https://user-images.githubusercontent.com/9758711/35051785-fd3a9fc6-fbe0-11e7-8faf-a97facebe5ce.png"
+    ]
   };
 
   async componentWillMount() {
     let { number } = this.props.match.params;
+    const i = Math.floor(Math.random() * this.state.banners.length);
+    this.setState({
+      banner: this.state.banners[i]
+    });
 
-    import('qrcode.react').then(module => {
+    import("qrcode.react").then(module => {
       this.setState({ QRCode: module });
     });
     if (number) {
@@ -48,9 +72,9 @@ class Post extends Component {
         `/repos/${CONFIG.owner}/${CONFIG.repo}/issues/${number}`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html',
+            Accept: "application/vnd.github.v3.html"
           },
-          responseType: 'text',
+          responseType: "text"
         }
       );
       post = data;
@@ -64,9 +88,9 @@ class Post extends Component {
 
   htmlFilter(html) {
     // 提取第一张图片作为封面
-    let $div = document.createElement('div');
+    let $div = document.createElement("div");
     $div.innerHTML = html;
-    let $banner = $div.querySelector('img[alt=banner]');
+    let $banner = $div.querySelector("img[alt=banner]");
 
     // 如果存在banner，则删除该行的ｐ标签
     if ($banner) {
@@ -74,8 +98,8 @@ class Post extends Component {
         this.setState({ banner: $banner.src });
       }
       const $parent = $banner.parentElement;
-      if ($parent && $parent.tagName === 'A') {
-        if ($parent.parentNode && $parent.parentElement.tagName === 'P') {
+      if ($parent && $parent.tagName === "A") {
+        if ($parent.parentNode && $parent.parentElement.tagName === "P") {
           $parent.parentElement.remove();
         } else {
           $parent.remove();
@@ -90,30 +114,30 @@ class Post extends Component {
   getShareMenu(post) {
     const shareMenu = [
       {
-        title: '分享到新浪微博',
-        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' +
+        title: "分享到新浪微博",
+        url: `http://service.weibo.com/share/share.php?appkey=&title=${"分享: " +
           post.title}&url=${
           window.location.href
-        }&pic=&searchPic=false&style=simple`,
+        }&pic=&searchPic=false&style=simple`
       },
       {
-        title: '分享到 Twitter',
-        url: `https://twitter.com/intent/tweet?text=${'分享: ' +
-          post.title}&url=${window.location.href}&via=Axetroy`,
+        title: "分享到 Twitter",
+        url: `https://twitter.com/intent/tweet?text=${"分享: " +
+          post.title}&url=${window.location.href}&via=Axetroy`
       },
       {
-        title: '分享到 Telegram',
+        title: "分享到 Telegram",
         url: `https://telegram.me/share/url?url=${
           window.location.href
-        }&text=${'分享: ' + post.title}`,
+        }&text=${"分享: " + post.title}`
       },
       {
-        title: '分享到 QQ',
-        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' +
+        title: "分享到 QQ",
+        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${"分享: " +
           post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${
           window.location.href
-        }`,
-      },
+        }`
+      }
     ];
     return (
       <Menu>
@@ -134,38 +158,38 @@ class Post extends Component {
     const { number } = this.props.match.params;
     const post = this.props.POST[number] || {};
     return (
-      <DocumentTitle title={[post.title, '博客文章']}>
+      <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
           <div
             style={{
-              position: 'relative',
-              width: '100%',
-              height: '24rem',
+              position: "relative",
+              width: "100%",
+              height: "24rem",
               backgroundImage: `url(${this.state.banner})`,
-              backgroundOrigin: 'border-box',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPositionY: '25%',
+              backgroundOrigin: "border-box",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPositionY: "25%"
             }}
           >
             <h2
               style={{
-                textAlign: 'center',
-                position: 'absolute',
-                width: '100%',
-                color: '#fff',
-                top: '20%',
+                textAlign: "center",
+                position: "absolute",
+                width: "100%",
+                color: "#fff",
+                top: "20%"
               }}
             >
-              {post.title}{' '}
+              {post.title}{" "}
               <span
                 style={{
-                  verticalAlign: 'top',
+                  verticalAlign: "top"
                 }}
               >
                 {(post.labels || []).map(label => {
                   return (
-                    <Tag key={label.id} color={'#' + label.color}>
+                    <Tag key={label.id} color={"#" + label.color}>
                       {label.name}
                     </Tag>
                   );
@@ -174,12 +198,12 @@ class Post extends Component {
             </h2>
             <div
               style={{
-                position: 'absolute',
+                position: "absolute",
                 bottom: 0,
                 left: 0,
-                width: '100%',
-                padding: '2rem',
-                backgroundColor: 'rgba(245, 245, 245, 0.23)',
+                width: "100%",
+                padding: "2rem",
+                backgroundColor: "rgba(245, 245, 245, 0.23)"
               }}
             >
               {post.user && post.user.avatar_url ? (
@@ -187,40 +211,40 @@ class Post extends Component {
                   src={post.user.avatar_url}
                   alt=""
                   style={{
-                    width: '4.4rem',
-                    height: '100%',
-                    borderRadius: '50%',
-                    verticalAlign: 'middle',
+                    width: "4.4rem",
+                    height: "100%",
+                    borderRadius: "50%",
+                    verticalAlign: "middle"
                   }}
                 />
               ) : (
-                ''
+                ""
               )}
               <div
                 style={{
-                  display: 'inline-block',
-                  verticalAlign: 'middle',
-                  margin: '0 1rem',
+                  display: "inline-block",
+                  verticalAlign: "middle",
+                  margin: "0 1rem"
                 }}
               >
                 <strong>
                   <Icon
                     type="user"
                     style={{
-                      marginRight: '0.5rem',
+                      marginRight: "0.5rem"
                     }}
                   />
-                  {firstUpperCase(post && post.user ? post.user.login : '')}
+                  {firstUpperCase(post && post.user ? post.user.login : "")}
                 </strong>
                 <p>
-                  <Icon type="calendar" style={{ marginRight: '0.5rem' }} />
+                  <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                   {moment(new Date(post.created_at)).fromNow()}
                 </p>
                 <p>
                   <Icon
                     type="message"
                     style={{
-                      marginRight: '0.5rem',
+                      marginRight: "0.5rem"
                     }}
                   />
                   {post.comments}
@@ -228,12 +252,12 @@ class Post extends Component {
               </div>
               <div
                 style={{
-                  textAlign: 'right',
-                  float: 'right',
-                  fontSize: '2.4rem',
+                  textAlign: "right",
+                  float: "right",
+                  fontSize: "2.4rem"
                 }}
               >
-                <span style={{ margin: '0.5rem' }}>
+                <span style={{ margin: "0.5rem" }}>
                   <Tooltip title="编辑文章" placement="topRight">
                     <a
                       target="blank"
@@ -241,20 +265,20 @@ class Post extends Component {
                         CONFIG.repo
                       }/issues/${post.number}`}
                       style={{
-                        color: 'inherit',
+                        color: "inherit"
                       }}
                     >
                       <Icon type="edit" />
                     </a>
                   </Tooltip>
                 </span>
-                <span style={{ margin: '0.5rem' }}>
+                <span style={{ margin: "0.5rem" }}>
                   <Tooltip placement="topLeft" title="查看源码">
                     <ViewSourceCode file="pages/post/index.js">
                       <a
                         href="javascript: void 0"
                         target="_blank"
-                        style={{ color: 'inherit' }}
+                        style={{ color: "inherit" }}
                       >
                         <Icon type="code" />
                       </a>
@@ -263,20 +287,20 @@ class Post extends Component {
                 </span>
                 <span
                   style={{
-                    cursor: 'pointer',
-                    margin: '0.5rem',
+                    cursor: "pointer",
+                    margin: "0.5rem"
                   }}
                 >
                   <Popover
                     placement="topLeft"
-                    title={'在其他设备中扫描二维码'}
+                    title={"在其他设备中扫描二维码"}
                     trigger="click"
                     content={
                       <div className="text-center">
                         {QRCode ? (
                           <QRCode value={window.location.href} />
                         ) : (
-                          'Loading...'
+                          "Loading..."
                         )}
                       </div>
                     }
@@ -286,13 +310,13 @@ class Post extends Component {
                 </span>
                 <span
                   style={{
-                    cursor: 'pointer',
-                    margin: '0.5rem',
+                    cursor: "pointer",
+                    margin: "0.5rem"
                   }}
                 >
                   <Dropdown
                     overlay={this.getShareMenu(post)}
-                    trigger={['click']}
+                    trigger={["click"]}
                   >
                     <Icon type="share-alt" />
                   </Dropdown>
@@ -304,12 +328,12 @@ class Post extends Component {
           <div
             className="markdown-body post-content"
             style={{
-              margin: '2rem 0',
-              borderBottom: '1px solid #e6e6e6',
-              paddingBottom: '2rem',
+              margin: "2rem 0",
+              borderBottom: "1px solid #e6e6e6",
+              paddingBottom: "2rem"
             }}
             dangerouslySetInnerHTML={{
-              __html: post.filter_html,
+              __html: post.filter_html
             }}
           />
 
@@ -322,9 +346,9 @@ class Post extends Component {
 
           <div
             style={{
-              marginTop: '2rem',
-              paddingTop: '2rem',
-              borderTop: '1px solid #e6e6e6',
+              marginTop: "2rem",
+              paddingTop: "2rem",
+              borderTop: "1px solid #e6e6e6"
             }}
           >
             <Comments

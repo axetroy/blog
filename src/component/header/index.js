@@ -104,7 +104,7 @@ class Header extends Component {
           style={{
             width: '100%',
             height: '20rem',
-            backgroundImage: 'url(./img/header-img.jpg)',
+            backgroundImage: 'url(https://user-images.githubusercontent.com/9758711/35051962-65350bb6-fbe1-11e7-91e3-c79da2cb5e73.jpg)',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'inherit',
