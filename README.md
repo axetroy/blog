@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/axetroy/blog.svg?branch=master)](https://travis-ci.org/axetroy/blog)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
@@ -8,7 +7,7 @@
 
 本站托管于Github，所有数据来源于Github，通过动态加载数据渲染页面
 
-将serverless进行到底
+将**Server Less**进行到底
 
 ### 特性
 
@@ -44,10 +43,11 @@ Hexo的流程:
 - 部署到服务器
 - push源代码
 
-它可能不适合我: 
+它并不适合我: 
 
 - 疲与上面的步骤
-- 依赖于开发环境(首先你要有nodejs, 有hexo，有时就想要改一个字，还得打开编辑器，修改，build，部署.)
+- 依赖于开发环境，首先你要有NodeJS以及Hexo
+- 修改麻烦，有时就想要改一个字，还得打开编辑器，修改，build，部署.
 
 > 我的目标是：
 > 部署之后，不用再care源码，也不依赖于生产环境，登陆Github就操作。
