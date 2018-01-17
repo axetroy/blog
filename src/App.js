@@ -1,30 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   HashRouter as Router,
   Route,
   Switch,
-  HashRouter,
-} from 'react-router-dom';
-import { Provider } from 'react-redux';
+  HashRouter
+} from "react-router-dom";
+import { Provider } from "react-redux";
 
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, notification } from "antd";
 
-import Footer from './component/footer';
-import Header from './component/header';
-import ClickMaterial from './component/click-material';
-import DynamicLoad from './component/dynamic-load';
+import Footer from "./component/footer";
+import Header from "./component/header";
+import ClickMaterial from "./component/click-material";
+import DynamicLoad from "./component/dynamic-load";
 
-import store from './redux/index';
-import Statistics from './lib/statistics';
-import RouterListener from './lib/router-listener';
+import store from "./redux/index";
+import Statistics from "./lib/statistics";
+import RouterListener from "./lib/router-listener";
 
-import './App.css';
+import "./App.css";
 
-import CONFIG from './config.json';
+import CONFIG from "./config.json";
 
 const ClickMaterialWithStatRouterListener = RouterListener(ClickMaterial);
 
 class App extends Component {
+  componentDidMount() {
+    notification.open({
+      message: "我正在找工作",
+      description:
+        "坐标南宁/深圳，我正在找一份NodeJS/Go的相关工作，前端/全栈/后端开发亦可. 联系邮箱troy450409405@gmail.com",
+      duration: 0
+    });
+  }
   render() {
     return (
       <Provider store={store}>
@@ -32,9 +40,9 @@ class App extends Component {
           <ClickMaterialWithStatRouterListener
             onRouterChange={(location, action) => {
               // location is an object like window.location
-              window.ga('set', {
+              window.ga("set", {
                 page: location.pathname,
-                title: document.title,
+                title: document.title
               });
             }}
           >
@@ -55,19 +63,19 @@ class App extends Component {
                     height="80"
                     viewBox="0 0 250 250"
                     style={{
-                      fill: '#64CEAA',
-                      color: '#fff',
-                      position: 'absolute',
-                      top: '0',
+                      fill: "#64CEAA",
+                      color: "#fff",
+                      position: "absolute",
+                      top: "0",
                       border: 0,
-                      right: 0,
+                      right: 0
                     }}
                   >
                     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
                     <path
                       d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
                       fill="currentColor"
-                      style={{ transformOrigin: '130px 106px' }}
+                      style={{ transformOrigin: "130px 106px" }}
                       className="octo-arm"
                     />
                     <path
@@ -86,7 +94,7 @@ class App extends Component {
               >
                 <Card
                   style={{
-                    marginTop: '2rem',
+                    marginTop: "2rem"
                   }}
                 >
                   <Switch>
@@ -94,91 +102,91 @@ class App extends Component {
                       exact
                       path="/"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/home')} />
+                        <DynamicLoad promise={import("./pages/home")} />
                       )}
                     />
                     <Route
                       exact
                       path="/github"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/github')} />
+                        <DynamicLoad promise={import("./pages/github")} />
                       )}
                     />
                     <Route
                       exact
                       path="/about"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/about')} />
+                        <DynamicLoad promise={import("./pages/about")} />
                       )}
                     />
                     <Route
                       exact
                       path="/post/:number"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/post')} />
+                        <DynamicLoad promise={import("./pages/post")} />
                       )}
                     />
                     <Route
                       exact
                       path="/post"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/posts')} />
+                        <DynamicLoad promise={import("./pages/posts")} />
                       )}
                     />
                     <Route
                       exact
                       path="/repo/:repo"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/repo')} />
+                        <DynamicLoad promise={import("./pages/repo")} />
                       )}
                     />
                     <Route
                       exact
                       path="/repo"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/repos')} />
+                        <DynamicLoad promise={import("./pages/repos")} />
                       )}
                     />
                     <Route
                       exact
                       path="/todo/:number"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/todo')} />
+                        <DynamicLoad promise={import("./pages/todo")} />
                       )}
                     />
                     <Route
                       exact
                       path="/todo"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/todos')} />
+                        <DynamicLoad promise={import("./pages/todos")} />
                       )}
                     />
                     <Route
                       exact
                       path="/gist/:id"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/gist')} />
+                        <DynamicLoad promise={import("./pages/gist")} />
                       )}
                     />
                     <Route
                       exact
                       path="/gist"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/gists')} />
+                        <DynamicLoad promise={import("./pages/gists")} />
                       )}
                     />
                     <Route
                       exact
                       path="/search"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/search')} />
+                        <DynamicLoad promise={import("./pages/search")} />
                       )}
                     />
                     <Route
                       exact
                       path="/case"
                       render={() => (
-                        <DynamicLoad promise={import('./pages/case')} />
+                        <DynamicLoad promise={import("./pages/case")} />
                       )}
                     />
                   </Switch>
