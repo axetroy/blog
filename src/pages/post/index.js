@@ -236,11 +236,13 @@ class Post extends Component {
                   />
                   {firstUpperCase(post && post.user ? post.user.login : "")}
                 </strong>
-                <p>
+                <br />
+                <span>
                   <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                   {moment(new Date(post.created_at)).fromNow()}
-                </p>
-                <p>
+                </span>
+                <br />
+                <span>
                   <Icon
                     type="message"
                     style={{
@@ -248,7 +250,7 @@ class Post extends Component {
                     }}
                   />
                   {post.comments}
-                </p>
+                </span>
               </div>
               <div
                 style={{
