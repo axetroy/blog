@@ -2,8 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from "redux-zero/react";
 import { Spin, Pagination, Row, Col, Card, Tag, Icon, Tooltip } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
 import moment from "moment";
@@ -15,7 +14,7 @@ import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import { firstUpperCase } from "../../lib/utils";
 
-import * as postAction from "../../redux/posts";
+import actions from "../../actions";
 
 import CONFIG from "../../config.json";
 
@@ -84,7 +83,7 @@ class Posts extends Component {
       }
     });
 
-    this.props.setPosts(posts);
+    this.props.updateArticles(posts);
 
     return posts;
   }
@@ -142,14 +141,14 @@ class Posts extends Component {
                   </div>
                   <div style={{ margin: "0.5rem 0" }}>
                     <span>
-                        {(post.labels || []).map(label => {
-                          return (
-                            <Tag key={label.id} color={"#" + label.color}>
-                              {label.name}
-                            </Tag>
-                          );
-                        })}
-                      </span>
+                      {(post.labels || []).map(label => {
+                        return (
+                          <Tag key={label.id} color={"#" + label.color}>
+                            {label.name}
+                          </Tag>
+                        );
+                      })}
+                    </span>
                   </div>
                   <div style={{ color: "#9E9E9E", wordBreak: "break-all" }}>
                     {post.body.slice(0, 500)}...
@@ -193,7 +192,7 @@ class Posts extends Component {
                         />
                         {firstUpperCase(post.user.login)}
                       </strong>
-                      <br/>
+                      <br />
                       <span>
                         <Icon
                           type="calendar"
@@ -201,7 +200,7 @@ class Posts extends Component {
                         />
                         {moment(new Date(post.created_at)).fromNow()}
                       </span>
-                      <br/>
+                      <br />
                       <span>
                         <Icon
                           type="message"
@@ -238,17 +237,8 @@ class Posts extends Component {
   }
 }
 export default connect(
-  function mapStateToProps(state) {
-    return {
-      POSTS: state.POSTS
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        setPosts: postAction.set
-      },
-      dispatch
-    );
-  }
+  state => ({
+    POSTS: state.POSTS
+  }),
+  actions
 )(withRouter(Posts));

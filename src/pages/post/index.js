@@ -2,19 +2,19 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
 import moment from "moment";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
 import { firstUpperCase } from "../../lib/utils";
-import * as postAction from "../../redux/post";
 import CONFIG from "../../config.json";
 import Comments from "../../component/comments";
 import ViewSourceCode from "../../component/view-source-code";
+
+import actions from "../../actions";
 
 import "./post.css";
 
@@ -82,7 +82,7 @@ class Post extends Component {
     } catch (err) {
       console.error(err);
     }
-    this.props.setPost({ [number]: post });
+    this.props.updateArticle(number, post);
     return post;
   }
 
@@ -365,11 +365,6 @@ class Post extends Component {
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return { POST: state.POST };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ setPost: postAction.set }, dispatch);
-  }
-)(withRouter(Post));
+export default connect(state => ({ POST: state.POST }), actions)(
+  withRouter(Post)
+);

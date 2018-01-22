@@ -1,28 +1,27 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Row, Col, Spin, Pagination } from 'antd';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Spin, Pagination } from "antd";
+import { lazyload } from "react-lazyload";
 
-import github from '../../lib/github';
-import graphql from '../../lib/graphql';
-import { storeFollower } from '../../redux/follower';
-import CONFIG from '../../config.json';
+import github from "../../lib/github";
+import graphql from "../../lib/graphql";
+import CONFIG from "../../config.json";
+import actions from "../../actions";
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class GithubFollowers extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 30,
-    },
+      per_page: 30
+    }
   };
 
   async componentWillMount() {
@@ -48,7 +47,7 @@ query {
     `
     )();
 
-    this.props.storeFollower(response.data.data.viewer.followers.nodes);
+    this.props.updateFollowers(response.data.data.viewer.followers.nodes);
   }
 
   async getFollowers(page, per_page) {
@@ -57,7 +56,7 @@ query {
       const { data, headers } = await github.get(
         `/users/${CONFIG.owner}/followers`,
         {
-          params: { page, per_page },
+          params: { page, per_page }
         }
       );
       followers = data;
@@ -72,8 +71,8 @@ query {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page },
-          },
+            ...{ page, per_page, total: lastPage * per_page }
+          }
         });
       }
     } catch (err) {
@@ -82,10 +81,12 @@ query {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page, per_page },
-      },
+        ...{ page, per_page }
+      }
     });
-    if (page === 1) this.props.storeFollower(followers);
+    if (page === 1) this.props.updateFollowers(followers);
+    console.log(followers);
+    console.log(typeof followers);
     return followers;
   }
 
@@ -94,7 +95,7 @@ query {
   }
 
   render() {
-    const followers = this.props.FOLLOWER;
+    const followers = this.props.FOLLOWERS || [];
     return (
       <Spin spinning={!followers || !followers.length}>
         <Row>
@@ -110,7 +111,7 @@ query {
                 <a href={user.url} target="_blank">
                   <img
                     src={user.avatarUrl}
-                    style={{ width: '10rem', maxWidth: '100%' }}
+                    style={{ width: "10rem", maxWidth: "100%" }}
                     alt=""
                   />
                   <br />
@@ -130,7 +131,7 @@ query {
             />
           </Row>
         ) : (
-          ''
+          ""
         )}
       </Spin>
     );
@@ -138,15 +139,8 @@ query {
 }
 
 export default connect(
-  function mapStateToProps(state) {
-    return { FOLLOWER: state.FOLLOWER };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        storeFollower: storeFollower,
-      },
-      dispatch
-    );
-  }
+  state => ({
+    FOLLOWERS: state.FOLLOWERS
+  }),
+  actions
 )(GithubFollowers);

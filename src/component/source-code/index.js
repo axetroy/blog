@@ -2,8 +2,6 @@
  * Created by axetroy on 17-5-24.
  */
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Spin } from "antd";
 import axios from "axios";
 
@@ -86,11 +84,4 @@ ${raw}
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return {};
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
-  }
-)(SourceCode);
+export default SourceCode

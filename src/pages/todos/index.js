@@ -1,31 +1,30 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Row, Col, Menu, Pagination, Spin, Tag, Icon, Tooltip } from 'antd';
-import { NavLink, withRouter } from 'react-router-dom';
-import moment from 'moment';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Menu, Pagination, Spin, Tag, Icon, Tooltip } from "antd";
+import { NavLink, withRouter } from "react-router-dom";
+import moment from "moment";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
-import github from '../../lib/github';
-import CONFIG from '../../config.json';
-import * as todosAction from '../../redux/todos';
-import * as todoLabelAction from '../../redux/todo-laberls';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
+import github from "../../lib/github";
+import CONFIG from "../../config.json";
 
-import './index.css';
+import actions from "../../actions";
+
+import "./index.css";
 
 class TodoList extends Component {
   state = {
     meta: {
       page: 1,
       per_page: 100,
-      total: 0,
+      total: 0
     },
-    currentLabel: '',
-    badge: {},
+    currentLabel: "",
+    badge: {}
   };
 
   componentWillMount() {
@@ -39,7 +38,7 @@ class TodoList extends Component {
       const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/labels`
       );
-      this.props.setLabels(data);
+      this.props.updateTodoLabel(data);
     } catch (err) {
       console.error(err);
     }
@@ -50,7 +49,7 @@ class TodoList extends Component {
       const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
         {
-          params: { creator: CONFIG.owner, page, per_page, state: 'all' },
+          params: { creator: CONFIG.owner, page, per_page, state: "all" }
         }
       );
       todoList = todoList.concat(data || []);
@@ -71,7 +70,7 @@ class TodoList extends Component {
     } catch (err) {
       console.error(err);
     }
-    todoList.length && this.props.setTodo(todoList);
+    todoList.length && this.props.updateTodoList(todoList);
     return todoList;
   }
 
@@ -85,7 +84,7 @@ class TodoList extends Component {
         if (!badge[label.name]) {
           badge[label.name] = {
             count: 1,
-            label: label,
+            label: label
           };
         } else {
           badge[label.name].count = badge[label.name].count + 1;
@@ -98,7 +97,7 @@ class TodoList extends Component {
   render() {
     const todoList = this.props.TODOS || [];
     return (
-      <DocumentTitle title={['TODO List']}>
+      <DocumentTitle title={["TODO List"]}>
         <Spin spinning={false}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -108,73 +107,73 @@ class TodoList extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
                 </ViewSourceCode>
               </Tooltip>
             </div>
-            <div style={{ padding: '0 2.4rem' }}>
-              <h2 style={{ textAlign: 'center' }}>待办事项</h2>
+            <div style={{ padding: "0 2.4rem" }}>
+              <h2 style={{ textAlign: "center" }}>待办事项</h2>
             </div>
             <Menu
               mode="inline"
-              className={'h100'}
-              style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
+              className={"h100"}
+              style={{ overflowY: "auto", overflowX: "hidden", borderRight: 0 }}
             >
               {todoList.map((todo, i) => {
                 return (
                   <Menu.Item
                     className="todo-list"
                     style={{
-                      borderBottom: '1px solid #e6e6e6',
+                      borderBottom: "1px solid #e6e6e6",
                       backgroundColor:
                         (todo.labels || []).findIndex(
                           label => label.name === this.state.currentLabel
                         ) >= 0
-                          ? '#E0E0E0'
-                          : null,
+                          ? "#E0E0E0"
+                          : null
                     }}
-                    key={todo.number + '/' + i}
+                    key={todo.number + "/" + i}
                   >
                     <NavLink
                       exact={true}
                       to={`/todo/${todo.number}`}
                       style={{
-                        whiteSpace: 'nowrap',
-                        wordBreak: 'break-all',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden',
+                        whiteSpace: "nowrap",
+                        wordBreak: "break-all",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden"
                       }}
                     >
                       <Tag
-                        color={todo.state === 'open' ? 'blue' : 'grey'}
+                        color={todo.state === "open" ? "blue" : "grey"}
                         className="hidden-xs"
                       >
-                        {todo.state === 'open' ? (
+                        {todo.state === "open" ? (
                           <span>&nbsp;Open&nbsp;</span>
                         ) : (
                           <span>Closed</span>
                         )}
                       </Tag>
                       <span
-                        style={{ marginRight: '0.5rem' }}
+                        style={{ marginRight: "0.5rem" }}
                         className="hidden-xs"
                       >
-                        {moment(todo.created_at).format('YY/MM/DD')}
+                        {moment(todo.created_at).format("YY/MM/DD")}
                       </span>
                       <span
                         style={{
-                          color: todo.state !== 'open' ? '#9E9E9E' : 'inherit',
+                          color: todo.state !== "open" ? "#9E9E9E" : "inherit"
                         }}
                       >
                         {todo.title}
                       </span>
-                      <span style={{ float: 'right' }} className="hidden-xs">
+                      <span style={{ float: "right" }} className="hidden-xs">
                         {todo.labels.map(label => {
                           return (
-                            <Tag key={label.id} color={'#' + label.color}>
+                            <Tag key={label.id} color={"#" + label.color}>
                               {label.name}
                             </Tag>
                           );
@@ -191,7 +190,7 @@ class TodoList extends Component {
                     <Col
                       span={24}
                       style={{
-                        transition: 'all 1s',
+                        transition: "all 1s"
                       }}
                     >
                       <Pagination
@@ -207,7 +206,7 @@ class TodoList extends Component {
                   </Row>
                 </Menu.Item>
               ) : (
-                ''
+                ""
               )}
             </Menu>
           </div>
@@ -217,19 +216,9 @@ class TodoList extends Component {
   }
 }
 export default connect(
-  function mapStateToProps(state) {
-    return {
-      TODOS: state.TODOS,
-      TODO_LABELS: state.TODO_LABELS,
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        setTodo: todosAction.set,
-        setLabels: todoLabelAction.set,
-      },
-      dispatch
-    );
-  }
+  state => ({
+    TODOS: state.TODOS,
+    TODO_LABELS: state.TODO_LABELS
+  }),
+  actions
 )(withRouter(TodoList));

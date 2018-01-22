@@ -1,18 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { Spin, Tooltip, Icon } from 'antd';
-import CONFIG from '../../config.json';
-import github from '../../lib/github';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { withRouter } from "react-router-dom";
+import { Spin, Tooltip, Icon } from "antd";
+import CONFIG from "../../config.json";
+import github from "../../lib/github";
+import actions from "../../actions";
 
-import * as aboutAction from '../../redux/about';
-
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
 class About extends Component {
   componentDidMount() {
@@ -21,33 +19,29 @@ class About extends Component {
   }
 
   async getAbout(owner, repo) {
-    let html = '';
+    let html = "";
     try {
       const response = await github.get(
         `/repos/${owner}/${repo}/contents/ABOUTME.md`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html',
+            Accept: "application/vnd.github.v3.html"
           },
-          responseType: 'text',
+          responseType: "text"
         }
       );
       html = response.data;
     } catch (err) {
       console.error(err);
     }
-    this.storeAboutMe(html);
+    this.props.updateAboutMe(html);
     return html;
-  }
-
-  storeAboutMe() {
-    return this.props.storeAboutMe(...arguments);
   }
 
   render() {
     return (
-      <DocumentTitle title={['关于我']}>
-        <Spin spinning={!this.props.ABOUT_ME}>
+      <DocumentTitle title={["关于我"]}>
+        <Spin spinning={!this.props.ABOUTME}>
           <div className="toolbar-container">
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
@@ -60,7 +54,7 @@ class About extends Component {
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -71,7 +65,7 @@ class About extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
@@ -81,7 +75,7 @@ class About extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.ABOUT_ME,
+                __html: this.props.ABOUTME
               }}
             />
           </div>
@@ -90,18 +84,6 @@ class About extends Component {
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return {
-      ABOUT_ME: state.ABOUT_ME,
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        storeAboutMe: aboutAction.store,
-      },
-      dispatch
-    );
-  }
-)(withRouter(About));
+export default connect(state => ({ ABOUTME: state.ABOUTME }), actions)(
+  withRouter(About)
+);

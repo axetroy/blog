@@ -3,8 +3,6 @@
  */
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Row, Col, Input, Spin, Icon, Tooltip } from "antd";
 import queryString from "query-string";
 import github from "../../lib/github";
@@ -189,11 +187,4 @@ class SearchComponent extends Component {
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return {};
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
-  }
-)(withRouter(SearchComponent));
+export default withRouter(SearchComponent);

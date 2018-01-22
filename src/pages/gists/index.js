@@ -1,18 +1,18 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Menu, Icon, Tooltip } from 'antd';
-import { NavLink, withRouter } from 'react-router-dom';
-import Octicon from 'react-octicon';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Menu, Icon, Tooltip } from "antd";
+import { NavLink, withRouter } from "react-router-dom";
+import Octicon from "react-octicon";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
-import github from '../../lib/github';
-import graphql from '../../lib/graphql';
-import * as gistsAction from '../../redux/gists';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
+import github from "../../lib/github";
+import graphql from "../../lib/graphql";
+
+import actions from "../../actions";
 
 class Gists extends Component {
   state = {
@@ -20,8 +20,8 @@ class Gists extends Component {
       page: 1,
       per_page: 100,
 
-      total: 0,
-    },
+      total: 0
+    }
   };
   async componentDidMount() {
     const { page, per_page } = this.state.meta;
@@ -30,8 +30,8 @@ class Gists extends Component {
 
   async getAllGistList(page, per_page, gists = []) {
     try {
-      const { data } = await github.get('/users/axetroy/gists', {
-        params: { page, per_page },
+      const { data } = await github.get("/users/axetroy/gists", {
+        params: { page, per_page }
       });
       gists = gists.concat(data || []);
       // 如果往后还有下一页，则继续请求，直到完为止
@@ -46,7 +46,7 @@ class Gists extends Component {
 
   async getGistList(page, per_page) {
     const gists = await this.getAllGistList(page, per_page);
-    this.props.setGists(gists);
+    this.props.updateGistList(gists);
     return gists;
   }
 
@@ -56,7 +56,7 @@ class Gists extends Component {
 query{
   viewer{
     gists(first:${this.state.meta.per_page} ${
-        endCursor ? 'after:' + '"' + endCursor + '"' : ''
+        endCursor ? "after:" + '"' + endCursor + '"' : ""
       }){
       totalCount
       nodes{
@@ -76,7 +76,7 @@ query{
 
   render() {
     return (
-      <DocumentTitle title={['Gist List']}>
+      <DocumentTitle title={["Gist List"]}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
@@ -85,40 +85,40 @@ query{
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
               </ViewSourceCode>
             </Tooltip>
           </div>
-          <div style={{ padding: '0 2.4rem' }}>
-            <h2 style={{ textAlign: 'center' }}>代码片段</h2>
+          <div style={{ padding: "0 2.4rem" }}>
+            <h2 style={{ textAlign: "center" }}>代码片段</h2>
           </div>
           <Menu
             mode="inline"
-            style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
+            style={{ overflowY: "auto", overflowX: "hidden", borderRight: 0 }}
           >
             {this.props.GISTS.map(gist => {
               return (
                 <Menu.Item
                   key={gist.id}
                   style={{
-                    borderBottom: '1px solid #e6e6e6',
+                    borderBottom: "1px solid #e6e6e6"
                   }}
                 >
                   <NavLink
                     exact={true}
                     to={`/gist/${gist.id}`}
                     style={{
-                      whiteSpace: 'nowrap',
-                      wordBreak: 'break-all',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden',
+                      whiteSpace: "nowrap",
+                      wordBreak: "break-all",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden"
                     }}
                   >
                     <Octicon
-                      style={{ fontSize: '1.6rem', marginRight: '0.5rem' }}
+                      style={{ fontSize: "1.6rem", marginRight: "0.5rem" }}
                       name="gist"
                       mega
                     />
@@ -133,16 +133,6 @@ query{
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return { GISTS: state.GISTS };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        setGists: gistsAction.set,
-      },
-      dispatch
-    );
-  }
-)(withRouter(Gists));
+export default connect(state => ({ GISTS: state.GISTS }), actions)(
+  withRouter(Gists)
+);

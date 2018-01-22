@@ -49,6 +49,7 @@
     "redux-actions": "^2.0.2",
     "redux-logger": "^3.0.1",
     "redux-persist": "^5.5.0",
+    "redux-zero": "^4.10.0",
     "rythm.js": "^2.2.2"
   },
   "devDependencies": {

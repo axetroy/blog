@@ -1,56 +1,52 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Row, Col, Spin, Popover, Tabs, Icon } from 'antd';
-import sortBy from 'lodash.sortby';
-import Octicon from 'react-octicon';
-import moment from 'moment';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Spin, Popover, Tabs, Icon } from "antd";
+import sortBy from "lodash.sortby";
+import Octicon from "react-octicon";
+import moment from "moment";
+import { lazyload } from "react-lazyload";
 
-import github from '../../lib/github';
-import graphql from '../../lib/graphql';
+import github from "../../lib/github";
+import graphql from "../../lib/graphql";
 
-import { store } from '../../redux/orgs';
-import { setStat } from '../../redux/repo-stat';
-import * as allOrgRepos from '../../redux/all-orgs-repos';
-
-import CONFIG from '../../config.json';
+import CONFIG from "../../config.json";
+import actions from "../../actions";
 
 const TabPane = Tabs.TabPane;
 
 const styles = {
   contributionBar: {
-    borderRadius: '0.5rem',
-    position: 'absolute',
+    borderRadius: "0.5rem",
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%"
   },
   orgRow: {
-    padding: '0 0 2rem 0',
-    borderBottom: '0.1rem solid #e6e6e6',
-  },
+    padding: "0 0 2rem 0",
+    borderBottom: "0.1rem solid #e6e6e6"
+  }
 };
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class GithubOrganizations extends Component {
   state = {
     currentOrg: null,
-    orgMemberShip: {},
+    orgMemberShip: {}
   };
 
   async getOrganizations(
     organizations = {
       totalCount: 0,
-      nodes: [],
+      nodes: []
     },
     endCursor
   ) {
@@ -59,7 +55,7 @@ class GithubOrganizations extends Component {
 query{
   viewer{
     organizations(first:100 ${
-      endCursor ? 'after:' + '"' + endCursor + '"' : ''
+      endCursor ? "after:" + '"' + endCursor + '"' : ""
     }){
       nodes{
         members(first:100){
@@ -106,21 +102,18 @@ query{
     // 获取所在的组织列表
     await this.getOrgs(CONFIG.owner);
     this.setState({
-      currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null,
+      currentOrg: this.props.ORGS[0] ? this.props.ORGS[0].login : null
     }); // 进行统计
     const organizations = {
       ...{},
-      ...this.props.ALL_ORG_REPOS,
+      ...this.props.ORG_REPOS
     };
     for (let org in organizations) {
       const repositories = organizations[org];
       // stat repo one by one
       for (let repo of repositories) {
         const stats = await this.statRepo(repo.owner.login, repo.name);
-        this.props.setRepoStat({
-          name: repo.name,
-          stat: stats,
-        });
+        this.props.updateRepoState(repo.name, stats);
       }
     }
   }
@@ -143,7 +136,7 @@ query{
     } catch (err) {
       console.error(err);
     }
-    this.props.storeOrgs(organizations);
+    this.props.updateOrganizations(organizations);
     return organizations;
   } /**
   /**
@@ -165,7 +158,7 @@ query{
         let contribution = {
           add: 0,
           delete: 0,
-          changes: 0,
+          changes: 0
         };
         weeks &&
           weeks.forEach(item => {
@@ -176,8 +169,8 @@ query{
         contributions = [].concat(contributions).concat([
           {
             author: author,
-            contribution,
-          },
+            contribution
+          }
         ]);
       });
     } catch (err) {
@@ -210,9 +203,9 @@ query{
       orgMemberShip: {
         ...this.state.orgMemberShip,
         ...{
-          [org]: allMemberShip,
-        },
-      },
+          [org]: allMemberShip
+        }
+      }
     });
     return allMemberShip;
   } /**
@@ -226,8 +219,8 @@ query{
     try {
       const { data, headers } = await github.get(`/orgs/${org}/repos`, {
         params: {
-          page,
-        },
+          page
+        }
       });
       repos = data;
       const { link } = headers;
@@ -237,10 +230,7 @@ query{
     } catch (err) {
       console.error(err);
     }
-    this.props.setOrgAllRepos({
-      name: org,
-      repos,
-    });
+    this.props.updateOrganizationRepo(org, repos);
     return repos;
   } /**
    * 渲染元信息
@@ -252,13 +242,13 @@ query{
         className="text-center"
         style={{
           ...styles.orgRow,
-          ...{ fontSize: '1.5rem' },
+          ...{ fontSize: "1.5rem" }
         }}
       >
         <Col
           span={8}
           style={{
-            borderRight: '0.1rem solid #e6e6e6',
+            borderRight: "0.1rem solid #e6e6e6"
           }}
         >
           <p>
@@ -284,15 +274,13 @@ query{
         <Col
           span={8}
           style={{
-            borderLeft: '0.1rem solid #e6e6e6',
+            borderLeft: "0.1rem solid #e6e6e6"
           }}
         >
           <p>
             <Octicon className="font-size-2rem mr5" name="star" mega />
             {(() => {
-              const currentOrg = this.props.ALL_ORG_REPOS[
-                this.state.currentOrg
-              ];
+              const currentOrg = this.props.ORG_REPOS[this.state.currentOrg];
               return currentOrg
                 ? currentOrg
                     .map(repo => repo.watchers_count)
@@ -307,18 +295,18 @@ query{
   }
   render() {
     return (
-      <Spin spinning={!this.props.ALL_ORG_REPOS}>
+      <Spin spinning={!this.props.ORG_REPOS}>
         {this.orgMetaRender()}
 
         <Tabs
           defaultActiveKey={
             this.props.ORGS && this.props.ORGS.length
               ? this.props.ORGS[0].login
-              : ''
+              : ""
           }
           onChange={tab =>
             this.setState({
-              currentOrg: tab,
+              currentOrg: tab
             })
           }
         >
@@ -328,14 +316,14 @@ query{
                 tab={
                   <span
                     style={{
-                      textAlign: 'center',
+                      textAlign: "center"
                     }}
                   >
                     <img
                       src={org.avatar_url}
                       style={{
-                        width: '10rem',
-                        maxWidth: '100%',
+                        width: "10rem",
+                        maxWidth: "100%"
                       }}
                       alt=""
                     />
@@ -352,7 +340,7 @@ query{
                           {org.login}
                         </strong>
                       ) : (
-                        ''
+                        ""
                       )}
                       {org.description ? (
                         <p>
@@ -360,7 +348,7 @@ query{
                           {org.description}
                         </p>
                       ) : (
-                        ''
+                        ""
                       )}
                       {org.location ? (
                         <p>
@@ -368,15 +356,15 @@ query{
                           {org.location}
                         </p>
                       ) : (
-                        ''
+                        ""
                       )}
                       {org.created_at ? (
                         <p>
                           <Icon type="calendar" />
-                          创建于{moment(org.created_at).format('YYYY-MM-DD')}
+                          创建于{moment(org.created_at).format("YYYY-MM-DD")}
                         </p>
                       ) : (
-                        ''
+                        ""
                       )}
                     </div>
                   </Col>
@@ -385,7 +373,7 @@ query{
                   <Col span={24}>
                     {(() => {
                       let repos = sortBy(
-                        this.props.ALL_ORG_REPOS[org.login] || [],
+                        this.props.ORG_REPOS[org.login] || [],
                         repo => -repo.watchers_count
                       );
                       repos.length = 10; // only display 10
@@ -407,7 +395,7 @@ query{
                                   贡献比例:
                                   {(() => {
                                     const stats =
-                                      this.props.REPOS_STAT[repo.name] || [];
+                                      this.props.REPO_STAT[repo.name] || [];
                                     const myStat = stats.find(
                                       stat =>
                                         stat &&
@@ -420,10 +408,10 @@ query{
                                           myStat.contribution.changes /
                                           myStat.contribution.total *
                                           100
-                                        ).toFixed(2) + '%'
+                                        ).toFixed(2) + "%"
                                       );
                                     } else {
-                                      return '0%';
+                                      return "0%";
                                     }
                                   })()}
                                 </p>
@@ -432,9 +420,9 @@ query{
                           >
                             <div
                               style={{
-                                position: 'relative',
-                                padding: '0.5rem',
-                                margin: '1rem 0 0 0',
+                                position: "relative",
+                                padding: "0.5rem",
+                                margin: "1rem 0 0 0"
                               }}
                             >
                               <div
@@ -445,7 +433,7 @@ query{
                                   className="greasy-bar"
                                   style={{
                                     ...styles.contributionBar,
-                                    backgroundColor: '#d2d2d2',
+                                    backgroundColor: "#d2d2d2"
                                   }}
                                 />
                                 <div
@@ -454,7 +442,7 @@ query{
                                     ...styles.contributionBar,
                                     width: (() => {
                                       const stats =
-                                        this.props.REPOS_STAT[repo.name] || [];
+                                        this.props.REPO_STAT[repo.name] || [];
                                       const myStat = stats.find(
                                         stat =>
                                           stat &&
@@ -467,21 +455,21 @@ query{
                                             myStat.contribution.changes /
                                             myStat.contribution.total *
                                             100
-                                          ).toFixed(2) + '%'
+                                          ).toFixed(2) + "%"
                                         );
                                       } else {
-                                        return '0%';
+                                        return "0%";
                                       }
                                     })(),
-                                    backgroundColor: '#008000',
+                                    backgroundColor: "#008000"
                                   }}
                                 />
                               </div>
 
                               <span
                                 style={{
-                                  position: 'absolute',
-                                  color: '#fff',
+                                  position: "absolute",
+                                  color: "#fff"
                                 }}
                               >
                                 <span> {repo.name} </span>
@@ -504,21 +492,10 @@ query{
   }
 }
 export default connect(
-  function mapStateToProps(state) {
-    return {
-      ORGS: state.ORGS,
-      REPOS_STAT: state.REPOS_STAT,
-      ALL_ORG_REPOS: state.ALL_ORG_REPOS,
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        storeOrgs: store,
-        setRepoStat: setStat,
-        setOrgAllRepos: allOrgRepos.set,
-      },
-      dispatch
-    );
-  }
+  state => ({
+    ORGS: state.ORGS,
+    REPO_STAT: state.REPO_STAT,
+    ORG_REPOS: state.ORG_REPOS
+  }),
+  actions
 )(GithubOrganizations);

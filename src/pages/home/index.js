@@ -2,22 +2,22 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Spin, Icon, Tooltip } from 'antd';
+import React, { Component } from "react";
+import { Spin, Icon, Tooltip } from "antd";
+import { connect } from "redux-zero/react";
 
-import CONFIG from '../../config.json';
-import github from '../../lib/github';
-import { store } from '../../redux/readme';
+import CONFIG from "../../config.json";
+import github from "../../lib/github";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import actions from "../../actions";
+
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
 class Home extends Component {
   state = {
     source: {},
-    visible: false,
+    visible: false
   };
   componentDidMount() {
     const owner: string = CONFIG.owner;
@@ -25,31 +25,27 @@ class Home extends Component {
     this.getReadme(owner, repo);
   }
 
-  storeReadme() {
-    return this.props.storeReadMe(...arguments);
-  }
-
   async getReadme(owner: string, repo: string) {
-    let html: string = '';
+    let html: string = "";
     try {
       const response = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html',
+          Accept: "application/vnd.github.v3.html"
         },
-        responseType: 'text',
+        responseType: "text"
       });
       html = response.data;
     } catch (err) {
       console.error(err);
     }
-    this.storeReadme(html);
+    this.props.setReadMe(html);
     return html;
   }
 
   render() {
     return (
-      <DocumentTitle title={['Home']}>
-        <Spin spinning={!this.props.READ_ME}>
+      <DocumentTitle title={["Home"]}>
+        <Spin spinning={!this.props.README}>
           <div className="toolbar-container">
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="编辑此页" arrowPointAtCenter>
@@ -62,7 +58,7 @@ class Home extends Component {
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -74,7 +70,7 @@ class Home extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
@@ -84,7 +80,7 @@ class Home extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.READ_ME,
+                __html: this.props.README
               }}
             />
           </div>
@@ -94,17 +90,8 @@ class Home extends Component {
   }
 }
 export default connect(
-  function mapStateToProps(state) {
-    return {
-      READ_ME: state.READ_ME,
-    };
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-      {
-        storeReadMe: store,
-      },
-      dispatch
-    );
-  }
+  state => ({
+    README: state.README
+  }),
+  actions
 )(Home);
