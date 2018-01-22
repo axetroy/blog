@@ -25,6 +25,7 @@
     "axios-retry": "^3.0.0",
     "chart.js": "2.5.0",
     "clipboard": "^1.7.1",
+    "dva": "^2.1.0",
     "fastclick": "^1.0.6",
     "firebase": "^4.9.0",
     "github-markdown-css": "^2.10.0",
