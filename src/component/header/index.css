@@ -1,0 +1,9 @@
+.blur {
+  filter: blur(0.2rem);
+  transition: all 0.3s ease-in-out;
+}
+
+#header:hover .blur {
+  filter: blur(0);
+  transition: all 0.3s ease-in-out;
+}
