@@ -28,7 +28,7 @@
 ### 技术栈
 
 - React全家桶
-- ant-design
+- Ant-Design
 - Github Api
 - Flow
 
@@ -51,83 +51,6 @@ Hexo的流程:
 
 > 我的目标是：
 > 部署之后，不用再care源码，也不依赖于生产环境，登陆Github就操作。
-
-### 源码目录
-
-```bash
-./src
-├── App.css
-├── App.js
-├── App.test.js
-├── component
-│   ├── click-material
-│   ├── comments
-│   ├── document-title
-│   ├── footer
-│   ├── github-followers
-│   ├── github-following
-│   ├── github-lang
-│   ├── github-lang-ingredient
-│   ├── github-orgs
-│   ├── github-repo
-│   ├── github-user-info
-│   ├── header
-│   ├── repo-events
-│   ├── repo-readme
-│   ├── tool-md-preview
-│   └── tool-roll
-├── config.json
-├── index.css
-├── index.js
-├── lib
-│   ├── github-colors.json
-│   ├── github.js
-│   ├── github-markdown-parser.js
-│   ├── pretty-bytes.js
-│   └── utils.js
-├── logo.svg
-├── pages
-│   ├── about
-│   ├── gist
-│   ├── gists
-│   ├── github
-│   ├── home
-│   ├── oauth
-│   ├── post
-│   ├── posts
-│   ├── repo
-│   ├── repos
-│   ├── search
-│   ├── todo
-│   ├── todos
-│   └── tool
-├── redux
-│   ├── about.js
-│   ├── all-orgs-repos.js
-│   ├── all-repo-languages.js
-│   ├── all-repos.js
-│   ├── createStore.js
-│   ├── follower.js
-│   ├── following.js
-│   ├── gist.js
-│   ├── gists.js
-│   ├── index.js
-│   ├── oauth.js
-│   ├── orgs.js
-│   ├── owner.js
-│   ├── post.js
-│   ├── posts.js
-│   ├── readme.js
-│   ├── repo-languages.js
-│   ├── repos.js
-│   ├── repo-stat.js
-│   ├── rollList.js
-│   ├── todo.js
-│   ├── todo-laberls.js
-│   ├── todos.js
-│   └── tool-md-preview.js
-└── registerServiceWorker.js
-```
 
 ### 贡献代码
 
