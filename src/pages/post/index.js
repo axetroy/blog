@@ -21,26 +21,28 @@ import "./post.css";
 class Post extends Component {
   state = {
     banners: [
-      "https://user-images.githubusercontent.com/9758711/35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713.png",
-      "https://user-images.githubusercontent.com/9758711/35051427-28b5ed6e-fbe0-11e7-90b5-a5c3f0c9cba2.png",
-      "https://user-images.githubusercontent.com/9758711/35051446-3424927c-fbe0-11e7-9e41-5c3725781867.png",
-      "https://user-images.githubusercontent.com/9758711/35051488-4c3c2de8-fbe0-11e7-9c5c-0d35a171a15b.png",
-      "https://user-images.githubusercontent.com/9758711/35051508-5b01e00c-fbe0-11e7-85e6-ca93570ee11f.png",
-      "https://user-images.githubusercontent.com/9758711/35051527-66aaa218-fbe0-11e7-9821-9390595c4ae6.png",
-      "https://user-images.githubusercontent.com/9758711/35051549-73e310a0-fbe0-11e7-87ed-3b023cab3019.png",
-      "https://user-images.githubusercontent.com/9758711/35051561-7e618ae8-fbe0-11e7-9355-a7285cb4821f.png",
-      "https://user-images.githubusercontent.com/9758711/35051580-8a893db6-fbe0-11e7-93ff-5bd11e96630e.png",
-      "https://user-images.githubusercontent.com/9758711/35051598-95948738-fbe0-11e7-96c3-dbd6f7c93f71.png",
-      "https://user-images.githubusercontent.com/9758711/35051610-9f056a9e-fbe0-11e7-92d4-502b449a4c51.png",
-      "https://user-images.githubusercontent.com/9758711/35051630-a956162e-fbe0-11e7-86a0-fd4c4dea6e75.png",
-      "https://user-images.githubusercontent.com/9758711/35051654-b3af78fe-fbe0-11e7-9a61-d8a89a4ddf66.png",
-      "https://user-images.githubusercontent.com/9758711/35051683-c78c5360-fbe0-11e7-831c-60b5e25188fb.png",
-      "https://user-images.githubusercontent.com/9758711/35051708-d447aeb0-fbe0-11e7-8e62-a1042f373488.png",
-      "https://user-images.githubusercontent.com/9758711/35051727-dee8460e-fbe0-11e7-8b35-7c4bf8f6d8a9.png",
-      "https://user-images.githubusercontent.com/9758711/35051749-e8af347c-fbe0-11e7-951b-2d9e03ee443a.png",
-      "https://user-images.githubusercontent.com/9758711/35051761-f24f0c0a-fbe0-11e7-893f-6bfcbb036c3e.png",
-      "https://user-images.githubusercontent.com/9758711/35051785-fd3a9fc6-fbe0-11e7-8faf-a97facebe5ce.png"
-    ]
+      "35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713",
+      "35051427-28b5ed6e-fbe0-11e7-90b5-a5c3f0c9cba2",
+      "35051446-3424927c-fbe0-11e7-9e41-5c3725781867",
+      "35051488-4c3c2de8-fbe0-11e7-9c5c-0d35a171a15b",
+      "35051508-5b01e00c-fbe0-11e7-85e6-ca93570ee11f",
+      "35051527-66aaa218-fbe0-11e7-9821-9390595c4ae6",
+      "35051549-73e310a0-fbe0-11e7-87ed-3b023cab3019",
+      "35051561-7e618ae8-fbe0-11e7-9355-a7285cb4821f",
+      "35051580-8a893db6-fbe0-11e7-93ff-5bd11e96630e",
+      "35051598-95948738-fbe0-11e7-96c3-dbd6f7c93f71",
+      "35051610-9f056a9e-fbe0-11e7-92d4-502b449a4c51",
+      "35051630-a956162e-fbe0-11e7-86a0-fd4c4dea6e75",
+      "35051654-b3af78fe-fbe0-11e7-9a61-d8a89a4ddf66",
+      "35051683-c78c5360-fbe0-11e7-831c-60b5e25188fb",
+      "35051708-d447aeb0-fbe0-11e7-8e62-a1042f373488",
+      "35051727-dee8460e-fbe0-11e7-8b35-7c4bf8f6d8a9",
+      "35051749-e8af347c-fbe0-11e7-951b-2d9e03ee443a",
+      "35051761-f24f0c0a-fbe0-11e7-893f-6bfcbb036c3e",
+      "35051785-fd3a9fc6-fbe0-11e7-8faf-a97facebe5ce"
+    ].map(
+      v => "https://user-images.githubusercontent.com/9758711/" + v + ".png"
+    )
   };
 
   async componentWillMount() {
