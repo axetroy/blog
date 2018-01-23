@@ -7110,6 +7110,14 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-zero-logger@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/redux-zero-logger/-/redux-zero-logger-0.0.2.tgz#9807a073e78e8a6b83b541260e1891d1bd4f5f09"
+
+redux-zero-persist@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/redux-zero-persist/-/redux-zero-persist-0.0.1.tgz#1a481c7f1f0682df150f722c3dd1afbabda593e9"
+
 redux-zero@^4.10.0:
   version "4.10.0"
   resolved "https://registry.npmjs.org/redux-zero/-/redux-zero-4.10.0.tgz#405b56983f118d01904c5e644ce2d67c8153e1f0"

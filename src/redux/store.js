@@ -1,8 +1,8 @@
 import createStore from "redux-zero";
 import { applyMiddleware } from "redux-zero/middleware";
+import logger from "redux-zero-logger";
+import persist from "redux-zero-persist";
 
-import logger from "./middlewares/logger";
-import persist from "./middlewares/persist";
 import localForage from "localforage";
 
 const initialState = {
@@ -34,7 +34,6 @@ const middlewares = applyMiddleware(
     if (err) {
       console.error(err);
     } else {
-      console.log(state);
       store.setState(state);
     }
   })
