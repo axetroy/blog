@@ -7114,9 +7114,9 @@ redux-zero-logger@^0.0.3:
   version "0.0.3"
   resolved "https://registry.npmjs.org/redux-zero-logger/-/redux-zero-logger-0.0.3.tgz#5dd2861e2899c9c6b4b1a2b062192561c82ba5e9"
 
-redux-zero-persist@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/redux-zero-persist/-/redux-zero-persist-0.0.1.tgz#1a481c7f1f0682df150f722c3dd1afbabda593e9"
+redux-zero-persist@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/redux-zero-persist/-/redux-zero-persist-0.0.2.tgz#26b36785d39cae4cbf9424aa1d57a8a90de85095"
 
 redux-zero@^4.10.0:
   version "4.10.0"
