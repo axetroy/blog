@@ -32,6 +32,12 @@
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/@axetroy/roll/download/@axetroy/roll-1.0.2.tgz#ae11792411dc4ecd329cc3749a8ed02612cadf3b"
 
+"@axetroy/walk@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/walk/-/walk-0.1.0.tgz#38b21344d8cf0c3d23ead218b2dd5e29038db64c"
+  dependencies:
+    fs-extra "^4.0.2"
+
 "@babel/code-frame@7.0.0-beta.36":
   version "7.0.0-beta.36"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.0.0-beta.36.tgz#2349d7ec04b3a06945ae173280ef8579b63728e4"
