@@ -27,12 +27,12 @@ const ClickMaterialWithStatRouterListener = RouterListener(ClickMaterial);
 
 class App extends Component {
   componentDidMount() {
-    notification.open({
-      message: "我正在找工作",
-      description:
-        "坐标南宁/深圳，我正在找一份NodeJS/Go的相关工作，前端/全栈/后端开发亦可. 联系邮箱troy450409405@gmail.com",
-      duration: 0
-    });
+    // notification.open({
+    //   message: "我正在找工作",
+    //   description:
+    //     "坐标南宁/深圳，我正在找一份NodeJS/Go的相关工作，前端/全栈/后端开发亦可. 联系邮箱troy450409405@gmail.com",
+    //   duration: 0
+    // });
   }
   render() {
     return (
