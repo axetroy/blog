@@ -13,7 +13,7 @@ import github from "../../lib/github";
 import CONFIG from "../../config.json";
 import { diffTime } from "../../lib/utils";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 class Todo extends Component {
   state = {};

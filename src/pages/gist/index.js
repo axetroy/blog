@@ -5,7 +5,6 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { Spin, Tooltip, Icon, message } from "antd";
 import ReactClipboard from "@axetroy/react-clipboard";
 import Download from "@axetroy/react-download";
@@ -17,7 +16,7 @@ import ViewSourceCode from "../../component/view-source-code";
 
 import github from "../../lib/github";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 function values(obj) {
   let result = [];

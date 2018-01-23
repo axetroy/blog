@@ -3,8 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { Modal } from 'antd';
 
@@ -48,11 +46,4 @@ class ViewSourceCode extends Component {
     );
   }
 }
-export default connect(
-  function mapStateToProps(state) {
-    return {};
-  },
-  function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
-  }
-)(ViewSourceCode);
+export default ViewSourceCode

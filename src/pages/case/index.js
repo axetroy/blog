@@ -8,7 +8,7 @@ import { Spin, Tooltip, Icon, Col, Row, Card, Tag } from "antd";
 import Lightbox from "react-image-lightbox";
 import LazyLoad from "react-lazyload";
 import github from "../../lib/github";
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import DocumentTitle from "../../component/document-title";
 import ViewSourceCode from "../../component/view-source-code";

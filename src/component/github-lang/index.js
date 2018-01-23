@@ -12,7 +12,7 @@ import GithubColors from "../../lib/github-colors.json";
 
 import github from "../../lib/github";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 function values(obj) {
   let result = [];

@@ -10,7 +10,7 @@ import github from "../../lib/github";
 import graphql from "../../lib/graphql";
 
 import CONFIG from "../../config.json";
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 @lazyload({
   height: 200,

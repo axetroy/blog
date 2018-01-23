@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 import { Spin, Tooltip, Icon } from "antd";
 import CONFIG from "../../config.json";
 import github from "../../lib/github";
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import DocumentTitle from "../../component/document-title";
 import ViewSourceCode from "../../component/view-source-code";

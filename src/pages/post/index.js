@@ -14,7 +14,7 @@ import CONFIG from "../../config.json";
 import Comments from "../../component/comments";
 import ViewSourceCode from "../../component/view-source-code";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import "./post.css";
 

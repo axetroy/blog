@@ -8,7 +8,7 @@ import moment from "moment";
 import { lazyload } from "react-lazyload";
 
 import graphql from "../../lib/graphql";
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 const styles = {
   infoBlock: {

@@ -14,7 +14,7 @@ import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import { firstUpperCase } from "../../lib/utils";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import CONFIG from "../../config.json";
 

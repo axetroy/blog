@@ -12,7 +12,7 @@ import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import graphql from "../../lib/graphql";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 class Gists extends Component {
   state = {

@@ -5,9 +5,6 @@ import {
   Switch,
   HashRouter
 } from "react-router-dom";
-
-import createStore from "redux-zero";
-import { applyMiddleware } from "redux-zero/middleware";
 import { Provider } from "redux-zero/react";
 
 import { Row, Col, Card, notification } from "antd";
@@ -24,128 +21,9 @@ import "./App.css";
 
 import CONFIG from "./config.json";
 
+import store from "./redux/store";
+
 const ClickMaterialWithStatRouterListener = RouterListener(ClickMaterial);
-
-const initialState = {
-  OWNER: {}, // 用户信息
-  FOLLOWINGS: [], // 我关注的人
-  FOLLOWERS: [], // 关注我的人
-  READ_ME: "",
-  ABOUTME: "", // 关于我
-  SHOW_CASES: [], // 项目展示
-  TODO: {}, // Todo详情
-  TODOS: [], // Todo列表
-  TODO_LABELS: [], // Todo的标签列表
-  REPO: {}, // 仓库详情
-  REPOS: [], // 仓库列表
-  ALL_REPOS: [], // 所有的仓库列表
-  POST: {}, // 文章详情
-  POSTS: [], // 文章列表
-  GIST: {}, // Gist的详情
-  GISTS: [], // Gist列表
-  ORGS: [], // 用户所属的组织
-  ORG_REPOS: {}, // 所属组织下，拥有的仓库
-  REPO_STAT: {}, // 仓库的统计信息
-  ALL_REPO_LANGUAGES: [] // 所有仓库，所属的
-};
-
-const logger = store => next => action => {
-  console.log("state before change", store.getState());
-  const r = next(action);
-  if (r && typeof r.then === "function") {
-    return next(action).then(d => {
-      console.log("state after change", store.getState());
-      return Promise.resolve(d);
-    });
-  } else {
-    console.log("state after change", store.getState());
-    return r;
-  }
-};
-
-async function mapStateToStorage(store, config) {
-  const state = store.getState();
-  for (let key in state) {
-    await new Promise(function(resolve, reject) {
-      config.storage.setItem(
-        config.key + key,
-        JSON.stringify(state[key]),
-        function(err) {
-          err ? reject(err) : resolve();
-        }
-      );
-    });
-  }
-}
-
-async function mapStorageToState(state, config) {
-  const storage = config.storage;
-  for (let key in storage) {
-    if (storage.hasOwnProperty(key)) {
-      if (key.indexOf(config.key) === 0) {
-        // TODO: replace with regular expression
-        state[key.replace(config.key, "")] = storage[key];
-      }
-    }
-  }
-  return state;
-}
-
-class Storage {
-  constructor() {
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key)) {
-        this[key] = JSON.parse(localStorage[key]);
-      }
-    }
-  }
-  getItem(key, cb) {
-    localStorage.getItem(key);
-    cb();
-  }
-  setItem(key, item, cb) {
-    localStorage.setItem(key, item);
-    cb();
-  }
-  removeItem(key, cb) {
-    localStorage.removeItem(key);
-    cb();
-  }
-}
-
-const persist = (
-  state = {},
-  config = { key: "[rz]", storage: new Storage() },
-  cb = () => {}
-) => {
-  mapStorageToState(state, config)
-    .then(cb)
-    .catch(cb);
-
-  // return middleware
-  return store => next => action => {
-    const r = next(action);
-    if (r && typeof r.then === "function") {
-      return next(action).then(d => {
-        return mapStateToStorage(store, config).then(() => Promise.resolve(d));
-      });
-    } else {
-      return mapStateToStorage(store, config).then(() => Promise.resolve(r));
-    }
-  };
-};
-
-const persistMiddleware = persist(
-  {},
-  { key: "[rz]", storage: new Storage() },
-  function(state) {
-    store.setState(state);
-  }
-);
-
-const middlewares = applyMiddleware(logger, persistMiddleware);
-
-const store = createStore(initialState, middlewares);
 
 class App extends Component {
   componentDidMount() {

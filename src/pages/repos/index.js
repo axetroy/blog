@@ -14,7 +14,7 @@ import github from "../../lib/github";
 import CONFIG from "../../config.json";
 import GithubColors from "../../lib/github-colors.json";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import "./index.css";
 

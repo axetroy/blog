@@ -12,7 +12,7 @@ import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import CONFIG from "../../config.json";
 
-import actions from "../../actions";
+import actions from "../../redux/actions";
 
 import "./index.css";
 
