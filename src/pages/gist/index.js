@@ -1,4 +1,3 @@
-// @flow
 /**
  * Created by axetroy on 17-4-6.
  */
