@@ -1,30 +1,30 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Row, Col, Pagination, Spin, Card, Tag, Tooltip, Icon } from "antd";
-import queryString from "query-string";
-import { NavLink, withRouter } from "react-router-dom";
-import Octicon from "react-octicon";
+import React, { Component } from 'react';
+import { connect } from 'redux-zero/react';
+import { Row, Col, Pagination, Spin, Card, Tag, Tooltip, Icon } from 'antd';
+import queryString from 'query-string';
+import { NavLink, withRouter } from 'react-router-dom';
+import Octicon from 'react-octicon';
 
-import DocumentTitle from "../../component/document-title";
-import ViewSourceCode from "../../component/view-source-code";
-import github from "../../lib/github";
-import CONFIG from "../../config.json";
-import GithubColors from "../../lib/github-colors.json";
+import DocumentTitle from '../../component/document-title';
+import ViewSourceCode from '../../component/view-source-code';
+import github from '../../lib/github';
+import CONFIG from '../../config.json';
+import GithubColors from '../../lib/github-colors.json';
 
-import actions from "../../redux/actions";
+import actions from '../../redux/actions';
 
-import "./index.css";
+import './index.css';
 
 class Repos extends Component {
   state = {
     meta: {
       page: 1,
       per_page: 24,
-      total: 0
-    }
+      total: 0,
+    },
   };
 
   async componentWillMount() {
@@ -35,8 +35,8 @@ class Repos extends Component {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page: +page, per_page: +per_page }
-      }
+        ...{ page: +page, per_page: +per_page },
+      },
     });
     await this.getRepos(page, per_page);
   }
@@ -50,8 +50,8 @@ class Repos extends Component {
         {
           params: { page, per_page },
           headers: {
-            Accept: "application/vnd.github.mercy-preview+json;charset=utf-8"
-          }
+            Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8',
+          },
         }
       );
 
@@ -69,8 +69,8 @@ class Repos extends Component {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page }
-          }
+            ...{ page, per_page, total: lastPage * per_page },
+          },
         });
       }
     } catch (err) {
@@ -86,16 +86,18 @@ class Repos extends Component {
     const oldQuery = queryString.parse(this.props.location.search);
     this.props.history.push({
       ...this.props.location,
-      search: queryString.stringify(Object.assign(oldQuery, { page, per_page }))
+      search: queryString.stringify(
+        Object.assign(oldQuery, { page, per_page })
+      ),
     });
     this.getRepos(page, per_page);
   }
 
   render() {
     return (
-      <DocumentTitle title={["开源项目"]}>
+      <DocumentTitle title={['开源项目']}>
         <Spin spinning={!this.props.REPOS || !this.props.REPOS.length}>
-          <div className={"toolbar-container"}>
+          <div className={'toolbar-container'}>
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
                 <ViewSourceCode file="pages/repos/index.js">
@@ -103,7 +105,7 @@ class Repos extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: "3rem"
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -121,53 +123,53 @@ class Repos extends Component {
                     xs={24}
                   >
                     <Card
-                      style={{ height: "30rem", margin: "2rem 0" }}
+                      style={{ height: '30rem', margin: '2rem 0' }}
                       className="repo-list"
                     >
                       <NavLink
                         exact={true}
                         to={`/repo/${repo.name}`}
                         style={{
-                          color: "#616161",
-                          wordBreak: "break-word",
-                          textOverflow: "ellipsis",
-                          overflow: "hidden"
+                          color: '#616161',
+                          wordBreak: 'break-word',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
                         }}
                       >
                         <Octicon
-                          name={repo.fork ? "repo-forked" : "repo"}
+                          name={repo.fork ? 'repo-forked' : 'repo'}
                           mega
-                          style={{ marginRight: "0.5rem", fontSize: "2rem" }}
+                          style={{ marginRight: '0.5rem', fontSize: '2rem' }}
                         />
                         {repo.name}
                       </NavLink>
-                      <p style={{ color: "#9E9E9E" }}>{repo.description}</p>
+                      <p style={{ color: '#9E9E9E' }}>{repo.description}</p>
                       <div>
                         {(repo.topics || []).map(topic => {
                           return <Tag key={topic}>{topic}</Tag>;
                         })}
                       </div>
-                      <div style={{ position: "absolute", bottom: "1rem" }}>
+                      <div style={{ position: 'absolute', bottom: '1rem' }}>
                         <span>
                           <span
                             className="repo-language-color"
                             style={{
                               backgroundColor: (
                                 GithubColors[repo.language] || {}
-                              ).color
+                              ).color,
                             }}
-                          />{" "}
-                          {repo.language || "Unknown"}
+                          />{' '}
+                          {repo.language || 'Unknown'}
                         </span>&nbsp;&nbsp;
                         <span>
                           <Octicon
                             name="star"
                             mega
                             style={{
-                              fontSize: "1.4rem",
-                              margin: 0
+                              fontSize: '1.4rem',
+                              margin: 0,
                             }}
-                          />{" "}
+                          />{' '}
                           {repo.watchers_count}
                         </span>&nbsp;&nbsp;
                         <span>
@@ -175,10 +177,10 @@ class Repos extends Component {
                             name="repo-forked"
                             mega
                             style={{
-                              fontSize: "1.4rem",
-                              margin: 0
+                              fontSize: '1.4rem',
+                              margin: 0,
                             }}
-                          />{" "}
+                          />{' '}
                           {repo.forks_count}
                         </span>&nbsp;&nbsp;
                       </div>
@@ -189,7 +191,7 @@ class Repos extends Component {
             </Row>
             {this.state.meta.total > 0 ? (
               <Row className="text-center">
-                <Col span={24} style={{ transition: "all 1s" }}>
+                <Col span={24} style={{ transition: 'all 1s' }}>
                   <Pagination
                     onChange={page =>
                       this.changePage(page, this.state.meta.per_page)
@@ -201,7 +203,7 @@ class Repos extends Component {
                 </Col>
               </Row>
             ) : (
-              ""
+              ''
             )}
           </div>
         </Spin>

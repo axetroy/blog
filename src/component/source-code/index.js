@@ -1,17 +1,17 @@
 /**
  * Created by axetroy on 17-5-24.
  */
-import React, { Component } from "react";
-import { Spin } from "antd";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Spin } from 'antd';
+import axios from 'axios';
 
-import CONFIG from "../../config.json";
-import github from "../../lib/github";
+import CONFIG from '../../config.json';
+import github from '../../lib/github';
 
 class SourceCode extends Component {
   state = {
     source: null,
-    invalidFile: false
+    invalidFile: false,
   };
   componentDidMount() {
     const { file } = this.props;
@@ -26,7 +26,7 @@ class SourceCode extends Component {
         `/repos/${owner}/${repo}/contents/src/${file}`
       );
       const downloadRes = await axios.get(data.download_url, {
-        responseType: "text"
+        responseType: 'text',
       });
 
       let raw = downloadRes.data;
@@ -34,16 +34,16 @@ class SourceCode extends Component {
       this.setState({ source: data });
 
       const res = await github.post(
-        "/markdown",
+        '/markdown',
         {
           text: `
 \`\`\`javascript
 ${raw}
 \`\`\`
 `,
-          mode: "markdown"
+          mode: 'markdown',
         },
-        { responseType: "text" }
+        { responseType: 'text' }
       );
 
       this.setState({ html: res.data });
@@ -61,7 +61,7 @@ ${raw}
             <h2>
               <a
                 href={
-                  "https://github.com/axetroy/blog/blob/master/" +
+                  'https://github.com/axetroy/blog/blob/master/' +
                   this.state.source.path
                 }
                 target="_blank"
@@ -72,16 +72,16 @@ ${raw}
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.state.html
+                __html: this.state.html,
               }}
             />
             <pre>{this.state.source.raw}</pre>
           </div>
         ) : (
-          ""
+          ''
         )}
       </Spin>
     );
   }
 }
-export default SourceCode
+export default SourceCode;

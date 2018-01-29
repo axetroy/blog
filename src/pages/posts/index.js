@@ -1,32 +1,32 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Spin, Pagination, Row, Col, Card, Tag, Icon, Tooltip } from "antd";
-import { NavLink, withRouter } from "react-router-dom";
-import moment from "moment";
-import queryString from "query-string";
-import LazyLoad from "react-lazyload";
+import React, { Component } from 'react';
+import { connect } from 'redux-zero/react';
+import { Spin, Pagination, Row, Col, Card, Tag, Icon, Tooltip } from 'antd';
+import { NavLink, withRouter } from 'react-router-dom';
+import moment from 'moment';
+import queryString from 'query-string';
+import LazyLoad from 'react-lazyload';
 
-import DocumentTitle from "../../component/document-title";
-import ViewSourceCode from "../../component/view-source-code";
-import github from "../../lib/github";
-import { firstUpperCase } from "../../lib/utils";
+import DocumentTitle from '../../component/document-title';
+import ViewSourceCode from '../../component/view-source-code';
+import github from '../../lib/github';
+import { firstUpperCase } from '../../lib/utils';
 
-import actions from "../../redux/actions";
+import actions from '../../redux/actions';
 
-import CONFIG from "../../config.json";
+import CONFIG from '../../config.json';
 
-import "./index.css";
+import './index.css';
 
 class Posts extends Component {
   state = {
     meta: {
       page: 1,
       per_page: 10,
-      total: 0
-    }
+      total: 0,
+    },
   };
 
   async componentWillMount() {
@@ -37,8 +37,8 @@ class Posts extends Component {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page: +page, per_page: +per_page }
-      }
+        ...{ page: +page, per_page: +per_page },
+      },
     });
     await this.getPosts(page, per_page);
   }
@@ -49,7 +49,7 @@ class Posts extends Component {
       const res = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.repo}/issues`,
         {
-          params: { creator: CONFIG.owner, page, per_page, state: "open" }
+          params: { creator: CONFIG.owner, page, per_page, state: 'open' },
         }
       );
 
@@ -65,8 +65,8 @@ class Posts extends Component {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page }
-          }
+            ...{ page, per_page, total: lastPage * per_page },
+          },
         });
       }
 
@@ -92,16 +92,18 @@ class Posts extends Component {
     const oldQuery = queryString.parse(this.props.location.search);
     this.props.history.push({
       ...this.props.location,
-      search: queryString.stringify(Object.assign(oldQuery, { page, per_page }))
+      search: queryString.stringify(
+        Object.assign(oldQuery, { page, per_page })
+      ),
     });
     this.getPosts(page, per_page);
   }
 
   render() {
     return (
-      <DocumentTitle title={["博客文章"]}>
+      <DocumentTitle title={['博客文章']}>
         <Spin spinning={false}>
-          <div className={"toolbar-container"}>
+          <div className={'toolbar-container'}>
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
                 <ViewSourceCode file="pages/posts/index.js">
@@ -109,7 +111,7 @@ class Posts extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: "3rem"
+                        fontSize: '3rem',
                       }}
                     />
                   </a>
@@ -119,9 +121,9 @@ class Posts extends Component {
             {this.props.POSTS.map((post, i) => {
               return (
                 <Card
-                  style={{ margin: "2rem 0" }}
+                  style={{ margin: '2rem 0' }}
                   className="post-list"
-                  key={post.number + "/" + i}
+                  key={post.number + '/' + i}
                 >
                   <div>
                     <h3 className="post-title">
@@ -130,34 +132,34 @@ class Posts extends Component {
                         to={`/post/${post.number}`}
                         title={post.title}
                         style={{
-                          wordBreak: "break-word",
-                          textOverflow: "ellipsis",
-                          overflow: "hidden"
+                          wordBreak: 'break-word',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
                         }}
                       >
                         {post.title}
                       </NavLink>
                     </h3>
                   </div>
-                  <div style={{ margin: "0.5rem 0" }}>
+                  <div style={{ margin: '0.5rem 0' }}>
                     <span>
                       {(post.labels || []).map(label => {
                         return (
-                          <Tag key={label.id} color={"#" + label.color}>
+                          <Tag key={label.id} color={'#' + label.color}>
                             {label.name}
                           </Tag>
                         );
                       })}
                     </span>
                   </div>
-                  <div style={{ color: "#9E9E9E", wordBreak: "break-all" }}>
+                  <div style={{ color: '#9E9E9E', wordBreak: 'break-all' }}>
                     {post.body.slice(0, 500)}...
                   </div>
                   <div
                     style={{
-                      marginTop: "2rem",
-                      paddingTop: "2rem",
-                      borderTop: "1px solid #e6e6e6"
+                      marginTop: '2rem',
+                      paddingTop: '2rem',
+                      borderTop: '1px solid #e6e6e6',
                     }}
                   >
                     {post.user.avatar_url ? (
@@ -166,28 +168,28 @@ class Posts extends Component {
                           src={post.user.avatar_url}
                           alt=""
                           style={{
-                            width: "4.4rem",
-                            height: "100%",
-                            borderRadius: "50%",
-                            marginRight: "0.5rem",
-                            verticalAlign: "middle"
+                            width: '4.4rem',
+                            height: '100%',
+                            borderRadius: '50%',
+                            marginRight: '0.5rem',
+                            verticalAlign: 'middle',
                           }}
                         />
                       </LazyLoad>
                     ) : (
-                      ""
+                      ''
                     )}
                     <div
                       style={{
-                        display: "inline-block",
-                        verticalAlign: "middle"
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
                       }}
                     >
                       <strong>
                         <Icon
                           type="user"
                           style={{
-                            marginRight: "0.5rem"
+                            marginRight: '0.5rem',
                           }}
                         />
                         {firstUpperCase(post.user.login)}
@@ -196,7 +198,7 @@ class Posts extends Component {
                       <span>
                         <Icon
                           type="calendar"
-                          style={{ marginRight: "0.5rem" }}
+                          style={{ marginRight: '0.5rem' }}
                         />
                         {moment(new Date(post.created_at)).fromNow()}
                       </span>
@@ -204,7 +206,7 @@ class Posts extends Component {
                       <span>
                         <Icon
                           type="message"
-                          style={{ marginRight: "0.5rem" }}
+                          style={{ marginRight: '0.5rem' }}
                         />
                         {post.comments}
                       </span>
@@ -216,7 +218,7 @@ class Posts extends Component {
 
             {this.state.meta.total > 0 ? (
               <Row className="text-center">
-                <Col span={24} style={{ transition: "all 1s" }}>
+                <Col span={24} style={{ transition: 'all 1s' }}>
                   <Pagination
                     onChange={page =>
                       this.changePage(page, this.state.meta.per_page)
@@ -228,7 +230,7 @@ class Posts extends Component {
                 </Col>
               </Row>
             ) : (
-              ""
+              ''
             )}
           </div>
         </Spin>
@@ -238,7 +240,7 @@ class Posts extends Component {
 }
 export default connect(
   state => ({
-    POSTS: state.POSTS
+    POSTS: state.POSTS,
   }),
   actions
 )(withRouter(Posts));

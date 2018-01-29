@@ -1,26 +1,26 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Row, Col, Spin, Tooltip, Tag } from "antd";
-import sortBy from "lodash.sortby";
-import Octicon from "react-octicon";
-import moment from "moment";
-import { lazyload } from "react-lazyload";
+import React, { Component } from 'react';
+import { connect } from 'redux-zero/react';
+import { Row, Col, Spin, Tooltip, Tag } from 'antd';
+import sortBy from 'lodash.sortby';
+import Octicon from 'react-octicon';
+import moment from 'moment';
+import { lazyload } from 'react-lazyload';
 
-import graphql from "../../lib/graphql";
-import actions from "../../redux/actions";
+import graphql from '../../lib/graphql';
+import actions from '../../redux/actions';
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubRepositories extends Component {
   state = {};
   async componentWillMount() {
-    import("@axetroy/react-chart.js").then(module => {
+    import('@axetroy/react-chart.js').then(module => {
       this.setState({ ReactChart: module.default });
     });
     this.getContributeRepos().then(res => {
@@ -35,7 +35,7 @@ class GithubRepositories extends Component {
           if (language[name] === void 0) {
             language[name] = {
               ...primaryLanguage,
-              ...{ count: 0 }
+              ...{ count: 0 },
             };
           } else {
             language[name].count++;
@@ -58,7 +58,7 @@ class GithubRepositories extends Component {
     repositories = {
       totalCount: 0,
       totalDiskUsage: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -67,7 +67,7 @@ class GithubRepositories extends Component {
         query {
           viewer { 
             repositories(privacy:PUBLIC first:100 ${
-              endCursor ? "after:" + '"' + endCursor + '"' : ""
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
             }){
               totalCount totalDiskUsage
               nodes{
@@ -107,7 +107,7 @@ class GithubRepositories extends Component {
       const {
         pageInfo,
         totalCount,
-        totalDiskUsage
+        totalDiskUsage,
       } = response.data.data.viewer.repositories;
       repositories.totalCount = totalCount;
       repositories.totalDiskUsage = totalDiskUsage;
@@ -128,7 +128,7 @@ class GithubRepositories extends Component {
   async getContributeRepos(
     repositories = {
       totalCount: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -137,7 +137,7 @@ class GithubRepositories extends Component {
         query{
           viewer{
             contributedRepositories(first:100 ${
-              endCursor ? "after:" + '"' + endCursor + '"' : ""
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
             }){
               totalCount
               pageInfo{
@@ -172,7 +172,7 @@ class GithubRepositories extends Component {
   async getStarredRepos(
     repositories = {
       totalCount: 0,
-      nodes: []
+      nodes: [],
     },
     endCursor
   ) {
@@ -181,7 +181,7 @@ class GithubRepositories extends Component {
         query{
           viewer{
             starredRepositories(first:100 ${
-              endCursor ? "after:" + '"' + endCursor + '"' : ""
+              endCursor ? 'after:' + '"' + endCursor + '"' : ''
             }){
               totalCount
               pageInfo{
@@ -222,12 +222,12 @@ class GithubRepositories extends Component {
         <Row
           className="text-center"
           style={{
-            borderBottom: "0.1rem solid #e6e6e6",
-            padding: "0 0 2rem 0",
-            fontSize: "1.6rem"
+            borderBottom: '0.1rem solid #e6e6e6',
+            padding: '0 0 2rem 0',
+            fontSize: '1.6rem',
           }}
         >
-          <Col span={8} style={{ borderRight: "0.1rem solid #e6e6e6" }}>
+          <Col span={8} style={{ borderRight: '0.1rem solid #e6e6e6' }}>
             <p>
               <Octicon className="font-size-2rem mr5" name="star" mega />
               {repositories
@@ -248,7 +248,7 @@ class GithubRepositories extends Component {
           <Col
             span={8}
             style={{
-              borderLeft: "0.1rem solid #e6e6e6"
+              borderLeft: '0.1rem solid #e6e6e6',
             }}
           >
             <p>
@@ -261,15 +261,15 @@ class GithubRepositories extends Component {
         <Row
           className="text-center"
           style={{
-            padding: "2rem 0",
-            fontSize: "1.5rem",
-            borderBottom: "0.1rem solid #e6e6e6"
+            padding: '2rem 0',
+            fontSize: '1.5rem',
+            borderBottom: '0.1rem solid #e6e6e6',
           }}
         >
           <Col
             span={12}
             style={{
-              borderRight: "0.1rem solid #e6e6e6"
+              borderRight: '0.1rem solid #e6e6e6',
             }}
           >
             <p>
@@ -291,7 +291,7 @@ class GithubRepositories extends Component {
                     {mostStarRepo.name}
                   </Tooltip>
                 ) : (
-                  ""
+                  ''
                 );
               })()}
             </p>
@@ -308,19 +308,19 @@ class GithubRepositories extends Component {
                 <Tooltip title={mostLongTimeRepo.name} text>
                   <Octicon className="font-size-2rem mr5" name="clock" mega />
                   <span>
-                    {moment(mostLongTimeRepo.createdAt).format("YYYY-MM-DD")}
+                    {moment(mostLongTimeRepo.createdAt).format('YYYY-MM-DD')}
                     ~
-                    {moment(mostLongTimeRepo.updatedAt).format("YYYY-MM-DD")}
+                    {moment(mostLongTimeRepo.updatedAt).format('YYYY-MM-DD')}
                   </span>
                 </Tooltip>
               ) : (
-                ""
+                ''
               );
             })()}
             <p>贡献最久的仓库</p>
           </Col>
         </Row>
-        <Row style={{ padding: "2rem 0" }}>
+        <Row style={{ padding: '2rem 0' }}>
           <Col md={12} sm={24} xs={24}>
             {(() => {
               const repos = repositories || [];
@@ -330,14 +330,14 @@ class GithubRepositories extends Component {
                 <ReactChart
                   type="pie"
                   data={{
-                    labels: ["原创仓库", "Fork"],
+                    labels: ['原创仓库', 'Fork'],
                     datasets: [
                       {
                         data: [source.length, fork.length],
-                        backgroundColor: ["#4CAF50"],
-                        hoverBackgroundColor: ["#4CAF50"]
-                      }
-                    ]
+                        backgroundColor: ['#4CAF50'],
+                        hoverBackgroundColor: ['#4CAF50'],
+                      },
+                    ],
                   }}
                   options={{
                     animation: false,
@@ -345,16 +345,16 @@ class GithubRepositories extends Component {
                       display: true,
                       text: `${(source.length / repos.length * 100).toFixed(
                         0
-                      )}% 原创仓库`
+                      )}% 原创仓库`,
                     },
                     cutoutPercentage: 50,
                     legend: {
-                      display: false
-                    }
+                      display: false,
+                    },
                   }}
                 />
               ) : (
-                ""
+                ''
               );
             })()}
           </Col>
@@ -376,25 +376,25 @@ class GithubRepositories extends Component {
                           repo =>
                             repo.stargazers ? repo.stargazers.totalCount : 0
                         ),
-                        backgroundColor: ["#4CAF50", "#A5D6A7", "#E8F5E9"],
-                        hoverBackgroundColor: ["#4CAF50", "#A5D6A7", "#E8F5E9"]
-                      }
-                    ]
+                        backgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
+                        hoverBackgroundColor: ['#4CAF50', '#A5D6A7', '#E8F5E9'],
+                      },
+                    ],
                   }}
                   options={{
                     animation: false,
                     title: {
                       display: true,
-                      text: `Star比例`
+                      text: `Star比例`,
                     },
                     cutoutPercentage: 50,
                     legend: {
-                      display: false
-                    }
+                      display: false,
+                    },
                   }}
                 />
               ) : (
-                ""
+                ''
               );
             })()}
           </Col>
@@ -421,24 +421,24 @@ class GithubRepositories extends Component {
                         ),
                         hoverBackgroundColor: starredLanguage.map(
                           lang => lang.color
-                        )
-                      }
-                    ]
+                        ),
+                      },
+                    ],
                   }}
                   options={{
                     animation: false,
                     title: {
                       display: true,
-                      text: `Star语言偏好`
+                      text: `Star语言偏好`,
                     },
                     cutoutPercentage: 50,
                     legend: {
-                      display: false
-                    }
+                      display: false,
+                    },
                   }}
                 />
               ) : (
-                <div className="text-center" style={{ padding: "2rem" }}>
+                <div className="text-center" style={{ padding: '2rem' }}>
                   Loading...
                 </div>
               );
@@ -448,9 +448,9 @@ class GithubRepositories extends Component {
         <Row
           className="text-center"
           style={{
-            borderTop: "0.1rem solid #e6e6e6",
-            padding: "2rem  0 0 0",
-            fontSize: "1.6rem"
+            borderTop: '0.1rem solid #e6e6e6',
+            padding: '2rem  0 0 0',
+            fontSize: '1.6rem',
           }}
         >
           <Col span={24}>
@@ -463,7 +463,7 @@ class GithubRepositories extends Component {
               contributedRepositories.nodes.map(v => {
                 return (
                   <Tag
-                    style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
+                    style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
                     key={v.nameWithOwner || v.name}
                   >
                     <a href={v.url} target="_blank" rel="nofollow">
@@ -483,7 +483,7 @@ class GithubRepositories extends Component {
 }
 export default connect(
   state => ({
-    ALL_REPOS: state.ALL_REPOS
+    ALL_REPOS: state.ALL_REPOS,
   }),
   actions
 )(GithubRepositories);

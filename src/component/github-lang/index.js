@@ -1,18 +1,18 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Row, Col, Tag, Spin } from "antd";
-import sortBy from "lodash.sortby";
-import Octicon from "react-octicon";
-import { lazyload } from "react-lazyload";
+import React, { Component } from 'react';
+import { connect } from 'redux-zero/react';
+import { Row, Col, Tag, Spin } from 'antd';
+import sortBy from 'lodash.sortby';
+import Octicon from 'react-octicon';
+import { lazyload } from 'react-lazyload';
 
-import GithubColors from "../../lib/github-colors.json";
+import GithubColors from '../../lib/github-colors.json';
 
-import github from "../../lib/github";
+import github from '../../lib/github';
 
-import actions from "../../redux/actions";
+import actions from '../../redux/actions';
 
 function values(obj) {
   let result = [];
@@ -37,13 +37,13 @@ function sum(array) {
 @lazyload({
   height: 200,
   offset: 100,
-  once: true
+  once: true,
 })
 class GithubLang extends Component {
   state = { ALL_REPOS: null };
 
   componentWillMount() {
-    import("@axetroy/react-chart.js").then(module => {
+    import('@axetroy/react-chart.js').then(module => {
       this.setState({ ReactChart: module.default });
     });
   }
@@ -89,10 +89,10 @@ class GithubLang extends Component {
           <Col span={24}>
             <div
               style={{
-                width: "100%",
-                height: "1rem",
-                backgroundColor: "#6e6e6e",
-                display: "table"
+                width: '100%',
+                height: '1rem',
+                backgroundColor: '#6e6e6e',
+                display: 'table',
               }}
             >
               {(() => {
@@ -101,7 +101,7 @@ class GithubLang extends Component {
                   if (this.props.ALL_REPO_LANGUAGES.hasOwnProperty(lang)) {
                     entity.push({
                       lang,
-                      percent: this.props.ALL_REPO_LANGUAGES[lang] / total
+                      percent: this.props.ALL_REPO_LANGUAGES[lang] / total,
                     });
                   }
                 }
@@ -109,11 +109,11 @@ class GithubLang extends Component {
                   return (
                     <span
                       key={v.lang}
-                      title={`${v.lang}: ${(v.percent * 100).toFixed(2) + "%"}`}
+                      title={`${v.lang}: ${(v.percent * 100).toFixed(2) + '%'}`}
                       style={{
-                        display: "table-cell",
-                        width: v.percent * 100 + "%",
-                        backgroundColor: (GithubColors[v.lang] || {}).color
+                        display: 'table-cell',
+                        width: v.percent * 100 + '%',
+                        backgroundColor: (GithubColors[v.lang] || {}).color,
                       }}
                     />
                   );
@@ -131,29 +131,29 @@ class GithubLang extends Component {
                   labels: languages,
                   datasets: [
                     {
-                      backgroundColor: "rgba(179,181,198,0.2)",
-                      borderColor: "rgba(179,181,198,1)",
-                      pointBackgroundColor: "rgba(179,181,198,1)",
-                      pointBorderColor: "#fff",
-                      pointHoverBackgroundColor: "#fff",
-                      pointHoverBorderColor: "rgba(179,181,198,1)",
-                      data: starPercent
-                    }
-                  ]
+                      backgroundColor: 'rgba(179,181,198,0.2)',
+                      borderColor: 'rgba(179,181,198,1)',
+                      pointBackgroundColor: 'rgba(179,181,198,1)',
+                      pointBorderColor: '#fff',
+                      pointHoverBackgroundColor: '#fff',
+                      pointHoverBorderColor: 'rgba(179,181,198,1)',
+                      data: starPercent,
+                    },
+                  ],
                 }}
                 options={{
                   animation: false,
                   title: {
                     display: true,
-                    text: "使用语言频次"
+                    text: '使用语言频次',
                   },
                   legend: {
-                    display: false
-                  }
+                    display: false,
+                  },
                 }}
               />
             ) : (
-              ""
+              ''
             )}
           </Col>
 
@@ -168,33 +168,33 @@ class GithubLang extends Component {
                       data: startNum,
                       backgroundColor: languages.map(
                         lang =>
-                          GithubColors[lang] ? GithubColors[lang].color : ""
-                      )
-                    }
-                  ]
+                          GithubColors[lang] ? GithubColors[lang].color : ''
+                      ),
+                    },
+                  ],
                 }}
                 options={{
                   animation: false,
                   scale: {
-                    lineArc: true
+                    lineArc: true,
                   },
                   title: {
                     display: true,
-                    text: "语言 & 代码量"
+                    text: '语言 & 代码量',
                   },
                   legend: {
-                    display: true
-                  }
+                    display: true,
+                  },
                 }}
               />
             ) : (
-              ""
+              ''
             )}
           </Col>
         </Row>
         <Row
           style={{
-            margin: "2rem 0"
+            margin: '2rem 0',
           }}
         >
           <Col span={24}>
@@ -202,13 +202,13 @@ class GithubLang extends Component {
               return (
                 <Tag
                   key={lang}
-                  color={GithubColors[lang] ? GithubColors[lang].color : ""}
+                  color={GithubColors[lang] ? GithubColors[lang].color : ''}
                   style={{
-                    margin: "1rem 0.5rem"
+                    margin: '1rem 0.5rem',
                   }}
                   onClick={() =>
                     this.setState({
-                      currentLang: lang
+                      currentLang: lang,
                     })
                   }
                 >
@@ -222,7 +222,7 @@ class GithubLang extends Component {
           <Col span={24}>
             {(() => {
               // TODO: 语言相关不精准
-              if (!this.state.currentLang) return "";
+              if (!this.state.currentLang) return '';
               let list = [];
               for (let repo in this.props.REPO_LANGUAGES) {
                 if (this.props.REPO_LANGUAGES.hasOwnProperty(repo)) {
@@ -241,7 +241,7 @@ class GithubLang extends Component {
                   return (
                     <Row
                       key={repo.name}
-                      style={{ margin: "1rem 0", padding: "1rem 0" }}
+                      style={{ margin: '1rem 0', padding: '1rem 0' }}
                     >
                       <Col span={20}>
                         <h3>
@@ -251,7 +251,7 @@ class GithubLang extends Component {
                         </h3>
                         <p
                           style={{
-                            color: "#c0c0c0"
+                            color: '#c0c0c0',
                           }}
                         >
                           {repo.description}
@@ -260,7 +260,7 @@ class GithubLang extends Component {
                       <Col span={4}>
                         <Octicon
                           style={{
-                            fontSize: "2rem"
+                            fontSize: '2rem',
                           }}
                           name="star"
                           mega
@@ -281,7 +281,7 @@ export default connect(
   state => ({
     ALL_REPOS: state.ALL_REPOS,
     REPO_LANGUAGES: state.REPO_LANGUAGES,
-    ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES
+    ALL_REPO_LANGUAGES: state.ALL_REPO_LANGUAGES,
   }),
   actions
   // function mapDispatchToProps(dispatch) {

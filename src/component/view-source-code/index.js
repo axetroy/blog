@@ -46,4 +46,4 @@ class ViewSourceCode extends Component {
     );
   }
 }
-export default ViewSourceCode
+export default ViewSourceCode;
