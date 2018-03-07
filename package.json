@@ -47,7 +47,8 @@
     "redux-zero": "^4.10.0",
     "redux-zero-logger": "^0.1.1",
     "redux-zero-persist": "^0.2.6",
-    "rythm.js": "^2.2.2"
+    "rythm.js": "^2.2.2",
+    "snyk": "^1.69.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
@@ -104,7 +105,9 @@
     "format": "npm run format:js && npm run format:css && npm run format:json",
     "format:js": "prettier --single-quote --trailing-comma es5 --write '{src,app,__{tests,mocks}__}/**/*.js'",
     "format:css": "prettier --single-quote --write '{src,app}/**/*.css'",
-    "format:json": "prettier --single-quote --write '{src,app}/**/*.json'"
+    "format:json": "prettier --single-quote --write '{src,app}/**/*.json'",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -147,5 +150,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "snyk": true
 }

@@ -1,0 +1,34 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:hoek:20180212':
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > hawk > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > hawk > boom > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > hawk > cryptiles > boom > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > hawk > cryptiles > boom > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > hawk > boom > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > hawk > sntp > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > hawk > sntp > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > hawk > hoek:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+  'npm:protobufjs:20180305':
+    - firebase > @firebase/firestore > grpc > protobufjs:
+        reason: None given
+        expires: '2018-04-06T10:18:29.162Z'
+patch: {}
