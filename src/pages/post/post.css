@@ -15,3 +15,12 @@
 ．post-content img {
   width: 100%;
 }
+
+.post-meta {
+  transition: all 0.2s ease-in-out;
+}
+
+.post-meta:hover {
+  background-color: #e9ebec !important;
+  color: #303030;
+}

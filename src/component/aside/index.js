@@ -7,40 +7,53 @@ import { Menu, Icon, Tooltip } from "antd";
 import { NavLink, matchPath, withRouter } from "react-router-dom";
 import Octicon from "react-octicon";
 import Rythm from "rythm.js";
+import Footer from "../footer";
 
 import "./index.css";
 
+const fontStyle = { fontSize: "inherit", marginRight: "0.2rem" };
+
 const navList = [
-  { path: "/", name: "home", title: "Home", icon: <Icon type="home" /> },
+  {
+    path: "/",
+    name: "home",
+    title: "网站主页",
+    icon: <Octicon name="home" mega style={fontStyle} />
+  },
   {
     path: "/post",
     title: "博客文章",
-    icon: <Octicon name="book" mega />
+    icon: <Octicon name="book" mega style={fontStyle} />
   },
   {
     path: "/repo",
     title: "开源项目",
-    icon: <Octicon name="repo" mega />
+    icon: <Octicon name="repo" mega style={fontStyle} />
   },
   {
     path: "/todo",
-    title: "TODO",
-    icon: <Icon type="exception" />
+    title: "待办事项",
+    icon: <Icon type="exception" style={fontStyle} />
   },
   {
     path: "/gist",
-    title: "Gist",
-    icon: <Octicon name="gist" mega />
+    title: "代码片段",
+    icon: <Octicon name="gist" mega style={fontStyle} />
+  },
+  {
+    path: "/case",
+    title: "案例展示",
+    icon: <Icon type="book" style={fontStyle} />
   },
   {
     path: "/github",
-    title: "Github",
-    icon: <Octicon name="gist" mega />
+    title: "开源贡献",
+    icon: <Octicon name="mark-github" mega style={fontStyle} />
   },
   {
     path: "/about",
     title: "关于我",
-    icon: <Icon type="question-circle" />
+    icon: <Icon type="question-circle" style={fontStyle} />
   }
 ].filter(v => v);
 
@@ -144,14 +157,20 @@ class Header extends Component {
                 onClick={() => {
                   this.props.history.push({
                     ...this.props.location,
-                    pathname: nav.path
+                    pathname: nav.path,
+                    search: ""
                   });
                 }}
               >
+                {nav.icon ? nav.icon : ""}
                 {nav.title}
               </div>
             );
           })}
+        </div>
+
+        <div>
+          <Footer />
         </div>
       </div>
     );

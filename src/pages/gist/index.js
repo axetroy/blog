@@ -1,21 +1,21 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { withRouter } from 'react-router-dom';
-import { Spin, Tooltip, Icon, message } from 'antd';
-import ReactClipboard from '@axetroy/react-clipboard';
-import Download from '@axetroy/react-download';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { withRouter } from "react-router-dom";
+import { Spin, Tooltip, Icon, message } from "antd";
+import ReactClipboard from "@axetroy/react-clipboard";
+import Download from "@axetroy/react-download";
 
-import prettyBytes from '../../lib/pretty-bytes';
-import DocumentTitle from '../../component/document-title';
-import Comments from '../../component/comments';
-import ViewSourceCode from '../../component/view-source-code';
+import prettyBytes from "../../lib/pretty-bytes";
+import DocumentTitle from "../../component/document-title";
+import Comments from "../../component/comments";
+import ViewSourceCode from "../../component/view-source-code";
 
-import github from '../../lib/github';
+import github from "../../lib/github";
 
-import actions from '../../redux/actions';
+import actions from "../../redux/actions";
 
 function values(obj) {
   let result = [];
@@ -50,9 +50,9 @@ class Gist extends Component {
     try {
       const { data } = await github.get(`/gists/${id}`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html',
+          Accept: "application/vnd.github.v3.html"
         },
-        responseType: 'text',
+        responseType: "text"
       });
       gist = data;
 
@@ -60,12 +60,12 @@ class Gist extends Component {
         if (gist.files.hasOwnProperty(filename)) {
           const file = gist.files[filename];
           const res = await github.post(
-            '/markdown',
+            "/markdown",
             {
-              text: '```' + file.language + '\n' + file.content + '\n```',
-              mode: 'markdown',
+              text: "```" + file.language + "\n" + file.content + "\n```",
+              mode: "markdown"
             },
-            { responseType: 'text' }
+            { responseType: "text" }
           );
           file.html = res.data;
         }
@@ -82,7 +82,7 @@ class Gist extends Component {
     const { id } = this.props.match.params;
     const gist = (this.props.GIST || {})[id] || {};
     return (
-      <DocumentTitle title={[gist.description, 'Gist']}>
+      <DocumentTitle title={[gist.description, "Gist"]}>
         <Spin spinning={!Object.keys(gist).length}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -92,19 +92,19 @@ class Gist extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
                 </ViewSourceCode>
               </Tooltip>
             </div>
-            <h2 style={{ textAlign: 'center', margin: '1rem 0' }}>
+            <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
               {gist.description}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
                   href={`https://gist.github.com/${
-                    gist.owner ? gist.owner.login : ''
+                    gist.owner ? gist.owner.login : ""
                   }/${gist.id}/edit`}
                   target="_blank"
                 >
@@ -116,22 +116,22 @@ class Gist extends Component {
               return (
                 <div
                   key={file.filename}
-                  style={{ border: '0.1rem solid #ececec', margin: '2rem 0' }}
+                  style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
                 >
-                  <h3 style={{ backgroundColor: '#eaeaea', padding: '0.5rem' }}>
+                  <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
                     <span>
                       <Icon type="file" />
                       {file.filename}
                     </span>
                     <span
                       style={{
-                        margin: '0 0.5rem',
+                        margin: "0 0.5rem"
                       }}
                     >
                       <Download
                         file={file.filename}
                         content={file.content}
-                        style={{ display: 'inline' }}
+                        style={{ display: "inline" }}
                       >
                         <a href="javascript:">
                           <Icon type="download" />
@@ -141,10 +141,10 @@ class Gist extends Component {
                     </span>
                     <span>
                       <ReactClipboard
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                         value={file.content}
-                        onSuccess={() => message.success('Copy Success!')}
-                        onError={() => message.error('Copy Fail!')}
+                        onSuccess={() => message.success("Copy Success!")}
+                        onError={() => message.error("Copy Fail!")}
                       >
                         <Icon type="copy" />Copy
                       </ReactClipboard>
@@ -153,10 +153,10 @@ class Gist extends Component {
                   <div
                     className="markdown-body"
                     style={{
-                      fontSize: '1.6rem',
+                      fontSize: "1.6rem"
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: file.html,
+                      __html: file.html
                     }}
                   />
                 </div>
@@ -165,7 +165,13 @@ class Gist extends Component {
 
             <hr className="hr" />
 
-            <Comments type="gist" gistId={this.props.match.params.id} />
+            {this.props.match &&
+            this.props.match.params &&
+            this.props.match.id ? (
+              <Comments type="gist" gistId={this.props.match.params.id} />
+            ) : (
+              ""
+            )}
           </div>
         </Spin>
       </DocumentTitle>
@@ -174,7 +180,7 @@ class Gist extends Component {
 }
 export default connect(
   state => ({
-    GIST: state.GIST,
+    GIST: state.GIST
   }),
   actions
 )(withRouter(Gist));

@@ -1,30 +1,30 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Row, Col } from 'antd';
-import Now from '@axetroy/react-now';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { Row, Col } from "antd";
+import Now from "@axetroy/react-now";
+import { lazyload } from "react-lazyload";
 
-import moment from 'moment';
+import moment from "moment";
 
-import { diffTime } from '../../lib/utils';
-import firebase from '../../lib/firebase';
+import { diffTime } from "../../lib/utils";
+import firebase from "../../lib/firebase";
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class Footer extends Component {
   state = {
     totalVisited: 0,
-    created: new Date('2016-11-09 14:22:33'),
+    created: new Date("2016-11-09 14:22:33")
   };
 
   componentDidMount() {
-    const visited = firebase.database().ref('statistics/visited/total');
-    visited.once('value', data => {
+    const visited = firebase.database().ref("statistics/visited/total");
+    visited.once("value", data => {
       let value = data.val();
       this.setState({ totalVisited: value });
     });
@@ -33,19 +33,12 @@ class Footer extends Component {
   render() {
     const LAST_UPDATE_TIME = new Date(+process.env.REACT_APP_PUBLISH_DATE);
     return (
-      <Row
-        className="text-center"
-        style={{
-          marginTop: '2rem',
-          padding: '2rem 0',
-          backgroundColor: '#fff',
-        }}
-      >
+      <Row className="text-center">
         <Col span={24}>
           {this.state.totalVisited ? (
             <p>总访问{this.state.totalVisited}次</p>
           ) : (
-            ''
+            ""
           )}
           <p>Copyright © 2017</p>
           <Now>
@@ -70,7 +63,7 @@ class Footer extends Component {
             }}
           </Now>
           <p>
-            Created by{' '}
+            Created by{" "}
             <a target="_blank" href="https://github.com/axetroy">
               Axetroy
             </a>

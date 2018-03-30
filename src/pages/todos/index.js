@@ -1,30 +1,30 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { Row, Col, Menu, Pagination, Spin, Tag, Icon, Tooltip } from 'antd';
-import { NavLink, withRouter } from 'react-router-dom';
-import moment from 'moment';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Menu, Pagination, Spin, Tag, Icon, Tooltip } from "antd";
+import { NavLink, withRouter } from "react-router-dom";
+import moment from "moment";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
-import github from '../../lib/github';
-import CONFIG from '../../config.json';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
+import github from "../../lib/github";
+import CONFIG from "../../config.json";
 
-import actions from '../../redux/actions';
+import actions from "../../redux/actions";
 
-import './index.css';
+import "./index.css";
 
 class TodoList extends Component {
   state = {
     meta: {
       page: 1,
       per_page: 100,
-      total: 0,
+      total: 0
     },
-    currentLabel: '',
-    badge: {},
+    currentLabel: "",
+    badge: {}
   };
 
   componentWillMount() {
@@ -49,7 +49,7 @@ class TodoList extends Component {
       const { data } = await github.get(
         `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
         {
-          params: { creator: CONFIG.owner, page, per_page, state: 'all' },
+          params: { creator: CONFIG.owner, page, per_page, state: "all" }
         }
       );
       todoList = todoList.concat(data || []);
@@ -84,7 +84,7 @@ class TodoList extends Component {
         if (!badge[label.name]) {
           badge[label.name] = {
             count: 1,
-            label: label,
+            label: label
           };
         } else {
           badge[label.name].count = badge[label.name].count + 1;
@@ -97,9 +97,9 @@ class TodoList extends Component {
   render() {
     const todoList = this.props.TODOS || [];
     return (
-      <DocumentTitle title={['TODO List']}>
+      <DocumentTitle title={["TODO List"]}>
         <Spin spinning={false}>
-          <div className="toolbar-container">
+          <Col className="toolbar-container">
             <div className="edit-this-page">
               <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
                 <ViewSourceCode file="pages/todos/index.js">
@@ -107,109 +107,77 @@ class TodoList extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
                 </ViewSourceCode>
               </Tooltip>
             </div>
-            <div style={{ padding: '0 2.4rem' }}>
-              <h2 style={{ textAlign: 'center' }}>待办事项</h2>
+            <div style={{ padding: "0 2.4rem" }}>
+              <h2 style={{ textAlign: "center" }}>待办事项</h2>
             </div>
-            <Menu
-              mode="inline"
-              className={'h100'}
-              style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
-            >
-              {todoList.map((todo, i) => {
-                return (
-                  <Menu.Item
-                    className="todo-list"
-                    style={{
-                      borderBottom: '1px solid #e6e6e6',
-                      backgroundColor:
-                        (todo.labels || []).findIndex(
-                          label => label.name === this.state.currentLabel
-                        ) >= 0
-                          ? '#E0E0E0'
-                          : null,
-                    }}
-                    key={todo.number + '/' + i}
-                  >
-                    <NavLink
-                      exact={true}
-                      to={`/todo/${todo.number}`}
-                      style={{
-                        whiteSpace: 'nowrap',
-                        wordBreak: 'break-all',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <Tag
-                        color={todo.state === 'open' ? 'blue' : 'grey'}
-                        className="hidden-xs"
-                      >
-                        {todo.state === 'open' ? (
-                          <span>&nbsp;Open&nbsp;</span>
-                        ) : (
-                          <span>Closed</span>
-                        )}
-                      </Tag>
-                      <span
-                        style={{ marginRight: '0.5rem' }}
-                        className="hidden-xs"
-                      >
-                        {moment(todo.created_at).format('YY/MM/DD')}
-                      </span>
-                      <span
+            {todoList.map((todo, i) => {
+              const closed = todo.state !== "open";
+              const done = todo.labels.find(label => label.name === "已完成");
+              return (
+                <div className="container" key={todo.title}>
+                  <div id="timeline">
+                    <div className="timeline-item">
+                      <div
+                        className="timeline-icon"
                         style={{
-                          color: todo.state !== 'open' ? '#9E9E9E' : 'inherit',
+                          backgroundColor: done ? "#2cbe4e" : "#cb2431"
                         }}
                       >
-                        {todo.title}
-                      </span>
-                      <span style={{ float: 'right' }} className="hidden-xs">
-                        {todo.labels.map(label => {
-                          return (
-                            <Tag key={label.id} color={'#' + label.color}>
-                              {label.name}
-                            </Tag>
-                          );
-                        })}
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                );
-              })}
-
-              {this.state.meta.total > 0 ? (
-                <Menu.Item>
-                  <Row className="text-center">
-                    <Col
-                      span={24}
-                      style={{
-                        transition: 'all 1s',
-                      }}
-                    >
-                      <Pagination
-                        simple
-                        onChange={page =>
-                          this.changePage(page, this.state.meta.per_page)
-                        }
-                        defaultCurrent={this.state.meta.page}
-                        defaultPageSize={this.state.meta.per_page}
-                        total={this.state.meta.total}
-                      />
-                    </Col>
-                  </Row>
-                </Menu.Item>
-              ) : (
-                ''
-              )}
-            </Menu>
-          </div>
+                        <img
+                          src={`./icon/${done ? "done" : "undone"}.svg`}
+                          alt=""
+                        />
+                      </div>
+                      <div
+                        className={"timeline-content" + (done ? " right" : "")}
+                      >
+                        <h2
+                          style={{
+                            whiteSpace: "nowrap",
+                            wordBreak: "break-all",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden"
+                          }}
+                        >
+                          <NavLink
+                            exact={true}
+                            to={`/todo/${todo.number}`}
+                            style={{
+                              color: "#fff"
+                            }}
+                          >
+                            {todo.title}
+                          </NavLink>
+                        </h2>
+                        <div style={{ margin: "1rem 0" }}>
+                          <span>
+                            <Icon type="clock-circle-o" />{" "}
+                            {moment(todo.created_at).format("YYYY-MM-DD")}{" "}
+                          </span>
+                          <span style={{ float: "right" }}>
+                            {todo.labels.map(label => {
+                              return (
+                                <Tag key={label.id} color={"#" + label.color}>
+                                  {label.name}
+                                </Tag>
+                              );
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </Col>
         </Spin>
       </DocumentTitle>
     );
@@ -218,7 +186,7 @@ class TodoList extends Component {
 export default connect(
   state => ({
     TODOS: state.TODOS,
-    TODO_LABELS: state.TODO_LABELS,
+    TODO_LABELS: state.TODO_LABELS
   }),
   actions
 )(withRouter(TodoList));

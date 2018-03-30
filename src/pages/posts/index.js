@@ -128,25 +128,36 @@ class Posts extends Component {
                       }}
                       className="post-list"
                       key={post.number + "/" + i}
+                      onClick={() => {
+                        this.props.history.push({
+                          ...this.props.location,
+                          pathname: `/post/${post.number}`
+                        });
+                      }}
                     >
                       <div>
-                        <h3 className="post-title">
-                          <NavLink
-                            exact={true}
-                            to={`/post/${post.number}`}
-                            title={post.title}
-                            style={{
-                              wordBreak: "break-word",
-                              textOverflow: "ellipsis",
-                              overflow: "hidden"
-                            }}
-                          >
-                            {post.title}
-                          </NavLink>
+                        <h3
+                          className="post-title"
+                          style={{
+                            wordBreak: "break-word",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden"
+                          }}
+                        >
+                          {post.title}
                         </h3>
                       </div>
-                      <div style={{ margin: "0.5rem 0" }}>
+                      <div>
                         <span>
+                          <Icon type="clock-circle-o" />{" "}
+                          {moment(post.created_at).format("YYYY-MM-DD")}{" "}
+                        </span>
+                        <span>
+                          <Icon type="message" /> {post.comments}{" "}
+                        </span>
+
+                        <span className="label-list">
                           {(post.labels || []).map(label => {
                             return (
                               <Tag key={label.id} color={"#" + label.color}>
@@ -156,8 +167,17 @@ class Posts extends Component {
                           })}
                         </span>
                       </div>
-                      <div style={{ color: "#9E9E9E", wordBreak: "break-all" }}>
-                        {post.body.slice(0, 500)}...
+                      <div
+                        style={{
+                          color: "#9E9E9E",
+                          wordBreak: "break-word",
+                          // whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          clear: "both"
+                        }}
+                      >
+                        {post.body.slice(0, 350)}...
                       </div>
                     </Card>
                   </Col>
