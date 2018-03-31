@@ -3,17 +3,14 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  HashRouter,
   BrowserRouter,
   NavLink
 } from "react-router-dom";
 import { Provider } from "redux-zero/react";
 
-import { Row, Col, Card, notification, Icon, Menu, Popover } from "antd";
+import { Row, Col, Card, Icon, Menu, Popover } from "antd";
 
 import Aside, { navList } from "./component/aside";
-import Footer from "./component/footer";
-import Header from "./component/header";
 import ClickMaterial from "./component/click-material";
 import DynamicLoad from "./component/dynamic-load";
 
@@ -21,8 +18,6 @@ import Statistics from "./lib/statistics";
 import RouterListener from "./lib/router-listener";
 
 import "./App.css";
-
-import CONFIG from "./config.json";
 
 import store from "./redux/store";
 
