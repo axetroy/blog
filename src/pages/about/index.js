@@ -1,16 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { withRouter } from 'react-router-dom';
-import { Spin, Tooltip, Icon } from 'antd';
-import CONFIG from '../../config.json';
-import github from '../../lib/github';
-import actions from '../../redux/actions';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { withRouter } from "react-router-dom";
+import { Spin, Tooltip, Icon } from "antd";
+import CONFIG from "../../config.json";
+import github from "../../lib/github";
+import actions from "../../redux/actions";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
 class About extends Component {
   componentDidMount() {
@@ -19,15 +19,15 @@ class About extends Component {
   }
 
   async getAbout(owner, repo) {
-    let html = '';
+    let html = "";
     try {
       const response = await github.get(
         `/repos/${owner}/${repo}/contents/ABOUTME.md`,
         {
           headers: {
-            Accept: 'application/vnd.github.v3.html',
+            Accept: "application/vnd.github.v3.html"
           },
-          responseType: 'text',
+          responseType: "text"
         }
       );
       html = response.data;
@@ -40,7 +40,7 @@ class About extends Component {
 
   render() {
     return (
-      <DocumentTitle title={['关于我']}>
+      <DocumentTitle title={["关于我"]}>
         <Spin spinning={!this.props.ABOUTME}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -54,7 +54,7 @@ class About extends Component {
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -65,7 +65,7 @@ class About extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
@@ -75,7 +75,7 @@ class About extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.ABOUTME,
+                __html: this.props.ABOUTME
               }}
             />
           </div>

@@ -2,22 +2,22 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Spin, Icon, Tooltip } from 'antd';
-import { connect } from 'redux-zero/react';
+import React, { Component } from "react";
+import { Spin, Icon, Tooltip } from "antd";
+import { connect } from "redux-zero/react";
 
-import CONFIG from '../../config.json';
-import github from '../../lib/github';
+import CONFIG from "../../config.json";
+import github from "../../lib/github";
 
-import actions from '../../redux/actions';
+import actions from "../../redux/actions";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
 class Home extends Component {
   state = {
     source: {},
-    visible: false,
+    visible: false
   };
   componentDidMount() {
     const owner: string = CONFIG.owner;
@@ -26,13 +26,13 @@ class Home extends Component {
   }
 
   async getReadme(owner: string, repo: string) {
-    let html: string = '';
+    let html: string = "";
     try {
       const response = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html',
+          Accept: "application/vnd.github.v3.html"
         },
-        responseType: 'text',
+        responseType: "text"
       });
       html = response.data;
     } catch (err) {
@@ -44,7 +44,7 @@ class Home extends Component {
 
   render() {
     return (
-      <DocumentTitle title={['Home']}>
+      <DocumentTitle title={["Home"]}>
         <Spin spinning={!this.props.README}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -58,7 +58,7 @@ class Home extends Component {
                   <Icon
                     type="edit"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -70,7 +70,7 @@ class Home extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
@@ -80,7 +80,7 @@ class Home extends Component {
             <div
               className="markdown-body"
               dangerouslySetInnerHTML={{
-                __html: this.props.README,
+                __html: this.props.README
               }}
             />
           </div>
@@ -91,7 +91,7 @@ class Home extends Component {
 }
 export default connect(
   state => ({
-    README: state.README,
+    README: state.README
   }),
   actions
 )(Home);

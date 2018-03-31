@@ -2,20 +2,20 @@
  * Created by axetroy on 2017/4/7.
  */
 
-import axios from 'axios';
-import axiosRetry from 'axios-retry';
-import CONFIG from '../config.json';
+import axios from "axios";
+import axiosRetry from "axios-retry";
+import CONFIG from "../config.json";
 
 const instance = axios.create({
-  baseURL: 'https://api.github.com',
+  baseURL: "https://api.github.com",
   // timeout: 1000 * 10,
   params: {
     client_id: CONFIG.github_client_id,
-    client_secret: CONFIG.github_client_secret,
+    client_secret: CONFIG.github_client_secret
   },
   withCredentials: false,
-  responseType: 'json',
-  headers: { Accept: 'application/json;charset=utf-8' },
+  responseType: "json",
+  headers: { Accept: "application/json;charset=utf-8" }
 });
 
 instance.interceptors.response.use(

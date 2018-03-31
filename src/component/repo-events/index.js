@@ -1,35 +1,35 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Table } from 'antd';
+import React, { Component } from "react";
+import { Table } from "antd";
 
-import moment from 'moment';
+import moment from "moment";
 
-import github from '../../lib/github';
+import github from "../../lib/github";
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
     render: name => (
       <a target="_blank" href={`https://github.com/${name}`}>
         {name}
       </a>
-    ),
+    )
   },
   {
-    title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
+    title: "Type",
+    dataIndex: "type",
+    key: "type"
   },
   {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-    render: date => <span>{date && moment(date).fromNow()}</span>,
-  },
+    title: "Date",
+    dataIndex: "date",
+    key: "date",
+    render: date => <span>{date && moment(date).fromNow()}</span>
+  }
 ];
 
 class RepoReadme extends Component {
@@ -71,7 +71,7 @@ class RepoReadme extends Component {
             key: i,
             date: v.created_at,
             name: v.actor.login,
-            type: v.type,
+            type: v.type
           };
         })}
       />

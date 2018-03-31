@@ -1,30 +1,30 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { Row, Col, Spin, Tag } from 'antd';
-import moment from 'moment';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Spin, Tag } from "antd";
+import moment from "moment";
+import { lazyload } from "react-lazyload";
 
-import graphql from '../../lib/graphql';
-import actions from '../../redux/actions';
+import graphql from "../../lib/graphql";
+import actions from "../../redux/actions";
 
 const styles = {
   infoBlock: {
-    width: '80%',
-    margin: '1rem auto',
-    textAlign: 'center',
-    color: '#fff',
-    padding: '2rem',
+    width: "80%",
+    margin: "1rem auto",
+    textAlign: "center",
+    color: "#fff",
+    padding: "2rem"
   },
-  strong: { fontSize: '2em' },
+  strong: { fontSize: "2em" }
 };
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class GithubUserInfo extends Component {
   async componentWillMount() {
@@ -74,10 +74,10 @@ class GithubUserInfo extends Component {
               <img
                 alt={owner.avatarUrl}
                 style={{
-                  width: '70%',
-                  height: 'auto',
-                  borderRadius: '50%',
-                  verticalAlign: 'middle',
+                  width: "70%",
+                  height: "auto",
+                  borderRadius: "50%",
+                  verticalAlign: "middle"
                 }}
                 src={owner.avatarUrl}
               />
@@ -87,7 +87,7 @@ class GithubUserInfo extends Component {
             <p>{owner.name}</p>
             <p>
               加入时间：
-              {owner.createdAt && moment(owner.createdAt).format('YYYY-MM-DD')}
+              {owner.createdAt && moment(owner.createdAt).format("YYYY-MM-DD")}
             </p>
             <p>
               编程经历：
@@ -99,16 +99,16 @@ class GithubUserInfo extends Component {
                     24 /
                     365
                   ).toFixed(1)
-                : ''}
+                : ""}
               年
             </p>
             <blockquote>{owner.bio}</blockquote>
             <div>
               状态:<Tag
-                color={owner.hireable ? '#4CAF50' : '#FF5722'}
-                style={{ marginLeft: '0.5rem' }}
+                color={owner.hireable ? "#4CAF50" : "#FF5722"}
+                style={{ marginLeft: "0.5rem" }}
               >
-                {!!owner.isHireable ? '待业' : '在职'}
+                {!!owner.isHireable ? "待业" : "在职"}
               </Tag>
             </div>
           </Col>
@@ -116,8 +116,8 @@ class GithubUserInfo extends Component {
 
         <div
           style={{
-            borderTop: '1px solid #e6e6e6',
-            margin: '2rem',
+            borderTop: "1px solid #e6e6e6",
+            margin: "2rem"
           }}
         />
 
@@ -126,7 +126,7 @@ class GithubUserInfo extends Component {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.repositories && owner.repositories.totalCount}
-              </span>{' '}
+              </span>{" "}
               Repositories
             </div>
           </Col>
@@ -134,7 +134,7 @@ class GithubUserInfo extends Component {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.followers && owner.followers.totalCount}
-              </span>{' '}
+              </span>{" "}
               Followers
             </div>
           </Col>
@@ -142,7 +142,7 @@ class GithubUserInfo extends Component {
             <div className="bg-green" style={styles.infoBlock}>
               <span style={styles.strong}>
                 {owner.following && owner.following.totalCount}
-              </span>{' '}
+              </span>{" "}
               Following
             </div>
           </Col>

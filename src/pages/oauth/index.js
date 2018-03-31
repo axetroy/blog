@@ -1,14 +1,14 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import CONFIG from '../../config.json';
+import CONFIG from "../../config.json";
 
 class OAuth extends Component {
   async componentDidMount() {
-    const matcher = location.search.replace(/^\?/, '').match(/code=([^&]+)/);
+    const matcher = location.search.replace(/^\?/, "").match(/code=([^&]+)/);
     const code = matcher && matcher[1] ? matcher[1] : null;
 
     const { data } = await axios.get(
@@ -16,14 +16,14 @@ class OAuth extends Component {
       null,
       {
         headers: {
-          Origin: location.host,
+          Origin: location.host
         },
         params: {
           code,
           client_id: CONFIG.github_client_id,
-          client_secret: CONFIG.github_client_secret,
+          client_secret: CONFIG.github_client_secret
         },
-        withCredentials: true,
+        withCredentials: true
       }
     );
     console.log(data);

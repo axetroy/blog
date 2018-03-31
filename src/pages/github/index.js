@@ -1,33 +1,33 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Card, Icon, Tooltip } from 'antd';
+import React, { Component } from "react";
+import { Card, Icon, Tooltip } from "antd";
 
-import GithubUserInfo from '../../component/github-user-info';
-import GithubFollowers from '../../component/github-followers';
-import GithubFollowing from '../../component/github-following';
-import GithubRepositories from '../../component/github-repo';
-import GithubOrgs from '../../component/github-orgs';
-import GithubLang from '../../component/github-lang';
-import ViewSourceCode from '../../component/view-source-code';
+import GithubUserInfo from "../../component/github-user-info";
+import GithubFollowers from "../../component/github-followers";
+import GithubFollowing from "../../component/github-following";
+import GithubRepositories from "../../component/github-repo";
+import GithubOrgs from "../../component/github-orgs";
+import GithubLang from "../../component/github-lang";
+import ViewSourceCode from "../../component/view-source-code";
 
-import DocumentTitle from '../../component/document-title';
+import DocumentTitle from "../../component/document-title";
 
-import './index.css';
+import "./index.css";
 
-import CONFIG from '../../config.json';
+import CONFIG from "../../config.json";
 
 class Github extends Component {
   state = {};
   async componentWillMount() {
-    const module = await import('@axetroy/react-github-calendar');
+    const module = await import("@axetroy/react-github-calendar");
     this.setState({ GithubCalendar: module.default });
   }
   render() {
     const GithubCalendar = this.state ? this.state.GithubCalendar : null;
     return (
-      <DocumentTitle title={['Github']}>
+      <DocumentTitle title={["Github"]}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
@@ -36,7 +36,7 @@ class Github extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -48,19 +48,19 @@ class Github extends Component {
 
           <div
             style={{
-              overflow: 'auto',
+              overflow: "auto"
             }}
           >
             {GithubCalendar ? (
               <GithubCalendar
                 style={{
-                  width: '100%',
-                  minWidth: '75rem',
+                  width: "100%",
+                  minWidth: "75rem"
                 }}
                 name={CONFIG.owner}
               />
             ) : (
-              ''
+              ""
             )}
           </div>
 

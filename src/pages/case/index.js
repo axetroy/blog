@@ -1,17 +1,17 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { withRouter } from 'react-router-dom';
-import { Spin, Tooltip, Icon, Col, Row, Card, Tag } from 'antd';
-import Lightbox from 'react-image-lightbox';
-import LazyLoad from 'react-lazyload';
-import github from '../../lib/github';
-import actions from '../../redux/actions';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { withRouter } from "react-router-dom";
+import { Spin, Tooltip, Icon, Col, Row, Card, Tag } from "antd";
+import Lightbox from "react-image-lightbox";
+import LazyLoad from "react-lazyload";
+import github from "../../lib/github";
+import actions from "../../redux/actions";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
 
 /**
  * parse the data
@@ -21,7 +21,7 @@ import ViewSourceCode from '../../component/view-source-code';
 function dataParser(d) {
   const body = d.body;
 
-  const lines = body.split('\n');
+  const lines = body.split("\n");
 
   let homePageLine = -1;
   let descriptionStartLineNumber = -1;
@@ -46,9 +46,9 @@ function dataParser(d) {
 
   const description = [];
   const gallery = [];
-  let homepage = '';
+  let homepage = "";
 
-  body.split('\n').forEach((line, i) => {
+  body.split("\n").forEach((line, i) => {
     if (i === homePageLine) {
       homepage = line.trim();
     } else if (
@@ -68,7 +68,7 @@ function dataParser(d) {
       const url = match[2];
       return {
         name,
-        url,
+        url
       };
     } else {
       return void 0;
@@ -77,11 +77,11 @@ function dataParser(d) {
 
   return {
     title: d.title,
-    description: description.join('\n'),
+    description: description.join("\n"),
     gallery: _gallery.filter(v => v),
     screenshot: _gallery.filter(v => v).map(v => v.url),
     labels: d.labels,
-    homepage: homepage,
+    homepage: homepage
   };
 }
 
@@ -89,7 +89,7 @@ class Case extends Component {
   state = {
     lightboxImages: [],
     photoIndex: 0,
-    isOpen: false,
+    isOpen: false
   };
 
   async componentWillMount() {
@@ -116,10 +116,10 @@ class Case extends Component {
 
   render() {
     const noScreenshotImg =
-      'https://user-images.githubusercontent.com/9758711/35052184-ec164078-fbe1-11e7-9e04-68509ebc9a34.jpg';
+      "https://user-images.githubusercontent.com/9758711/35052184-ec164078-fbe1-11e7-9e04-68509ebc9a34.jpg";
     const { photoIndex, isOpen, lightboxImages } = this.state;
     return (
-      <DocumentTitle title={['案例展示']}>
+      <DocumentTitle title={["案例展示"]}>
         <Spin spinning={false}>
           <div className="toolbar-container">
             <div className="edit-this-page">
@@ -133,7 +133,7 @@ class Case extends Component {
                     <Icon
                       type="code"
                       style={{
-                        fontSize: '3rem',
+                        fontSize: "3rem"
                       }}
                     />
                   </a>
@@ -142,7 +142,7 @@ class Case extends Component {
             </div>
             <LazyLoad height={300} offset={100}>
               <div>
-                <h2 style={{ textAlign: 'center' }}>案例展示</h2>
+                <h2 style={{ textAlign: "center" }}>案例展示</h2>
                 <Row gutter={16}>
                   {this.props.SHOW_CASES.map(c => {
                     return (
@@ -150,14 +150,14 @@ class Case extends Component {
                         md={8}
                         xs={24}
                         key={c.title}
-                        style={{ margin: '1rem 0' }}
+                        style={{ margin: "1rem 0" }}
                       >
                         <Card>
                           <div
                             style={{
-                              position: 'relative',
-                              overflow: 'hidden',
-                              minHeight: '30rem',
+                              position: "relative",
+                              overflow: "hidden",
+                              minHeight: "30rem"
                             }}
                           >
                             <div
@@ -167,13 +167,13 @@ class Case extends Component {
                                     ? c.screenshot[0]
                                     : noScreenshotImg
                                 })`,
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundAttachment: 'interit',
-                                backgroundPosition: 'center center',
-                                verticalAlign: 'middle',
-                                width: '100%',
-                                height: '30rem',
+                                backgroundSize: "cover",
+                                backgroundRepeat: "no-repeat",
+                                backgroundAttachment: "interit",
+                                backgroundPosition: "center center",
+                                verticalAlign: "middle",
+                                width: "100%",
+                                height: "30rem"
                               }}
                               onClick={() =>
                                 this.setState({
@@ -182,18 +182,18 @@ class Case extends Component {
                                   lightboxImages:
                                     c.screenshot && c.screenshot.length
                                       ? c.screenshot
-                                      : [noScreenshotImg],
+                                      : [noScreenshotImg]
                                 })
                               }
                             />
                             <div
                               style={{
-                                position: 'absolute',
+                                position: "absolute",
                                 bottom: 0,
                                 left: 0,
-                                backgroundColor: '#FAFAFA',
-                                padding: '1rem',
-                                width: '100%',
+                                backgroundColor: "#FAFAFA",
+                                padding: "1rem",
+                                width: "100%"
                               }}
                             >
                               <h3>
@@ -206,7 +206,7 @@ class Case extends Component {
                                 )}
                               </h3>
                               <div>
-                                {c.description.split('\n').map(line => {
+                                {c.description.split("\n").map(line => {
                                   return <p key={line}>{line}</p>;
                                 })}
                               </div>
@@ -215,7 +215,7 @@ class Case extends Component {
                                   return (
                                     <Tag
                                       key={label.id}
-                                      color={'#' + label.color}
+                                      color={"#" + label.color}
                                     >
                                       {label.name}
                                     </Tag>
@@ -250,12 +250,12 @@ class Case extends Component {
                   this.setState({
                     photoIndex:
                       (photoIndex + lightboxImages.length - 1) %
-                      lightboxImages.length,
+                      lightboxImages.length
                   })
                 }
                 onMoveNextRequest={() =>
                   this.setState({
-                    photoIndex: (photoIndex + 1) % lightboxImages.length,
+                    photoIndex: (photoIndex + 1) % lightboxImages.length
                   })
                 }
               />
@@ -268,7 +268,7 @@ class Case extends Component {
 }
 export default connect(
   state => ({
-    SHOW_CASES: state.SHOW_CASES,
+    SHOW_CASES: state.SHOW_CASES
   }),
   actions
 )(withRouter(Case));

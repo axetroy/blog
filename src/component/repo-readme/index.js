@@ -1,10 +1,10 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Spin } from 'antd';
+import React, { Component } from "react";
+import { Spin } from "antd";
 
-import github from '../../lib/github';
+import github from "../../lib/github";
 
 class RepoReadme extends Component {
   state = { readme: null };
@@ -20,13 +20,13 @@ class RepoReadme extends Component {
   }
 
   async getReadme(owner, repo) {
-    let html = '';
+    let html = "";
     try {
       const { data } = await github.get(`/repos/${owner}/${repo}/readme`, {
         headers: {
-          Accept: 'application/vnd.github.v3.html',
+          Accept: "application/vnd.github.v3.html"
         },
-        responseType: 'text',
+        responseType: "text"
       });
       html = data;
     } catch (err) {
@@ -41,7 +41,7 @@ class RepoReadme extends Component {
       <Spin spinning={false}>
         <div
           className="markdown-body"
-          style={{ fontSize: '16px', minHeight: '20rem' }}
+          style={{ fontSize: "16px", minHeight: "20rem" }}
           dangerouslySetInnerHTML={{ __html: this.state.readme }}
         />
       </Spin>

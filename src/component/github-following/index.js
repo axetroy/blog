@@ -1,28 +1,28 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { connect } from 'redux-zero/react';
-import { Row, Col, Spin, Pagination } from 'antd';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { connect } from "redux-zero/react";
+import { Row, Col, Spin, Pagination } from "antd";
+import { lazyload } from "react-lazyload";
 
-import github from '../../lib/github';
-import graphql from '../../lib/graphql';
+import github from "../../lib/github";
+import graphql from "../../lib/graphql";
 
-import CONFIG from '../../config.json';
-import actions from '../../redux/actions';
+import CONFIG from "../../config.json";
+import actions from "../../redux/actions";
 
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class GithubFollowing extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 30,
-    },
+      per_page: 30
+    }
   };
 
   async componentWillMount() {
@@ -68,7 +68,7 @@ query {
       const { data, headers } = await github.get(
         `/users/${CONFIG.owner}/following`,
         {
-          params: { page, per_page },
+          params: { page, per_page }
         }
       );
       followings = data;
@@ -83,8 +83,8 @@ query {
         this.setState({
           meta: {
             ...this.state.meta,
-            ...{ page, per_page, total: lastPage * per_page },
-          },
+            ...{ page, per_page, total: lastPage * per_page }
+          }
         });
       }
     } catch (err) {
@@ -93,8 +93,8 @@ query {
     this.setState({
       meta: {
         ...this.state.meta,
-        ...{ page, per_page },
-      },
+        ...{ page, per_page }
+      }
     });
     if (page === 1) this.props.updateFollowings(followings);
     return followings;
@@ -121,7 +121,7 @@ query {
                 <a href={user.url} target="_blank">
                   <img
                     src={user.avatarUrl}
-                    style={{ width: '10rem', maxWidth: '100%' }}
+                    style={{ width: "10rem", maxWidth: "100%" }}
                     alt=""
                   />
                   <br />
@@ -141,7 +141,7 @@ query {
             />
           </Row>
         ) : (
-          ''
+          ""
         )}
       </Spin>
     );

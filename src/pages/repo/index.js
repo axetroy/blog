@@ -1,31 +1,31 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Spin, Tabs, Tag, Icon, Tooltip } from 'antd';
-import { withRouter } from 'react-router-dom';
-import Octicon from 'react-octicon';
-import moment from 'moment';
+import React, { Component } from "react";
+import { Spin, Tabs, Tag, Icon, Tooltip } from "antd";
+import { withRouter } from "react-router-dom";
+import Octicon from "react-octicon";
+import moment from "moment";
 
-import DocumentTitle from '../../component/document-title';
-import ViewSourceCode from '../../component/view-source-code';
-import github from '../../lib/github';
-import RepoReadme from '../../component/repo-readme';
-import RepoEvents from '../../component/repo-events';
-import GithubLangIngredient from '../../component/github-lang-ingredient';
+import DocumentTitle from "../../component/document-title";
+import ViewSourceCode from "../../component/view-source-code";
+import github from "../../lib/github";
+import RepoReadme from "../../component/repo-readme";
+import RepoEvents from "../../component/repo-events";
+import GithubLangIngredient from "../../component/github-lang-ingredient";
 
-import CONFIG from '../../config.json';
+import CONFIG from "../../config.json";
 
-import './index.css';
+import "./index.css";
 
 const TabPane = Tabs.TabPane;
 
 class Repo extends Component {
   state = {
     repo: {},
-    readme: '',
+    readme: "",
     events: [],
-    repoLoading: false,
+    repoLoading: false
   };
 
   async componentWillMount() {
@@ -60,8 +60,8 @@ class Repo extends Component {
       await this.setStateAsync({ repoLoading: true });
       const res = await github.get(`/repos/${owner}/${repo}`, {
         headers: {
-          Accept: 'application/vnd.github.mercy-preview+json;charset=utf-8',
-        },
+          Accept: "application/vnd.github.mercy-preview+json;charset=utf-8"
+        }
       });
       data = res.data;
     } catch (err) {
@@ -86,25 +86,25 @@ class Repo extends Component {
   render() {
     const metas = [
       {
-        icon: 'eye',
-        field: 'subscribers_count',
+        icon: "eye",
+        field: "subscribers_count"
       },
       {
-        icon: 'star',
-        field: 'watchers_count',
+        icon: "star",
+        field: "watchers_count"
       },
       {
-        icon: 'repo-forked',
-        field: 'forks_count',
+        icon: "repo-forked",
+        field: "forks_count"
       },
       {
-        icon: 'issue-opened',
-        field: 'open_issues_count',
-      },
+        icon: "issue-opened",
+        field: "open_issues_count"
+      }
     ];
 
     return (
-      <DocumentTitle title={[this.state.repo.name, '开源项目']}>
+      <DocumentTitle title={[this.state.repo.name, "开源项目"]}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
@@ -113,7 +113,7 @@ class Repo extends Component {
                   <Icon
                     type="code"
                     style={{
-                      fontSize: '3rem',
+                      fontSize: "3rem"
                     }}
                   />
                 </a>
@@ -133,7 +133,7 @@ class Repo extends Component {
                       key={meta.field}
                       className="mr5"
                       style={{
-                        fontSize: '1.4rem',
+                        fontSize: "1.4rem"
                       }}
                     >
                       <Octicon
@@ -141,10 +141,10 @@ class Repo extends Component {
                         name={meta.icon}
                         mega
                         style={{
-                          fontSize: '1.4rem',
+                          fontSize: "1.4rem"
                         }}
                       />
-                      {meta.icon === 'home' ? (
+                      {meta.icon === "home" ? (
                         <a href={this.state.repo.homepage} target="_blank">
                           {this.state.repo.homepage}
                         </a>
@@ -166,7 +166,7 @@ class Repo extends Component {
                     {this.state.repo.homepage}
                   </a>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
 
@@ -174,7 +174,7 @@ class Repo extends Component {
                 <div>
                   {(this.state.repo.topics || []).map(topic => {
                     return (
-                      <Tag style={{ marginTop: '0.5rem' }} key={topic}>
+                      <Tag style={{ marginTop: "0.5rem" }} key={topic}>
                         {topic}
                       </Tag>
                     );
@@ -183,12 +183,12 @@ class Repo extends Component {
               </div>
 
               <div className="github-meta">
-                Create at{' '}
+                Create at{" "}
                 {this.state.repo.created_at &&
                   moment(this.state.repo.created_at).fromNow()}
               </div>
               <div className="github-meta">
-                Update at{' '}
+                Update at{" "}
                 {this.state.repo.updated_at &&
                   moment(this.state.repo.updated_at).fromNow()}
               </div>

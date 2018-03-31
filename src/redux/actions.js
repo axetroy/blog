@@ -43,7 +43,7 @@ const actions = store => ({
   },
   updateOrganizationRepo: (state, organizationId, payload) => () => {
     return {
-      ORG_REPOS: { ...state.ORG_REPOS, ...{ [organizationId]: payload } },
+      ORG_REPOS: { ...state.ORG_REPOS, ...{ [organizationId]: payload } }
     };
   },
   updateRepoState: (state, repoName, payload) => () => {
@@ -57,8 +57,8 @@ const actions = store => ({
     return {
       REPO_LANGUAGES: {
         ...state.REPO_LANGUAGES,
-        ...{ [repoName]: lang },
-      },
+        ...{ [repoName]: lang }
+      }
     };
   },
   updateFollowings: (state, payload) => () => {
@@ -66,7 +66,7 @@ const actions = store => ({
   },
   updateFollowers: (state, payload) => () => {
     return { FOLLOWERS: payload };
-  },
+  }
 });
 
 export default actions;

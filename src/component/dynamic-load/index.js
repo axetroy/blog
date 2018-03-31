@@ -1,19 +1,19 @@
 /**
  * Created by axetroy on 17-5-22.
  */
-import React, { Component } from 'react';
-import PropTypes from 'proptypes';
-import { withRouter } from 'react-router-dom';
-import { Spin } from 'antd';
+import React, { Component } from "react";
+import PropTypes from "proptypes";
+import { withRouter } from "react-router-dom";
+import { Spin } from "antd";
 
 class DynamicLoad extends Component {
   static PropTypes = {
-    promise: PropTypes.isPrototypeOf(Promise).isRequire,
+    promise: PropTypes.isPrototypeOf(Promise).isRequire
   };
 
   state = {
     loading: true,
-    component: '',
+    component: ""
   };
 
   componentWillMount() {
@@ -25,7 +25,7 @@ class DynamicLoad extends Component {
     this.load(promise);
   }
   load(promise) {
-    if (promise && typeof promise.then === 'function') {
+    if (promise && typeof promise.then === "function") {
       const id = Math.random();
       this.__id__ = id;
       this.setState({ loading: true });
@@ -51,21 +51,21 @@ class DynamicLoad extends Component {
         style={
           isLoading
             ? {
-                width: '100%',
-                height: '100%',
-                minHeight: '20rem',
-                backgroundColor: 'rgba(0,0,0,0.05)',
-                borderRadius: '0.4rem',
-                zIndex: 99999999,
+                width: "100%",
+                height: "100%",
+                minHeight: "20rem",
+                backgroundColor: "rgba(0,0,0,0.05)",
+                borderRadius: "0.4rem",
+                zIndex: 99999999
               }
             : {}
         }
       >
         <Spin
           spinning={isLoading}
-          style={isLoading ? { marginTop: '4rem' } : {}}
+          style={isLoading ? { marginTop: "4rem" } : {}}
         >
-          <div style={{ textAlign: 'left' }}>{this.state.component}</div>
+          <div style={{ textAlign: "left" }}>{this.state.component}</div>
         </Spin>
       </div>
     );

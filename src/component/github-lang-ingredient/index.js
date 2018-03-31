@@ -1,11 +1,11 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from 'react';
-import { Tooltip } from 'antd';
-import { lazyload } from 'react-lazyload';
+import React, { Component } from "react";
+import { Tooltip } from "antd";
+import { lazyload } from "react-lazyload";
 
-import GithubColors from '../../lib/github-colors.json';
+import GithubColors from "../../lib/github-colors.json";
 
 function values(obj) {
   let result = [];
@@ -30,7 +30,7 @@ function sum(array) {
 @lazyload({
   height: 200,
   offset: 100,
-  once: true,
+  once: true
 })
 class GithubLangIngredient extends Component {
   componentDidMount() {}
@@ -49,11 +49,11 @@ class GithubLangIngredient extends Component {
     const totalCodeAmount = sum(languagesIngredientArray);
 
     return (
-      <div style={{ display: 'table', width: '100%', height: '1rem' }}>
+      <div style={{ display: "table", width: "100%", height: "1rem" }}>
         {languagesNameArray.map((language, i) => {
           const codeAmount = languagesIngredientArray[i];
           const percent = (codeAmount / totalCodeAmount * 100).toFixed(2);
-          const bgColor = (GithubColors[language] || {}).color || '#e6e6e6';
+          const bgColor = (GithubColors[language] || {}).color || "#e6e6e6";
           return (
             <Tooltip
               key={language}
@@ -63,7 +63,7 @@ class GithubLangIngredient extends Component {
                   <span
                     className="repo-language-color mr5"
                     style={{
-                      backgroundColor: bgColor,
+                      backgroundColor: bgColor
                     }}
                   />
                   {language}: {percent}%
@@ -72,10 +72,10 @@ class GithubLangIngredient extends Component {
             >
               <span
                 style={{
-                  display: 'table-cell',
-                  width: percent + '%',
+                  display: "table-cell",
+                  width: percent + "%",
                   backgroundColor: bgColor,
-                  transition: 'all 1s',
+                  transition: "all 1s"
                 }}
               />
             </Tooltip>

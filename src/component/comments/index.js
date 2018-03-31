@@ -27,7 +27,7 @@ class Comments extends Component {
 
   /**
    * 初始化
-   * 
+   *
    * @memberof Comments
    */
   componentDidMount() {

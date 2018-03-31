@@ -2,7 +2,7 @@
  * Created by axetroy on 17-5-2.
  * pretty-bytes@4.0.2
  */
-const UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+const UNITS = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
 module.exports = num => {
   if (!Number.isFinite(num)) {
@@ -16,7 +16,7 @@ module.exports = num => {
   }
 
   if (num < 1) {
-    return (neg ? '-' : '') + num + ' B';
+    return (neg ? "-" : "") + num + " B";
   }
 
   const exponent = Math.min(
@@ -26,5 +26,5 @@ module.exports = num => {
   const numStr = Number((num / Math.pow(1000, exponent)).toPrecision(3));
   const unit = UNITS[exponent];
 
-  return (neg ? '-' : '') + numStr + ' ' + unit;
+  return (neg ? "-" : "") + numStr + " " + unit;
 };

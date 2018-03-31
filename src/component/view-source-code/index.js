@@ -2,26 +2,26 @@
  * Created by axetroy on 17-5-24.
  */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Modal } from 'antd';
+import { Modal } from "antd";
 
-import SourceCode from '../source-code';
+import SourceCode from "../source-code";
 
 class ViewSourceCode extends Component {
   state = {
-    visible: false,
+    visible: false
   };
 
   showSourceCode() {
     this.setState({
-      visible: true,
+      visible: true
     });
   }
 
   hideSourceCode() {
     this.setState({
-      visible: false,
+      visible: false
     });
   }
 
@@ -32,7 +32,7 @@ class ViewSourceCode extends Component {
           {this.props.children}
         </span>
         <Modal
-          width={'80%'}
+          width={"80%"}
           visible={this.state.visible}
           footer={null}
           onCancel={this.hideSourceCode.bind(this)}
