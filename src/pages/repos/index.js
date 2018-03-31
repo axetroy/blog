@@ -144,7 +144,14 @@ class Repos extends Component {
                       <p style={{ color: "#9E9E9E" }}>{repo.description}</p>
                       <div>
                         {(repo.topics || []).map(topic => {
-                          return <Tag key={topic}>{topic}</Tag>;
+                          return (
+                            <Tag
+                              key={topic}
+                              style={{ margin: "0.5rem 0.2rem" }}
+                            >
+                              {topic}
+                            </Tag>
+                          );
                         })}
                       </div>
                       <div style={{ position: "absolute", bottom: "1rem" }}>

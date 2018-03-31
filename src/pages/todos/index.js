@@ -118,25 +118,58 @@ class TodoList extends Component {
               <h2 style={{ textAlign: "center" }}>待办事项</h2>
             </div>
             {todoList.map((todo, i) => {
-              const closed = todo.state !== "open";
-              const done = todo.labels.find(label => label.name === "已完成");
+              let status = 0;
+              let statusText = "未开始";
+              let icon = "undone";
+
+              for (const label of todo.labels) {
+                switch (label.name) {
+                  case "未开始":
+                    status = 0;
+                    statusText = "未开始";
+                    break;
+                  case "进行中":
+                    status = 1;
+                    statusText = "进行中";
+                    icon = "doing";
+                    break;
+                  case "已完成":
+                    status = 2;
+                    statusText = "已完成";
+                    icon = "done";
+                    break;
+                  case "暂搁置":
+                    status = 3;
+                    statusText = "暂搁置";
+                    icon = "stop";
+                    break;
+                  case "已废弃":
+                    status = -1;
+                    statusText = "已废弃";
+                    icon = "cancel";
+                    break;
+                  default:
+                }
+              }
+
               return (
                 <div className="container" key={todo.title}>
-                  <div id="timeline">
+                  <div className={"timeline status-" + status}>
                     <div className="timeline-item">
                       <div
                         className="timeline-icon"
                         style={{
-                          backgroundColor: done ? "#2cbe4e" : "#cb2431"
+                          backgroundColor: status === 2 ? "#2cbe4e" : "#cb2431"
                         }}
+                        title={statusText}
                       >
-                        <img
-                          src={`./icon/${done ? "done" : "undone"}.svg`}
-                          alt=""
-                        />
+                        <img src={`./icon/${icon}.svg`} alt={statusText} />
                       </div>
                       <div
-                        className={"timeline-content" + (done ? " right" : "")}
+                        className={
+                          "timeline-content" +
+                          (status === 2 || status === -1 ? " right" : "")
+                        }
                       >
                         <h2
                           style={{

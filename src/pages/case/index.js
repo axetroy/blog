@@ -216,6 +216,7 @@ class Case extends Component {
                                     <Tag
                                       key={label.id}
                                       color={"#" + label.color}
+                                      style={{ margin: "0.5rem 0.2rem" }}
                                     >
                                       {label.name}
                                     </Tag>
