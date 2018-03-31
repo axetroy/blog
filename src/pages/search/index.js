@@ -111,7 +111,7 @@ class SearchComponent extends Component {
   renderTodo() {
     return this.state.todos.length ? (
       <div>
-        <h2>计划任务</h2>
+        <h2>待办事项</h2>
         {this.state.todos.map(todo => {
           return (
             <div key={todo.id} className="search-r">

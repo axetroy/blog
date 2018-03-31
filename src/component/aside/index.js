@@ -2,11 +2,10 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from "react";
-import PropTypes from "proptypes";
-import { Menu, Icon, Tooltip } from "antd";
-import { NavLink, matchPath, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Icon } from "antd";
+import { matchPath, withRouter } from "react-router-dom";
 import Octicon from "react-octicon";
-import Rythm from "rythm.js";
 import Footer from "../footer";
 
 import "./index.css";

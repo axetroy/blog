@@ -82,7 +82,7 @@ class Gist extends Component {
     const { id } = this.props.match.params;
     const gist = (this.props.GIST || {})[id] || {};
     return (
-      <DocumentTitle title={[gist.description, "Gist"]}>
+      <DocumentTitle title={[gist.description, "代码片段"]}>
         <Spin spinning={!Object.keys(gist).length}>
           <div className="toolbar-container">
             <div className="edit-this-page">

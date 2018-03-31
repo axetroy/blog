@@ -76,7 +76,7 @@ query{
 
   render() {
     return (
-      <DocumentTitle title={["Gist List"]}>
+      <DocumentTitle title={["代码片段"]}>
         <div className="toolbar-container">
           <div className="edit-this-page">
             <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>

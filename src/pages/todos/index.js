@@ -92,12 +92,13 @@ class TodoList extends Component {
       }
     });
     this.setState({ badge });
+    return badge;
   }
 
   render() {
     const todoList = this.props.TODOS || [];
     return (
-      <DocumentTitle title={["TODO List"]}>
+      <DocumentTitle title={["待办事项"]}>
         <Spin spinning={false}>
           <Col className="toolbar-container">
             <div className="edit-this-page">

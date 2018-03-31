@@ -147,7 +147,10 @@ class Case extends Component {
                   {this.props.SHOW_CASES.map(c => {
                     return (
                       <Col
-                        md={8}
+                        xxl={6}
+                        lg={8}
+                        md={12}
+                        sm={12}
                         xs={24}
                         key={c.title}
                         style={{ margin: "1rem 0" }}

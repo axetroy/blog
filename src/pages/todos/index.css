@@ -141,7 +141,7 @@ h4 {
   height: 0;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  border-left: 7px solid #ee4d4d;
+  border-left: 7px solid #cb2431;
 }
 .timeline .timeline-item .timeline-content.right {
   float: right;
@@ -151,7 +151,7 @@ h4 {
   right: 45%;
   left: inherit;
   border-left: 0;
-  border-right: 7px solid #ee4d4d;
+  border-right: 7px solid #cb2431;
 }
 .btn {
   padding: 5px 15px;
@@ -202,7 +202,7 @@ h4 {
     left: 10%;
     margin-left: -6px;
     border-left: 0;
-    border-right: 7px solid #ee4d4d;
+    border-right: 7px solid #cb2431;
   }
   .timeline .timeline-item .timeline-icon {
     left: 0;

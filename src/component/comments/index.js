@@ -2,7 +2,7 @@
  * Created by axetroy on 17-4-6.
  */
 import React, { Component } from "react";
-import PropTypes from "proptypes";
+import PropTypes from "prop-types";
 import { lazyload } from "react-lazyload";
 import moment from "moment";
 

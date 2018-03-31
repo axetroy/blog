@@ -119,7 +119,13 @@ class Posts extends Component {
             <Row gutter={24}>
               {this.props.POSTS.map((post, i) => {
                 return (
-                  <Col xs={24} sm={12} md={12} xxl={8}>
+                  <Col
+                    key={post.number + "/" + i}
+                    xs={24}
+                    sm={12}
+                    md={12}
+                    xxl={8}
+                  >
                     <Card
                       style={{
                         margin: "2rem 0",
@@ -127,7 +133,6 @@ class Posts extends Component {
                         overflow: "hidden"
                       }}
                       className="post-list"
-                      key={post.number + "/" + i}
                       onClick={() => {
                         this.props.history.push({
                           ...this.props.location,

@@ -2,13 +2,13 @@
  * Created by axetroy on 17-5-22.
  */
 import React, { Component } from "react";
-import PropTypes from "proptypes";
+import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { Spin } from "antd";
 
 class DynamicLoad extends Component {
-  static PropTypes = {
-    promise: PropTypes.isPrototypeOf(Promise).isRequire
+  static propTypes = {
+    promise: PropTypes.instanceOf(Promise).isRequired
   };
 
   state = {

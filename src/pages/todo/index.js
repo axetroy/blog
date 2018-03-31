@@ -57,7 +57,7 @@ class Todo extends Component {
     const { number } = this.props.match.params;
     const todo = this.props.TODO[number] || {};
     return (
-      <DocumentTitle title={[todo.title, "TODO"]}>
+      <DocumentTitle title={[todo.title, "待办事项"]}>
         <Spin spinning={!Object.keys(todo).length}>
           <div className="toolbar-container">
             <div className="edit-this-page">
