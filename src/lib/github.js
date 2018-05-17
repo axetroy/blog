@@ -8,7 +8,7 @@ import CONFIG from "../config.json";
 
 const instance = axios.create({
   baseURL: "https://api.github.com",
-  // timeout: 1000 * 10,
+  timeout: 1000 * 30,
   params: {
     client_id: CONFIG.github_client_id,
     client_secret: CONFIG.github_client_secret
