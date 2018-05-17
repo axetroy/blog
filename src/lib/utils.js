@@ -2,12 +2,24 @@
  * Created by axetroy on 17-4-24.
  */
 
+/**
+ * 字符串首字母大写
+ * @export
+ * @param {any} str
+ * @returns
+ */
 export function firstUpperCase(str) {
   return str.toLowerCase().replace(/\b[a-z]/g, function(s) {
     return s.toUpperCase();
   });
 }
 
+/**
+ * 获取两个时间的时间差
+ * @export
+ * @param {any} time1
+ * @returns
+ */
 export function diffTime(time1) {
   return function(time2) {
     let seconds = Math.abs(time1 - time2) / 1000;
@@ -27,4 +39,8 @@ export function diffTime(time1) {
       seconds: parseInt(seconds)
     };
   };
+}
+
+export function enableIframe(html = "") {
+  return html.replace(/\&lt;/g, "<").replace(/\&gt;/g, ">");
 }

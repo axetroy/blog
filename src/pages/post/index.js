@@ -9,11 +9,10 @@ import moment from "moment";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
-import { firstUpperCase } from "../../lib/utils";
+import { firstUpperCase, enableIframe } from "../../lib/utils";
 import CONFIG from "../../config.json";
 import Comments from "../../component/comments";
 import ViewSourceCode from "../../component/view-source-code";
-
 import actions from "../../redux/actions";
 
 import "./post.css";
@@ -344,7 +343,7 @@ class Post extends Component {
               paddingBottom: "2rem"
             }}
             dangerouslySetInnerHTML={{
-              __html: post.filter_html
+              __html: enableIframe(post.filter_html)
             }}
           />
 

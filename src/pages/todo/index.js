@@ -12,7 +12,7 @@ import ViewSourceCode from "../../component/view-source-code";
 import Comments from "../../component/comments";
 import github from "../../lib/github";
 import CONFIG from "../../config.json";
-import { diffTime } from "../../lib/utils";
+import { diffTime, enableIframe } from "../../lib/utils";
 
 import actions from "../../redux/actions";
 
@@ -56,6 +56,7 @@ class Todo extends Component {
   render() {
     const { number } = this.props.match.params;
     const todo = this.props.TODO[number] || {};
+    console.log(enableIframe(todo.body_html));
     return (
       <DocumentTitle title={[todo.title, "待办事项"]}>
         <Spin spinning={!Object.keys(todo).length}>
@@ -152,7 +153,7 @@ class Todo extends Component {
                 minHeight: "20rem"
               }}
               dangerouslySetInnerHTML={{
-                __html: todo.body_html
+                __html: enableIframe(todo.body_html)
               }}
             />
             <Comments

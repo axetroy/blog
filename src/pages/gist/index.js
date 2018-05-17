@@ -12,9 +12,8 @@ import prettyBytes from "../../lib/pretty-bytes";
 import DocumentTitle from "../../component/document-title";
 import Comments from "../../component/comments";
 import ViewSourceCode from "../../component/view-source-code";
-
+import { enableIframe } from "../../lib/utils";
 import github from "../../lib/github";
-
 import actions from "../../redux/actions";
 
 function values(obj) {
@@ -156,7 +155,7 @@ class Gist extends Component {
                       fontSize: "1.6rem"
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: file.html
+                      __html: enableIframe(file.html)
                     }}
                   />
                 </div>
