@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-export default function RouterListener(ComponsedComponent) {
+export default function RouterListener(ComposedComponent) {
   return withRouter(
     class extends Component {
       constructor(props) {
@@ -25,7 +25,7 @@ export default function RouterListener(ComponsedComponent) {
       }
 
       render() {
-        return <ComponsedComponent {...this.props} {...this.state} />;
+        return <ComposedComponent {...this.props} {...this.state} />;
       }
     }
   );

@@ -14,7 +14,6 @@ import Aside, { navList } from "./component/aside";
 import ClickMaterial from "./component/click-material";
 import DynamicLoad from "./component/dynamic-load";
 
-import Statistics from "./lib/statistics";
 import RouterListener from "./lib/router-listener";
 
 import "./App.css";
@@ -23,16 +22,7 @@ import store from "./redux/store";
 
 const ClickMaterialWithStatRouterListener = RouterListener(ClickMaterial);
 
-class App extends Component {
-  state = {};
-  componentDidMount() {
-    // notification.open({
-    //   message: "我正在找工作",
-    //   description:
-    //     "坐标杭州/深圳，我正在找一份NodeJS/Go的相关工作，前端/全栈/后端亦可. 联系邮箱troy450409405@gmail.com",
-    //   duration: 0
-    // });
-  }
+export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -206,4 +196,3 @@ class App extends Component {
     );
   }
 }
-export default Statistics(App);
