@@ -14,9 +14,9 @@
   version "2.0.0"
   resolved "https://registry.npmjs.org/@axetroy/react-document-title/-/react-document-title-2.0.0.tgz#9c8a745071b830500799c1c38a261c14bcb4f32e"
 
-"@axetroy/react-download@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@axetroy/react-download/-/react-download-1.1.0.tgz#16db64ebf4f149598816d54c731d0b31763d02db"
+"@axetroy/react-download@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@axetroy/react-download/-/react-download-1.1.1.tgz#7203cbb23a6e9d5f01a9787aae13c2229598c289"
 
 "@axetroy/react-github-calendar@^2.0.0":
   version "2.0.0"
@@ -288,9 +288,9 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.npmjs.org/antd/-/antd-3.3.3.tgz#048a6550dffb355443d169226be05593c638e0cc"
+antd@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.npmjs.org/antd/-/antd-3.5.2.tgz#f27356289788dbe463103f0ab715345ac7ca8cee"
   dependencies:
     array-tree-filter "^2.0.0"
     babel-runtime "6.x"
@@ -305,20 +305,20 @@ antd@^3.3.3:
     prop-types "^15.5.7"
     rc-animate "^2.4.1"
     rc-calendar "~9.6.0"
-    rc-cascader "~0.12.0"
+    rc-cascader "~0.13.0"
     rc-checkbox "~2.1.5"
-    rc-collapse "~1.8.0"
+    rc-collapse "~1.9.0"
     rc-dialog "~7.1.0"
     rc-dropdown "~2.1.0"
     rc-editor-mention "^1.0.2"
     rc-form "^2.1.0"
     rc-input-number "~4.0.0"
-    rc-menu "~6.2.0"
-    rc-notification "~3.0.0"
-    rc-pagination "~1.16.0"
+    rc-menu "~7.0.2"
+    rc-notification "~3.1.1"
+    rc-pagination "~1.16.1"
     rc-progress "~2.2.2"
     rc-rate "~2.4.0"
-    rc-select "~7.7.0"
+    rc-select "~8.0.7"
     rc-slider "~8.6.0"
     rc-steps "~3.1.0"
     rc-switch "~1.6.0"
@@ -326,12 +326,12 @@ antd@^3.3.3:
     rc-tabs "~9.2.0"
     rc-time-picker "~3.3.0"
     rc-tooltip "~3.7.0"
-    rc-tree "~1.7.11"
+    rc-tree "~1.8.0"
     rc-tree-select "~1.12.0"
     rc-upload "~2.4.0"
     rc-util "^4.0.4"
     react-lazy-load "^3.0.12"
-    react-slick "~0.21.0"
+    react-slick "~0.23.1"
     shallowequal "^1.0.1"
     warning "~3.0.0"
 
@@ -1568,10 +1568,6 @@ camelcase@^3.0.0:
 camelcase@^4.0.0, camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
-
-can-use-dom@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/can-use-dom/-/can-use-dom-0.1.0.tgz#22cc4a34a0abc43950f42c6411024a3f6366b45a"
 
 caniuse-api@^1.5.2:
   version "1.6.1"
@@ -4847,7 +4843,7 @@ loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-localforage@^1.5.6:
+localforage@^1.7.1:
   version "1.7.1"
   resolved "https://registry.npmjs.org/localforage/-/localforage-1.7.1.tgz#e4927e042302b864db30f3211f13b5c6f0de965d"
   dependencies:
@@ -5137,6 +5133,14 @@ mini-store@^1.0.2:
     prop-types "^15.6.0"
     shallowequal "^1.0.2"
 
+mini-store@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/mini-store/-/mini-store-1.1.0.tgz#4d6b3fb5c89aa0303d9b39475efb3439cd42f04f"
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+    prop-types "^15.6.0"
+    shallowequal "^1.0.2"
+
 minimalistic-assert@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/minimalistic-assert/-/minimalistic-assert-1.0.0.tgz#702be2dda6b37f4836bcb3f5db56641b64a1d3d3"
@@ -5182,9 +5186,13 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.1, mkdirp@~0.5.0, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment@*, moment@2.x, moment@^2.10.6, moment@^2.19.3, moment@^2.22.0:
+moment@*, moment@2.x, moment@^2.10.6, moment@^2.19.3:
   version "2.22.0"
   resolved "https://registry.npmjs.org/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
+
+moment@^2.22.1:
+  version "2.22.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
 months@^1.0.0:
   version "1.2.0"
@@ -6273,9 +6281,9 @@ rc-calendar@~9.6.0:
     rc-trigger "^2.2.0"
     rc-util "^4.1.1"
 
-rc-cascader@~0.12.0:
-  version "0.12.2"
-  resolved "https://registry.npmjs.org/rc-cascader/-/rc-cascader-0.12.2.tgz#2d08fe44b504364137d3c748f51ac393483e7b3b"
+rc-cascader@~0.13.0:
+  version "0.13.1"
+  resolved "https://registry.npmjs.org/rc-cascader/-/rc-cascader-0.13.1.tgz#157df251c5da734bf134b7a595a9b06446a6db80"
   dependencies:
     array-tree-filter "^1.0.0"
     prop-types "^15.5.8"
@@ -6292,9 +6300,9 @@ rc-checkbox@~2.1.5:
     prop-types "15.x"
     rc-util "^4.0.4"
 
-rc-collapse@~1.8.0:
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/rc-collapse/-/rc-collapse-1.8.0.tgz#107bd9193e36b1ec5381c9ed9ff4f7245a79adb5"
+rc-collapse@~1.9.0:
+  version "1.9.2"
+  resolved "https://registry.npmjs.org/rc-collapse/-/rc-collapse-1.9.2.tgz#baa88a724ebbf444ad1f7776fe912f2f894e4099"
   dependencies:
     classnames "2.x"
     css-animation "1.x"
@@ -6371,22 +6379,22 @@ rc-input-number@~4.0.0:
     prop-types "^15.5.7"
     rmc-feedback "^1.0.0"
 
-rc-menu@^6.1.0, rc-menu@~6.2.0:
-  version "6.2.6"
-  resolved "https://registry.npmjs.org/rc-menu/-/rc-menu-6.2.6.tgz#ad95a4926792d0476b3b25f6d015a497915dbbbd"
+rc-menu@^7.0.2, rc-menu@~7.0.2:
+  version "7.0.3"
+  resolved "https://registry.npmjs.org/rc-menu/-/rc-menu-7.0.3.tgz#8761aaeef5297e84e573f1920783f8ed1f3cb7dc"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
-    create-react-class "^15.5.2"
     dom-scroll-into-view "1.x"
+    mini-store "^1.1.0"
     prop-types "^15.5.6"
     rc-animate "2.x"
     rc-trigger "^2.3.0"
     rc-util "^4.1.0"
 
-rc-notification@~3.0.0:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/rc-notification/-/rc-notification-3.0.1.tgz#9ddcb831895ad40943a7e1df34951aa705173bce"
+rc-notification@~3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmjs.org/rc-notification/-/rc-notification-3.1.1.tgz#14eac6730db1d59adaf569dad9fe82a2f33cd23a"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -6394,9 +6402,9 @@ rc-notification@~3.0.0:
     rc-animate "2.x"
     rc-util "^4.0.4"
 
-rc-pagination@~1.16.0:
-  version "1.16.2"
-  resolved "https://registry.npmjs.org/rc-pagination/-/rc-pagination-1.16.2.tgz#650df893ac1bc18ebd8112bca72d372b672be233"
+rc-pagination@~1.16.1:
+  version "1.16.3"
+  resolved "https://registry.npmjs.org/rc-pagination/-/rc-pagination-1.16.3.tgz#2d3780a129c290c2e2e85a71b6723a8301484c2e"
   dependencies:
     babel-runtime "6.x"
     prop-types "^15.5.7"
@@ -6417,9 +6425,9 @@ rc-rate@~2.4.0:
     prop-types "^15.5.8"
     rc-util "^4.3.0"
 
-rc-select@~7.7.0:
-  version "7.7.6"
-  resolved "https://registry.npmjs.org/rc-select/-/rc-select-7.7.6.tgz#d5acc0ac9505c8d633fb00165c6afbc1ecb8fbc3"
+rc-select@~8.0.7:
+  version "8.0.8"
+  resolved "https://registry.npmjs.org/rc-select/-/rc-select-8.0.8.tgz#4d73537095eaeccfc828d94833528df4ed0c2199"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "2.x"
@@ -6427,9 +6435,10 @@ rc-select@~7.7.0:
     dom-scroll-into-view "1.x"
     prop-types "^15.5.8"
     rc-animate "2.x"
-    rc-menu "^6.1.0"
+    rc-menu "^7.0.2"
     rc-trigger "^2.2.0"
     rc-util "^4.0.4"
+    react-lifecycles-compat "^3.0.2"
     warning "^3.0.0"
 
 rc-slider@~8.6.0:
@@ -6518,9 +6527,20 @@ rc-tree-select@~1.12.0:
     rc-trigger "^2.2.2"
     rc-util "^4.0.2"
 
-rc-tree@~1.7.1, rc-tree@~1.7.11:
+rc-tree@~1.7.1:
   version "1.7.11"
   resolved "https://registry.npmjs.org/rc-tree/-/rc-tree-1.7.11.tgz#349de6383fc7d22bf4c13b0751794111022adddf"
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "2.x"
+    prop-types "^15.5.8"
+    rc-animate "2.x"
+    rc-util "^4.0.4"
+    warning "^3.0.0"
+
+rc-tree@~1.8.0:
+  version "1.8.3"
+  resolved "https://registry.npmjs.org/rc-tree/-/rc-tree-1.8.3.tgz#2875e83bc951b5ed7577c1038490f8245d79a37f"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "2.x"
@@ -6589,9 +6609,9 @@ react-dev-utils@^4.2.1:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.3.0:
-  version "16.3.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
+react-dom@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6621,6 +6641,10 @@ react-lazy-load@^3.0.12:
 react-lazyload@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/react-lazyload/-/react-lazyload-2.3.0.tgz#ccb134223012447074a96543954f44b055dc6185"
+
+react-lifecycles-compat@^3.0.2:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
 react-modal@^3.1.10:
   version "3.3.2"
@@ -6660,20 +6684,19 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-slick@~0.21.0:
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/react-slick/-/react-slick-0.21.0.tgz#677548bc6bcaf6916286d3682c8283feb26a2566"
+react-slick@~0.23.1:
+  version "0.23.1"
+  resolved "https://registry.npmjs.org/react-slick/-/react-slick-0.23.1.tgz#15791c4107f0ba3a5688d5bd97b7b7ceaa0dd181"
   dependencies:
-    can-use-dom "^0.1.0"
     classnames "^2.2.5"
-    create-react-class "^15.5.2"
     enquire.js "^2.1.6"
     json2mq "^0.2.0"
-    object-assign "^4.1.0"
+    lodash.debounce "^4.0.8"
+    resize-observer-polyfill "^1.5.0"
 
-react@^16.3.0:
-  version "16.3.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
+react@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.npmjs.org/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6781,9 +6804,9 @@ redux-zero-persist@^0.2.6:
   version "0.2.6"
   resolved "https://registry.npmjs.org/redux-zero-persist/-/redux-zero-persist-0.2.6.tgz#9f43d5c344402f8167447afa8cbbefceeeba6bf3"
 
-redux-zero@^4.11.0:
-  version "4.11.0"
-  resolved "https://registry.npmjs.org/redux-zero/-/redux-zero-4.11.0.tgz#4570d408b62098b7df0e23323a37e96a1c2f1757"
+redux-zero@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.npmjs.org/redux-zero/-/redux-zero-4.12.0.tgz#88c22539d349e8c2b7cfd81ddab35323edda0eb2"
 
 regenerate@^1.2.1:
   version "1.3.3"
@@ -6983,6 +7006,10 @@ require-uncached@^1.0.3:
 requires-port@1.0.x, requires-port@1.x.x, requires-port@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+
+resize-observer-polyfill@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
