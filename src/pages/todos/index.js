@@ -3,12 +3,11 @@
  */
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import { Row, Col, Menu, Pagination, Spin, Tag, Icon, Tooltip } from "antd";
+import { Tag, Icon } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
 import moment from "moment";
 
 import DocumentTitle from "../../component/document-title";
-import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import CONFIG from "../../config.json";
 
@@ -35,9 +34,12 @@ class TodoList extends Component {
 
   async getLabels() {
     try {
-      const { data } = await github.get(
-        `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/labels`
-      );
+      const { data } = await github.issues.getForRepo({
+        owner: CONFIG.owner,
+        repo: CONFIG.todo_repo,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret
+      });
       this.props.updateTodoLabel(data);
     } catch (err) {
       console.error(err);
@@ -46,12 +48,16 @@ class TodoList extends Component {
 
   async getAllTodoList(page, per_page, todoList = []) {
     try {
-      const { data } = await github.get(
-        `/repos/${CONFIG.owner}/${CONFIG.todo_repo}/issues`,
-        {
-          params: { creator: CONFIG.owner, page, per_page, state: "all" }
-        }
-      );
+      const { data } = await github.issues.getForRepo({
+        owner: CONFIG.owner,
+        repo: CONFIG.todo_repo,
+        filter: "created",
+        state: "all",
+        per_page,
+        page,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret
+      });
       todoList = todoList.concat(data || []);
       // 如果往后还有下一页，则继续请求，知道完为止
       if (data.length > 0 && data.length >= per_page) {
@@ -99,120 +105,104 @@ class TodoList extends Component {
     const todoList = this.props.TODOS || [];
     return (
       <DocumentTitle title={["待办事项"]}>
-        <Spin spinning={false}>
-          <Col className="toolbar-container">
-            <div className="edit-this-page">
-              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                <ViewSourceCode file="pages/todos/index.js">
-                  <a href="javascript: void 0" target="_blank">
-                    <Icon
-                      type="code"
-                      style={{
-                        fontSize: "3rem"
-                      }}
-                    />
-                  </a>
-                </ViewSourceCode>
-              </Tooltip>
-            </div>
-            <div style={{ padding: "0 2.4rem" }}>
-              <h2 style={{ textAlign: "center" }}>待办事项</h2>
-            </div>
-            {todoList.map((todo, i) => {
-              let status = 0;
-              let statusText = "未开始";
-              let icon = "undone";
+        <div>
+          <div style={{ padding: "2.4rem" }}>
+            <h2 style={{ textAlign: "center" }}>待办事项</h2>
+          </div>
+          {todoList.map((todo, i) => {
+            let status = 0;
+            let statusText = "未开始";
+            let icon = "undone";
 
-              for (const label of todo.labels) {
-                switch (label.name) {
-                  case "未开始":
-                    status = 0;
-                    statusText = "未开始";
-                    break;
-                  case "进行中":
-                    status = 1;
-                    statusText = "进行中";
-                    icon = "doing";
-                    break;
-                  case "已完成":
-                    status = 2;
-                    statusText = "已完成";
-                    icon = "done";
-                    break;
-                  case "暂搁置":
-                    status = 3;
-                    statusText = "暂搁置";
-                    icon = "stop";
-                    break;
-                  case "已废弃":
-                    status = -1;
-                    statusText = "已废弃";
-                    icon = "cancel";
-                    break;
-                  default:
-                }
+            for (const label of todo.labels) {
+              switch (label.name) {
+                case "未开始":
+                  status = 0;
+                  statusText = "未开始";
+                  break;
+                case "进行中":
+                  status = 1;
+                  statusText = "进行中";
+                  icon = "doing";
+                  break;
+                case "已完成":
+                  status = 2;
+                  statusText = "已完成";
+                  icon = "done";
+                  break;
+                case "暂搁置":
+                  status = 3;
+                  statusText = "暂搁置";
+                  icon = "stop";
+                  break;
+                case "已废弃":
+                  status = -1;
+                  statusText = "已废弃";
+                  icon = "cancel";
+                  break;
+                default:
               }
+            }
 
-              return (
-                <div className="container" key={todo.title}>
-                  <div className={"timeline status-" + status}>
-                    <div className="timeline-item">
-                      <div
-                        className="timeline-icon"
+            return (
+              <div className="container" key={todo.title}>
+                <div className={"timeline status-" + status}>
+                  <div className="timeline-item">
+                    <div
+                      className="timeline-icon"
+                      style={{
+                        backgroundColor: status === 2 ? "#2cbe4e" : "#cb2431"
+                      }}
+                      title={statusText}
+                    >
+                      <img src={`./icon/${icon}.svg`} alt={statusText} />
+                    </div>
+                    <div
+                      className={
+                        "timeline-content" +
+                        (status === 2 || status === -1 ? " right" : "")
+                      }
+                    >
+                      <h2
                         style={{
-                          backgroundColor: status === 2 ? "#2cbe4e" : "#cb2431"
+                          whiteSpace: "nowrap",
+                          wordBreak: "break-all",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden"
                         }}
-                        title={statusText}
                       >
-                        <img src={`./icon/${icon}.svg`} alt={statusText} />
-                      </div>
-                      <div
-                        className={
-                          "timeline-content" +
-                          (status === 2 || status === -1 ? " right" : "")
-                        }
-                      >
-                        <h2
+                        <NavLink
+                          exact={true}
+                          to={`/todo/${todo.number}`}
                           style={{
-                            whiteSpace: "nowrap",
-                            wordBreak: "break-all",
-                            textOverflow: "ellipsis",
-                            overflow: "hidden"
+                            color: "#fff"
                           }}
                         >
-                          <NavLink
-                            exact={true}
-                            to={`/todo/${todo.number}`}
-                            style={{
-                              color: "#fff"
-                            }}
-                          >
-                            {todo.title}
-                          </NavLink>
-                        </h2>
-                        <div style={{ margin: "1rem 0" }}>
-                          <span>
-                            <Icon type="clock-circle-o" />{" "}
-                            {moment(todo.created_at).format("YYYY-MM-DD")}{" "}
-                          </span>
-                          <span style={{ float: "right" }}>
-                            {todo.labels.map(label => {
-                              return (
-                                <Tag key={label.id} color={"#" + label.color}>
-                                  {label.name}
-                                </Tag>
-                              );
-                            })}
-                          </span>
-                        </div>
+                          {todo.title}
+                        </NavLink>
+                      </h2>
+                      <div style={{ margin: "1rem 0" }}>
+                        <span>
+                          <Icon type="clock-circle-o" />{" "}
+                          {moment(todo.created_at).format("YYYY-MM-DD")}{" "}
+                        </span>
+                        <span style={{ float: "right" }}>
+                          {todo.labels.map(label => {
+                            return (
+                              <Tag key={label.id} color={"#" + label.color}>
+                                {label.name}
+                              </Tag>
+                            );
+                          })}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </Col>
-        </Spin>
+              </div>
+            );
+          })}
+        </div>
       </DocumentTitle>
     );
   }

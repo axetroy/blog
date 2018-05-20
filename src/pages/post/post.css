@@ -12,8 +12,14 @@
   line-height: 4.2rem;
 }
 
+.post-content,
+.blockquote {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 ．post-content img {
-  width: 100%;
+  max-width: 100%;
 }
 
 .post-meta {

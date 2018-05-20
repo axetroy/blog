@@ -12,7 +12,6 @@ import github from "../../lib/github";
 import { firstUpperCase, enableIframe } from "../../lib/utils";
 import CONFIG from "../../config.json";
 import Comments from "../../component/comments";
-import ViewSourceCode from "../../component/view-source-code";
 import actions from "../../redux/actions";
 
 import "./post.css";
@@ -69,15 +68,16 @@ class Post extends Component {
   async getPost(number) {
     let post = {};
     try {
-      const { data } = await github.get(
-        `/repos/${CONFIG.owner}/${CONFIG.repo}/issues/${number}`,
-        {
-          headers: {
-            Accept: "application/vnd.github.v3.html"
-          },
-          responseType: "text"
+      const { data } = await github.issues.get({
+        owner: CONFIG.owner,
+        repo: CONFIG.repo,
+        number,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret,
+        headers: {
+          Accept: "application/vnd.github.v3.html"
         }
-      );
+      });
       post = data;
       post.filter_html = this.htmlFilter(data.body_html);
     } catch (err) {
@@ -167,206 +167,189 @@ class Post extends Component {
     return (
       <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              height: "24rem",
-              backgroundImage: `url(${this.state.banner})`,
-              backgroundOrigin: "border-box",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              backgroundPositionY: "25%"
-            }}
-          >
-            <h2
-              style={{
-                textAlign: "center",
-                position: "absolute",
-                width: "100%",
-                color: "#fff",
-                top: "20%"
-              }}
-            >
-              <span style={{ color: "#303030" }}>{post.title} </span>
-              <span
-                style={{
-                  verticalAlign: "top"
-                }}
-              >
-                {(post.labels || []).map(label => {
-                  return (
-                    <Tag key={label.id} color={"#" + label.color}>
-                      {label.name}
-                    </Tag>
-                  );
-                })}
-              </span>
-            </h2>
+          <div>
             <div
-              className="post-meta"
               style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
+                position: "relative",
                 width: "100%",
-                padding: "2rem",
-                backgroundColor: "rgba(245, 245, 245, 0.23)"
+                height: "24rem",
+                backgroundImage: `url(${this.state.banner})`,
+                backgroundOrigin: "border-box",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPositionY: "25%"
               }}
             >
-              {post.user && post.user.avatar_url ? (
-                <img
-                  src={post.user.avatar_url}
-                  alt=""
+              <h2
+                style={{
+                  textAlign: "center",
+                  position: "absolute",
+                  width: "100%",
+                  color: "#fff",
+                  top: "20%"
+                }}
+              >
+                <span style={{ color: "#303030" }}>{post.title} </span>
+                <span
                   style={{
-                    width: "4.4rem",
-                    height: "100%",
-                    borderRadius: "50%",
-                    verticalAlign: "middle"
+                    verticalAlign: "top"
                   }}
-                />
-              ) : (
-                ""
-              )}
+                >
+                  {(post.labels || []).map(label => {
+                    return (
+                      <Tag key={label.id} color={"#" + label.color}>
+                        {label.name}
+                      </Tag>
+                    );
+                  })}
+                </span>
+              </h2>
               <div
+                className="post-meta"
                 style={{
-                  display: "inline-block",
-                  verticalAlign: "middle",
-                  margin: "0 1rem"
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  padding: "2rem",
+                  backgroundColor: "rgba(245, 245, 245, 0.23)"
                 }}
               >
-                <strong>
-                  <Icon
-                    type="user"
+                {post.user && post.user.avatar_url ? (
+                  <img
+                    src={post.user.avatar_url}
+                    alt=""
                     style={{
-                      marginRight: "0.5rem"
+                      width: "4.4rem",
+                      height: "100%",
+                      borderRadius: "50%",
+                      verticalAlign: "middle"
                     }}
                   />
-                  {firstUpperCase(post && post.user ? post.user.login : "")}
-                </strong>
-                <br />
-                <span>
-                  <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
-                  {moment(new Date(post.created_at)).fromNow()}
-                </span>
-                <br />
-                <span>
-                  <Icon
-                    type="message"
-                    style={{
-                      marginRight: "0.5rem"
-                    }}
-                  />
-                  {post.comments}
-                </span>
-              </div>
-              <div
-                style={{
-                  textAlign: "right",
-                  float: "right",
-                  fontSize: "2.4rem"
-                }}
-              >
-                <span style={{ margin: "0.5rem" }}>
-                  <Tooltip title="编辑文章" placement="topRight">
-                    <a
-                      target="blank"
-                      href={`https://github.com/${CONFIG.owner}/${
-                        CONFIG.repo
-                      }/issues/${post.number}`}
+                ) : (
+                  ""
+                )}
+                <div
+                  style={{
+                    display: "inline-block",
+                    verticalAlign: "middle",
+                    margin: "0 1rem"
+                  }}
+                >
+                  <strong>
+                    <Icon
+                      type="user"
                       style={{
-                        color: "inherit"
+                        marginRight: "0.5rem"
                       }}
-                    >
-                      <Icon type="edit" />
-                    </a>
-                  </Tooltip>
-                </span>
-                <span style={{ margin: "0.5rem" }}>
-                  <Tooltip placement="topLeft" title="查看源码">
-                    <ViewSourceCode file="pages/post/index.js">
+                    />
+                    {firstUpperCase(post && post.user ? post.user.login : "")}
+                  </strong>
+                  <br />
+                  <span>
+                    <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
+                    {moment(new Date(post.created_at)).fromNow()}
+                  </span>
+                  <br />
+                  <span>
+                    <Icon
+                      type="message"
+                      style={{
+                        marginRight: "0.5rem"
+                      }}
+                    />
+                    {post.comments}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    textAlign: "right",
+                    float: "right",
+                    fontSize: "2.4rem"
+                  }}
+                >
+                  <span style={{ margin: "0.5rem" }}>
+                    <Tooltip title="编辑文章" placement="topRight">
                       <a
-                        href="javascript: void 0"
-                        target="_blank"
-                        style={{ color: "inherit" }}
+                        target="blank"
+                        href={`https://github.com/${CONFIG.owner}/${
+                          CONFIG.repo
+                        }/issues/${post.number}`}
+                        style={{
+                          color: "inherit"
+                        }}
                       >
-                        <Icon type="code" />
+                        <Icon type="edit" />
                       </a>
-                    </ViewSourceCode>
-                  </Tooltip>
-                </span>
-                <span
-                  style={{
-                    cursor: "pointer",
-                    margin: "0.5rem"
-                  }}
-                >
-                  <Popover
-                    placement="bottomLeft"
-                    title={"在其他设备中扫描二维码"}
-                    trigger="click"
-                    content={
-                      <div className="text-center">
-                        {QRCode ? (
-                          <QRCode value={window.location.href} />
-                        ) : (
-                          "Loading..."
-                        )}
-                      </div>
-                    }
+                    </Tooltip>
+                  </span>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      margin: "0.5rem"
+                    }}
                   >
-                    <Icon type="qrcode" />
-                  </Popover>
-                </span>
-                <span
-                  style={{
-                    cursor: "pointer",
-                    margin: "0.5rem"
-                  }}
-                >
-                  <Dropdown
-                    overlay={this.getShareMenu(post)}
-                    trigger={["click"]}
+                    <Popover
+                      placement="bottomLeft"
+                      title={"在其他设备中扫描二维码"}
+                      trigger="click"
+                      content={
+                        <div className="text-center">
+                          {QRCode ? (
+                            <QRCode value={window.location.href} />
+                          ) : (
+                            "Loading..."
+                          )}
+                        </div>
+                      }
+                    >
+                      <Icon type="qrcode" />
+                    </Popover>
+                  </span>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      margin: "0.5rem"
+                    }}
                   >
-                    <Icon type="share-alt" />
-                  </Dropdown>
-                </span>
+                    <Dropdown
+                      overlay={this.getShareMenu(post)}
+                      trigger={["click"]}
+                    >
+                      <Icon type="share-alt" />
+                    </Dropdown>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div
-            className="markdown-body post-content"
-            style={{
-              margin: "2rem 0",
-              borderBottom: "1px solid #e6e6e6",
-              paddingBottom: "2rem"
-            }}
-            dangerouslySetInnerHTML={{
-              __html: enableIframe(post.filter_html)
-            }}
-          />
-
-          <blockquote>
-            <p>注意：</p>
-            <p>1. 若非声明文章为转载, 则为原创文章.</p>
-            <p>2. 欢迎转载, 但需要注明出处.</p>
-            <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
-          </blockquote>
-
-          <div
-            style={{
-              marginTop: "2rem",
-              paddingTop: "2rem",
-              borderTop: "1px solid #e6e6e6"
-            }}
-          >
-            <Comments
-              type="issues"
-              owner={CONFIG.owner}
-              repo={CONFIG.repo}
-              number={post.number}
+            <div
+              className="markdown-body post-content"
+              style={{
+                margin: "2rem 0",
+                borderBottom: "1px solid #e6e6e6",
+                paddingBottom: "2rem"
+              }}
+              dangerouslySetInnerHTML={{
+                __html: enableIframe(post.filter_html)
+              }}
             />
+
+            <blockquote className="blockquote">
+              <p>注意：</p>
+              <p>1. 若非声明文章为转载, 则为原创文章.</p>
+              <p>2. 欢迎转载, 但需要注明出处.</p>
+              <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
+            </blockquote>
+
+            <div className="comment-box">
+              <Comments
+                type="issues"
+                owner={CONFIG.owner}
+                repo={CONFIG.repo}
+                number={post.number}
+              />
+            </div>
           </div>
         </Spin>
       </DocumentTitle>

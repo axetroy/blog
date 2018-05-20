@@ -67,7 +67,11 @@ class Click extends Component {
 
   render() {
     return (
-      <div onClick={this.onClick.bind(this)} ref="container">
+      <div
+        onClick={this.onClick.bind(this)}
+        ref="container"
+        style={this.props.style || {}}
+      >
         {this.props.children}
       </div>
     );

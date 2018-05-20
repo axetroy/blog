@@ -1,0 +1,33 @@
+ul.event-list > li {
+  padding: 0.8rem 0.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+ul.event-list > li:hover {
+  background-color: #f5f5f5;
+}
+
+.event-list a {
+  color: #303030;
+  font-weight: bold;
+}
+
+.event-list .mega-octicon {
+  font-size: 2rem;
+  vertical-align: middle;
+  margin: 0 0.2rem;
+}
+
+.red {
+  color: #f4511e;
+}
+
+.green {
+  color: #43a047;
+}
+
+.stat-meta b {
+  font-size: 2rem;
+}

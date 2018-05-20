@@ -7,6 +7,7 @@ import { lazyload } from "react-lazyload";
 import moment from "moment";
 
 import github from "../../lib/github";
+import CONFIG from "../../config.json";
 
 @lazyload({
   height: 200,
@@ -56,7 +57,6 @@ class Comments extends Component {
   componentWillReceiveProps(nextProps) {
     switch (nextProps.type) {
       case "issues":
-        console.log(nextProps);
         if (
           nextProps.number !== this.props.number &&
           typeof nextProps.number === "number"
@@ -83,15 +83,16 @@ class Comments extends Component {
   async getIssuesComments(owner, repo, number) {
     let comments = [];
     try {
-      const { data } = await github.get(
-        `/repos/${owner}/${repo}/issues/${number}/comments`,
-        {
-          headers: {
-            Accept: "application/vnd.github.v3.html"
-          },
-          responseType: "text"
+      const { data } = await github.issues.getComments({
+        owner,
+        repo,
+        number,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret,
+        headers: {
+          Accept: "application/vnd.github.v3.html"
         }
-      );
+      });
       this.setState({ comments: data });
     } catch (err) {
       console.error(err);
@@ -102,11 +103,13 @@ class Comments extends Component {
   async getGistComments(gist_id) {
     let comments = [];
     try {
-      const { data } = await github.get(`/gists/${gist_id}/comments`, {
+      const { data } = await github.gists.getComments({
+        gist_id,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
-        },
-        responseType: "text"
+        }
       });
       comments = comments.concat(data || []);
 

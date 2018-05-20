@@ -11,10 +11,10 @@ import Download from "@axetroy/react-download";
 import prettyBytes from "../../lib/pretty-bytes";
 import DocumentTitle from "../../component/document-title";
 import Comments from "../../component/comments";
-import ViewSourceCode from "../../component/view-source-code";
 import { enableIframe } from "../../lib/utils";
 import github from "../../lib/github";
 import actions from "../../redux/actions";
+import CONFIG from "../../config.json";
 
 function values(obj) {
   let result = [];
@@ -47,26 +47,26 @@ class Gist extends Component {
   async getGist(id) {
     let gist = {};
     try {
-      const { data } = await github.get(`/gists/${id}`, {
+      const { data } = await github.gists.get({
+        id,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
-        },
-        responseType: "text"
+        }
       });
       gist = data;
 
       for (let filename in gist.files) {
         if (gist.files.hasOwnProperty(filename)) {
           const file = gist.files[filename];
-          const res = await github.post(
-            "/markdown",
-            {
-              text: "```" + file.language + "\n" + file.content + "\n```",
-              mode: "markdown"
-            },
-            { responseType: "text" }
-          );
-          file.html = res.data;
+          const { data } = await github.misc.renderMarkdown({
+            text: "```" + file.language + "\n" + file.content + "\n```",
+            mode: "markdown",
+            client_id: CONFIG.github_client_id,
+            client_secret: CONFIG.github_client_secret
+          });
+          file.html = data;
         }
       }
 
@@ -80,97 +80,76 @@ class Gist extends Component {
   render() {
     const { id } = this.props.match.params;
     const gist = (this.props.GIST || {})[id] || {};
+
     return (
       <DocumentTitle title={[gist.description, "代码片段"]}>
         <Spin spinning={!Object.keys(gist).length}>
-          <div className="toolbar-container">
-            <div className="edit-this-page">
-              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                <ViewSourceCode file="pages/gist/index.js">
-                  <a href="javascript: void 0" target="_blank">
-                    <Icon
-                      type="code"
-                      style={{
-                        fontSize: "3rem"
-                      }}
-                    />
-                  </a>
-                </ViewSourceCode>
-              </Tooltip>
-            </div>
-            <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
-              {gist.description}
-              <Tooltip placement="topLeft" title="编辑此页">
-                <a
-                  href={`https://gist.github.com/${
-                    gist.owner ? gist.owner.login : ""
-                  }/${gist.id}/edit`}
-                  target="_blank"
-                >
-                  <Icon type="edit" />
-                </a>
-              </Tooltip>
-            </h2>
-            {(values(gist.files) || []).map(file => {
-              return (
-                <div
-                  key={file.filename}
-                  style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
-                >
-                  <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
-                    <span>
-                      <Icon type="file" />
-                      {file.filename}
-                    </span>
-                    <span
-                      style={{
-                        margin: "0 0.5rem"
-                      }}
-                    >
-                      <Download
-                        file={file.filename}
-                        content={file.content}
-                        style={{ display: "inline" }}
-                      >
-                        <a href="javascript:">
-                          <Icon type="download" />
-                          {prettyBytes(file.size || 0)}
-                        </a>
-                      </Download>
-                    </span>
-                    <span>
-                      <ReactClipboard
-                        style={{ cursor: "pointer" }}
-                        value={file.content}
-                        onSuccess={() => message.success("Copy Success!")}
-                        onError={() => message.error("Copy Fail!")}
-                      >
-                        <Icon type="copy" />Copy
-                      </ReactClipboard>
-                    </span>
-                  </h3>
-                  <div
-                    className="markdown-body"
+          <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
+            {gist.description}
+            <Tooltip placement="topLeft" title="编辑此页">
+              <a
+                href={`https://gist.github.com/${
+                  gist.owner ? gist.owner.login : ""
+                }/${gist.id}/edit`}
+                target="_blank"
+              >
+                <Icon type="edit" />
+              </a>
+            </Tooltip>
+          </h2>
+          {(values(gist.files) || []).map(file => {
+            return (
+              <div
+                key={file.filename}
+                style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
+              >
+                <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
+                  <span>
+                    <Icon type="file" />
+                    {file.filename}
+                  </span>
+                  <span
                     style={{
-                      fontSize: "1.6rem"
+                      margin: "0 0.5rem"
                     }}
-                    dangerouslySetInnerHTML={{
-                      __html: enableIframe(file.html)
-                    }}
-                  />
-                </div>
-              );
-            })}
+                  >
+                    <Download
+                      file={file.filename}
+                      content={file.content}
+                      style={{ display: "inline" }}
+                    >
+                      <a href="javascript:">
+                        <Icon type="download" />
+                        {prettyBytes(file.size || 0)}
+                      </a>
+                    </Download>
+                  </span>
+                  <span>
+                    <ReactClipboard
+                      style={{ cursor: "pointer" }}
+                      value={file.content}
+                      onSuccess={() => message.success("Copy Success!")}
+                      onError={() => message.error("Copy Fail!")}
+                    >
+                      <Icon type="copy" />Copy
+                    </ReactClipboard>
+                  </span>
+                </h3>
+                <div
+                  className="markdown-body"
+                  style={{
+                    fontSize: "1.6rem"
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: enableIframe(file.html)
+                  }}
+                />
+              </div>
+            );
+          })}
 
-            <hr className="hr" />
-
-            {this.props.match &&
-            this.props.match.params &&
-            this.props.match.id ? (
-              <Comments type="gist" gistId={this.props.match.params.id} />
-            ) : (
-              ""
-            )}
+          <div className="comment-box">
+            <Comments type="gist" gistId={this.props.match.params.id} />
           </div>
         </Spin>
       </DocumentTitle>

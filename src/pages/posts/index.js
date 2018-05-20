@@ -3,19 +3,15 @@
  */
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import { Spin, Pagination, Row, Col, Card, Tag, Icon, Tooltip } from "antd";
-import { NavLink, withRouter } from "react-router-dom";
+import { Pagination, Row, Col, Card, Tag, Icon } from "antd";
+import { withRouter } from "react-router-dom";
 import moment from "moment";
 import queryString from "query-string";
-import LazyLoad from "react-lazyload";
 
 import DocumentTitle from "../../component/document-title";
-import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
 import { firstUpperCase } from "../../lib/utils";
-
 import actions from "../../redux/actions";
-
 import CONFIG from "../../config.json";
 
 import "./index.css";
@@ -46,22 +42,24 @@ class Posts extends Component {
   async getPosts(page, per_page) {
     let posts = this.props.POSTS || [];
     try {
-      const res = await github.get(
-        `/repos/${CONFIG.owner}/${CONFIG.repo}/issues`,
-        {
-          params: { creator: CONFIG.owner, page, per_page, state: "open" }
-        }
-      );
-
-      const link = res.headers.link;
+      const { data, meta } = await github.issues.getForRepo({
+        owner: CONFIG.owner,
+        repo: CONFIG.repo,
+        creator: CONFIG.owner,
+        state: "open",
+        per_page,
+        page,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret
+      });
 
       /**
        * Pagination
        * # see detail https://developer.github.com/guides/traversing-with-pagination/
        */
-      if (link) {
-        const last = link.match(/<([^>]+)>(?=\;\s+rel="last")/);
-        const lastPage = last ? last[1].match(/page=(\d+)/)[1] : page;
+      if (meta.link) {
+        const last = meta.link.match(/<([^>]+)>(?=\;\s+rel="last")/);
+        const lastPage = last ? last[1].match(/\bpage=(\d+)/)[1] : page;
         this.setState({
           meta: {
             ...this.state.meta,
@@ -70,7 +68,7 @@ class Posts extends Component {
         });
       }
 
-      posts = res.data;
+      posts = data;
     } catch (err) {
       console.error(err);
     }
@@ -100,114 +98,92 @@ class Posts extends Component {
   render() {
     return (
       <DocumentTitle title={["博客文章"]}>
-        <Spin spinning={false}>
-          <div className={"toolbar-container"}>
-            <div className="edit-this-page">
-              <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-                <ViewSourceCode file="pages/posts/index.js">
-                  <a href="javascript: void 0" target="_blank">
-                    <Icon
-                      type="code"
-                      style={{
-                        fontSize: "3rem"
-                      }}
-                    />
-                  </a>
-                </ViewSourceCode>
-              </Tooltip>
-            </div>
-            <Row gutter={24}>
-              {this.props.POSTS.map((post, i) => {
-                return (
-                  <Col
-                    key={post.number + "/" + i}
-                    xs={24}
-                    sm={12}
-                    md={12}
-                    xxl={8}
+        <div style={{ backgroundColor: "#eaebec" }}>
+          <Row gutter={24}>
+            {this.props.POSTS.map((post, i) => {
+              return (
+                <Col key={post.number + "/" + i} xs={24}>
+                  <Card
+                    style={{
+                      marginBottom: "2rem",
+                      minHeight: "300px",
+                      overflow: "hidden"
+                    }}
+                    className="post-list"
+                    onClick={() => {
+                      this.props.history.push({
+                        ...this.props.location,
+                        pathname: `/post/${post.number}`
+                      });
+                    }}
                   >
-                    <Card
-                      style={{
-                        margin: "2rem 0",
-                        height: "300px",
-                        overflow: "hidden"
-                      }}
-                      className="post-list"
-                      onClick={() => {
-                        this.props.history.push({
-                          ...this.props.location,
-                          pathname: `/post/${post.number}`
-                        });
-                      }}
-                    >
-                      <div>
-                        <h3
-                          className="post-title"
-                          style={{
-                            wordBreak: "break-word",
-                            whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                            overflow: "hidden"
-                          }}
-                        >
-                          {post.title}
-                        </h3>
-                      </div>
-                      <div>
-                        <span>
-                          <Icon type="clock-circle-o" />{" "}
-                          {moment(post.created_at).format("YYYY-MM-DD")}{" "}
-                        </span>
-                        <span>
-                          <Icon type="message" /> {post.comments}{" "}
-                        </span>
-
-                        <span className="label-list">
-                          {(post.labels || []).map(label => {
-                            return (
-                              <Tag key={label.id} color={"#" + label.color}>
-                                {label.name}
-                              </Tag>
-                            );
-                          })}
-                        </span>
-                      </div>
-                      <div
+                    <div>
+                      <h3
+                        className="post-title"
                         style={{
-                          color: "#9E9E9E",
                           wordBreak: "break-word",
-                          // whiteSpace: "nowrap",
+                          whiteSpace: "nowrap",
                           textOverflow: "ellipsis",
-                          overflow: "hidden",
-                          clear: "both"
+                          overflow: "hidden"
                         }}
                       >
-                        {post.body.slice(0, 350)}...
-                      </div>
-                    </Card>
-                  </Col>
-                );
-              })}
-            </Row>
+                        #{post.number} {post.title}
+                      </h3>
+                    </div>
+                    <div>
+                      <span>
+                        <Icon type="clock-circle-o" />{" "}
+                        {moment(post.created_at).format("YYYY-MM-DD")}{" "}
+                      </span>
+                      <span>
+                        <Icon type="message" /> {post.comments}{" "}
+                      </span>
 
-            {this.state.meta.total > 0 ? (
-              <Row className="text-center">
-                <Col span={24} style={{ transition: "all 1s" }}>
-                  <Pagination
-                    onChange={page =>
-                      this.changePage(page, this.state.meta.per_page)
-                    }
-                    defaultCurrent={this.state.meta.page}
-                    defaultPageSize={this.state.meta.per_page}
-                    total={this.state.meta.total}
-                  />
+                      <span className="label-list">
+                        {(post.labels || []).map(label => {
+                          return (
+                            <Tag key={label.id} color={"#" + label.color}>
+                              {label.name}
+                            </Tag>
+                          );
+                        })}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        color: "#9E9E9E",
+                        wordBreak: "break-word",
+                        // whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        clear: "both"
+                      }}
+                    >
+                      {post.body.slice(0, 750)}...
+                    </div>
+                  </Card>
                 </Col>
-              </Row>
-            ) : (
-              ""
-            )}
-          </div>
-        </Spin>
+              );
+            })}
+          </Row>
+
+          {this.state.meta.total > 0 ? (
+            <Row className="text-center">
+              <Col span={24} style={{ transition: "all 1s" }}>
+                <Pagination
+                  onChange={page =>
+                    this.changePage(page, this.state.meta.per_page)
+                  }
+                  defaultCurrent={this.state.meta.page}
+                  defaultPageSize={this.state.meta.per_page}
+                  total={this.state.meta.total}
+                />
+              </Col>
+            </Row>
+          ) : (
+            ""
+          )}
+        </div>
       </DocumentTitle>
     );
   }

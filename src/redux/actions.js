@@ -2,12 +2,6 @@ const actions = store => ({
   updateOwner: (state, payload) => () => {
     return { OWNER: payload };
   },
-  setReadMe: (state, payload) => () => {
-    return { README: payload };
-  },
-  updateAboutMe: (state, payload) => () => {
-    return { ABOUTME: payload };
-  },
   updateShowCases: (state, payload) => () => {
     return { SHOW_CASES: payload };
   },
@@ -23,9 +17,6 @@ const actions = store => ({
   updateRepositories: (state, payload) => () => {
     return { REPOS: payload };
   },
-  updateAllRepositories: (state, payload) => () => {
-    return { ALL_REPOS: payload };
-  },
   updateArticles: (state, payload) => () => {
     return { POSTS: payload };
   },
@@ -37,32 +28,6 @@ const actions = store => ({
   },
   updateGist: (state, gistId, payload) => () => {
     return { GIST: { ...state.GIST, ...{ [gistId]: payload } } };
-  },
-  updateOrganizations: (state, payload) => () => {
-    return { ORGS: payload };
-  },
-  updateOrganizationRepo: (state, organizationId, payload) => () => {
-    return {
-      ORG_REPOS: { ...state.ORG_REPOS, ...{ [organizationId]: payload } }
-    };
-  },
-  updateRepoState: (state, repoName, payload) => () => {
-    return { REPO_STAT: { ...state.REPO_STAT, ...{ [repoName]: payload } } };
-  },
-  updateAllRepoLanguages: (state, payload) => () => {
-    return { ALL_REPO_LANGUAGES: payload };
-  },
-  updateRepoLanguages: (state, repoName, language) => () => {
-    const lang = state.ALL_REPO_LANGUAGES[repoName] || { language: 0 };
-    return {
-      REPO_LANGUAGES: {
-        ...state.REPO_LANGUAGES,
-        ...{ [repoName]: lang }
-      }
-    };
-  },
-  updateFollowings: (state, payload) => () => {
-    return { FOLLOWINGS: payload };
   },
   updateFollowers: (state, payload) => () => {
     return { FOLLOWERS: payload };

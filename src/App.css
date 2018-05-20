@@ -9,6 +9,24 @@ html {
   height: 100%;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+#root,
+#nav {
+  min-width: 1200px;
+}
+
 body {
   height: 100%;
   background-color: #e9ebec;
@@ -140,8 +158,90 @@ markdown style
 .markdown-body.post-content h5,
 .markdown-body.post-content h6 {
   border-left: 0.5rem solid #64ceaa;
-  margin-left: -2.4rem;
-  margin-right: -2.4rem;
   padding: 0.5rem 0 0.5rem 1.9rem;
   background-color: #f5f5f5;
+}
+
+#nav {
+  z-index: 999;
+  height: 100px;
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0px 2px 15px #303030;
+}
+
+#nav-logo {
+  font-size: 26px;
+  text-align: center;
+  background-color: #fff;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  vertical-align: middle;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  z-index: 999;
+  transform: translateX(-50%);
+  border: 1px solid #e5e5e5;
+  background-image: url(https://avatars1.githubusercontent.com/u/9758711?v=3);
+  background-repeat: no-repeat;
+  background-size: 140px;
+  background-position: center;
+  box-shadow: 0px 3px 5px #303030;
+}
+
+#content {
+  margin-top: 170px;
+}
+
+#left {
+  background-color: #fff;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+#right {
+  /* padding: 0 2rem; */
+}
+
+.widget {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+  background: #fff;
+  box-shadow: 0 -1px 10px #e5e5e5;
+}
+
+.widget h2 {
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.widget h2 a {
+  color: #303030;
+}
+
+.more {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.comment-box {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.comment-box {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e6e6e6;
 }

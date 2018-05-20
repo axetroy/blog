@@ -3,14 +3,13 @@
  */
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import { Menu, Icon, Tooltip } from "antd";
+import { Menu } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
 import Octicon from "react-octicon";
 
 import DocumentTitle from "../../component/document-title";
-import ViewSourceCode from "../../component/view-source-code";
 import github from "../../lib/github";
-import graphql from "../../lib/graphql";
+import CONFIG from "../../config.json";
 
 import actions from "../../redux/actions";
 
@@ -30,8 +29,12 @@ class Gists extends Component {
 
   async getAllGistList(page, per_page, gists = []) {
     try {
-      const { data } = await github.get("/users/axetroy/gists", {
-        params: { page, per_page }
+      const { data } = await github.gists.getForUser({
+        username: CONFIG.owner,
+        page,
+        per_page,
+        client_id: CONFIG.github_client_id,
+        client_secret: CONFIG.github_client_secret
       });
       gists = gists.concat(data || []);
       // 如果往后还有下一页，则继续请求，直到完为止
@@ -50,49 +53,11 @@ class Gists extends Component {
     return gists;
   }
 
-  async getList(endCursor) {
-    try {
-      const { data } = await graphql(`
-query{
-  viewer{
-    gists(first:${this.state.meta.per_page} ${
-        endCursor ? "after:" + '"' + endCursor + '"' : ""
-      }){
-      totalCount
-      nodes{
-        name description id
-      }
-      pageInfo{
-        hasNextPage endCursor
-      }
-    }
-  }
-}
-      `)();
-      const gists = data.data.viewer.gists.nodes;
-      this.props.setGists(gists);
-    } catch (err) {}
-  }
-
   render() {
     return (
       <DocumentTitle title={["代码片段"]}>
-        <div className="toolbar-container">
-          <div className="edit-this-page">
-            <Tooltip placement="topLeft" title="查看源码" arrowPointAtCenter>
-              <ViewSourceCode file="pages/gists/index.js">
-                <a href="javascript: void 0" target="_blank">
-                  <Icon
-                    type="code"
-                    style={{
-                      fontSize: "3rem"
-                    }}
-                  />
-                </a>
-              </ViewSourceCode>
-            </Tooltip>
-          </div>
-          <div style={{ padding: "0 2.4rem" }}>
+        <div>
+          <div style={{ padding: "2.4rem" }}>
             <h2 style={{ textAlign: "center" }}>代码片段</h2>
           </div>
           <Menu

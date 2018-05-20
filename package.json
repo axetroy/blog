@@ -13,16 +13,13 @@
     "open-source"
   ],
   "dependencies": {
-    "@axetroy/react-chart.js": "^0.2.0",
     "@axetroy/react-clipboard": "^2.0.0",
     "@axetroy/react-document-title": "^2.0.0",
     "@axetroy/react-download": "^1.1.1",
-    "@axetroy/react-github-calendar": "^2.0.0",
     "@axetroy/react-now": "^1.0.0",
+    "@octokit/rest": "^15.6.0",
     "antd": "^3.5.2",
-    "axios": "^0.18.0",
-    "axios-retry": "^3.0.2",
-    "chart.js": "2.5.0",
+    "babel-polyfill": "^6.26.0",
     "clipboard": "^1.7.1",
     "fastclick": "^1.0.6",
     "github-markdown-css": "^2.10.0",
@@ -47,7 +44,6 @@
   },
   "devDependencies": {
     "@axetroy/walk": "^0.1.0",
-    "@types/axios": "^0.14.0",
     "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.1.0",
@@ -103,7 +99,10 @@
     "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
     "generate": "./node_modules/.bin/all-contributors generate",
     "flow": "flow",
-    "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'"
+    "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",
+    "transform:rest:lib": "NODE_ENV=production npx babel-cli ./node_modules/@octokit/rest/lib -d ./node_modules//@octokit/rest/lib",
+    "transform:rest:index": "NODE_ENV=production npx babel-cli ./node_modules/@octokit/rest/index.js -o ./node_modules//@octokit/rest/index.js",
+    "transform": "npm run transform:rest:lib && npm run transform:rest:index"
   },
   "jest": {
     "collectCoverageFrom": [

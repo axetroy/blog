@@ -1,0 +1,14 @@
+ul.gist-list .gist-item {
+  padding: 0.8rem 0.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+ul.gist-list .gist-item:hover {
+  background-color: #e5e5e5;
+}
+
+ul.gist-list .gist-item a {
+  color: #303030;
+}
