@@ -85,7 +85,7 @@ class Gist extends Component {
       <DocumentTitle title={[gist.description, "代码片段"]}>
         <Spin spinning={!Object.keys(gist).length}>
           <div className="bg-white">
-            <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
+            <h2 style={{ textAlign: "center", padding: "1rem 0" }}>
               {gist.description}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
@@ -100,11 +100,14 @@ class Gist extends Component {
             </h2>
             {(values(gist.files) || []).map(file => {
               return (
-                <div
-                  key={file.filename}
-                  style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
-                >
-                  <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
+                <div key={file.filename}>
+                  <h3
+                    style={{
+                      backgroundColor: "#eaeaea",
+                      padding: "0.5rem",
+                      marginBottom: 0
+                    }}
+                  >
                     <span>
                       <Icon type="file" />
                       {file.filename}

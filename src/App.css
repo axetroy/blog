@@ -170,7 +170,7 @@ markdown style
   width: 100%;
   top: 0;
   left: 0;
-  border: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   box-shadow: 0px 2px 15px #303030;
 }
 
