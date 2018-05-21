@@ -58,9 +58,9 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <DocumentTitle title={[todo.title, "待办事项"]}>
-        <div style={{ padding: "0 1rem" }}>
+        <div className="bg-white" style={{ padding: "0 1rem" }}>
           {todo.title ? (
-            <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
+            <h2 style={{ textAlign: "center", padding: "1rem 0" }}>
               {todo.title}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a

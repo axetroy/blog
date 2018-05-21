@@ -84,72 +84,73 @@ class Gist extends Component {
     return (
       <DocumentTitle title={[gist.description, "代码片段"]}>
         <Spin spinning={!Object.keys(gist).length}>
-          <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
-            {gist.description}
-            <Tooltip placement="topLeft" title="编辑此页">
-              <a
-                href={`https://gist.github.com/${
-                  gist.owner ? gist.owner.login : ""
-                }/${gist.id}/edit`}
-                target="_blank"
-              >
-                <Icon type="edit" />
-              </a>
-            </Tooltip>
-          </h2>
-          {(values(gist.files) || []).map(file => {
-            return (
-              <div
-                key={file.filename}
-                style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
-              >
-                <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
-                  <span>
-                    <Icon type="file" />
-                    {file.filename}
-                  </span>
-                  <span
-                    style={{
-                      margin: "0 0.5rem"
-                    }}
-                  >
-                    <Download
-                      file={file.filename}
-                      content={file.content}
-                      style={{ display: "inline" }}
-                    >
-                      <a href="javascript:">
-                        <Icon type="download" />
-                        {prettyBytes(file.size || 0)}
-                      </a>
-                    </Download>
-                  </span>
-                  <span>
-                    <ReactClipboard
-                      style={{ cursor: "pointer" }}
-                      value={file.content}
-                      onSuccess={() => message.success("Copy Success!")}
-                      onError={() => message.error("Copy Fail!")}
-                    >
-                      <Icon type="copy" />Copy
-                    </ReactClipboard>
-                  </span>
-                </h3>
+          <div className="bg-white">
+            <h2 style={{ textAlign: "center", margin: "1rem 0" }}>
+              {gist.description}
+              <Tooltip placement="topLeft" title="编辑此页">
+                <a
+                  href={`https://gist.github.com/${
+                    gist.owner ? gist.owner.login : ""
+                  }/${gist.id}/edit`}
+                  target="_blank"
+                >
+                  <Icon type="edit" />
+                </a>
+              </Tooltip>
+            </h2>
+            {(values(gist.files) || []).map(file => {
+              return (
                 <div
-                  className="markdown-body"
-                  style={{
-                    fontSize: "1.6rem"
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: enableIframe(file.html)
-                  }}
-                />
-              </div>
-            );
-          })}
-
-          <div className="comment-box">
-            <Comments type="gist" gistId={this.props.match.params.id} />
+                  key={file.filename}
+                  style={{ border: "0.1rem solid #ececec", margin: "2rem 0" }}
+                >
+                  <h3 style={{ backgroundColor: "#eaeaea", padding: "0.5rem" }}>
+                    <span>
+                      <Icon type="file" />
+                      {file.filename}
+                    </span>
+                    <span
+                      style={{
+                        margin: "0 0.5rem"
+                      }}
+                    >
+                      <Download
+                        file={file.filename}
+                        content={file.content}
+                        style={{ display: "inline" }}
+                      >
+                        <a href="javascript:">
+                          <Icon type="download" />
+                          {prettyBytes(file.size || 0)}
+                        </a>
+                      </Download>
+                    </span>
+                    <span>
+                      <ReactClipboard
+                        style={{ cursor: "pointer" }}
+                        value={file.content}
+                        onSuccess={() => message.success("Copy Success!")}
+                        onError={() => message.error("Copy Fail!")}
+                      >
+                        <Icon type="copy" />Copy
+                      </ReactClipboard>
+                    </span>
+                  </h3>
+                  <div
+                    className="markdown-body"
+                    style={{
+                      fontSize: "1.6rem"
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: enableIframe(file.html)
+                    }}
+                  />
+                </div>
+              );
+            })}
+            <div className="comment-box">
+              <Comments type="gist" gistId={this.props.match.params.id} />
+            </div>
           </div>
         </Spin>
       </DocumentTitle>

@@ -167,7 +167,7 @@ class Post extends Component {
     return (
       <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
-          <div>
+          <div className="bg-white">
             <div
               style={{
                 position: "relative",

@@ -24,7 +24,7 @@ a {
 
 #root,
 #nav {
-  min-width: 1200px;
+  /* min-width: 1200px; */
 }
 
 body {
@@ -200,14 +200,8 @@ markdown style
   margin-top: 170px;
 }
 
-#left {
-  background-color: #fff;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-#right {
-  /* padding: 0 2rem; */
+.bg-white {
+  background-color: white;
 }
 
 .widget {
@@ -235,13 +229,6 @@ markdown style
 }
 
 .comment-box {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.comment-box {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  padding-top: 2rem;
+  padding: 2rem 1rem;
   border-top: 1px solid #e6e6e6;
 }

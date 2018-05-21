@@ -105,7 +105,7 @@ class TodoList extends Component {
     const todoList = this.props.TODOS || [];
     return (
       <DocumentTitle title={["待办事项"]}>
-        <div>
+        <div className="bg-white">
           <div style={{ padding: "2.4rem" }}>
             <h2 style={{ textAlign: "center" }}>待办事项</h2>
           </div>

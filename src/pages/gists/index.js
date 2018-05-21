@@ -56,7 +56,7 @@ class Gists extends Component {
   render() {
     return (
       <DocumentTitle title={["代码片段"]}>
-        <div>
+        <div className="bg-white">
           <div style={{ padding: "2.4rem" }}>
             <h2 style={{ textAlign: "center" }}>代码片段</h2>
           </div>

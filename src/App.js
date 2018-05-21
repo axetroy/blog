@@ -38,8 +38,11 @@ export default class App extends Component {
               <Row gutter={36}>
                 <Col
                   id="left"
-                  xs={{ span: 15, offset: 1 }}
-                  sm={{ span: 15, offset: 1 }}
+                  xs={{ span: 24, offset: 0 }}
+                  sm={{ span: 22, offset: 0 }}
+                  md={{ span: 22, offset: 1 }}
+                  lg={{ span: 15, offset: 1 }}
+                  xl={{ span: 14, offset: 2 }}
                   xxl={{ span: 13, offset: 3 }}
                 >
                   <Switch>
@@ -87,7 +90,15 @@ export default class App extends Component {
                     />
                   </Switch>
                 </Col>
-                <Col id="right" xs={{ span: 7 }} sm={{ span: 7 }} xxl={{ span: 5 }}>
+                <Col
+                  id="right"
+                  xs={{ span: 24, offset: 0 }}
+                  sm={{ span: 22, offset: 1 }}
+                  md={{ span: 22, offset: 1 }}
+                  lg={{ span: 7, offset: 0 }}
+                  xl={{ span: 6, offset: 0 }}
+                  xxl={{ span: 5, offset: 0 }}
+                >
                   <DynamicLoad promise={import("./widget/about")} />
                   <DynamicLoad promise={import("./widget/stat")} />
                   <DynamicLoad promise={import("./widget/todo")} />

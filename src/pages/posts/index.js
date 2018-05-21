@@ -168,7 +168,7 @@ class Posts extends Component {
           </Row>
 
           {this.state.meta.total > 0 ? (
-            <Row className="text-center">
+            <Row className="text-center" style={{ marginBottom: "2rem" }}>
               <Col span={24} style={{ transition: "all 1s" }}>
                 <Pagination
                   onChange={page =>
