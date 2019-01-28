@@ -58,12 +58,13 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <DocumentTitle title={[todo.title, "待办事项"]}>
-        <div className="bg-white" style={{ padding: "0 1rem" }}>
+        <div className="bg-white" style={{ padding: "0 1rem", marginBottom: 20 }}>
           {todo.title ? (
             <h2 style={{ textAlign: "center", padding: "1rem 0" }}>
               {todo.title}
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
+                  rel="noopener noreferrer"
                   href={`https://github.com/${CONFIG.owner}/${
                     CONFIG.todo_repo
                   }/issues/${todo.number}`}

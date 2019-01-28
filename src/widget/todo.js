@@ -38,7 +38,7 @@ class TodoList extends Component {
   }
 
   async getAllTodoList(page, per_page, todoList = []) {
-    const { data } = await github.issues.getForRepo({
+    const { data } = await github.issues.listForRepo({
       owner: CONFIG.owner,
       repo: CONFIG.todo_repo,
       filter: "created",
@@ -138,8 +138,8 @@ class TodoList extends Component {
             }
 
             return (
-              <li className={"todo-item" + " todo-" + icon} key={todo.title}>
-                <NavLink exact={true} to={`/todo/${todo.number}`}>
+              <li className={`todo-item todo-${icon}`} key={todo.title}>
+                <NavLink title={statusText} status={status} exact={true} to={`/todo/${todo.number}`}>
                   {todo.title}
                 </NavLink>
               </li>

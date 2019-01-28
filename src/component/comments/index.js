@@ -3,17 +3,11 @@
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { lazyload } from "react-lazyload";
 import moment from "moment";
 
 import github from "../../lib/github";
 import CONFIG from "../../config.json";
 
-@lazyload({
-  height: 200,
-  offset: 100,
-  once: true
-})
 class Comments extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
@@ -83,7 +77,7 @@ class Comments extends Component {
   async getIssuesComments(owner, repo, number) {
     let comments = [];
     try {
-      const { data } = await github.issues.getComments({
+      const { data } = await github.issues.listComments({
         owner,
         repo,
         number,
@@ -102,8 +96,9 @@ class Comments extends Component {
 
   async getGistComments(gist_id) {
     let comments = [];
+    console.log('获取评论ID', gist_id)
     try {
-      const { data } = await github.gists.getComments({
+      const { data } = await github.gists.listComments({
         gist_id,
         client_id: CONFIG.github_client_id,
         client_secret: CONFIG.github_client_secret,
@@ -126,14 +121,17 @@ class Comments extends Component {
       <div>
         <h3>
           大牛们的评论:
+          {/* eslint-disable-next-line */}
           <a
+            rel="noopener noreferrer"
             target="_blank"
             href={
               type === "issues"
                 ? `https://github.com/${owner}/${repo}/issues/${number}`
                 : type === "gist"
                   ? `https://gist.github.com/${gistId}`
-                  : "javascript:void 0"
+                  // eslint-disable-next-line
+                  : "javascript:void 0" 
             }
             style={{
               float: "right"
@@ -175,8 +173,10 @@ class Comments extends Component {
                       color: "#586069"
                     }}
                   >
+                    {/* eslint-disable-next-line */}
                     <a
                       target="_blank"
+                      rel="noopener noreferrer"
                       href={`https://github.com/${comment.user.login}`}
                     >
                       {comment.user.login}

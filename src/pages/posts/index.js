@@ -10,7 +10,6 @@ import queryString from "query-string";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
-import { firstUpperCase } from "../../lib/utils";
 import actions from "../../redux/actions";
 import CONFIG from "../../config.json";
 
@@ -42,23 +41,23 @@ class Posts extends Component {
   async getPosts(page, per_page) {
     let posts = this.props.POSTS || [];
     try {
-      const { data, meta } = await github.issues.getForRepo({
+      const { data, headers } = await github.issues.listForRepo({
         owner: CONFIG.owner,
         repo: CONFIG.repo,
         creator: CONFIG.owner,
         state: "open",
         per_page,
-        page,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret
+        page
       });
+
+      const link = headers.link
 
       /**
        * Pagination
        * # see detail https://developer.github.com/guides/traversing-with-pagination/
        */
-      if (meta.link) {
-        const last = meta.link.match(/<([^>]+)>(?=\;\s+rel="last")/);
+      if (link) {
+        const last = link.match(/<([^>]+)>(?=;\s+rel="last")/);
         const lastPage = last ? last[1].match(/\bpage=(\d+)/)[1] : page;
         this.setState({
           meta: {
@@ -75,7 +74,7 @@ class Posts extends Component {
 
     posts.forEach(post => {
       // 获取第一张图片作为缩略图
-      let match = /!\[[^\]]+\]\(([^\)]+)\)/im.exec(post.body);
+      let match = /!\[[^\]]+\]\(([^)]+)\)/im.exec(post.body);
       if (match && match[1]) {
         post.thumbnails = match[1];
       }

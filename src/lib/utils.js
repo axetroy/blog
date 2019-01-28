@@ -41,10 +41,18 @@ export function diffTime(time1) {
   };
 }
 
+/**
+ * 开启解析iframe
+ * @param {*} html 
+ */
 export function enableIframe(html = "") {
-  return html.replace(/\&lt;/g, "<").replace(/\&gt;/g, ">");
+  return html.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 }
 
+/**
+ * 解析案例展示
+ * @param {*} d 
+ */
 export function parseShowcase(d) {
   const body = d.body;
 
@@ -89,7 +97,7 @@ export function parseShowcase(d) {
   });
 
   const _gallery = gallery.map(line => {
-    const match = line.trim().match(/\[([^\]]+)\]\(([^\)]+)\)/im);
+    const match = line.trim().match(/\[([^\]]+)\]\(([^)]+)\)/im);
     if (match) {
       const name = match[1];
       const url = match[2];

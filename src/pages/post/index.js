@@ -51,7 +51,7 @@ class Post extends Component {
     });
 
     import("qrcode.react").then(module => {
-      this.setState({ QRCode: module });
+      this.setState({ QRCode: module.default });
     });
     if (number) {
       await this.getPost(number);
@@ -151,7 +151,7 @@ class Post extends Component {
         {shareMenu.map(menu => {
           return (
             <Menu.Item key={menu.title}>
-              <a target="_blank" href={menu.url}>
+              <a rel="noopener noreferrer" target="_blank" href={menu.url}>
                 {menu.title}
               </a>
             </Menu.Item>
@@ -167,7 +167,7 @@ class Post extends Component {
     return (
       <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
-          <div className="bg-white">
+          <div className="bg-white" style={{marginBottom: 20}}>
             <div
               style={{
                 position: "relative",
@@ -221,7 +221,7 @@ class Post extends Component {
                     alt=""
                     style={{
                       width: "4.4rem",
-                      height: "100%",
+                      height: "4.4rem",
                       borderRadius: "50%",
                       verticalAlign: "middle"
                     }}

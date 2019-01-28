@@ -32,7 +32,7 @@ class DynamicLoad extends Component {
       promise
         .then(module => {
           // 防止多个promise请求组件, 不知道应该渲染哪个组件
-          let DynamicComponent = module.default;
+          const DynamicComponent = module.default;
           if (id === this.__id__) {
             this.setState({ component: <DynamicComponent />, loading: false });
           }

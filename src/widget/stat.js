@@ -40,9 +40,14 @@ const eventMap = {
         return (
           <span>
             <span className="green">
-              创建<Octicon name="issue-closed" mega />
+              创建
+              <Octicon name="issue-closed" mega />
             </span>
-            <a href={issueUrl(name, issue.number)} target="_blink">
+            <a
+              href={issueUrl(name, issue.number)}
+              target="_blink"
+              rel="noopener noreferrer"
+            >
               {name}#{issue.number}
             </a>
           </span>
@@ -57,9 +62,14 @@ const eventMap = {
         return (
           <span>
             <span className="red">
-              关闭<Octicon name="issue-closed" mega />
+              关闭
+              <Octicon name="issue-closed" mega />
             </span>
-            <a href={issueUrl(name, issue.number)} target="_blink">
+            <a
+              href={issueUrl(name, issue.number)}
+              target="_blink"
+              rel="noopener noreferrer"
+            >
               {name}#{issue.number}
             </a>
           </span>
@@ -72,13 +82,17 @@ const eventMap = {
   },
   IssueCommentEvent(event) {
     const { name } = event.repo;
-    const { action, issue, comment } = event.payload;
+    const { action, issue } = event.payload;
     switch (action) {
       case "created":
         return (
           <span>
             在
-            <a href={issueUrl(name, issue.number)} target="_blank">
+            <a
+              href={issueUrl(name, issue.number)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {name}(#{issue.number})
             </a>
             中留下评论
@@ -88,7 +102,11 @@ const eventMap = {
         return (
           <span>
             更新
-            <a href={issueUrl(name, issue.number)} target="_blank">
+            <a
+              href={issueUrl(name, issue.number)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {name}(#{issue.number})
             </a>
             中的评论
@@ -98,22 +116,29 @@ const eventMap = {
         return (
           <span>
             删除
-            <a href={issueUrl(name, issue.number)} target="_blank">
+            <a
+              href={issueUrl(name, issue.number)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {name}(#{issue.number})
             </a>
             中的评论
           </span>
         );
+      default:
+      //
     }
   },
   CreateEvent(event) {
-    const { name, url } = event.repo || {};
-    const { ref_type, ref, master_branch, description } = event.payload;
+    const { name } = event.repo || {};
+    const { ref_type, ref } = event.payload;
     switch (ref_type) {
       case "tag":
         return (
           <span>
-            发布<a href={repoUrl(name)} target="_blink">
+            发布
+            <a href={repoUrl(name)} target="_blink">
               {name}
             </a>
             <Octicon name="tag" mega />
@@ -123,7 +148,8 @@ const eventMap = {
       case "repository":
         return (
           <span>
-            创建<Octicon name="repo" mega />
+            创建
+            <Octicon name="repo" mega />
             <a href={repoUrl(name)} target="_blink">
               {name}
             </a>
@@ -132,24 +158,29 @@ const eventMap = {
       case "branch":
         return (
           <span>
-            创建<a href={repoUrl(name)} target="_blank">
+            创建
+            <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
               {name}
             </a>
             <Octicon name="git-branch" mega />
             {ref}
           </span>
         );
+      default:
+      //
     }
   },
   PushEvent(event) {
-    const { name, url } = event.repo || {};
+    const { name } = event.repo || {};
     const { size, ref } = event.payload;
     const branch = ref.replace("refs/heads/", "");
     return (
       <span>
-        提交 <b>{size}</b> 个commit到<a
+        提交 <b>{size}</b> 个commit到
+        <a
           href={repoUrl(name) + "/tree/" + branch}
           target="_blink"
+          rel="noopener noreferrer"
         >
           {name}
           <Octicon name="git-branch" mega />
@@ -159,31 +190,37 @@ const eventMap = {
     );
   },
   WatchEvent(event) {
-    const { name, url } = event.repo || {};
+    const { name } = event.repo || {};
     const { action } = event.payload;
     switch (action) {
       case "started":
         return (
           <span>
-            点赞<Octicon name="thumbsup" mega />
-            <a href={repoUrl(name)} target="_blank">
+            点赞
+            <Octicon name="thumbsup" mega />
+            <a href={repoUrl(name)} rel="noopener noreferrer" target="_blank">
               {name}
             </a>
           </span>
         );
+      default:
     }
   },
   ForkEvent(event) {
-    const { name, url } = event.repo || {};
+    const { name } = event.repo || {};
     const { forkee } = event.payload;
     return (
       <span>
         <Octicon name="repo-forked" mega />
-        <a href={repoUrl(name)} target="_blank">
+        <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
           {name}
         </a>{" "}
         派生{" "}
-        <a href={repoUrl(forkee.full_name)} target="_blank">
+        <a
+          href={repoUrl(forkee.full_name)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {forkee.full_name}
         </a>
       </span>
@@ -196,8 +233,13 @@ const eventMap = {
       case "opened":
         return (
           <span>
-            发起PR请求<Octicon name="git-pull-request" mega />
-            <a href={repoUrl(name) + "/pull/" + number} target="_blank">
+            发起PR请求
+            <Octicon name="git-pull-request" mega />
+            <a
+              href={repoUrl(name) + "/pull/" + number}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {name}#{number}
             </a>
           </span>
@@ -205,14 +247,21 @@ const eventMap = {
       case "closed":
         return (
           <span>
-            关闭PR请求<Octicon name="git-pull-request" mega />
-            <a href={repoUrl(name) + "/pull/" + number} target="_blank">
+            关闭PR请求
+            <Octicon name="git-pull-request" mega />
+            <a
+              href={repoUrl(name) + "/pull/" + number}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {name}#{number}
             </a>
           </span>
         );
       case "reopened":
         return;
+      default:
+      //
     }
   }
 };
@@ -229,7 +278,7 @@ class Stat extends Component {
     this.getAllFollower().then(followers => {
       this.props.updateFollowers(followers);
     });
-    const res = await github.activity.getEventsForUserPublic({
+    const res = await github.activity.listPublicEventsForUser({
       username: CONFIG.owner,
       per_page: 20,
       page: 0,
@@ -257,7 +306,7 @@ class Stat extends Component {
   }
 
   async getAllRepo(page = 1, per_page = 100) {
-    const { data } = await github.repos.getForUser({
+    const { data } = await github.repos.listForUser({
       username: CONFIG.owner,
       page,
       per_page,
@@ -272,7 +321,7 @@ class Stat extends Component {
   }
 
   async getAllFollower(page = 1, per_page = 100) {
-    const { data } = await github.users.getFollowersForUser({
+    const { data } = await github.users.listFollowersForUser({
       username: CONFIG.owner,
       page,
       per_page,
@@ -295,15 +344,16 @@ class Stat extends Component {
       <div className="widget widget-stat">
         <div>
           <h2>
-            <a href={`https://github.com/${CONFIG.owner}`} target="_blank">
-              <Octicon name="mark-github" mega />Github
+            <a href={`https://github.com/${CONFIG.owner}`} target="_blank" rel="noopener noreferrer">
+              <Octicon name="mark-github" mega />
+              Github
             </a>
           </h2>
         </div>
         <div className="stat-meta">
           <p>
-          开源 <b>{this.props.REPOS.filter(v => !v.fork).length}</b> 个原创项目
-            , 有 <b>{this.props.FOLLOWERS.length}</b> 个人关注我
+            开源 <b>{this.props.REPOS.filter(v => !v.fork).length}</b>{" "}
+            个原创项目 , 有 <b>{this.props.FOLLOWERS.length}</b> 个人关注我
           </p>
           <p>
             收获{" "}
@@ -322,9 +372,13 @@ class Stat extends Component {
             </b>{" "}
             个 Fork.
           </p>
-          <p>累计参与贡献过 <b>233</b> 个开源项目, 其中有著名的 webpack/webpack, npm/npm, sequelize/sequelize 等</p>
           <p>
-            最近活动：{this.state.events.length && this.state.latestEvent
+            累计参与贡献过 <b>233</b> 个开源项目, 其中有著名的 webpack/webpack,
+            npm/npm, sequelize/sequelize 等
+          </p>
+          <p>
+            最近活动：
+            {this.state.events.length && this.state.latestEvent
               ? moment(this.state.latestEvent.created_at).fromNow()
               : ""}
           </p>

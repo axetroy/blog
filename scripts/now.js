@@ -17,9 +17,9 @@ const data = raw
   .filter(v => v)
   .map(v => v.trim())
   .map(v => {
-    let arr = v.split('=');
-    let key = arr.shift();
-    let value = arr.join('=');
+    const arr = v.split('=');
+    const key = arr.shift();
+    const value = arr.join('=');
 
     if (KEY === key) {
       return '';

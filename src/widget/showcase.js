@@ -23,7 +23,6 @@ class Showcase extends Component {
     showcaseList: []
   };
   componentDidMount() {
-    const { page, per_page } = this.state.meta;
     this.getShowcase();
   }
 
@@ -32,7 +31,7 @@ class Showcase extends Component {
   }
 
   async getShowcase(page = 1, per_page = 100) {
-    const { data } = await github.issues.getForRepo({
+    const { data } = await github.issues.listForRepo({
       owner: CONFIG.owner,
       repo: "showcase",
       filter: "created",

@@ -8,6 +8,7 @@
 
 .label-list {
   float: right;
+  margin-bottom: 5px;
 }
 
 .label-list::after {
