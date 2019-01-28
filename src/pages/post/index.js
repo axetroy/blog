@@ -248,7 +248,7 @@ class Post extends Component {
                   <br />
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
-                    {moment(new Date(post.created_at)).fromNow()}
+                    published {moment(new Date(post.created_at)).fromNow()}
                   </span>
                   <br />
                   <span>
@@ -258,7 +258,7 @@ class Post extends Component {
                         marginRight: "0.5rem"
                       }}
                     />
-                    {post.comments}
+                    {post.comments} comments
                   </span>
                 </div>
                 <div
