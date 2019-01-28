@@ -96,7 +96,6 @@ class Comments extends Component {
 
   async getGistComments(gist_id) {
     let comments = [];
-    console.log('获取评论ID', gist_id)
     try {
       const { data } = await github.gists.listComments({
         gist_id,
@@ -127,9 +126,9 @@ class Comments extends Component {
             target="_blank"
             href={
               type === "issues"
-                ? `https://github.com/${owner}/${repo}/issues/${number}`
+                ? `https://github.com/${owner}/${repo}/issues/${number}#new_comment_field`
                 : type === "gist"
-                  ? `https://gist.github.com/${gistId}`
+                  ? `https://gist.github.com/${gistId}#new_comment_field`
                   // eslint-disable-next-line
                   : "javascript:void 0" 
             }
