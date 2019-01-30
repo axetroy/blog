@@ -388,9 +388,9 @@ class Stat extends Component {
             </b>{" "}
             个 Fork.
           </p>
-          <p>
+          {/* <p>
             累计参与贡献过 <b>233</b> 个开源项目
-          </p>
+          </p> */}
           <p>
             最近活动：
             <b>
