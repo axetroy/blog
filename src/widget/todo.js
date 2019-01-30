@@ -96,7 +96,8 @@ class TodoList extends Component {
         <div>
           <h2>
             <NavLink to="/todo">
-              <Icon type="exception" />Todo
+              <Icon className="middle" type="exception" />
+              <span className="middle">Todo</span>
             </NavLink>
           </h2>
         </div>

@@ -88,7 +88,8 @@ class Gists extends Component {
         <div>
           <h2>
             <NavLink to="/gist">
-              <Octicon name="gist" mega />Gist
+              <Octicon name="gist" mega />
+              <span className="middle">Gist</span>
             </NavLink>
           </h2>
         </div>

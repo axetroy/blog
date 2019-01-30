@@ -233,7 +233,7 @@ const eventMap = {
       case "opened":
         return (
           <span>
-            发起PR请求
+            发起PR
             <Octicon name="git-pull-request" mega />
             <a
               href={repoUrl(name) + "/pull/" + number}
@@ -247,7 +247,7 @@ const eventMap = {
       case "closed":
         return (
           <span>
-            关闭PR请求
+            关闭PR
             <Octicon name="git-pull-request" mega />
             <a
               href={repoUrl(name) + "/pull/" + number}
@@ -259,7 +259,19 @@ const eventMap = {
           </span>
         );
       case "reopened":
-        return;
+        return (
+          <span>
+            重新开启PR
+            <Octicon name="git-pull-request" mega />
+            <a
+              href={repoUrl(name) + "/pull/" + number}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {name}#{number}
+            </a>
+          </span>
+        );
       default:
       //
     }
@@ -344,9 +356,13 @@ class Stat extends Component {
       <div className="widget widget-stat">
         <div>
           <h2>
-            <a href={`https://github.com/${CONFIG.owner}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`https://github.com/${CONFIG.owner}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Octicon name="mark-github" mega />
-              Github
+              <span className="middle">Github</span>
             </a>
           </h2>
         </div>
@@ -373,14 +389,15 @@ class Stat extends Component {
             个 Fork.
           </p>
           <p>
-            累计参与贡献过 <b>233</b> 个开源项目, 其中有著名的 webpack/webpack,
-            npm/npm, sequelize/sequelize 等
+            累计参与贡献过 <b>233</b> 个开源项目
           </p>
           <p>
             最近活动：
-            {this.state.events.length && this.state.latestEvent
-              ? moment(this.state.latestEvent.created_at).fromNow()
-              : ""}
+            <b>
+              {this.state.events.length && this.state.latestEvent
+                ? moment(this.state.latestEvent.created_at).fromNow()
+                : ""}
+            </b>
           </p>
           <ul className="event-list">
             {this.state.events

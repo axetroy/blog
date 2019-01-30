@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 @import "~normalize.css";
 @import "~github-markdown-css";
 
@@ -232,4 +232,8 @@ markdown style
 .comment-box {
   padding: 2rem 1rem;
   border-top: 1px solid #e6e6e6;
+}
+
+.mega-octicon, .middle {
+  vertical-align: middle;
 }
