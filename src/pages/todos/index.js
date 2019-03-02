@@ -51,7 +51,7 @@ class TodoList extends Component {
       const { data } = await github.issues.listForRepo({
         owner: CONFIG.owner,
         repo: CONFIG.todo_repo,
-        filter: "created",
+        creator: CONFIG.owner,
         state: "all",
         per_page,
         page,
