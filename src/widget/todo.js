@@ -6,7 +6,7 @@ import { connect } from "redux-zero/react";
 import { Icon, Button } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
 
-import github from "../lib/github";
+import { github } from "../lib/github";
 import CONFIG from "../config.json";
 import actions from "../redux/actions";
 
@@ -41,7 +41,7 @@ class TodoList extends Component {
     const { data } = await github.issues.listForRepo({
       owner: CONFIG.owner,
       repo: CONFIG.todo_repo,
-      filter: "created",
+      creator: CONFIG.owner,
       state: "all",
       per_page,
       page,
@@ -139,7 +139,7 @@ class TodoList extends Component {
             }
 
             return (
-              <li className={`todo-item todo-${icon}`} key={todo.title}>
+              <li className={`todo-item todo-${icon}`} key={todo.number}>
                 <NavLink title={statusText} status={status} exact={true} to={`/todo/${todo.number}`}>
                   {todo.title}
                 </NavLink>

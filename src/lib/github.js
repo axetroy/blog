@@ -3,8 +3,8 @@
  */
 
 import CONFIG from "../config.json";
-const octokit = require("@octokit/rest");
-const github = octokit({
+import Octokit from  "@octokit/rest"
+export const github = new Octokit({
   params: {
     client_id: CONFIG.github_client_id,
     client_secret: CONFIG.github_client_secret

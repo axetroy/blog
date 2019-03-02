@@ -40,7 +40,7 @@ class Showcase extends Component {
     const { data } = await github.issues.listForRepo({
       owner: CONFIG.owner,
       repo: "showcase",
-      filter: "created",
+      creator: CONFIG.owner,
       per_page,
       page,
       client_id: CONFIG.github_client_id,
