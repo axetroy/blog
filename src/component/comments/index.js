@@ -3,7 +3,8 @@
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
+import { distanceInWordsToNow } from "date-fns";
+import chinese from "date-fns/locale/zh_cn";
 
 import github from "../../lib/github";
 import CONFIG from "../../config.json";
@@ -128,9 +129,9 @@ class Comments extends Component {
               type === "issues"
                 ? `https://github.com/${owner}/${repo}/issues/${number}#new_comment_field`
                 : type === "gist"
-                  ? `https://gist.github.com/${gistId}#new_comment_field`
-                  // eslint-disable-next-line
-                  : "javascript:void 0" 
+                ? `https://gist.github.com/${gistId}#new_comment_field`
+                : // eslint-disable-next-line
+                  "javascript:void 0"
             }
             style={{
               float: "right"
@@ -184,9 +185,17 @@ class Comments extends Component {
                   &nbsp;&nbsp;
                   <span>
                     {" "}
-                    {`commented at ${moment(comment.created_at).fromNow()}`}
-                    &nbsp;&nbsp;
-                    {`updated at ${moment(comment.updated_at).fromNow()}`}
+                    {`评论于 ${distanceInWordsToNow(comment.created_at, {
+                      locale: chinese
+                    })}前`}
+                    {comment.created_at !== comment.updated_at
+                      ? `&nbsp;&nbsp;更新于 ${distanceInWordsToNow(
+                          comment.updated_at,
+                          {
+                            locale: chinese
+                          }
+                        )}前`
+                      : ""}
                   </span>
                 </div>
                 <div

@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import { Steps, Icon, Tooltip, Tag } from "antd";
-import moment from "moment";
+import { format } from "date-fns";
 
 import DocumentTitle from "../../component/document-title";
 import Comments from "../../component/comments";
@@ -58,7 +58,10 @@ class Todo extends Component {
     const todo = this.props.TODO[number] || {};
     return (
       <DocumentTitle title={[todo.title, "待办事项"]}>
-        <div className="bg-white" style={{ padding: "0 1rem", marginBottom: 20 }}>
+        <div
+          className="bg-white"
+          style={{ padding: "0 1rem", marginBottom: 20 }}
+        >
           {todo.title ? (
             <h2 style={{ textAlign: "center", padding: "1rem 0" }}>
               {todo.title}
@@ -85,9 +88,7 @@ class Todo extends Component {
             <Steps.Step
               status="finish"
               title="创建计划"
-              description={`${moment(new Date(todo.created_at)).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}`}
+              description={`${format(todo.created_at, "YYYY-MM-DD HH:mm:ss")}`}
               icon={<Icon type="book" />}
             />
             <Steps.Step
@@ -114,9 +115,7 @@ class Todo extends Component {
               title="关闭计划"
               description={
                 todo.closed_at
-                  ? `${moment(new Date(todo.closed_at)).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    )}`
+                  ? `${format(todo.closed_at, "YYYY-MM-DD HH:mm:ss")}`
                   : ""
               }
               icon={<Icon type="check" />}
@@ -154,6 +153,7 @@ class Todo extends Component {
     );
   }
 }
-export default connect(state => ({ TODO: state.TODO }), actions)(
-  withRouter(Todo)
-);
+export default connect(
+  state => ({ TODO: state.TODO }),
+  actions
+)(withRouter(Todo));

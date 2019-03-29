@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { Tag, Icon } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
-import moment from "moment";
+import { format } from "date-fns";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
@@ -183,8 +183,9 @@ class TodoList extends Component {
                       </h2>
                       <div style={{ margin: "1rem 0" }}>
                         <span>
-                          <Icon type="clock-circle-o" />{" "}
-                          {moment(todo.created_at).format("YYYY-MM-DD")}{" "}
+                          <Icon type="clock-circle-o" />
+                          &nbsp;
+                          {format(todo.created_at, "YYYY-MM-DD")}&nbsp;
                         </span>
                         <span style={{ float: "right" }}>
                           {todo.labels.map(label => {

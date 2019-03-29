@@ -3,7 +3,8 @@
  */
 import React, { Component } from "react";
 import Now from "@axetroy/react-now";
-import moment from "moment";
+import { distanceInWordsToNow } from "date-fns";
+import chinese from "date-fns/locale/zh_cn";
 import { Row, Col } from "antd";
 
 import { diffTime } from "../../lib/utils";
@@ -144,8 +145,11 @@ class Footer extends Component {
                   `}
                         </p>
                         <p>
-                          最近更新&nbsp;
-                          {moment(LAST_UPDATE_TIME).fromNow()}
+                          最近更新于&nbsp;
+                          {distanceInWordsToNow(LAST_UPDATE_TIME, {
+                            locale: chinese
+                          })}
+                          前
                         </p>
                       </div>
                     );

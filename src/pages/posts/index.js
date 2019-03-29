@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { Pagination, Row, Col, Card, Tag, Icon } from "antd";
 import { withRouter } from "react-router-dom";
-import moment from "moment";
+import { format } from "date-fns";
 import queryString from "query-string";
 
 import DocumentTitle from "../../component/document-title";
@@ -50,7 +50,7 @@ class Posts extends Component {
         page
       });
 
-      const link = headers.link
+      const link = headers.link;
 
       /**
        * Pagination
@@ -132,7 +132,7 @@ class Posts extends Component {
                     <div>
                       <span>
                         <Icon type="clock-circle-o" />{" "}
-                        {moment(post.created_at).format("YYYY-MM-DD")}{" "}
+                        {format(post.created_at, "YYYY-MM-DD")}&nbsp;
                       </span>
                       <span>
                         <Icon type="message" /> {post.comments}{" "}

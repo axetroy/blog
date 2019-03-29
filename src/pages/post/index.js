@@ -5,7 +5,8 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
-import moment from "moment";
+import { distanceInWordsToNow } from "date-fns";
+import chinese from "date-fns/locale/zh_cn";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
@@ -167,7 +168,7 @@ class Post extends Component {
     return (
       <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
-          <div className="bg-white" style={{marginBottom: 20}}>
+          <div className="bg-white" style={{ marginBottom: 20 }}>
             <div
               style={{
                 position: "relative",
@@ -248,7 +249,9 @@ class Post extends Component {
                   <br />
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
-                    published {moment(new Date(post.created_at)).fromNow()}
+                    发布于&nbsp;
+                    {distanceInWordsToNow(post.created_at, { locale: chinese })}
+                    前
                   </span>
                   <br />
                   <span>
@@ -258,7 +261,9 @@ class Post extends Component {
                         marginRight: "0.5rem"
                       }}
                     />
-                    {post.comments} comments
+                    {post.comments
+                      ? `已有 ${post.comments} 条留言`
+                      : "还未有人留言哦"}
                   </span>
                 </div>
                 <div
@@ -356,6 +361,7 @@ class Post extends Component {
     );
   }
 }
-export default connect(state => ({ POST: state.POST }), actions)(
-  withRouter(Post)
-);
+export default connect(
+  state => ({ POST: state.POST }),
+  actions
+)(withRouter(Post));
