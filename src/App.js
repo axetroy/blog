@@ -39,7 +39,7 @@ export default class App extends Component {
                 <Col
                   id="left"
                   xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 22, offset: 0 }}
+                  sm={{ span: 22, offset: 1 }}
                   md={{ span: 22, offset: 1 }}
                   lg={{ span: 15, offset: 1 }}
                   xl={{ span: 14, offset: 2 }}
