@@ -48,6 +48,15 @@ class Footer extends Component {
                   网站源码
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://github.com/axetroy?utf8=%E2%9C%93&tab=repositories&q=vscode&type=source&language="
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                >
+                  我的 vscode 扩展
+                </a>
+              </li>
             </ul>
           </Col>
           <Col
