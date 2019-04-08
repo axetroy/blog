@@ -8641,10 +8641,10 @@ redux-zero-persist@0.2.6:
   resolved "https://registry.yarnpkg.com/redux-zero-persist/-/redux-zero-persist-0.2.6.tgz#9f43d5c344402f8167447afa8cbbefceeeba6bf3"
   integrity sha512-5pPhFFhmuK0qJ7bSPqQwnMdpQnW/ursczqVPxcIzDjtNrHgBXMBISF3Xt8lLWXFV6UJvWptZ1NPEt5AkaXZ/9Q==
 
-redux-zero@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/redux-zero/-/redux-zero-5.0.1.tgz#7959ebfb9c1a7f4fe16c3427dcabe63313aed626"
-  integrity sha512-J/efsxVsDWrLI7zuQKAkG8DadOpQ9VKQqGWcGrvIk4wa3L0t1pDMapau6fiFMpF5+iEV/8fiH8yOHFgvZZsS1g==
+redux-zero@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/redux-zero/-/redux-zero-5.0.2.tgz#ef1130fa6d2bb4252294cd1a03d7db2068a02c49"
+  integrity sha512-eofs+8ZjVj2oaOJtUh/duTgDSDP9gZ95wjO91VNcKyzYGXoIqSwOzCkPvQm6/IxP7Mp9vyMk5vceAgCoLnC3IQ==
 
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
