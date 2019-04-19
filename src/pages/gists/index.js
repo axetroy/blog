@@ -29,7 +29,7 @@ class Gists extends Component {
 
   async getAllGistList(page, per_page, gists = []) {
     try {
-      const { data } = await github.gists.getForUser({
+      const { data } = await github.gists.listPublicForUser({
         username: CONFIG.owner,
         page,
         per_page,

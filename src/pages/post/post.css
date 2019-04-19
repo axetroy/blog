@@ -21,14 +21,3 @@
 ．post-content img {
   max-width: 100%;
 }
-
-.post-meta {
-  transition: all 0.2s ease-in-out;
-  border-bottom: 1px solid transparent;
-}
-
-.post-meta:hover {
-  background-color: #fff !important;
-  color: #303030;
-  border-bottom: 1px dashed #e5e5e5;
-}

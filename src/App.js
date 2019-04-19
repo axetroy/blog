@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Route, Switch, NavLink } from "react-router-dom";
 import { Provider } from "redux-zero/react";
-import { Row, Col } from "antd";
+import { Row, Col, Menu, Icon } from "antd";
 
 import Footer from "./component/footer";
 import ClickMaterial from "./component/click-material";
@@ -30,9 +30,26 @@ export default class App extends Component {
             }}
           >
             <div id="nav">
-              <NavLink to="/">
-                <div id="nav-logo" />
-              </NavLink>
+              <Menu mode="horizontal">
+                <Menu.Item key="home">
+                  <NavLink to="/">
+                    <Icon type="home" />
+                    首页
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item key="todo">
+                  <NavLink to="/todo">
+                    <Icon type="check-circle" />
+                    待办事项
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item key="gist">
+                  <NavLink to="/gist">
+                    <Icon type="book" />
+                    代码片段
+                  </NavLink>
+                </Menu.Item>
+              </Menu>
             </div>
             <div id="content">
               <Row gutter={36}>

@@ -23,11 +23,6 @@ a {
   text-decoration: none;
 }
 
-#root,
-#nav {
-  /* min-width: 1200px; */
-}
-
 body {
   height: 100%;
   background-color: #e9ebec;
@@ -51,12 +46,18 @@ body {
   .hidden-sm {
     display: none !important;
   }
+  body #nav ul {
+    max-width: 90%;
+  }
 }
 
 /* md */
 @media (min-width: 992px) and (max-width: 1199px) {
   .hidden-md {
     display: none !important;
+  }
+  body #nav ul {
+    max-width: 90%;
   }
 }
 
@@ -165,40 +166,22 @@ markdown style
 
 #nav {
   z-index: 999;
-  height: 100px;
-  background-color: #fff;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: 0px 2px 15px #303030;
+  background: #fff;
+  border-bottom: 1px solid #d1d1d1;
 }
 
-#nav-logo {
-  font-size: 26px;
-  text-align: center;
-  background-color: #fff;
-  width: 140px;
-  height: 140px;
+#nav ul {
+  max-width: 1200px;
   margin: 0 auto;
-  vertical-align: middle;
-  border-radius: 50%;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  z-index: 999;
-  transform: translateX(-50%);
-  border: 1px solid #e5e5e5;
-  background-image: url(https://avatars1.githubusercontent.com/u/9758711?v=3);
-  background-repeat: no-repeat;
-  background-size: 140px;
-  background-position: center;
-  box-shadow: 0px 3px 5px #303030;
+  border-bottom: 0;
 }
 
 #content {
-  margin-top: 170px;
+  margin-top: 58px;
 }
 
 .bg-white {
@@ -231,9 +214,10 @@ markdown style
 
 .comment-box {
   padding: 2rem 1rem;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px dashed #e6e6e6;
 }
 
-.mega-octicon, .middle {
+.mega-octicon,
+.middle {
   vertical-align: middle;
 }
