@@ -103,7 +103,7 @@ export default class App extends Component {
                   <DynamicLoad promise={import("./widget/stat")} />
                   <DynamicLoad promise={import("./widget/todo")} />
                   <DynamicLoad promise={import("./widget/gist")} />
-                  <DynamicLoad promise={import("./widget/showcase")} />
+                  {/* <DynamicLoad promise={import("./widget/showcase")} /> */}
                 </Col>
               </Row>
             </div>

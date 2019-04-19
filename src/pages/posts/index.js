@@ -19,7 +19,7 @@ class Posts extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 15,
+      per_page: 6,
       total: 0
     }
   };
