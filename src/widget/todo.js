@@ -42,7 +42,7 @@ class TodoList extends Component {
       owner: CONFIG.owner,
       repo: CONFIG.todo_repo,
       creator: CONFIG.owner,
-      state: "all",
+      state: "open",
       per_page,
       page,
       client_id: CONFIG.github_client_id,
@@ -93,13 +93,13 @@ class TodoList extends Component {
   render() {
     return (
       <div className="widget widget-todo">
-        <div>
-          <h2>
+        <div className="widget-header">
+          <h3>
             <NavLink to="/todo">
               <Icon className="middle" type="exception" />
               <span className="middle">Todo</span>
             </NavLink>
-          </h2>
+          </h3>
         </div>
 
         <ul className="todo-list">
@@ -140,7 +140,12 @@ class TodoList extends Component {
 
             return (
               <li className={`todo-item todo-${icon}`} key={todo.number}>
-                <NavLink title={statusText} status={status} exact={true} to={`/todo/${todo.number}`}>
+                <NavLink
+                  title={`[${statusText}]: ${todo.title}`}
+                  status={status}
+                  exact={true}
+                  to={`/todo/${todo.number}`}
+                >
                   {todo.title}
                 </NavLink>
               </li>
@@ -164,4 +169,7 @@ class TodoList extends Component {
     );
   }
 }
-export default connect(state => ({}), actions)(withRouter(TodoList));
+export default connect(
+  state => ({}),
+  actions
+)(withRouter(TodoList));

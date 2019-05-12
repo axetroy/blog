@@ -36,14 +36,14 @@ export function diffTime(time1) {
       days,
       hours,
       minutes,
-      seconds: parseInt(seconds)
+      seconds: parseInt(seconds + "")
     };
   };
 }
 
 /**
  * 开启解析iframe
- * @param {*} html 
+ * @param {*} html
  */
 export function enableIframe(html = "") {
   return html.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
@@ -51,7 +51,7 @@ export function enableIframe(html = "") {
 
 /**
  * 解析案例展示
- * @param {*} d 
+ * @param {*} d
  */
 export function parseShowcase(d) {
   const body = d.body;

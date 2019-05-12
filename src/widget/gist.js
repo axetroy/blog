@@ -85,13 +85,13 @@ class Gists extends Component {
   render() {
     return (
       <div className="widget widget-gist">
-        <div>
-          <h2>
+        <div className="widget-header">
+          <h3>
             <NavLink to="/gist">
               <Octicon name="gist" mega />
               <span className="middle">Gist</span>
             </NavLink>
-          </h2>
+          </h3>
         </div>
         <ul className="gist-list">
           {this.state.gistList.map(gist => {

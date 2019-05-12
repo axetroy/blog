@@ -15,11 +15,11 @@ import CONFIG from "../../config.json";
 
 import "./index.css";
 
-class Posts extends Component {
+class Stackoverflow extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 6,
+      per_page: 100,
       total: 0
     }
   };
@@ -43,9 +43,9 @@ class Posts extends Component {
     try {
       const { data, headers } = await github.issues.listForRepo({
         owner: CONFIG.owner,
-        repo: CONFIG.repo,
+        repo: "stackoverflow",
         creator: CONFIG.owner,
-        state: "open",
+        state: "all",
         per_page,
         page
       });
@@ -80,7 +80,7 @@ class Posts extends Component {
       }
     });
 
-    this.props.updateArticles(posts);
+    this.props.updateStackoverflows(posts);
 
     return posts;
   }
@@ -100,17 +100,26 @@ class Posts extends Component {
           <Row gutter={24}>
             {this.props.POSTS.map((post, i) => {
               return (
-                <Col key={post.number + "/" + i} xs={24}>
+                <Col
+                  key={post.number + "/" + i}
+                  xs={{ span: 22, offset: 1 }}
+                  sm={{ span: 12, offset: 0 }}
+                  md={{ span: 8, offset: 0 }}
+                  lg={{ span: 8, offset: 0 }}
+                  xl={{ span: 8, offset: 0 }}
+                  xxl={{ span: 6, offset: 0 }}
+                >
                   <Card
                     style={{
                       marginBottom: "2rem",
-                      minHeight: "300px",
+                      minHeight: "200px",
+                      height: "300px",
                       overflow: "hidden"
                     }}
                     className="post-list"
                     onClick={() => {
                       this.props.history.push({
-                        pathname: `/post/${post.number}`
+                        pathname: `/stackoverflow/${post.number}`
                       });
                     }}
                   >
@@ -123,8 +132,9 @@ class Posts extends Component {
                           textOverflow: "ellipsis",
                           overflow: "hidden"
                         }}
+                        title={post.title}
                       >
-                        #{post.number} {post.title}
+                        {post.title}
                       </h3>
                     </div>
                     <div>
@@ -150,13 +160,13 @@ class Posts extends Component {
                       style={{
                         color: "#9E9E9E",
                         wordBreak: "break-word",
-                        // whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
                         overflow: "hidden",
-                        clear: "both"
+                        clear: "both",
+                        height: "150px"
                       }}
                     >
-                      {post.body.slice(0, 750)}...
+                      {post.body.slice(0, 150)}...
                     </div>
                   </Card>
                 </Col>
@@ -187,7 +197,7 @@ class Posts extends Component {
 }
 export default connect(
   state => ({
-    POSTS: state.POSTS
+    POSTS: state.STACKOVERFLOWS
   }),
   actions
-)(withRouter(Posts));
+)(withRouter(Stackoverflow));

@@ -81,7 +81,7 @@ class Comments extends Component {
       const { data } = await github.issues.listComments({
         owner,
         repo,
-        number,
+        issue_number: number,
         client_id: CONFIG.github_client_id,
         client_secret: CONFIG.github_client_secret,
         headers: {

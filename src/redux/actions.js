@@ -23,6 +23,14 @@ const actions = store => ({
   updateArticle: (state, postId, payload) => () => {
     return { POST: { ...state.POST, ...{ [postId]: payload } } };
   },
+  updateStackoverflows: (state, payload) => () => {
+    return { STACKOVERFLOWS: payload };
+  },
+  updateStackoverflow: (state, postId, payload) => () => {
+    return {
+      STACKOVERFLOW: { ...state.STACKOVERFLOW, ...{ [postId]: payload } }
+    };
+  },
   updateGistList: (state, payload) => () => {
     return { GISTS: payload };
   },

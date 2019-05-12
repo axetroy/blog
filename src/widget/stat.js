@@ -360,8 +360,8 @@ class Stat extends Component {
   render() {
     return (
       <div className="widget widget-stat">
-        <div>
-          <h2>
+        <div className="widget-header">
+          <h3>
             <a
               href={`https://github.com/${CONFIG.owner}`}
               target="_blank"
@@ -370,7 +370,7 @@ class Stat extends Component {
               <Octicon name="mark-github" mega />
               <span className="middle">Github</span>
             </a>
-          </h2>
+          </h3>
         </div>
         <div className="stat-meta">
           <p>

@@ -10,7 +10,8 @@ ul.todo-list .todo-item:hover {
 }
 
 ul.todo-list .todo-item a {
-  color: #f4511e;
+  /* color: #f4511e; */
+  color: #303030;
 }
 
 .todo-done a {

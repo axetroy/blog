@@ -15,9 +15,9 @@ import CONFIG from "../../config.json";
 import Comments from "../../component/comments";
 import actions from "../../redux/actions";
 
-import "./post.css";
+import "./index.css";
 
-class Post extends Component {
+class Stackoverflow extends Component {
   state = {
     banners: [
       "35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713",
@@ -71,7 +71,7 @@ class Post extends Component {
     try {
       const { data } = await github.issues.get({
         owner: CONFIG.owner,
-        repo: CONFIG.repo,
+        repo: "stackoverflow",
         issue_number: number,
         client_id: CONFIG.github_client_id,
         client_secret: CONFIG.github_client_secret,
@@ -84,7 +84,7 @@ class Post extends Component {
     } catch (err) {
       console.error(err);
     }
-    this.props.updateArticle(number, post);
+    this.props.updateStackoverflow(number, post);
     return post;
   }
 
@@ -255,9 +255,9 @@ class Post extends Component {
                     <Tooltip title="编辑文章" placement="topRight">
                       <a
                         target="blank"
-                        href={`https://github.com/${CONFIG.owner}/${
-                          CONFIG.repo
-                        }/issues/${post.number}`}
+                        href={`https://github.com/${
+                          CONFIG.owner
+                        }/stackoverflow/issues/${post.number}`}
                         style={{
                           color: "inherit"
                         }}
@@ -333,7 +333,6 @@ class Post extends Component {
               className="markdown-body post-content"
               style={{
                 margin: "2rem 0",
-                borderBottom: "1px dashed #e6e6e6",
                 paddingBottom: "2rem"
               }}
               dangerouslySetInnerHTML={{
@@ -341,18 +340,11 @@ class Post extends Component {
               }}
             />
 
-            <blockquote className="blockquote">
-              <p>注意：</p>
-              <p>1. 若非声明文章为转载, 则为原创文章.</p>
-              <p>2. 欢迎转载, 但需要注明出处.</p>
-              <p>3. 如果本文对您造成侵权，请在文章评论中声明.</p>
-            </blockquote>
-
             <div className="comment-box">
               <Comments
                 type="issues"
                 owner={CONFIG.owner}
-                repo={CONFIG.repo}
+                repo={"stackoverflow"}
                 number={post.number}
               />
             </div>
@@ -365,4 +357,4 @@ class Post extends Component {
 export default connect(
   state => ({ POST: state.POST }),
   actions
-)(withRouter(Post));
+)(withRouter(Stackoverflow));

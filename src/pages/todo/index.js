@@ -38,7 +38,7 @@ class Todo extends Component {
       const { data } = await github.issues.get({
         owner: CONFIG.owner,
         repo: CONFIG.todo_repo,
-        number,
+        issue_number: number,
         client_id: CONFIG.github_client_id,
         client_secret: CONFIG.github_client_secret,
         headers: {
