@@ -140,7 +140,7 @@ ${isMarkdown ? "" : "```"}
                         {/* eslint-disable-next-line */}
                         <a href="javascript: void 0">
                           <Icon type="download" />
-                          {prettyBytes(file.size || 0)}
+                          下载({prettyBytes(file.size || 0)})
                         </a>
                       </Download>
                     </span>
