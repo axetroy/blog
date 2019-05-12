@@ -13,4 +13,4 @@ cache:
     - node_modules
 
 script:
-  - node ./scripts/build.js
+  - npm run build
