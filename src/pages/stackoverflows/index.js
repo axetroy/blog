@@ -39,7 +39,7 @@ class Stackoverflow extends Component {
   }
 
   async getPosts(page, per_page) {
-    let posts = this.props.POSTS || [];
+    let posts = this.props.STACKOVERFLOWS || [];
     try {
       const { data, headers } = await github.issues.listForRepo({
         owner: CONFIG.owner,
@@ -98,7 +98,7 @@ class Stackoverflow extends Component {
       <DocumentTitle title={["博客文章"]}>
         <div style={{ backgroundColor: "#eaebec" }}>
           <Row gutter={24}>
-            {this.props.POSTS.map((post, i) => {
+            {this.props.STACKOVERFLOWS.map((post, i) => {
               return (
                 <Col
                   key={post.number + "/" + i}
@@ -197,7 +197,7 @@ class Stackoverflow extends Component {
 }
 export default connect(
   state => ({
-    POSTS: state.STACKOVERFLOWS
+    STACKOVERFLOWS: state.STACKOVERFLOWS
   }),
   actions
 )(withRouter(Stackoverflow));

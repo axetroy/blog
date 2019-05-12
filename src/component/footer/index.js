@@ -118,9 +118,10 @@ class Footer extends Component {
             <p className="footer-item-name">友情链接</p>
             <ul>
               <li>
-                { /* eslint-disable-next-line */ }
+                {/* eslint-disable-next-line */}
                 <a
-                  href="javascript: void 0;" 
+                  // eslint-disable-next-line
+                  href="javascript: void 0;"
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                 >

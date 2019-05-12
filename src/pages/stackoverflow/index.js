@@ -164,7 +164,7 @@ class Stackoverflow extends Component {
   render() {
     const { QRCode } = this.state;
     const { number } = this.props.match.params;
-    const post = this.props.POST[number] || {};
+    const post = this.props.STACKOVERFLOW[number] || {};
     return (
       <DocumentTitle title={[post.title, "博客文章"]}>
         <Spin spinning={!Object.keys(post).length}>
@@ -355,6 +355,6 @@ class Stackoverflow extends Component {
   }
 }
 export default connect(
-  state => ({ POST: state.POST }),
+  state => ({ STACKOVERFLOW: state.STACKOVERFLOW }),
   actions
 )(withRouter(Stackoverflow));
