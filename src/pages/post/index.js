@@ -46,7 +46,7 @@ class Post extends Component {
 
   async componentWillMount() {
     let { number } = this.props.match.params;
-    const i = Math.floor(Math.random() * this.state.banners.length);
+    const i = number % this.state.banners.length;
     this.setState({
       banner: this.state.banners[i]
     });
@@ -181,30 +181,6 @@ class Post extends Component {
                 backgroundPositionY: "25%"
               }}
             >
-              <h2
-                style={{
-                  textAlign: "center",
-                  position: "absolute",
-                  width: "100%",
-                  color: "#fff",
-                  top: "20%"
-                }}
-              >
-                <span style={{ color: "#303030" }}>{post.title} </span>
-                <span
-                  style={{
-                    verticalAlign: "top"
-                  }}
-                >
-                  {(post.labels || []).map(label => {
-                    return (
-                      <Tag key={label.id} color={"#" + label.color}>
-                        {label.name}
-                      </Tag>
-                    );
-                  })}
-                </span>
-              </h2>
               <div
                 className="post-meta"
                 style={{
@@ -213,7 +189,9 @@ class Post extends Component {
                   left: 0,
                   width: "100%",
                   padding: "2rem",
-                  backgroundColor: "rgba(245, 245, 245, 0.23)"
+                  backgroundColor: "#fff",
+                  transition: "all 0.2s ease-in-out",
+                  borderBottom: "1px dashed #e5e5e5"
                 }}
               >
                 {post.user && post.user.avatar_url ? (
@@ -328,11 +306,34 @@ class Post extends Component {
               </div>
             </div>
 
+            <h2
+              style={{
+                textAlign: "center",
+                marginTop: "20px",
+                marginBottom: "20px"
+              }}
+            >
+              <span style={{ color: "#303030" }}>{post.title} </span>
+              <span
+                style={{
+                  verticalAlign: "top"
+                }}
+              >
+                {(post.labels || []).map(label => {
+                  return (
+                    <Tag key={label.id} color={"#" + label.color}>
+                      {label.name}
+                    </Tag>
+                  );
+                })}
+              </span>
+            </h2>
+
             <div
               className="markdown-body post-content"
               style={{
                 margin: "2rem 0",
-                borderBottom: "1px solid #e6e6e6",
+                borderBottom: "1px dashed #e6e6e6",
                 paddingBottom: "2rem"
               }}
               dangerouslySetInnerHTML={{
