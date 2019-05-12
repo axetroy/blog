@@ -19,3 +19,4 @@ yarn-error.log*
 .idea
 log
 package-lock.json
+yarn.lock
