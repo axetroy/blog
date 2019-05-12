@@ -166,7 +166,7 @@ class Stackoverflow extends Component {
     const { number } = this.props.match.params;
     const post = this.props.STACKOVERFLOW[number] || {};
     return (
-      <DocumentTitle title={[post.title, "博客文章"]}>
+      <DocumentTitle title={[post.title, "踩过的坑"]}>
         <Spin spinning={!Object.keys(post).length}>
           <div className="bg-white" style={{ marginBottom: 20 }}>
             <div

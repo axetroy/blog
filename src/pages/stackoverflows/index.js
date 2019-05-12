@@ -95,7 +95,7 @@ class Stackoverflow extends Component {
 
   render() {
     return (
-      <DocumentTitle title={["博客文章"]}>
+      <DocumentTitle title={["踩过的坑"]}>
         <div style={{ backgroundColor: "#eaebec" }}>
           <Row gutter={24}>
             {this.props.STACKOVERFLOWS.map((post, i) => {
