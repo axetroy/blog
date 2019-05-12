@@ -152,7 +152,7 @@ ${isMarkdown ? "" : "```"}
                         onError={() => message.error("Copy Fail!")}
                       >
                         <Icon type="copy" />
-                        Copy
+                        复制
                       </ReactClipboard>
                     </span>
                   </h3>
