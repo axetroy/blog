@@ -49,7 +49,7 @@
     "@types/react-dom": "16.8.4",
     "babel-plugin-import": "1.11.2",
     "cross-env": "5.2.0",
-    "customize-cra": "0.2.12",
+    "customize-cra": "0.2.13",
     "fs-extra": "8.0.1",
     "gh-pages": "2.0.1",
     "react-app-rewired": "2.1.3",
