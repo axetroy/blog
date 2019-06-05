@@ -239,19 +239,23 @@ markdown style
 
 /* 路由进入 */
 .fade-enter {
+  opacity: 0;
   transform: translateY(-50px);
 }
 
 .fade-enter-active {
+  opacity: 1;
   transform: translateY(0);
-  transition: all 500ms ease-in-out;
+  transition: opacity 500ms linear, transform 500ms ease-in-out;
 }
 
 /* 路由退出 */
 .fade-exit {
+  opacity: 1;
   transform: translateY(0);
 }
 .fade-exit-active {
+  opacity: 0;
   transform: translateY(50px);
-  transition: all 500ms ease-in-out;
+  transition: opacity 500ms linear, transform 500ms ease-in-out;
 }
