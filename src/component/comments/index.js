@@ -7,7 +7,6 @@ import { distanceInWordsToNow } from "date-fns";
 import chinese from "date-fns/locale/zh_cn";
 
 import github from "../../lib/github";
-import CONFIG from "../../config.json";
 
 class Comments extends Component {
   static propTypes = {
@@ -82,8 +81,6 @@ class Comments extends Component {
         owner,
         repo,
         issue_number: number,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
         }
@@ -100,8 +97,6 @@ class Comments extends Component {
     try {
       const { data } = await github.gists.listComments({
         gist_id,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
         }

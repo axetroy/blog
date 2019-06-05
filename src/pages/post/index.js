@@ -73,8 +73,6 @@ class Post extends Component {
         owner: CONFIG.owner,
         repo: CONFIG.repo,
         issue_number: number,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
         }

@@ -294,9 +294,7 @@ class Stat extends Component {
     const res = await github.activity.listPublicEventsForUser({
       username: CONFIG.owner,
       per_page: 20,
-      page: 0,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      page: 0
     });
 
     const events = res.data;
@@ -327,9 +325,7 @@ class Stat extends Component {
     const { data } = await github.repos.listForUser({
       username: CONFIG.owner,
       page,
-      per_page,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      per_page
     });
     // 说明还有下一页数据
     if (data.length >= per_page) {
@@ -342,9 +338,7 @@ class Stat extends Component {
     const { data } = await github.users.listFollowersForUser({
       username: CONFIG.owner,
       page,
-      per_page,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      per_page
     });
     // 说明还有下一页数据
     if (data.length >= per_page) {

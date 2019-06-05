@@ -44,9 +44,7 @@ class TodoList extends Component {
       creator: CONFIG.owner,
       state: "open",
       per_page,
-      page,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      page
     });
     todoList = todoList.concat(data || []);
     // 如果往后还有下一页，则继续请求，知道完为止

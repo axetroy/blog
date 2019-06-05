@@ -3,14 +3,16 @@
  */
 
 import CONFIG from "../config.json";
-import Octokit from  "@octokit/rest"
+import Octokit from "@octokit/rest";
 export const github = new Octokit({
-  params: {
-    client_id: CONFIG.github_client_id,
-    client_secret: CONFIG.github_client_secret
-  },
   withCredentials: false,
   responseType: "json"
+});
+
+github.authenticate({
+  type: "oauth",
+  key: CONFIG.github_client_id,
+  secret: CONFIG.github_client_secret
 });
 
 export default github;

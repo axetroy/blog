@@ -42,9 +42,7 @@ class Showcase extends Component {
       repo: "showcase",
       creator: CONFIG.owner,
       per_page,
-      page,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      page
     });
     this.props.updateShowCases(data.map(v => parseShowcase(v)));
   }

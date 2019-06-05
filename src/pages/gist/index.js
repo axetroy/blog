@@ -14,7 +14,6 @@ import Comments from "../../component/comments";
 import { enableIframe } from "../../lib/utils";
 import github from "../../lib/github";
 import actions from "../../redux/actions";
-import CONFIG from "../../config.json";
 
 function values(obj) {
   let result = [];
@@ -51,8 +50,6 @@ class Gist extends Component {
     try {
       const { data } = await github.gists.get({
         gist_id,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret,
         headers: {
           Accept: "application/vnd.github.v3.html"
         }
@@ -76,9 +73,7 @@ ${isMarkdown ? "" : "```"}
 
           const { data } = await github.markdown.render({
             text: template,
-            mode: "markdown",
-            client_id: CONFIG.github_client_id,
-            client_secret: CONFIG.github_client_secret
+            mode: "markdown"
           });
           file.html = data;
         }

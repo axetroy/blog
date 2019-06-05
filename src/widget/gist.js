@@ -40,9 +40,7 @@ class Gists extends Component {
     const { data } = await github.gists.listPublicForUser({
       username: CONFIG.owner,
       page,
-      per_page,
-      client_id: CONFIG.github_client_id,
-      client_secret: CONFIG.github_client_secret
+      per_page
     });
     gists = gists.concat(data || []);
     return gists;
@@ -130,4 +128,7 @@ class Gists extends Component {
     );
   }
 }
-export default connect(state => ({}), actions)(withRouter(Gists));
+export default connect(
+  state => ({}),
+  actions
+)(withRouter(Gists));

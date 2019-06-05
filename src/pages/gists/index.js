@@ -33,8 +33,6 @@ class Gists extends Component {
         username: CONFIG.owner,
         page,
         per_page,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret
       });
       gists = gists.concat(data || []);
       // 如果往后还有下一页，则继续请求，直到完为止

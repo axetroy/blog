@@ -36,9 +36,7 @@ class TodoList extends Component {
     try {
       const { data } = await github.issues.listForRepo({
         owner: CONFIG.owner,
-        repo: CONFIG.todo_repo,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret
+        repo: CONFIG.todo_repo
       });
       this.props.updateTodoLabel(data);
     } catch (err) {
@@ -54,9 +52,7 @@ class TodoList extends Component {
         creator: CONFIG.owner,
         state: "all",
         per_page,
-        page,
-        client_id: CONFIG.github_client_id,
-        client_secret: CONFIG.github_client_secret
+        page
       });
       todoList = todoList.concat(data || []);
       // 如果往后还有下一页，则继续请求，知道完为止
