@@ -25,8 +25,6 @@ a {
 
 body {
   height: 100%;
-  background-color: #e9ebec;
-  /*background-image: url('http://d.5857.com/yzxkgqbz_110726/013.jpg');*/
   background-origin: initial;
   background-attachment: fixed;
   background-position: center;
@@ -181,7 +179,15 @@ markdown style
 }
 
 #content {
-  margin-top: 58px;
+  padding-top: 58px;
+  padding-bottom: 20px;
+  background-image: url("/bg.jpg");
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-position: 0% 0%;
+  background-size: cover;
+  background-attachment: fixed;
+  background-clip: border-box;
 }
 
 .bg-white {
@@ -194,7 +200,6 @@ markdown style
   margin-bottom: 20px;
   padding: 0 10px 20px 10px;
   background: #fff;
-  box-shadow: 0 -1px 10px #e5e5e5;
 }
 
 .widget-header {

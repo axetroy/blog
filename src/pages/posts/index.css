@@ -13,6 +13,10 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
+.post-row .ant-tag {
+  cursor: pointer;
+}
+
 .post-list:hover {
   background-color: #fafafa;
 }

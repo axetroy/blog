@@ -1,11 +1,3 @@
-.post-list {
-  cursor: pointer;
-}
-.post-list:hover {
-  background-color: #fafafa;
-  transform: scale(1.02);
-}
-
 .stackoverflow-list .label-list {
   float: right;
   margin-bottom: 10px;

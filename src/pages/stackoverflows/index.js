@@ -96,7 +96,7 @@ class Stackoverflow extends Component {
   render() {
     return (
       <DocumentTitle title={["踩过的坑"]}>
-        <div style={{ backgroundColor: "#eaebec" }}>
+        <div>
           <Row gutter={24} className="stackoverflow-list">
             {this.props.STACKOVERFLOWS.map((post, i) => {
               return (
@@ -114,9 +114,9 @@ class Stackoverflow extends Component {
                       marginBottom: "2rem",
                       minHeight: "200px",
                       height: "300px",
-                      overflow: "hidden"
+                      overflow: "hidden",
+                      cursor: "pointer"
                     }}
-                    className="post-list"
                     onClick={() => {
                       this.props.history.push({
                         pathname: `/stackoverflow/${post.number}`
