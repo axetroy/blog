@@ -234,3 +234,24 @@ markdown style
 .middle {
   vertical-align: middle;
 }
+
+/* animation for router */
+
+/* 路由进入 */
+.fade-enter {
+  transform: translateY(-50px);
+}
+
+.fade-enter-active {
+  transform: translateY(0);
+  transition: all 500ms ease-in-out;
+}
+
+/* 路由退出 */
+.fade-exit {
+  transform: translateY(0);
+}
+.fade-exit-active {
+  transform: translateY(50px);
+  transition: all 500ms ease-in-out;
+}

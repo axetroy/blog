@@ -38,6 +38,7 @@
     "react-lazyload": "2.6.1",
     "react-octicon": "3.0.1",
     "react-router-dom": "5.0.1",
+    "react-transition-group": "^4.1.0",
     "redux-zero": "5.0.4",
     "redux-zero-logger": "0.1.1",
     "redux-zero-persist": "0.2.6"

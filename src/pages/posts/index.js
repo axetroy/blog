@@ -136,6 +136,7 @@ class Posts extends Component {
                         {(post.labels || []).map(label => {
                           return (
                             <a
+                              key={label.id}
                               href={
                                 "https://github.com/axetroy/blog/labels/" +
                                 label.name
@@ -143,9 +144,7 @@ class Posts extends Component {
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              <Tag key={label.id} color={"#" + label.color}>
-                                {label.name}
-                              </Tag>
+                              <Tag color={"#" + label.color}>{label.name}</Tag>
                             </a>
                           );
                         })}
