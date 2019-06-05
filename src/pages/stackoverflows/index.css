@@ -6,12 +6,12 @@
   transform: scale(1.02);
 }
 
-.label-list {
+.stackoverflow-list .label-list {
   float: right;
   margin-bottom: 10px;
 }
 
-.label-list::after {
+.stackoverflow-list .label-list::after {
   content: "";
   width: 0;
   height: 0;

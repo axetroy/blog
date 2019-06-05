@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { Pagination, Row, Col, Card, Tag, Icon } from "antd";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { format } from "date-fns";
 import queryString from "query-string";
 
@@ -19,7 +19,7 @@ class Posts extends Component {
   state = {
     meta: {
       page: 1,
-      per_page: 6,
+      per_page: 25,
       total: 0
     }
   };
@@ -97,35 +97,31 @@ class Posts extends Component {
     return (
       <DocumentTitle title={["博客文章"]}>
         <div style={{ backgroundColor: "#eaebec" }}>
-          <Row gutter={24}>
+          <Row gutter={24} className="post-row">
             {this.props.POSTS.map((post, i) => {
               return (
                 <Col key={post.number + "/" + i} xs={24}>
                   <Card
                     style={{
-                      marginBottom: "2rem",
-                      minHeight: "300px",
                       overflow: "hidden"
                     }}
                     className="post-list"
-                    onClick={() => {
-                      this.props.history.push({
-                        pathname: `/post/${post.number}`
-                      });
-                    }}
                   >
                     <div>
-                      <h3
-                        className="post-title"
-                        style={{
-                          wordBreak: "break-word",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                          overflow: "hidden"
-                        }}
-                      >
-                        #{post.number} {post.title}
-                      </h3>
+                      <NavLink to={`/post/${post.number}`}>
+                        <h3
+                          className="post-title"
+                          style={{
+                            wordBreak: "break-word",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            overflow: "hidden",
+                            display: "inline-block"
+                          }}
+                        >
+                          {post.title}
+                        </h3>
+                      </NavLink>
                     </div>
                     <div>
                       <span>
@@ -139,24 +135,21 @@ class Posts extends Component {
                       <span className="label-list">
                         {(post.labels || []).map(label => {
                           return (
-                            <Tag key={label.id} color={"#" + label.color}>
-                              {label.name}
-                            </Tag>
+                            <a
+                              href={
+                                "https://github.com/axetroy/blog/labels/" +
+                                label.name
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Tag key={label.id} color={"#" + label.color}>
+                                {label.name}
+                              </Tag>
+                            </a>
                           );
                         })}
                       </span>
-                    </div>
-                    <div
-                      style={{
-                        color: "#9E9E9E",
-                        wordBreak: "break-word",
-                        // whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        clear: "both"
-                      }}
-                    >
-                      {post.body.slice(0, 750)}...
                     </div>
                   </Card>
                 </Col>

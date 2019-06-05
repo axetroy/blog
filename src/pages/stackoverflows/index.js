@@ -97,7 +97,7 @@ class Stackoverflow extends Component {
     return (
       <DocumentTitle title={["踩过的坑"]}>
         <div style={{ backgroundColor: "#eaebec" }}>
-          <Row gutter={24}>
+          <Row gutter={24} className="stackoverflow-list">
             {this.props.STACKOVERFLOWS.map((post, i) => {
               return (
                 <Col

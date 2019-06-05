@@ -3,10 +3,6 @@
   transform: translateY(-1rem);
 }
 
-.todo-list:hover {
-  background-color: #fafafa !important;
-}
-
 .timeline .timeline-item:after,
 .timeline .timeline-item:before {
   content: "";

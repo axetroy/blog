@@ -1,20 +1,18 @@
-.post-list {
-  cursor: pointer;
+.post-row {
+  margin-bottom: 20px;
 }
+
+.post-row .ant-card-body {
+  padding: 12px;
+}
+
+.post-row .ant-card-bordered {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
 .post-list:hover {
   background-color: #fafafa;
-  transform: scale(1.02);
-}
-
-.label-list {
-  float: right;
-  margin-bottom: 10px;
-}
-
-.label-list::after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  clear: both;
 }
