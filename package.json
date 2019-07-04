@@ -41,7 +41,8 @@
     "react-transition-group": "4.2.1",
     "redux-zero": "5.0.4",
     "redux-zero-logger": "0.1.1",
-    "redux-zero-persist": "0.2.6"
+    "redux-zero-persist": "0.2.6",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@axetroy/walk": "0.1.1",
@@ -63,7 +64,9 @@
     "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
     "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",
     "fix": "npx babel-cli ./node_modules/@octokit/rest --out-dir ./node_modules/@octokit/rest --copy-files --source-maps inline",
-    "postinstall": "npm run fix"
+    "postinstall": "npm run fix",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -73,5 +76,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
