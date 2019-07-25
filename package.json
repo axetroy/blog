@@ -19,7 +19,7 @@
     "@axetroy/react-now": "1.0.0",
     "@babel/polyfill": "7.4.4",
     "@octokit/rest": "16.25.0",
-    "antd": "3.20.6",
+    "antd": "3.20.7",
     "clipboard": "2.0.4",
     "date-fns": "1.30.1",
     "fastclick": "1.0.6",
