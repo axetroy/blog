@@ -181,7 +181,7 @@ markdown style
 #content {
   padding-top: 58px;
   padding-bottom: 20px;
-  background-image: url("/bg.jpg");
+  background-image: url("./assets/bg.jpg");
   background-repeat: no-repeat;
   background-origin: border-box;
   background-position: 0% 0%;
