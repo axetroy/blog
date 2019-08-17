@@ -1,11 +1,17 @@
 workflow "Deploy to website" {
-  resolves = ["Install dependencies", "Deploy"]
+  resolves = ["Run in Master", "Install dependencies", "Build", "Deploy"]
   on = "release"
+}
+
+action "Run in Master" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
 }
 
 action "Install dependencies" {
   uses = "Borales/actions-yarn@master"
   args = "install"
+  needs = ["Run in Master"]
 }
 
 action "Build" {
