@@ -5,7 +5,7 @@ workflow "Deploy to website" {
 
 action "Install dependencies" {
   uses = "Borales/actions-yarn@master"
-  runs = "install"
+  args = "install"
 }
 
 action "Build" {
