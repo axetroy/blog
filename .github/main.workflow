@@ -1,6 +1,6 @@
 workflow "Deploy to website" {
   resolves = ["Run in Master", "Install dependencies", "Build", "Deploy"]
-  on = "release"
+  on = "push"
 }
 
 action "Run in Master" {
