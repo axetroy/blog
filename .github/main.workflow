@@ -1,17 +1,11 @@
 workflow "Deploy to website" {
-  resolves = ["Run in Master", "Install dependencies", "Build", "Deploy"]
+  resolves = ["Install dependencies", "Build", "If Run in Master", "Deploy"]
   on = "push"
-}
-
-action "Run in Master" {
-  uses = "actions/bin/filter@master"
-  args = "branch master"
 }
 
 action "Install dependencies" {
   uses = "Borales/actions-yarn@master"
   args = "install"
-  needs = ["Run in Master"]
 }
 
 action "Build" {
@@ -20,8 +14,14 @@ action "Build" {
   needs = ["Install dependencies"]
 }
 
+action "If Run in Master" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+  needs = ["Build"]
+}
+
 action "Deploy" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run deploy"
-  needs = ["Build"]
+  needs = ["If Run in Master"]
 }
