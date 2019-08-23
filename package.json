@@ -60,7 +60,7 @@
     "start": "react-app-rewired start",
     "build": "node scripts/now.js && react-app-rewired build && node scripts/domain.js",
     "test": "react-app-rewired test",
-    "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build",
+    "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build --user 'axetroy <troy450409405@gmail.com>'",
     "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",
     "fix": "npx babel-cli ./node_modules/@octokit/rest --out-dir ./node_modules/@octokit/rest --copy-files --source-maps inline",
     "postinstall": "npm run fix"
