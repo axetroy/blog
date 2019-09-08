@@ -29,5 +29,4 @@ action "Deploy" {
     BRANCH = "master"
     DIST = "build"
   }
-  args = "--repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"
 }
