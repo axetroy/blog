@@ -21,7 +21,7 @@ action "If Run in Master" {
 }
 
 action "Deploy" {
-  uses = "axetroy/gh-pages-action@0.0.2"
+  uses = "axetroy/gh-pages-action@0.0.3"
   needs = ["If Run in Master"]
   secrets = ["GITHUB_TOKEN"]
   env = {
@@ -29,4 +29,5 @@ action "Deploy" {
     BRANCH = "master"
     DIST = "build"
   }
+  args = "--repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build"
 }
