@@ -28,5 +28,6 @@ action "Deploy" {
     REPO = "https://github.com/axetroy/axetroy.github.io.git"
     BRANCH = "master"
     DIST = "build"
+    USER = "axetroy <axetroy.dev@gmail.com>"
   }
 }
