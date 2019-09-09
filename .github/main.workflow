@@ -21,7 +21,7 @@ action "If Run in Master" {
 }
 
 action "Deploy" {
-  uses = "axetroy/gh-pages-action@0.0.20"
+  uses = "axetroy/gh-pages-action@0.0.21"
   needs = ["If Run in Master"]
   secrets = [
     "GITHUB_TOKEN",
