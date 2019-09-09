@@ -21,11 +21,12 @@ action "If Run in Master" {
 }
 
 action "Deploy" {
-  uses = "axetroy/gh-pages-action@0.0.12"
+  uses = "axetroy/gh-pages-action@0.0.13"
   needs = ["If Run in Master"]
   secrets = [
     "GITHUB_TOKEN",
-    "RSA",
+    "PUBLIC_KEY",
+    "PRIVATE_KEY"
   ]
   env = {
     REPO = "git@github.com:axetroy/axetroy.github.io.git"
