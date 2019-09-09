@@ -25,7 +25,7 @@ action "Deploy" {
   needs = ["If Run in Master"]
   secrets = ["GITHUB_TOKEN"]
   env = {
-    REPO = "https://github.com/axetroy/axetroy.github.io.git"
+    REPO = "git@github.com:axetroy/axetroy.github.io.git"
     BRANCH = "master"
     DIST = "build"
     USER = "axetroy <axetroy.dev@gmail.com>"
