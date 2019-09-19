@@ -1,0 +1,30 @@
+on: push
+name: Deploy to website
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Deploy
+      uses: axetroy/gh-pages-action@0.0.21
+      env:
+        BRANCH: master
+        DIST: build
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+        REPO: git@github.com:axetroy/axetroy.github.io.git
+    - name: If Run in Master
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: Build
+      uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
+      with:
+        args: run build
+    - name: Install dependencies
+      uses: Borales/actions-yarn@master
+      with:
+        args: install
