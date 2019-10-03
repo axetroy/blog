@@ -46,7 +46,7 @@
   "devDependencies": {
     "@axetroy/walk": "0.1.1",
     "@types/prop-types": "15.7.3",
-    "@types/react": "16.9.4",
+    "@types/react": "16.9.5",
     "@types/react-dom": "16.9.1",
     "babel-plugin-import": "1.12.2",
     "cross-env": "6.0.3",
