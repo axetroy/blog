@@ -28,5 +28,5 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
           REPO: git@github.com:axetroy/axetroy.github.io.git
-          GIT_USERNAME: Axetroy
-          GIT_EMAIL: axetroy.dev@gmail.com
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
