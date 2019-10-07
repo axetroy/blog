@@ -19,7 +19,7 @@ jobs:
         with:
           args: branch master
       - name: Deploy
-        uses: axetroy/gh-pages-action@0.0.21
+        uses: axetroy/gh-pages-action@master
         env:
           BRANCH: master
           DIST: build
@@ -28,3 +28,5 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
           REPO: git@github.com:axetroy/axetroy.github.io.git
+          GIT_USERNAME: Axetroy
+          GIT_EMAIL: axetroy.dev@gmail.com
