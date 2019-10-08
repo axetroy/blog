@@ -8,8 +8,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@master
-      - name: Install dependencies
+      - name: Install
         uses: Borales/actions-yarn@master
         with:
           args: install
@@ -18,9 +17,11 @@ jobs:
         with:
           node-version: "10.15.3"
           args: run build
+        needs: ["Install"]
       - name: Deploy
         uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: build
           GITHUB_REPOSITORY: axetroy/axetroy.github.io
           GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+        needs: ["Build"]
