@@ -16,12 +16,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.15.3"
-          args: run build
-        needs: ["Install"]
+          args: npm run build
       - name: Deploy
         uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: build
           GITHUB_REPOSITORY: axetroy/axetroy.github.io
           GH_PAT: ${{ secrets.GITHUB_TOKEN }}
-        needs: ["Build"]
