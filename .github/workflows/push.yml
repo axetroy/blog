@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.15.3"
-        run: npm run build
+      - run: npm run build
       - name: Deploy
         uses: maxheld83/ghpages@v0.2.1
         env:
