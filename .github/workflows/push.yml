@@ -12,6 +12,7 @@ jobs:
         uses: Borales/actions-yarn@master
         with:
           args: install
+      - name: Build
         uses: actions/setup-node@v1
         with:
           node-version: "10.15.3"
