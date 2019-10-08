@@ -1,4 +1,7 @@
-on: push
+on:
+  push:
+    branches:
+      - "master"
 name: Deploy to website
 jobs:
   deploy:
@@ -11,13 +14,10 @@ jobs:
         with:
           args: install
       - name: Build
-        uses: actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680
+        uses: actions/setup-node@v1
         with:
+          node-version: "10.15.3"
           args: run build
-      - name: If Run in Master
-        uses: actions/bin/filter@master
-        with:
-          args: branch master
       - name: Deploy
         uses: maxheld83/ghpages@v0.2.1
         env:
