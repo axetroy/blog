@@ -19,14 +19,8 @@ jobs:
         with:
           args: branch master
       - name: Deploy
-        uses: axetroy/gh-pages-action@master
+        uses: maxheld83/ghpages@v0.2.1
         env:
-          BRANCH: master
-          DIST: build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
-          REPO: git@github.com:axetroy/axetroy.github.io.git
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          BUILD_DIR: build
+          GITHUB_REPOSITORY: axetroy/axetroy.github.io
+          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
