@@ -6,7 +6,7 @@ import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import Octicon from "react-octicon";
 import { distanceInWordsToNow } from "date-fns";
-import chinese from "date-fns/locale/zh_cn";
+import chinese from "date-fns/locale/zh-CN";
 import { Tooltip } from "antd";
 
 import github from "../lib/github";

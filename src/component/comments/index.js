@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { distanceInWordsToNow } from "date-fns";
-import chinese from "date-fns/locale/zh_cn";
+import chinese from "date-fns/locale/zh-CN";
 
 import github from "../../lib/github";
 

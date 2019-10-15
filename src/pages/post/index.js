@@ -6,7 +6,7 @@ import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
 import { distanceInWordsToNow } from "date-fns";
-import chinese from "date-fns/locale/zh_cn";
+import chinese from "date-fns/locale/zh-CN";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";

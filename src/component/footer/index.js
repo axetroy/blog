@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import Now from "@axetroy/react-now";
 import { distanceInWordsToNow } from "date-fns";
-import chinese from "date-fns/locale/zh_cn";
+import chinese from "date-fns/locale/zh-CN";
 import { Row, Col } from "antd";
 
 import { diffTime } from "../../lib/utils";
