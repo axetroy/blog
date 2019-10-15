@@ -3,7 +3,7 @@
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 
 import github from "../../lib/github";
@@ -180,11 +180,11 @@ class Comments extends Component {
                   &nbsp;&nbsp;
                   <span>
                     {" "}
-                    {`评论于 ${distanceInWordsToNow(comment.created_at, {
+                    {`评论于 ${formatDistanceToNow(comment.created_at, {
                       locale: chinese
                     })}前`}
                     {comment.created_at !== comment.updated_at
-                      ? `&nbsp;&nbsp;更新于 ${distanceInWordsToNow(
+                      ? `&nbsp;&nbsp;更新于 ${formatDistanceToNow(
                           comment.updated_at,
                           {
                             locale: chinese

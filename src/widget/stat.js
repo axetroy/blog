@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import Octicon from "react-octicon";
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 import { Tooltip } from "antd";
 
@@ -308,7 +308,7 @@ class Stat extends Component {
           <Tooltip
             placement="top"
             title={
-              distanceInWordsToNow(event.created_at, { locale: chinese }) + "前"
+              formatDistanceToNow(event.created_at, { locale: chinese }) + "前"
             }
           >
             {eventMap[event.type](event)}
@@ -395,7 +395,7 @@ class Stat extends Component {
             最近活动：
             <b>
               {this.state.events.length && this.state.latestEvent
-                ? distanceInWordsToNow(this.state.latestEvent.created_at, {
+                ? formatDistanceToNow(this.state.latestEvent.created_at, {
                     locale: chinese
                   }) + "前"
                 : ""}
