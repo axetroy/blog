@@ -81,10 +81,10 @@ class ContentWrap extends Component {
     const widthScreenMode = this.shouldEnableWidthScreen(path);
     this.setState({ widthScreenMode });
   }
-  componentWillReceiveProps(nextProp, prevProp) {
+  UNSAFE_componentWillReceiveProps(nextProp, prevProp) {
     this.updateMode(nextProp.location.pathname);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateMode();
   }
   render() {

@@ -24,7 +24,7 @@ class Stackoverflow extends Component {
     }
   };
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     const query = queryString.parse(this.props.location.search);
     let { page, per_page } = query;
     page = +page || this.state.meta.page;
@@ -140,7 +140,7 @@ class Stackoverflow extends Component {
                     <div>
                       <span>
                         <Icon type="clock-circle-o" />{" "}
-                        {format(post.created_at, "YYYY-MM-DD")}&nbsp;
+                        {format(new Date(post.created_at), "yyyy-MM-dd")}&nbsp;
                       </span>
                       <span>
                         <Icon type="message" /> {post.comments}{" "}

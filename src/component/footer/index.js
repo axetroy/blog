@@ -157,7 +157,7 @@ class Footer extends Component {
                         </p>
                         <p>
                           最近更新于&nbsp;
-                          {formatDistanceToNow(LAST_UPDATE_TIME, {
+                          {formatDistanceToNow(new Date(LAST_UPDATE_TIME), {
                             locale: chinese
                           })}
                           前

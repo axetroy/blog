@@ -308,7 +308,9 @@ class Stat extends Component {
           <Tooltip
             placement="top"
             title={
-              formatDistanceToNow(event.created_at, { locale: chinese }) + "前"
+              formatDistanceToNow(new Date(event.created_at), {
+                locale: chinese
+              }) + "前"
             }
           >
             {eventMap[event.type](event)}
@@ -395,9 +397,12 @@ class Stat extends Component {
             最近活动：
             <b>
               {this.state.events.length && this.state.latestEvent
-                ? formatDistanceToNow(this.state.latestEvent.created_at, {
-                    locale: chinese
-                  }) + "前"
+                ? formatDistanceToNow(
+                    new Date(this.state.latestEvent.created_at),
+                    {
+                      locale: chinese
+                    }
+                  ) + "前"
                 : ""}
             </b>
           </p>

@@ -44,7 +44,7 @@ class Stackoverflow extends Component {
     )
   };
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     let { number } = this.props.match.params;
     const i = number % this.state.banners.length;
     this.setState({
@@ -59,7 +59,7 @@ class Stackoverflow extends Component {
     }
   }
 
-  async componentWillReceiveProps(nextProp) {
+  async UNSAFE_componentWillReceiveProps(nextProp) {
     const { number } = nextProp.match.params;
     if (number && number !== this.props.match.params.number) {
       await this.getPost(nextProp.match.params.number);
@@ -226,7 +226,9 @@ class Stackoverflow extends Component {
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                     发布于&nbsp;
-                    {formatDistanceToNow(post.created_at, { locale: chinese })}
+                    {formatDistanceToNow(new Date(post.created_at), {
+                      locale: chinese
+                    })}
                     前
                   </span>
                   <br />
@@ -253,9 +255,7 @@ class Stackoverflow extends Component {
                     <Tooltip title="编辑文章" placement="topRight">
                       <a
                         target="blank"
-                        href={`https://github.com/${
-                          CONFIG.owner
-                        }/stackoverflow/issues/${post.number}`}
+                        href={`https://github.com/${CONFIG.owner}/stackoverflow/issues/${post.number}`}
                         style={{
                           color: "inherit"
                         }}

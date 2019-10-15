@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 class GoogleAnalytics extends Component {
-  componentWillReceiveProps(nextProp) {
+  UNSAFE_componentWillReceiveProps(nextProp) {
     if (
       this.props.location.pathname !== nextProp.location.pathname ||
       this.props.location.search !== nextProp.location.search ||
