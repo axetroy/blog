@@ -5,8 +5,8 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { withRouter } from "react-router-dom";
 import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
-import { distanceInWordsToNow } from "date-fns";
-import chinese from "date-fns/locale/zh_cn";
+import { formatDistanceToNow } from "date-fns";
+import chinese from "date-fns/locale/zh-CN";
 
 import DocumentTitle from "../../component/document-title";
 import github from "../../lib/github";
@@ -226,7 +226,7 @@ class Post extends Component {
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                     发布于&nbsp;
-                    {distanceInWordsToNow(post.created_at, { locale: chinese })}
+                    {formatDistanceToNow(post.created_at, { locale: chinese })}
                     前
                   </span>
                   <br />
