@@ -41,7 +41,7 @@
     "redux-zero": "5.1.0",
     "redux-zero-logger": "0.1.1",
     "redux-zero-persist": "0.2.6",
-    "regenerator-runtime": "^0.13.3"
+    "regenerator-runtime": "0.13.3"
   },
   "devDependencies": {
     "@axetroy/walk": "0.1.1",
