@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - "master"
+name: Deploy to website
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install
+        uses: Borales/actions-yarn@master
+        with:
+          args: install
+      - name: Build
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.15.3"
+      - run: npm run build
+      - name: Deploy
+        uses: axetroy/ghpages@master
+        env:
+          BUILD_DIR: build
+          REPOSITORY: axetroy/axetroy.github.io
+          GH_PAT: ${{ secrets.GH_PAT }}
