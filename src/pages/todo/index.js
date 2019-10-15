@@ -18,14 +18,14 @@ import actions from "../../redux/actions";
 class Todo extends Component {
   state = {};
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     let { number } = this.props.match.params;
     if (number) {
       await this.getTodo(number);
     }
   }
 
-  async componentWillReceiveProps(nextProp) {
+  async UNSAFE_componentWillReceiveProps(nextProp) {
     const { number } = nextProp.match.params;
     if (number && number !== this.props.match.params.number) {
       await this.getTodo(nextProp.match.params.number);
@@ -66,9 +66,7 @@ class Todo extends Component {
               <Tooltip placement="topLeft" title="编辑此页">
                 <a
                   rel="noopener noreferrer"
-                  href={`https://github.com/${CONFIG.owner}/${
-                    CONFIG.todo_repo
-                  }/issues/${todo.number}`}
+                  href={`https://github.com/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${todo.number}`}
                   target="_blank"
                 >
                   <Icon type="edit" />
@@ -86,7 +84,10 @@ class Todo extends Component {
             <Steps.Step
               status="finish"
               title="创建计划"
-              description={`${format(todo.created_at, "YYYY-MM-DD HH:mm:ss")}`}
+              description={`${format(
+                new Date(todo.created_at),
+                "YYYY-MM-DD HH:mm:ss"
+              )}`}
               icon={<Icon type="book" />}
             />
             <Steps.Step
@@ -113,7 +114,7 @@ class Todo extends Component {
               title="关闭计划"
               description={
                 todo.closed_at
-                  ? `${format(todo.closed_at, "YYYY-MM-DD HH:mm:ss")}`
+                  ? `${format(new Date(todo.closed_at), "yyyy-MM-dd HH:mm:ss")}`
                   : ""
               }
               icon={<Icon type="check" />}

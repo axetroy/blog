@@ -16,11 +16,11 @@ class DynamicLoad extends Component {
     component: ""
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { promise } = this.props;
     this.load(promise);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { promise } = nextProps;
     this.load(promise);
   }

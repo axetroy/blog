@@ -26,12 +26,12 @@ function values(obj) {
 }
 
 class Gist extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     console.log("id", this.props.match.params.id);
     this.init(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProp) {
+  UNSAFE_componentWillReceiveProps(nextProp) {
     const { id } = nextProp.match.params;
     if (id && id !== this.props.match.params.id) {
       console.log("next id", id);

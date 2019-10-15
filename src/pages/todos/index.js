@@ -26,7 +26,7 @@ class TodoList extends Component {
     badge: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { page, per_page } = this.state.meta;
     this.getTodoList(page, per_page);
     this.getLabels();
@@ -181,7 +181,8 @@ class TodoList extends Component {
                         <span>
                           <Icon type="clock-circle-o" />
                           &nbsp;
-                          {format(todo.created_at, "YYYY-MM-DD")}&nbsp;
+                          {format(new Date(todo.created_at), "yyyy-MM-dd")}
+                          &nbsp;
                         </span>
                         <span style={{ float: "right" }}>
                           {todo.labels.map(label => {

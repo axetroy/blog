@@ -48,7 +48,7 @@ class Comments extends Component {
    * @param {any} nextProps
    * @memberof Comments
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     switch (nextProps.type) {
       case "issues":
         if (
@@ -180,12 +180,15 @@ class Comments extends Component {
                   &nbsp;&nbsp;
                   <span>
                     {" "}
-                    {`评论于 ${formatDistanceToNow(comment.created_at, {
-                      locale: chinese
-                    })}前`}
+                    {`评论于 ${formatDistanceToNow(
+                      new Date(comment.created_at),
+                      {
+                        locale: chinese
+                      }
+                    )}前`}
                     {comment.created_at !== comment.updated_at
                       ? `&nbsp;&nbsp;更新于 ${formatDistanceToNow(
-                          comment.updated_at,
+                          new Date(comment.updated_at),
                           {
                             locale: chinese
                           }
