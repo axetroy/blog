@@ -173,19 +173,17 @@ const eventMap = {
   },
   PushEvent(event) {
     const { name } = event.repo || {};
-    const { size, ref } = event.payload;
+    const { size, ref, head } = event.payload;
     const branch = ref.replace("refs/heads/", "");
     return (
       <span>
         提交 <b>{size}</b> 个commit到
         <a
-          href={repoUrl(name) + "/tree/" + branch}
+          href={repoUrl(name) + "/commits/" + head}
           target="_blink"
           rel="noopener noreferrer"
         >
-          {name}
-          <Octicon name="git-branch" mega />
-          {branch}
+          {name}@{branch}
         </a>
       </span>
     );
@@ -234,7 +232,7 @@ const eventMap = {
       case "opened":
         return (
           <span>
-            发起PR
+            发起 PR
             <Octicon name="git-pull-request" mega />
             <a
               href={repoUrl(name) + "/pull/" + number}
@@ -248,7 +246,7 @@ const eventMap = {
       case "closed":
         return (
           <span>
-            关闭PR
+            关闭 PR
             <Octicon name="git-pull-request" mega />
             <a
               href={repoUrl(name) + "/pull/" + number}
@@ -262,7 +260,7 @@ const eventMap = {
       case "reopened":
         return (
           <span>
-            重新开启PR
+            重启 PR
             <Octicon name="git-pull-request" mega />
             <a
               href={repoUrl(name) + "/pull/" + number}
@@ -276,6 +274,19 @@ const eventMap = {
       default:
       //
     }
+  },
+  DeleteEvent(event) {
+    const { name } = event.repo || {};
+    const { ref: branchName } = event.payload;
+    return (
+      <span>
+        删除{" "}
+        <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
+          {name}
+        </a>
+        @{branchName}
+      </span>
+    );
   }
 };
 
