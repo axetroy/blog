@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/axetroy/blog.svg?branch=master)](https://travis-ci.org/axetroy/blog)
-[![Deploy Status](https://github.com/axetroy/blog/workflows/deploy/badge.svg)](https://github.com/axetroy/blog/actions)
-[![Build Status](https://github.com/axetroy/blog/workflows/build/badge.svg)](https://github.com/axetroy/blog/actions)
+[![Deploy Status](https://github.com/axetroy/blog/workflows/build/badge.svg)](https://github.com/axetroy/blog/actions)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)

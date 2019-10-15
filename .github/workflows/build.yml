@@ -1,5 +1,5 @@
 on: pull_request
-name: Build
+name: pr
 jobs:
   deploy:
     name: Build
