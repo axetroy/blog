@@ -20,7 +20,7 @@
     "@octokit/rest": "16.33.1",
     "antd": "3.24.0",
     "clipboard": "2.0.4",
-    "date-fns": "2.4.1",
+    "date-fns": "2.5.0",
     "fastclick": "1.0.6",
     "github-markdown-css": "3.0.1",
     "localforage": "1.7.3",
