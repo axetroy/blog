@@ -24,9 +24,8 @@ class Click extends Component {
     // 移动端关闭特性
     const isItShouldEnable = debounce(this.shouldEnable.bind(this), 200);
 
-    window.addEventListener("resize", function() {
-      isItShouldEnable();
-    });
+    this.__resize__ = isItShouldEnable;
+    window.addEventListener("resize", isItShouldEnable);
 
     isItShouldEnable();
 
@@ -42,6 +41,10 @@ class Click extends Component {
     (this.__timer__ || []).forEach(timerId => {
       clearTimeout(timerId);
     });
+
+    if (this.__resize__) {
+      window.removeEventListener("resize", this.__resize__);
+    }
   }
   onClick(event) {
     if (!this.state.enable) return;
