@@ -15,7 +15,7 @@ import { enableIframe } from "../../lib/utils";
 import github from "../../lib/github";
 import actions from "../../redux/actions";
 
-function values(obj) {
+function getValues(obj) {
   let result = [];
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -27,21 +27,19 @@ function values(obj) {
 
 class Gist extends Component {
   UNSAFE_componentWillMount() {
-    console.log("id", this.props.match.params.id);
     this.init(this.props.match.params.id);
   }
 
   UNSAFE_componentWillReceiveProps(nextProp) {
     const { id } = nextProp.match.params;
     if (id && id !== this.props.match.params.id) {
-      console.log("next id", id);
       this.init(id);
     }
   }
 
   async init(id) {
     if (id) {
-      await [this.getGist(id)];
+      await this.getGist(id);
     }
   }
 
@@ -108,7 +106,7 @@ ${isMarkdown ? "" : "```"}
                 </a>
               </Tooltip>
             </h2>
-            {(values(gist.files) || []).map(file => {
+            {getValues(gist.files).map(file => {
               return (
                 <div key={file.filename}>
                   <h3
