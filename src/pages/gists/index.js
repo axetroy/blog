@@ -32,9 +32,14 @@ class Gists extends Component {
       const { data } = await github.gists.listPublicForUser({
         username: CONFIG.owner,
         page,
-        per_page,
+        per_page
       });
-      gists = gists.concat(data || []);
+
+      if (!data) {
+        return [];
+      }
+
+      gists = gists.concat(data);
       // 如果往后还有下一页，则继续请求，直到完为止
       if (data.length > 0 && data.length >= per_page) {
         gists = await this.getAllGistList(page + 1, per_page, gists);
@@ -96,6 +101,7 @@ class Gists extends Component {
     );
   }
 }
-export default connect(state => ({ GISTS: state.GISTS }), actions)(
-  withRouter(Gists)
-);
+export default connect(
+  state => ({ GISTS: state.GISTS }),
+  actions
+)(withRouter(Gists));
