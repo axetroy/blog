@@ -220,7 +220,7 @@ class Post extends Component {
                         marginRight: "0.5rem"
                       }}
                     />
-                    {firstUpperCase(post && post.user ? post.user.login : "")}
+                    {firstUpperCase(post.user ? post.user.login : "")}
                   </strong>
                   <br />
                   <span>
