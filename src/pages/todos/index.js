@@ -54,7 +54,12 @@ class TodoList extends Component {
         per_page,
         page
       });
-      todoList = todoList.concat(data || []);
+
+      if (!data) {
+        return;
+      }
+
+      todoList = todoList.concat(data);
       // 如果往后还有下一页，则继续请求，知道完为止
       if (data.length > 0 && data.length >= per_page) {
         todoList = await this.getAllTodoList(page + 1, per_page, todoList);
