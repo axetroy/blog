@@ -120,8 +120,8 @@ class Footer extends Component {
               <li>
                 {/* eslint-disable-next-line */}
                 <a
-                  // eslint-disable-next-line
-                  href="javascript: void 0;"
+                  href="#"
+                  onClick={e => e.preventDefault()}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                 >

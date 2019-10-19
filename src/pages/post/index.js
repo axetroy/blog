@@ -18,6 +18,8 @@ import actions from "../../redux/actions";
 import "./post.css";
 
 class Post extends Component {
+  isUnmount = false;
+
   state = {
     banners: [
       "35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713",
@@ -226,9 +228,12 @@ class Post extends Component {
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                     发布于&nbsp;
-                    {formatDistanceToNow(new Date(post.created_at), {
-                      locale: chinese
-                    })}
+                    {formatDistanceToNow(
+                      new Date(post && post.created_at ? post.created_at : 0),
+                      {
+                        locale: chinese
+                      }
+                    )}
                     前
                   </span>
                   <br />
