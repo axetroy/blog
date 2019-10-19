@@ -18,8 +18,6 @@ import actions from "../../redux/actions";
 import "./post.css";
 
 class Post extends Component {
-  isUnmount = false;
-
   state = {
     banners: [
       "35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713",
