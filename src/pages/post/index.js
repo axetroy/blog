@@ -226,12 +226,9 @@ class Post extends Component {
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                     发布于&nbsp;
-                    {formatDistanceToNow(
-                      new Date(post && post.created_at ? post.created_at : 0),
-                      {
-                        locale: chinese
-                      }
-                    )}
+                    {post.created_at
+                      ? formatDistanceToNow(post.created_at)
+                      : ""}
                     前
                   </span>
                   <br />
