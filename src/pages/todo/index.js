@@ -86,7 +86,7 @@ class Todo extends Component {
               title="创建计划"
               description={`${format(
                 new Date(todo.created_at),
-                "YYYY-MM-DD HH:mm:ss"
+                "yyyy-MM-dd HH:mm:ss"
               )}`}
               icon={<Icon type="book" />}
             />
