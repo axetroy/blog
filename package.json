@@ -17,7 +17,7 @@
     "@axetroy/react-document-title": "2.0.0",
     "@axetroy/react-download": "1.1.1",
     "@axetroy/react-now": "1.0.0",
-    "@octokit/rest": "16.34.1",
+    "@octokit/rest": "16.35.0",
     "antd": "3.25.1",
     "clipboard": "2.0.4",
     "date-fns": "2.7.0",
