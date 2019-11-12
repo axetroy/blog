@@ -34,7 +34,7 @@
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-image-lightbox": "5.1.1",
-    "react-lazyload": "2.6.2",
+    "react-lazyload": "2.6.3",
     "react-octicon": "3.0.1",
     "react-router-dom": "5.1.2",
     "react-transition-group": "4.3.0",
