@@ -224,9 +224,11 @@ class Stackoverflow extends Component {
                   <span>
                     <Icon type="calendar" style={{ marginRight: "0.5rem" }} />
                     发布于&nbsp;
-                    {formatDistanceToNow(new Date(post.created_at), {
-                      locale: chinese
-                    })}
+                    {post.created_at
+                      ? formatDistanceToNow(new Date(post.created_at), {
+                          locale: chinese
+                        })
+                      : ""}
                     前
                   </span>
                   <br />
