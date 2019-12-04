@@ -84,10 +84,14 @@ class Todo extends Component {
             <Steps.Step
               status="finish"
               title="创建计划"
-              description={`${format(
-                new Date(todo.created_at),
-                "yyyy-MM-dd HH:mm:ss"
-              )}`}
+              description={
+                todo.created_at
+                  ? `${format(
+                      new Date(todo.created_at),
+                      "yyyy-MM-dd HH:mm:ss"
+                    )}`
+                  : ""
+              }
               icon={<Icon type="book" />}
             />
             <Steps.Step
