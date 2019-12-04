@@ -20,7 +20,6 @@ class Footer extends Component {
     const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH;
     const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE;
     const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR;
-    console.log(LAST_COMMIT_DATE);
     return (
       <footer>
         <Row id="footer">
