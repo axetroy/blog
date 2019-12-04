@@ -16,7 +16,11 @@ class Footer extends Component {
   };
 
   render() {
-    const LAST_UPDATE_TIME = new Date(+process.env.REACT_APP_PUBLISH_DATE);
+    const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH;
+    const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH;
+    const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE;
+    const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR;
+    console.log(LAST_COMMIT_DATE);
     return (
       <footer>
         <Row id="footer">
@@ -156,11 +160,30 @@ class Footer extends Component {
                   `}
                         </p>
                         <p>
-                          最近更新于&nbsp;
-                          {formatDistanceToNow(new Date(LAST_UPDATE_TIME), {
-                            locale: chinese
-                          })}
-                          前
+                          由 {LAST_COMMIT_AUTHOR} 更新于&nbsp;
+                          <a
+                            href={
+                              "https://github.com/axetroy/blog/commit/" +
+                              LAST_COMMIT_HASH
+                            }
+                          >
+                            {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
+                              locale: chinese
+                            })}
+                            前
+                          </a>
+                          ,
+                        </p>
+                        <p>
+                          当前源码{" "}
+                          <a
+                            href={
+                              "https://github.com/axetroy/blog/tree/" +
+                              LAST_COMMIT_TREE_HASH
+                            }
+                          >
+                            {LAST_COMMIT_TREE_HASH}
+                          </a>
                         </p>
                       </div>
                     );
