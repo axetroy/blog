@@ -1,16 +1,14 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
 import { Menu } from "antd";
-import { NavLink, withRouter } from "react-router-dom";
+import React, { Component } from "react";
 import Octicon from "react-octicon";
-
+import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import DocumentTitle from "../../component/document-title";
-import github from "../../lib/github";
 import CONFIG from "../../config.json";
-
+import github from "../../lib/github";
 import actions from "../../redux/actions";
 
 class Gists extends Component {

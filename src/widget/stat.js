@@ -1,17 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { withRouter } from "react-router-dom";
-import Octicon from "react-octicon";
+import { Tooltip } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
-import { Tooltip } from "antd";
-
+import React, { Component } from "react";
+import Octicon from "react-octicon";
+import { withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
+import CONFIG from "../config.json";
 import github from "../lib/github";
 import actions from "../redux/actions";
-import CONFIG from "../config.json";
 import "./stat.css";
 
 const domain = "https://github.com/";

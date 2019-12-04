@@ -1,18 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { withRouter } from "react-router-dom";
-import { Steps, Icon, Tooltip, Tag } from "antd";
+import { Icon, Steps, Tag, Tooltip } from "antd";
 import { format } from "date-fns";
-
-import DocumentTitle from "../../component/document-title";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import Comments from "../../component/comments";
-import github from "../../lib/github";
+import DocumentTitle from "../../component/document-title";
 import CONFIG from "../../config.json";
+import github from "../../lib/github";
 import { diffTime, enableIframe } from "../../lib/utils";
-
 import actions from "../../redux/actions";
 
 class Todo extends Component {

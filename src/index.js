@@ -1,11 +1,10 @@
 // polyfill
-import "regenerator-runtime/runtime";
 import FastClick from "fastclick";
 import React from "react";
 import ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import "./index.css";
-import App from "./App";
+import App from "./app";
 
 window.__localeId__ = "zh-cn";
 

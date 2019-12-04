@@ -2,8 +2,8 @@
  * Created by axetroy on 2017/4/7.
  */
 
-import CONFIG from "../config.json";
 import Octokit from "@octokit/rest";
+import CONFIG from "../config.json";
 export const github = new Octokit({
   withCredentials: false,
   responseType: "json"

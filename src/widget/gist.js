@@ -1,14 +1,13 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
 import { Button } from "antd";
-import { NavLink, withRouter } from "react-router-dom";
+import React, { Component } from "react";
 import Octicon from "react-octicon";
-
-import github from "../lib/github";
+import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import CONFIG from "../config.json";
+import github from "../lib/github";
 import actions from "../redux/actions";
 import "./gist.css";
 
@@ -128,7 +127,4 @@ class Gists extends Component {
     );
   }
 }
-export default connect(
-  state => ({}),
-  actions
-)(withRouter(Gists));
+export default connect(state => ({}), actions)(withRouter(Gists));

@@ -1,18 +1,15 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Tag, Icon } from "antd";
-import { NavLink, withRouter } from "react-router-dom";
+import { Icon, Tag } from "antd";
 import { format } from "date-fns";
-
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import DocumentTitle from "../../component/document-title";
-import github from "../../lib/github";
 import CONFIG from "../../config.json";
-
+import github from "../../lib/github";
 import actions from "../../redux/actions";
-
 import "./index.css";
 
 class TodoList extends Component {

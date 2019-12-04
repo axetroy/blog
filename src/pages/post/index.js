@@ -1,20 +1,18 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { withRouter } from "react-router-dom";
-import { Menu, Spin, Tag, Tooltip, Icon, Popover, Dropdown } from "antd";
+import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
-
-import DocumentTitle from "../../component/document-title";
-import github from "../../lib/github";
-import { firstUpperCase, enableIframe } from "../../lib/utils";
-import CONFIG from "../../config.json";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import Comments from "../../component/comments";
+import DocumentTitle from "../../component/document-title";
+import CONFIG from "../../config.json";
+import github from "../../lib/github";
+import { enableIframe, firstUpperCase } from "../../lib/utils";
 import actions from "../../redux/actions";
-
 import "./post.css";
 
 class Post extends Component {

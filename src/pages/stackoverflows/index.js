@@ -1,18 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Pagination, Row, Col, Card, Tag, Icon } from "antd";
-import { withRouter } from "react-router-dom";
+import { Card, Col, Icon, Pagination, Row, Tag } from "antd";
 import { format } from "date-fns";
 import queryString from "query-string";
-
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
 import DocumentTitle from "../../component/document-title";
+import CONFIG from "../../config.json";
 import github from "../../lib/github";
 import actions from "../../redux/actions";
-import CONFIG from "../../config.json";
-
 import "./index.css";
 
 class Stackoverflow extends Component {

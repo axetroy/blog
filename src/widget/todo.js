@@ -1,15 +1,13 @@
 /**
  * Created by axetroy on 17-4-6.
  */
+import { Button, Icon } from "antd";
 import React, { Component } from "react";
-import { connect } from "redux-zero/react";
-import { Icon, Button } from "antd";
 import { NavLink, withRouter } from "react-router-dom";
-
-import { github } from "../lib/github";
+import { connect } from "redux-zero/react";
 import CONFIG from "../config.json";
+import { github } from "../lib/github";
 import actions from "../redux/actions";
-
 import "./todo.css";
 
 class TodoList extends Component {
@@ -172,7 +170,4 @@ class TodoList extends Component {
     );
   }
 }
-export default connect(
-  state => ({}),
-  actions
-)(withRouter(TodoList));
+export default connect(state => ({}), actions)(withRouter(TodoList));

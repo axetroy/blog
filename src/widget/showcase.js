@@ -1,17 +1,16 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
-import { connect } from "redux-zero/react";
 import { Tag } from "antd";
-import { withRouter } from "react-router-dom";
-import Octicon from "react-octicon";
+import React, { Component } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-
+import Octicon from "react-octicon";
+import { withRouter } from "react-router-dom";
+import { connect } from "redux-zero/react";
+import CONFIG from "../config.json";
 import github from "../lib/github";
 import { parseShowcase } from "../lib/utils";
-import CONFIG from "../config.json";
 import actions from "../redux/actions";
 import "./showcase.css";
 

@@ -1,23 +1,21 @@
+import { Col, Icon, Menu, Row } from "antd";
 import React, { Component } from "react";
 import {
   HashRouter as Router,
+  matchPath,
+  NavLink,
   Route,
   Switch,
-  NavLink,
-  matchPath,
   withRouter
 } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Provider } from "redux-zero/react";
-import { Row, Col, Menu, Icon } from "antd";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-
-import Footer from "./component/footer";
+import "./app.css";
 import ClickMaterial from "./component/click-material";
 import DynamicLoad from "./component/dynamic-load";
+import Footer from "./component/footer";
 import GoogleAnalytics from "./component/ga";
 import store from "./redux/store";
-
-import "./App.css";
 
 class ContentWrap extends Component {
   state = {

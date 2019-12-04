@@ -25,11 +25,7 @@ a {
 
 body {
   height: 100%;
-  background-origin: initial;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: #383838;
 }
 
 /* xs */
@@ -181,13 +177,6 @@ markdown style
 #content {
   padding-top: 58px;
   padding-bottom: 20px;
-  background-image: url("./assets/bg.jpg");
-  background-repeat: no-repeat;
-  background-origin: border-box;
-  background-position: 0% 0%;
-  background-size: cover;
-  background-attachment: fixed;
-  background-clip: border-box;
 }
 
 .bg-white {
