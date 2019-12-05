@@ -221,6 +221,7 @@ export default class App extends Component {
           <ClickMaterial
             style={{ overflow: "hidden" }}
             onRouterChange={(location, action) => {
+              // @ts-ignore
               window.ga("set", {
                 page: location.pathname,
                 title: document.title

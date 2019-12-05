@@ -54,11 +54,14 @@
     "fs-extra": "8.1.0",
     "gh-pages": "2.1.1",
     "react-app-rewired": "2.1.5",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "react-snap": "^1.23.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "node scripts/prebuild.js && react-app-rewired build && node scripts/postbuild.js",
+    "prebuild": "node scripts/prebuild.js",
+    "build": "react-app-rewired build",
+    "postbuild": "node scripts/postbuild.js && react-snap",
     "test": "react-app-rewired test",
     "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build --user \"axetroy <troy450409405@gmail.com>\"",
     "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",

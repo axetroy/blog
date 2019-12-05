@@ -1,18 +1,20 @@
 // polyfill
 import FastClick from "fastclick";
 import React from "react";
-import ReactDOM from "react-dom";
-import registerServiceWorker from "./registerServiceWorker";
-import "./index.css";
+import { hydrate, render } from "react-dom";
 import App from "./app";
+import "./index.css";
+import registerServiceWorker from "./registerServiceWorker";
 
-window.__localeId__ = "zh-cn";
-
+// @ts-ignore
 FastClick.attach(document.body);
 
-ReactDOM.render(
-  <App style={{ width: "100%", height: "100%" }} />,
-  document.getElementById("root")
-);
+const root = document.getElementById("root");
+
+if (root.hasChildNodes()) {
+  hydrate(<App style={{ width: "100%", height: "100%" }} />, root);
+} else {
+  render(<App style={{ width: "100%", height: "100%" }} />, root);
+}
 
 registerServiceWorker();
