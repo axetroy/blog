@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "redux-zero/react";
-import Comments from "../../component/comments";
+import Comments from "../../component/comment";
 import DocumentTitle from "../../component/document-title";
 import CONFIG from "../../config.json";
 import github from "../../lib/github";

@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import debounce from "lodash.debounce";
 
-import "./index.css";
+import "./ripple.css";
 
 class Click extends Component {
   state = {

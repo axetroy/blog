@@ -1,11 +1,16 @@
 /**
  * Created by axetroy on 17-5-22.
  */
+import { Spin } from "antd";
+import PropTypes from "prop-types";
 import React, { Component, Suspense } from "react";
 import { withRouter } from "react-router-dom";
-import { Spin } from "antd";
 
 class DynamicLoad extends Component {
+  static propTypes = {
+    import: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
     this.state = {

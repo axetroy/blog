@@ -20,6 +20,7 @@ class GoogleAnalytics extends Component {
     this.submit(this.props.location);
   }
   submit(location) {
+    // @ts-ignore
     window.ga("set", {
       page: location.pathname,
       title: document.title

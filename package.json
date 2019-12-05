@@ -13,13 +13,9 @@
     "open-source"
   ],
   "dependencies": {
-    "@axetroy/react-clipboard": "2.0.0",
-    "@axetroy/react-document-title": "2.0.0",
-    "@axetroy/react-download": "1.1.1",
-    "@axetroy/react-now": "1.0.0",
     "@octokit/rest": "16.35.0",
     "antd": "3.26.0",
-    "clipboard": "2.0.4",
+    "clipboard": "^2.0.4",
     "date-fns": "2.8.1",
     "fastclick": "1.0.6",
     "github-markdown-css": "3.0.1",

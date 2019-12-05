@@ -11,10 +11,10 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Provider } from "redux-zero/react";
 import "./app.css";
-import ClickMaterial from "./component/click-material";
 import DynamicLoad from "./component/dynamic-load";
 import Footer from "./component/footer";
 import GoogleAnalytics from "./component/ga";
+import ClickMaterial from "./component/ripple";
 import store from "./redux/store";
 
 class ContentWrap extends Component {

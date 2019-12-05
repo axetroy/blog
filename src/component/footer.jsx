@@ -1,13 +1,13 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import Now from "@axetroy/react-now";
 import { Col, Row } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 import React, { Component } from "react";
-import { diffTime } from "../../lib/utils";
-import "./index.css";
+import { diffTime } from "../lib/utils";
+import Now from "./now";
+import "./footer.css";
 
 class Footer extends Component {
   state = {

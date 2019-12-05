@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 
-import github from "../../lib/github";
+import github from "../lib/github";
 
 class Comments extends Component {
   static propTypes = {

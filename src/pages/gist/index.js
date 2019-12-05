@@ -1,14 +1,14 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import ReactClipboard from "@axetroy/react-clipboard";
-import Download from "@axetroy/react-download";
 import { Icon, message, Spin, Tooltip } from "antd";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "redux-zero/react";
-import Comments from "../../component/comments";
+import ReactClipboard from "../../component/clipboard";
+import Comments from "../../component/comment";
 import DocumentTitle from "../../component/document-title";
+import Download from "../../component/download";
 import github from "../../lib/github";
 import prettyBytes from "../../lib/pretty-bytes";
 import { enableIframe } from "../../lib/utils";
