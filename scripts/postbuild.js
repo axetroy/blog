@@ -1,10 +1,29 @@
-const fs = require('fs-extra');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const domain = "axetroy.xyz"
+function removeSourceMaps() {
+  const Walker = require("@axetroy/walk");
 
-const cnamePath = path.join(__dirname, "..", "build", "CNAME")
+  const walker = new Walker("./build");
 
-fs.ensureFileSync(cnamePath);
+  walker.on("file", function(filepath, stat) {
+    const ext = path.extname(filepath);
+    if (ext === ".map") {
+      fs.unlink(filepath, function(err) {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log(`remove: ${filepath}`);
+        }
+      });
+    }
+  });
 
-fs.writeFileSync(cnamePath, domain)
+  walker.walk();
+}
+
+function main() {
+  removeSourceMaps();
+}
+
+main();
