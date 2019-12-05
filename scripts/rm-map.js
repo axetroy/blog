@@ -6,7 +6,7 @@ const walker = new Walker("./build");
 
 walker.on("file", function(filepath, stat) {
   const ext = path.extname(filepath);
-  if (ext === ".map" || ext === ".less") {
+  if (ext === ".map") {
     fs.unlink(filepath, function(err) {
       if (err) {
         console.error(err);
