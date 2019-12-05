@@ -103,56 +103,60 @@ class ContentWrap extends Component {
                   exact
                   path="/"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/posts")} />
+                    <DynamicLoad import={() => import("./pages/posts")} />
                   )}
                 />
                 <Route
                   exact
                   path="/post/:number"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/post")} />
+                    <DynamicLoad import={() => import("./pages/post")} />
                   )}
                 />
                 <Route
                   exact
                   path="/todo/:number"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/todo")} />
+                    <DynamicLoad import={() => import("./pages/todo")} />
                   )}
                 />
                 <Route
                   exact
                   path="/todo"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/todos")} />
+                    <DynamicLoad import={() => import("./pages/todos")} />
                   )}
                 />
                 <Route
                   exact
                   path="/gist/:id"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/gist")} />
+                    <DynamicLoad import={() => import("./pages/gist")} />
                   )}
                 />
                 <Route
                   exact
                   path="/gist"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/gists")} />
+                    <DynamicLoad import={() => import("./pages/gists")} />
                   )}
                 />
                 <Route
                   exact
                   path="/stackoverflow"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/stackoverflows")} />
+                    <DynamicLoad
+                      import={() => import("./pages/stackoverflows")}
+                    />
                   )}
                 />
                 <Route
                   exact
                   path="/stackoverflow/:number"
                   render={() => (
-                    <DynamicLoad promise={import("./pages/stackoverflow")} />
+                    <DynamicLoad
+                      import={() => import("./pages/stackoverflow")}
+                    />
                   )}
                 />
               </Switch>
@@ -163,10 +167,10 @@ class ContentWrap extends Component {
                 ? this.state.widthWidgetLayout
                 : this.state.widgetLayout)}
             >
-              <DynamicLoad promise={import("./widget/about")} />
-              <DynamicLoad promise={import("./widget/stat")} />
-              <DynamicLoad promise={import("./widget/todo")} />
-              <DynamicLoad promise={import("./widget/gist")} />
+              <DynamicLoad import={() => import("./widget/about")} />
+              <DynamicLoad import={() => import("./widget/stat")} />
+              <DynamicLoad import={() => import("./widget/todo")} />
+              <DynamicLoad import={() => import("./widget/gist")} />
             </Col>
           </Row>
         </CSSTransition>
