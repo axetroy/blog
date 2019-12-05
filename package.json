@@ -21,8 +21,6 @@
     "github-markdown-css": "3.0.1",
     "localforage": "1.7.3",
     "lodash.debounce": "4.0.8",
-    "lodash.isequal": "4.5.0",
-    "lodash.sortby": "4.7.0",
     "normalize.css": "8.0.1",
     "prop-types": "15.7.2",
     "qrcode.react": "1.0.0",
