@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "node scripts/now.js && react-app-rewired build && node scripts/domain.js",
+    "build": "node scripts/prebuild.js && react-app-rewired build && node scripts/postbuild.js",
     "test": "react-app-rewired test",
     "deploy": "node scripts/rm-map.js && gh-pages --repo https://github.com/axetroy/axetroy.github.io.git --branch master -d build --user \"axetroy <troy450409405@gmail.com>\"",
     "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",

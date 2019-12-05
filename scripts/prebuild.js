@@ -7,6 +7,7 @@ const { execSync } = require("child_process");
 
 const envPath = path.join(process.cwd(), ".env");
 
+const LATEST_BUILD_DATE = "REACT_APP_LATEST_BUILD_DATE";
 const LAST_COMMIT_HASH = "REACT_APP_LAST_COMMIT_HASH";
 const LAST_COMMIT_TREE_HASH = "REACT_APP_LAST_COMMIT_TREE_HASH";
 const LAST_COMMIT_AUTHOR = "REACT_APP_LAST_COMMIT_AUTHOR";
@@ -29,6 +30,7 @@ const data = raw
     const value = arr.join("=");
 
     if (
+      LATEST_BUILD_DATE === key ||
       LAST_COMMIT_HASH === key ||
       LAST_COMMIT_AUTHOR === key ||
       LAST_COMMIT_MESSAGE === key ||
@@ -41,6 +43,7 @@ const data = raw
     }
   })
   .filter(v => v)
+  .concat([`${LATEST_BUILD_DATE}="${new Date()}"`])
   .concat([`${LAST_COMMIT_HASH}="${hash}"`])
   .concat([`${LAST_COMMIT_TREE_HASH}="${treeHash}"`])
   .concat([`${LAST_COMMIT_AUTHOR}="${author}"`])

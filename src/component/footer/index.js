@@ -1,12 +1,11 @@
 /**
  * Created by axetroy on 17-4-6.
  */
-import React, { Component } from "react";
 import Now from "@axetroy/react-now";
+import { Col, Row } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
-import { Row, Col } from "antd";
-
+import React, { Component } from "react";
 import { diffTime } from "../../lib/utils";
 import "./index.css";
 
@@ -16,13 +15,15 @@ class Footer extends Component {
   };
 
   render() {
+    const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE;
     const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH;
     const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH;
     const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE;
     const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR;
+    const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE;
     return (
-      <footer>
-        <Row id="footer">
+      <footer id="footer">
+        <Row>
           <Col
             xs={{ span: 11, offset: 1 }}
             sm={{ span: 5, offset: 1 }}
@@ -158,32 +159,6 @@ class Footer extends Component {
                   ${diff.seconds}秒
                   `}
                         </p>
-                        <p>
-                          由 {LAST_COMMIT_AUTHOR} 更新于&nbsp;
-                          <a
-                            href={
-                              "https://github.com/axetroy/blog/commit/" +
-                              LAST_COMMIT_HASH
-                            }
-                          >
-                            {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
-                              locale: chinese
-                            })}
-                            前
-                          </a>
-                          ,
-                        </p>
-                        <p>
-                          当前源码{" "}
-                          <a
-                            href={
-                              "https://github.com/axetroy/blog/tree/" +
-                              LAST_COMMIT_TREE_HASH
-                            }
-                          >
-                            {LAST_COMMIT_TREE_HASH}
-                          </a>
-                        </p>
                       </div>
                     );
                   }}
@@ -211,6 +186,31 @@ class Footer extends Component {
             </ul>
           </Col>
         </Row>
+
+        <div className="text-center">
+          最近由 {LAST_COMMIT_AUTHOR} 于{" "}
+          {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
+            locale: chinese
+          })}{" "}
+          前更改代码(
+          <a
+            href={"https://github.com/axetroy/blog/commit/" + LAST_COMMIT_HASH}
+          >
+            {LAST_COMMIT_MESSAGE}
+          </a>
+          ). 于{" "}
+          {formatDistanceToNow(new Date(LATEST_BUILD_DATE), {
+            locale: chinese
+          })}{" "}
+          前更新网站. 当前网站源码{" "}
+          <a
+            href={
+              "https://github.com/axetroy/blog/tree/" + LAST_COMMIT_TREE_HASH
+            }
+          >
+            {LAST_COMMIT_TREE_HASH}
+          </a>
+        </div>
       </footer>
     );
   }
