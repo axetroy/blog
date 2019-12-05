@@ -4,7 +4,7 @@ import React from "react";
 import { hydrate, render } from "react-dom";
 import App from "./app";
 import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
+import { register } from "./registerServiceWorker";
 
 // @ts-ignore
 FastClick.attach(document.body);
@@ -17,4 +17,4 @@ if (root.hasChildNodes()) {
   render(<App style={{ width: "100%", height: "100%" }} />, root);
 }
 
-registerServiceWorker();
+register();
