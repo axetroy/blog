@@ -55,7 +55,7 @@ const data = raw
 fs.writeFileSync(envPath, data);
 
 function getCommitInfo() {
-  const buff = execSync('git log -n 1 --pretty=format:"%H%n%h%n%s%n%an%n%ai"');
+  const buff = execSync('git log -n 1 --pretty=format:"%H%n%h%n%s%n%an%n%cD"');
   const output = buff.toString();
 
   const arr = output.split("\n");
