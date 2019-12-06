@@ -26,7 +26,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Deploy to blog.axetroy.xyz
-        uses: axetroy/ghpages@master
+        uses: maxheld83/ghpages@v0.2.1
         env:
           BUILD_DIR: build
           GH_PAT: ${{ secrets.GH_PAT }}
