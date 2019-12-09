@@ -25,6 +25,9 @@ jobs:
           REPOSITORY: axetroy/axetroy.github.io
           GH_PAT: ${{ secrets.GH_PAT }}
 
+      - name: Copy CNAME
+        run: copy ./CNAME ./build/CNAME
+
       - name: Deploy to blog.axetroy.xyz
         uses: maxheld83/ghpages@v0.2.1
         env:
