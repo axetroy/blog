@@ -53,7 +53,7 @@
     "start": "react-app-rewired start",
     "prebuild": "node scripts/prebuild.js",
     "build": "react-app-rewired build",
-    "postbuild": "node scripts/postbuild.js && react-snap",
+    "postbuild": "react-snap",
     "test": "react-app-rewired test",
     "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",
     "fix": "npx babel-cli ./node_modules/@octokit/rest --out-dir ./node_modules/@octokit/rest --copy-files --source-maps inline",
