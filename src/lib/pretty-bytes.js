@@ -1,10 +1,6 @@
-/**
- * Created by axetroy on 17-5-2.
- * pretty-bytes@4.0.2
- */
 const UNITS = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-module.exports = num => {
+export default function prettyBytes(num) {
   if (!Number.isFinite(num)) {
     throw new TypeError(`Expected a finite number, got ${typeof num}: ${num}`);
   }
@@ -27,4 +23,4 @@ module.exports = num => {
   const unit = UNITS[exponent];
 
   return (neg ? "-" : "") + numStr + " " + unit;
-};
+}

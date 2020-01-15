@@ -1,33 +1,29 @@
-/**
- * Created by axetroy on 17-4-6.
- */
-import React, { Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { withRouter } from "react-router-dom";
 import debounce from "lodash.debounce";
 
 import "./ripple.css";
 
-class Click extends Component {
-  state = {
-    enable: true
-  };
-  shouldEnable() {
-    if (window.innerWidth <= 576) {
-      this.setState({ enable: false });
-      return false;
-    } else {
-      this.setState({ enable: true });
-      return true;
-    }
-  }
-  componentDidMount() {
-    // 判断是否应该开启特性
-    // 移动端关闭特性
-    const isItShouldEnable = debounce(this.shouldEnable.bind(this), 200);
+export default withRouter(function Ripple(props) {
+  const { style, children, location } = props;
 
-    this.__resize__ = isItShouldEnable;
-    window.addEventListener("resize", isItShouldEnable);
+  const [enable, setEnable] = useState(false);
+  const [ele, setEle] = useState(null);
+  const [timers, setTimers] = useState([]);
+  const containerRef = useRef(null);
 
-    isItShouldEnable();
+  useEffect(() => {
+    const resize = debounce(function resize() {
+      if (window.innerWidth <= 576) {
+        setEnable(false);
+      } else {
+        setEnable(true);
+      }
+    }, 100);
+
+    resize();
+
+    window.addEventListener("resize", resize);
 
     const width = 200;
     const height = 200;
@@ -35,49 +31,50 @@ class Click extends Component {
     ele.classList.add("ripple");
     ele.style.width = `${width}px`;
     ele.style.height = `${height}px`;
-    this.__ele__ = ele;
-  }
-  componentWillUnmount() {
-    (this.__timer__ || []).forEach(timerId => {
-      clearTimeout(timerId);
-    });
+    setEle(ele);
 
-    if (this.__resize__) {
-      window.removeEventListener("resize", this.__resize__);
-    }
-  }
-  onClick(event) {
-    if (!this.state.enable) return;
+    return function() {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  function onClick(event) {
+    if (!enable) return;
 
     const { pageX, pageY } = event;
     const width = 200;
     const height = 200;
 
-    if (!this.__ele__) return;
+    if (!ele) return;
 
-    const ele = this.__ele__.cloneNode(true);
-    ele.style.left = `${pageX - width / 2}px`;
-    ele.style.top = `${pageY - height / 2}px`;
-    this.refs.container.appendChild(ele);
+    const element = ele.cloneNode(true);
+    element.style.left = `${pageX - width / 2}px`;
+    element.style.top = `${pageY - height / 2}px`;
+    containerRef.current.appendChild(element);
 
-    this.__timer__ = this.__timer__ || [];
-    this.__timer__ = this.__timer__.concat([
-      setTimeout(() => {
-        ele.remove();
-      }, 750)
-    ]);
+    const timerID = setTimeout(() => {
+      element.remove();
+
+      const index = timers.findIndex(v => v === timerID);
+
+      if (index >= 0) {
+        timers.splice(index, 1); // remove
+        setTimers(timers);
+      }
+    }, 750);
+
+    const newTimers = timers.concat([timerID]);
+
+    setTimers(newTimers);
   }
 
-  render() {
-    return (
-      <div
-        onClick={this.onClick.bind(this)}
-        ref="container"
-        style={this.props.style || {}}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
-export default Click;
+  return (
+    <div onClick={onClick} ref={containerRef} style={style || {}}>
+      {children}
+    </div>
+  );
+});

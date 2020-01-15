@@ -11,13 +11,3 @@
   height: 4.2rem;
   line-height: 4.2rem;
 }
-
-.post-content,
-.blockquote {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-．post-content img {
-  max-width: 100%;
-}

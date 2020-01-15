@@ -1,55 +1,31 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 
-class Now extends Component {
-  static propTypes = {
-    interval: PropTypes.number
-  };
+export default function Now(props) {
+  const { interval, children } = props;
 
-  state = {
-    date: new Date()
-  };
-
-  clearInterval() {
-    if (this.__interval_id__ !== void 0) {
-      clearInterval(this.__interval_id__);
-    }
-  }
-
-  UNSAFE_componentWillMount() {
-    this.__interval_id__ = setInterval(
-      this.timer.bind(this),
-      this.props.interval || 1000
+  if (typeof children !== "function") {
+    throw new Error(
+      `react-now component's child must contain only one function`
     );
   }
 
-  componentWillUnmount() {
-    this.clearInterval();
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000);
+
+    return function() {
+      clearInterval(timer);
+    };
+  }, [interval]);
+
+  const reactElement = children.call(this, currentDate);
+
+  if (!React.isValidElement(reactElement)) {
+    throw new Error(`react-now: Function not return a valid react element`);
   }
 
-  timer() {
-    this.setState({ date: new Date() });
-  }
-
-  render() {
-    let render = this.props.children;
-
-    if (typeof render !== "function" || Array.isArray(render)) {
-      this.clearInterval();
-      throw new Error(
-        `react-now component's child must contain only one function`
-      );
-    }
-
-    const reactElement = render.call(this, this.state.date);
-
-    if (!React.isValidElement(reactElement)) {
-      this.clearInterval();
-      throw new Error(`react-now: Function not return a valid react element`);
-    }
-
-    return reactElement;
-  }
+  return reactElement;
 }
-
-export default Now;

@@ -3,7 +3,6 @@ import FastClick from "fastclick";
 import React from "react";
 import { hydrate, render } from "react-dom";
 import App from "./app";
-import "./index.css";
 import { register } from "./registerServiceWorker";
 
 // @ts-ignore

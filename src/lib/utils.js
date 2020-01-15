@@ -1,8 +1,4 @@
 /**
- * Created by axetroy on 17-4-24.
- */
-
-/**
  * 字符串首字母大写
  * @export
  * @param {any} str

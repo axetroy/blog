@@ -1,53 +1,42 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useRef, useEffect } from "react";
 import Clipboard from "clipboard";
 
-export default class ReactClipboard extends Component {
-  static propTypes = {
-    value: PropTypes.string,
-    onSuccess: PropTypes.func,
-    onError: PropTypes.func
-  };
+export default function ReactClipboard(props) {
+  const { className, style, children, value, onSuccess, onError } = props;
 
-  componentDidMount() {
-    if (this.refs.container) {
-      // @ts-ignore
-      const clipboard = new Clipboard(this.refs.container, {
-        text: () => this.props.value
-      });
+  const containerRef = useRef(null);
 
-      clipboard.on("success", event => {
-        if (typeof this.props.onSuccess === "function") {
-          this.props.onSuccess(event);
-        }
-      });
+  useEffect(() => {
+    const dom = containerRef.current;
 
-      clipboard.on("error", event => {
-        if (typeof this.props.onError === "function") {
-          this.props.onError(event);
-        }
-      });
+    const clipboard = new Clipboard(dom, {
+      text: () => value
+    });
 
-      this.__Clipboard = clipboard;
-    }
-  }
+    clipboard.on("success", event => {
+      if (typeof onSuccess === "function") {
+        onSuccess(event);
+      }
+    });
 
-  componentWillUnmount() {
-    this.__Clipboard && this.__Clipboard.destroy();
-  }
+    clipboard.on("error", event => {
+      if (typeof onError === "function") {
+        onError(event);
+      }
+    });
 
-  render() {
-    return (
-      <div
-        className={
-          "react-clipboard-wrapper" +
-          (this.props.className ? " " + this.props.className : "")
-        }
-        style={{ display: "inline-block", ...this.props.style }}
-        ref="container"
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+    return function cleanup() {
+      clipboard.destroy();
+    };
+  }, [onError, onSuccess, value]);
+
+  return (
+    <div
+      className={"react-clipboard-wrapper" + (className ? " " + className : "")}
+      style={{ display: "inline-block", ...style }}
+      ref={containerRef}
+    >
+      {children}
+    </div>
+  );
 }
