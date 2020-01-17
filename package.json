@@ -23,7 +23,7 @@
     "lodash.debounce": "4.0.8",
     "normalize.css": "8.0.1",
     "qrcode.react": "1.0.0",
-    "query-string": "6.9.0",
+    "query-string": "6.10.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-octicon": "3.0.1",
