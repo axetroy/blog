@@ -42,7 +42,7 @@ jobs:
           name: build
 
       - name: Deploy to axetroy.github.io
-        uses: axetroy/ghpages@v0.2.1
+        uses: axetroy/ghpages@master
         env:
           BUILD_DIR: build
           REPOSITORY: axetroy/axetroy.github.io
