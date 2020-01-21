@@ -41,17 +41,17 @@ jobs:
         with:
           name: build
 
-      - name: Deploy to blog.axetroy.xyz
-        uses: maxheld83/ghpages@v0.2.1
-        env:
-          BUILD_DIR: build
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - run: rm ./build/CNAME
-
       - name: Deploy to axetroy.github.io
         uses: axetroy/ghpages@v0.2.1
         env:
           BUILD_DIR: build
           REPOSITORY: axetroy/axetroy.github.io
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - run: rm ./build/CNAME
+
+      - name: Deploy to blog.axetroy.xyz
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: build
           GH_PAT: ${{ secrets.GH_PAT }}
