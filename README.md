@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/axetroy/blog.svg?branch=master)](https://travis-ci.org/axetroy/blog)
-[![Deploy Status](https://github.com/axetroy/blog/workflows/build/badge.svg)](https://github.com/axetroy/blog/actions)
 [![DeepScan grade](https://deepscan.io/api/teams/5773/projects/7588/branches/79785/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5773&pid=7588&bid=79785)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
@@ -14,43 +13,43 @@
 
 ### 特性
 
-* [x] 博客
-* [x] 代码片段 Gist
-* [x] 仓库集合
-* [x] 计划任务 TODO
-* [x] 响应式
-* [x] Progressive Web Apps
-* [x] 数据持久化
-* [x] 按需加载
-* [x] 静态类型检查
-* [ ] i18n
-* [x] 分析 Github 相关数据
-* [x] 集成[FireBase](https://firebase.google.com/)
-* [x] 支持[Github GraphQL API v4](https://developer.github.com/v4/)
+- [x] 博客
+- [x] 代码片段 Gist
+- [x] 仓库集合
+- [x] 计划任务 TODO
+- [x] 响应式
+- [x] Progressive Web Apps
+- [x] 数据持久化
+- [x] 按需加载
+- [x] 静态类型检查
+- [ ] i18n
+- [x] 分析 Github 相关数据
+- [x] 集成[FireBase](https://firebase.google.com/)
+- [x] 支持[Github GraphQL API v4](https://developer.github.com/v4/)
 
 ### 技术栈
 
-* React 全家桶
-* Ant-Design
-* Github Api
-* Flow
+- React 全家桶
+- Ant-Design
+- Github Api
+- Flow
 
 ### 为什么不使用 Hexo 之类的静态站点
 
 Hexo 的流程:
 
-* 新建一个 xxx.md(无论是手动或命令行)
-* 编辑相应的信息, 如发布日期, 分类, 标签, 内容.
-* 本地预览
-* 将 markdown 构建成 html 静态文件
-* 部署到服务器
-* push 源代码
+- 新建一个 xxx.md(无论是手动或命令行)
+- 编辑相应的信息, 如发布日期, 分类, 标签, 内容.
+- 本地预览
+- 将 markdown 构建成 html 静态文件
+- 部署到服务器
+- push 源代码
 
 它并不适合我:
 
-* 疲与上面的步骤
-* 依赖于开发环境，首先你要有 NodeJS 以及 Hexo
-* 修改麻烦，有时就想要改一个字，还得打开编辑器，修改，build，部署.
+- 疲与上面的步骤
+- 依赖于开发环境，首先你要有 NodeJS 以及 Hexo
+- 修改麻烦，有时就想要改一个字，还得打开编辑器，修改，build，部署.
 
 > 我的目标是：部署之后，不用再 care 源码，也不依赖于生产环境，登陆 Github 就操作。
 

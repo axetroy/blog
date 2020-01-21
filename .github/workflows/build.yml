@@ -1,17 +1,57 @@
-on: pull_request
-name: pr
+name: build
+on: [push, pull_request]
+
 jobs:
-  deploy:
-    name: Build
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Install
-        uses: Borales/actions-yarn@master
+      - uses: actions/checkout@v2
         with:
-          args: install
-      - name: Build
-        uses: actions/setup-node@v1
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v1
         with:
           node-version: "10.15.3"
-      - run: npm run build
+
+      - name: Install
+        run: |
+          npm -v
+          yarn -v
+          node -v
+          yarn
+
+      - name: Build
+        run: |
+          npm run build
+          ls -lh ./build
+          cp ./CNAME ./build/CNAME
+
+      - uses: actions/upload-artifact@v1
+        if: runner.os == 'linux'
+        with:
+          name: build
+          path: ./build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'axetroy/blog'
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: build
+
+      - name: Deploy to blog.axetroy.xyz
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: build
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - run: rm ./build/CNAME
+
+      - name: Deploy to axetroy.github.io
+        uses: axetroy/ghpages@v0.2.1
+        env:
+          BUILD_DIR: build
+          REPOSITORY: axetroy/axetroy.github.io
+          GH_PAT: ${{ secrets.GH_PAT }}
