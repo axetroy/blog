@@ -2,7 +2,7 @@ import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import QRCode from "qrcode.react";
 import Comments from "../../component/comment";
@@ -36,7 +36,8 @@ const banners = [
 ].map(v => "https://user-images.githubusercontent.com/9758711/" + v + ".png");
 
 function Post(props) {
-  const { match, POST, updateArticle } = props;
+  const { POST, updateArticle } = props;
+  const match = useRouteMatch();
   const { number } = match.params;
   const post = POST[number] || {};
   const [banner, setBanner] = useState(banners[number % banners.length]);
@@ -341,7 +342,4 @@ function Post(props) {
   );
 }
 
-export default connect(
-  state => ({ POST: state.POST }),
-  actions
-)(withRouter(Post));
+export default connect(state => ({ POST: state.POST }), actions)(Post);

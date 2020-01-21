@@ -1,7 +1,7 @@
 import { Icon, Steps, Tag, Tooltip } from "antd";
 import { format } from "date-fns";
 import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import Comments from "../../component/comment";
 import DocumentTitle from "../../component/document-title";
@@ -11,7 +11,8 @@ import { diffTime, enableIframe } from "../../lib/utils";
 import actions from "../../redux/actions";
 
 function Todo(props) {
-  const { match, TODO, updateTodo } = props;
+  const { TODO, updateTodo } = props;
+  const match = useRouteMatch();
   const { number } = match.params;
   const todo = TODO[number] || {};
 
@@ -136,7 +137,4 @@ function Todo(props) {
   );
 }
 
-export default connect(
-  state => ({ TODO: state.TODO }),
-  actions
-)(withRouter(Todo));
+export default connect(state => ({ TODO: state.TODO }), actions)(Todo);

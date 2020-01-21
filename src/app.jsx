@@ -6,7 +6,7 @@ import {
   NavLink,
   Route,
   Switch,
-  withRouter
+  useLocation
 } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Provider } from "redux-zero/react";
@@ -57,8 +57,8 @@ const widthWidgetLayout = {
   span: 0
 };
 
-function ContentWrap(props) {
-  const { location } = props;
+function Content() {
+  const location = useLocation();
   const [widthScreenMode, setWidthScreenMode] = useState(false);
 
   useEffect(() => {
@@ -176,8 +176,8 @@ function Widget() {
   );
 }
 
-function MenuWrap(props) {
-  const { location } = props;
+function Nav() {
+  const location = useLocation();
   return (
     <Menu mode="horizontal" defaultSelectedKeys={[location.pathname]}>
       <Menu.Item key="/">
@@ -208,9 +208,6 @@ function MenuWrap(props) {
   );
 }
 
-const Content = withRouter(ContentWrap);
-const ContentMenu = withRouter(MenuWrap);
-
 export default function App(props) {
   return (
     <Provider store={store} {...props}>
@@ -218,7 +215,7 @@ export default function App(props) {
         <GoogleAnalytics />
         <Ripple>
           <div id="nav">
-            <ContentMenu />
+            <Nav />
           </div>
           <div id="content">
             <Content />

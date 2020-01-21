@@ -2,7 +2,7 @@ import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import chinese from "date-fns/locale/zh-CN";
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import QRCode from "qrcode.react";
 import Comments from "../../component/comment";
@@ -36,7 +36,8 @@ const banners = [
 ].map(v => "https://user-images.githubusercontent.com/9758711/" + v + ".png");
 
 function Stackoverflow(props) {
-  const { match, STACKOVERFLOW, updateStackoverflow } = props;
+  const { STACKOVERFLOW, updateStackoverflow } = props;
+  const match = useRouteMatch();
   const { number } = match.params;
   const post = STACKOVERFLOW[number] || {};
   const [banner, setBanner] = useState(banners[number % banners.length]);
@@ -346,4 +347,4 @@ function Stackoverflow(props) {
 export default connect(
   state => ({ STACKOVERFLOW: state.STACKOVERFLOW }),
   actions
-)(withRouter(Stackoverflow));
+)(Stackoverflow);

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-function GoogleAnalytics(props) {
-  const { location } = props;
+export default function GoogleAnalytics() {
+  const location = useLocation();
 
   useEffect(() => {
     // @ts-ignore
@@ -14,5 +14,3 @@ function GoogleAnalytics(props) {
 
   return <div id="ga-analytics" style={{ display: "none" }} />;
 }
-
-export default withRouter(GoogleAnalytics);

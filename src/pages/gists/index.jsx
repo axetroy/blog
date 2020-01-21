@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import React, { useEffect } from "react";
 import Octicon from "react-octicon";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import DocumentTitle from "../../component/document-title";
 import CONFIG from "../../config.json";
@@ -92,7 +92,4 @@ function Gists(props) {
   );
 }
 
-export default connect(
-  state => ({ GISTS: state.GISTS }),
-  actions
-)(withRouter(Gists));
+export default connect(state => ({ GISTS: state.GISTS }), actions)(Gists);

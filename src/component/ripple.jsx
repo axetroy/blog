@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import debounce from "lodash.debounce";
 
 import "./ripple.css";
 
-export default withRouter(function Ripple(props) {
-  const { style, children, location } = props;
-
+export default function Ripple(props) {
+  const { style, children } = props;
+  const location = useLocation();
   const [enable, setEnable] = useState(false);
   const [ele, setEle] = useState(null);
   const [timers, setTimers] = useState([]);
@@ -77,4 +77,4 @@ export default withRouter(function Ripple(props) {
       {children}
     </div>
   );
-});
+}

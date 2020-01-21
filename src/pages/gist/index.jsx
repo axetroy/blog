@@ -1,6 +1,6 @@
 import { Icon, message, Spin, Tooltip } from "antd";
 import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import ReactClipboard from "../../component/clipboard";
 import Comments from "../../component/comment";
@@ -22,7 +22,8 @@ function getValues(obj) {
 }
 
 function Gist(props) {
-  const { updateGist, match } = props;
+  const { updateGist } = props;
+  const match = useRouteMatch();
   const { id: gist_id } = match.params;
   const gist = (props.GIST || {})[gist_id] || {};
 
@@ -169,4 +170,4 @@ export default connect(
     GIST: state.GIST
   }),
   actions
-)(withRouter(Gist));
+)(Gist);

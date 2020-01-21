@@ -2,7 +2,7 @@ import { Card, Col, Icon, Pagination, Row, Tag } from "antd";
 import { format } from "date-fns";
 import queryString from "query-string";
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "redux-zero/react";
 import DocumentTitle from "../../component/document-title";
 import CONFIG from "../../config.json";
@@ -11,7 +11,9 @@ import actions from "../../redux/actions";
 import "./index.css";
 
 function Stackoverflow(props) {
-  const { STACKOVERFLOWS, history, location, updateStackoverflows } = props;
+  const { STACKOVERFLOWS, updateStackoverflows } = props;
+  const history = useHistory();
+  const location = useLocation();
   const [meta, setMeta] = useState({ page: 1, per_page: 25, total: 0 });
 
   const query = queryString.parse(location.search);
@@ -179,4 +181,4 @@ export default connect(
     STACKOVERFLOWS: state.STACKOVERFLOWS
   }),
   actions
-)(withRouter(Stackoverflow));
+)(Stackoverflow);
