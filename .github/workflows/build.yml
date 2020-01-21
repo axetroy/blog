@@ -22,7 +22,7 @@ jobs:
           npm -v
           yarn -v
           node -v
-          yarn
+          npm install
 
       - name: Build
         run: |
