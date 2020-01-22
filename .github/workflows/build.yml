@@ -18,10 +18,7 @@ jobs:
           node-version: "12.14.1"
 
       - name: Install
-        run: |
-          npm -v
-          node -v
-          npm install
+        run: npm install
 
       - name: Build
         run: |
