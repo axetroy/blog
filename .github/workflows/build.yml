@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          npx cpy-cli ./CNAME ./build/CNAME
+          npx cpy-cli ./CNAME ./build
 
       - uses: actions/upload-artifact@v1
         if: runner.os == 'linux'
