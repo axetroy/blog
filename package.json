@@ -13,7 +13,7 @@
     "open-source"
   ],
   "dependencies": {
-    "@octokit/rest": "16.38.1",
+    "@octokit/rest": "16.38.2",
     "antd": "3.26.7",
     "clipboard": "2.0.4",
     "date-fns": "2.9.0",
