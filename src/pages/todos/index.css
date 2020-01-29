@@ -5,7 +5,7 @@
 
 .timeline .timeline-item:after,
 .timeline .timeline-item:before {
-  content: "";
+  content: '';
   display: block;
   width: 100%;
   clear: both;
@@ -26,7 +26,7 @@
   transition: all 0.4s ease;
 }
 .timeline:before {
-  content: "";
+  content: '';
   width: 3px;
   height: 100%;
   background: #e3e3e3;
@@ -35,7 +35,7 @@
   position: absolute;
 }
 .timeline:after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
   width: 100%;
@@ -95,7 +95,7 @@
 }
 
 .timeline .timeline-item .timeline-content:before {
-  content: "";
+  content: '';
   position: absolute;
   left: 45.5%;
   top: 20px;
@@ -109,7 +109,7 @@
   float: right;
 }
 .timeline .timeline-item .timeline-content.right:before {
-  content: "";
+  content: '';
   right: 45%;
   left: inherit;
   border-left: 0;

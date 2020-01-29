@@ -1,8 +1,8 @@
-import localForage from "localforage";
-import createStore from "redux-zero";
-import logger from "redux-zero-logger";
-import persist from "redux-zero-persist";
-import { applyMiddleware } from "redux-zero/middleware";
+import localForage from 'localforage'
+import createStore from 'redux-zero'
+import logger from 'redux-zero-logger'
+import persist from 'redux-zero-persist'
+import { applyMiddleware } from 'redux-zero/middleware'
 
 const initialState = {
   OWNER: {}, // 用户信息
@@ -19,19 +19,19 @@ const initialState = {
   STACKOVERFLOWS: [], // 踩坑列表
   GIST: {}, // Gist的详情
   GISTS: [] // Gist列表
-};
+}
 
 const middlewares = applyMiddleware(
   logger(),
-  persist({ key: "[rz]", storage: localForage }, function(err, state) {
+  persist({ key: '[rz]', storage: localForage }, function(err, state) {
     if (err) {
-      console.error(err);
+      console.error(err)
     } else {
-      store.setState(state);
+      store.setState(state)
     }
   })
-);
+)
 
-const store = createStore(initialState, middlewares);
+const store = createStore(initialState, middlewares)
 
-export default store;
+export default store

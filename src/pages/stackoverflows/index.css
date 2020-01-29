@@ -4,7 +4,7 @@
 }
 
 .stackoverflow-list .label-list::after {
-  content: "";
+  content: '';
   width: 0;
   height: 0;
   position: absolute;

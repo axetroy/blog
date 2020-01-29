@@ -10,11 +10,13 @@ import {
 } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Provider } from "redux-zero/react";
+
 import DynamicLoad from "./component/dynamic-load";
 import Footer from "./component/footer";
 import GoogleAnalytics from "./component/ga";
 import Ripple from "./component/ripple";
 import store from "./redux/store";
+
 import "./app.css";
 
 const widthScreenRouter = [
@@ -81,7 +83,6 @@ function Content() {
     }
 
     setWidthScreenMode(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (
