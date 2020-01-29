@@ -1,38 +1,38 @@
-import { Tooltip } from "antd";
-import { formatDistanceToNow } from "date-fns";
-import chinese from "date-fns/locale/zh-CN";
-import React, { useState, useEffect } from "react";
-import Octicon from "react-octicon";
-import { connect } from "redux-zero/react";
-import CONFIG from "../config.json";
-import github from "../lib/github";
-import actions from "../redux/actions";
-import "./stat.css";
+import { Tooltip } from 'antd'
+import { formatDistanceToNow } from 'date-fns'
+import chinese from 'date-fns/locale/zh-CN'
+import React, { useState, useEffect } from 'react'
+import Octicon from 'react-octicon'
+import { connect } from 'redux-zero/react'
+import CONFIG from '../config.json'
+import github from '../lib/github'
+import actions from '../redux/actions'
+import './stat.css'
 
-const githubDomain = "https://github.com/";
+const githubDomain = 'https://github.com/'
 
 function repoUrl(name) {
-  return githubDomain + name;
+  return githubDomain + name
 }
 
 function issueUrl(name, number) {
-  return githubDomain + name + "/issues/" + number;
+  return githubDomain + name + '/issues/' + number
 }
 
 const eventMap = {
   IssuesEvent(event) {
-    const { name } = event.repo;
-    const { action, issue } = event.payload;
+    const { name } = event.repo
+    const { action, issue } = event.payload
     switch (action) {
-      case "assigned":
-        return;
-      case "unassigned":
-        return;
-      case "labeled":
-        return "";
-      case "unlabeled":
-        return;
-      case "opened":
+      case 'assigned':
+        return
+      case 'unassigned':
+        return
+      case 'labeled':
+        return ''
+      case 'unlabeled':
+        return
+      case 'opened':
         return (
           <span>
             <span className="green">
@@ -47,14 +47,14 @@ const eventMap = {
               {name}#{issue.number}
             </a>
           </span>
-        );
-      case "edited":
-        return;
-      case "milestoned":
-        return;
-      case "demilestoned":
-        return;
-      case "closed":
+        )
+      case 'edited':
+        return
+      case 'milestoned':
+        return
+      case 'demilestoned':
+        return
+      case 'closed':
         return (
           <span>
             <span className="red">
@@ -69,18 +69,18 @@ const eventMap = {
               {name}#{issue.number}
             </a>
           </span>
-        );
-      case "reopened":
-        return;
+        )
+      case 'reopened':
+        return
       default:
-        break;
+        break
     }
   },
   IssueCommentEvent(event) {
-    const { name } = event.repo;
-    const { action, issue } = event.payload;
+    const { name } = event.repo
+    const { action, issue } = event.payload
     switch (action) {
-      case "created":
+      case 'created':
         return (
           <span>
             在
@@ -93,8 +93,8 @@ const eventMap = {
             </a>
             中留下评论
           </span>
-        );
-      case "updated":
+        )
+      case 'updated':
         return (
           <span>
             更新
@@ -107,8 +107,8 @@ const eventMap = {
             </a>
             中的评论
           </span>
-        );
-      case "deleted":
+        )
+      case 'deleted':
         return (
           <span>
             删除
@@ -121,16 +121,16 @@ const eventMap = {
             </a>
             中的评论
           </span>
-        );
+        )
       default:
       //
     }
   },
   CreateEvent(event) {
-    const { name } = event.repo || {};
-    const { ref_type, ref } = event.payload;
+    const { name } = event.repo || {}
+    const { ref_type, ref } = event.payload
     switch (ref_type) {
-      case "tag":
+      case 'tag':
         return (
           <span>
             发布
@@ -140,8 +140,8 @@ const eventMap = {
             <Octicon name="tag" mega />
             {ref}
           </span>
-        );
-      case "repository":
+        )
+      case 'repository':
         return (
           <span>
             创建
@@ -150,8 +150,8 @@ const eventMap = {
               {name}
             </a>
           </span>
-        );
-      case "branch":
+        )
+      case 'branch':
         return (
           <span>
             创建
@@ -161,33 +161,33 @@ const eventMap = {
             <Octicon name="git-branch" mega />
             {ref}
           </span>
-        );
+        )
       default:
       //
     }
   },
   PushEvent(event) {
-    const { name } = event.repo || {};
-    const { size, ref, head } = event.payload;
-    const branch = ref.replace("refs/heads/", "");
+    const { name } = event.repo || {}
+    const { size, ref, head } = event.payload
+    const branch = ref.replace('refs/heads/', '')
     return (
       <span>
         提交 <b>{size}</b> 个commit到
         <a
-          href={repoUrl(name) + "/commits/" + head}
+          href={repoUrl(name) + '/commits/' + head}
           target="_blink"
           rel="noopener noreferrer"
         >
           {name}@{branch}
         </a>
       </span>
-    );
+    )
   },
   WatchEvent(event) {
-    const { name } = event.repo || {};
-    const { action } = event.payload;
+    const { name } = event.repo || {}
+    const { action } = event.payload
     switch (action) {
-      case "started":
+      case 'started':
         return (
           <span>
             点赞
@@ -196,20 +196,20 @@ const eventMap = {
               {name}
             </a>
           </span>
-        );
+        )
       default:
     }
   },
   ForkEvent(event) {
-    const { name } = event.repo || {};
-    const { forkee } = event.payload;
+    const { name } = event.repo || {}
+    const { forkee } = event.payload
     return (
       <span>
         <Octicon name="repo-forked" mega />
         <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
           {name}
-        </a>{" "}
-        派生{" "}
+        </a>{' '}
+        派生{' '}
         <a
           href={repoUrl(forkee.full_name)}
           target="_blank"
@@ -218,79 +218,79 @@ const eventMap = {
           {forkee.full_name}
         </a>
       </span>
-    );
+    )
   },
   PullRequestEvent(event) {
-    const { name } = event.repo;
-    const { action, number } = event.payload;
+    const { name } = event.repo
+    const { action, number } = event.payload
     switch (action) {
-      case "opened":
+      case 'opened':
         return (
           <span>
             发起 PR
             <Octicon name="git-pull-request" mega />
             <a
-              href={repoUrl(name) + "/pull/" + number}
+              href={repoUrl(name) + '/pull/' + number}
               target="_blank"
               rel="noopener noreferrer"
             >
               {name}#{number}
             </a>
           </span>
-        );
-      case "closed":
+        )
+      case 'closed':
         return (
           <span>
             关闭 PR
             <Octicon name="git-pull-request" mega />
             <a
-              href={repoUrl(name) + "/pull/" + number}
+              href={repoUrl(name) + '/pull/' + number}
               target="_blank"
               rel="noopener noreferrer"
             >
               {name}#{number}
             </a>
           </span>
-        );
-      case "reopened":
+        )
+      case 'reopened':
         return (
           <span>
             重启 PR
             <Octicon name="git-pull-request" mega />
             <a
-              href={repoUrl(name) + "/pull/" + number}
+              href={repoUrl(name) + '/pull/' + number}
               target="_blank"
               rel="noopener noreferrer"
             >
               {name}#{number}
             </a>
           </span>
-        );
+        )
       default:
       //
     }
   },
   DeleteEvent(event) {
-    const { name } = event.repo || {};
-    const { ref: branchName } = event.payload;
+    const { name } = event.repo || {}
+    const { ref: branchName } = event.payload
     return (
       <span>
-        删除{" "}
+        删除{' '}
         <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
           {name}
         </a>
         @{branchName}
       </span>
-    );
+    )
   }
-};
+}
 
 function Stat(props) {
-  const { REPOS, FOLLOWERS, updateRepositories, updateFollowers } = props;
-  const [events, setEvents] = useState([]);
-  const [latestEvent, setLatestEvent] = useState(null);
+  const { REPOS, FOLLOWERS, updateRepositories, updateFollowers } = props
+  const [events, setEvents] = useState([])
+  const [latestEvent, setLatestEvent] = useState(null)
 
-  const controller = new AbortController();
+  const controller = new AbortController()
 
   async function getAllRepo(page = 1, per_page = 100) {
     const { data } = await github.repos.listForUser({
@@ -300,12 +300,12 @@ function Stat(props) {
       request: {
         signal: controller.signal
       }
-    });
+    })
     // 说明还有下一页数据
     if (data.length >= per_page) {
-      return data.concat(await getAllRepo(page + 1, per_page));
+      return data.concat(await getAllRepo(page + 1, per_page))
     }
-    return data;
+    return data
   }
 
   async function getAllFollower(page = 1, per_page = 100) {
@@ -316,12 +316,12 @@ function Stat(props) {
       request: {
         signal: controller.signal
       }
-    });
+    })
     // 说明还有下一页数据
     if (data.length >= per_page) {
-      return data.concat(await getAllFollower(page + 1));
+      return data.concat(await getAllFollower(page + 1))
     }
-    return data;
+    return data
   }
 
   useEffect(() => {
@@ -335,11 +335,11 @@ function Stat(props) {
         }
       })
       .then(res => {
-        const events = res.data;
+        const events = res.data
 
-        setLatestEvent(events[0]);
+        setLatestEvent(events[0])
 
-        const eventElements = [];
+        const eventElements = []
         for (const event of events) {
           if (event.type in eventMap) {
             eventElements.push(
@@ -348,35 +348,35 @@ function Stat(props) {
                 title={
                   formatDistanceToNow(new Date(event.created_at), {
                     locale: chinese
-                  }) + "前"
+                  }) + '前'
                 }
               >
                 {eventMap[event.type](event)}
               </Tooltip>
-            );
+            )
           }
         }
-        setEvents(eventElements);
+        setEvents(eventElements)
       })
-      .catch(() => {});
+      .catch(() => {})
 
     getAllRepo()
       .then(repositories => {
-        updateRepositories(repositories);
+        updateRepositories(repositories)
       })
-      .catch(() => {});
+      .catch(() => {})
 
     getAllFollower()
       .then(followers => {
-        updateFollowers(followers);
+        updateFollowers(followers)
       })
-      .catch(() => {});
+      .catch(() => {})
 
     return function() {
-      controller.abort();
-    };
+      controller.abort()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <div className="widget widget-stat">
@@ -394,24 +394,24 @@ function Stat(props) {
       </div>
       <div className="stat-meta">
         <p>
-          开源 <b>{REPOS.filter(v => !v.fork).length}</b> 个原创项目 , 有{" "}
+          开源 <b>{REPOS.filter(v => !v.fork).length}</b> 个原创项目 , 有{' '}
           <b>{FOLLOWERS.length}</b> 个人关注我
         </p>
         <p>
-          收获{" "}
+          收获{' '}
           <b>
             {REPOS.map(repo => repo.stargazers_count || 0).reduce(
               (a, b) => a + b,
               0
             ) || 0}
-          </b>{" "}
-          个 Star,{" "}
+          </b>{' '}
+          个 Star,{' '}
           <b>
             {REPOS.map(repo => repo.forks_count || 0).reduce(
               (a, b) => a + b,
               0
             ) || 0}
-          </b>{" "}
+          </b>{' '}
           个 Fork.
         </p>
         {/* <p>
@@ -423,8 +423,8 @@ function Stat(props) {
             {events.length && latestEvent
               ? formatDistanceToNow(new Date(latestEvent.created_at), {
                   locale: chinese
-                }) + "前"
-              : ""}
+                }) + '前'
+              : ''}
           </b>
         </p>
         <ul className="event-list">
@@ -432,12 +432,12 @@ function Stat(props) {
             .filter(v => v)
             .slice(0, 10)
             .map((v, i) => {
-              return <li key={i}>{v}</li>;
+              return <li key={i}>{v}</li>
             })}
         </ul>
       </div>
     </div>
-  );
+  )
 }
 
 export default connect(
@@ -446,4 +446,4 @@ export default connect(
     FOLLOWERS: state.FOLLOWERS
   }),
   actions
-)(Stat);
+)(Stat)

@@ -1,20 +1,20 @@
-import { Col, Row } from "antd";
-import { formatDistanceToNow } from "date-fns";
-import chinese from "date-fns/locale/zh-CN";
-import React from "react";
-import { diffTime } from "../lib/utils";
-import Now from "./now";
-import "./footer.css";
+import { Col, Row } from 'antd'
+import { formatDistanceToNow } from 'date-fns'
+import chinese from 'date-fns/locale/zh-CN'
+import React from 'react'
+import { diffTime } from '../lib/utils'
+import Now from './now'
+import './footer.css'
 
 export default function Footer() {
-  const created = new Date("2016-11-09 14:22:33");
+  const created = new Date('2016-11-09 14:22:33')
 
-  const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE;
-  const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH;
-  const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH;
-  const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE;
-  const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR;
-  const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE;
+  const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE
+  const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH
+  const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH
+  const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE
+  const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR
+  const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE
 
   return (
     <footer id="footer">
@@ -143,7 +143,7 @@ export default function Footer() {
             <li>
               <Now>
                 {now => {
-                  const diff = diffTime(created)(now);
+                  const diff = diffTime(created)(now)
                   return (
                     <div>
                       <p>
@@ -155,12 +155,12 @@ export default function Footer() {
                 `}
                       </p>
                     </div>
-                  );
+                  )
                 }}
               </Now>
             </li>
             <li>
-              Created by{" "}
+              Created by{' '}
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -183,25 +183,25 @@ export default function Footer() {
       </Row>
 
       <div className="text-center">
-        最近由 {LAST_COMMIT_AUTHOR} 于{" "}
+        最近由 {LAST_COMMIT_AUTHOR} 于{' '}
         {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
           locale: chinese
-        })}{" "}
+        })}{' '}
         前更改代码(
-        <a href={"https://github.com/axetroy/blog/commit/" + LAST_COMMIT_HASH}>
+        <a href={'https://github.com/axetroy/blog/commit/' + LAST_COMMIT_HASH}>
           {LAST_COMMIT_MESSAGE}
         </a>
-        ). 于{" "}
+        ). 于{' '}
         {formatDistanceToNow(new Date(LATEST_BUILD_DATE), {
           locale: chinese
-        })}{" "}
-        前更新网站. 当前网站源码{" "}
+        })}{' '}
+        前更新网站. 当前网站源码{' '}
         <a
-          href={"https://github.com/axetroy/blog/tree/" + LAST_COMMIT_TREE_HASH}
+          href={'https://github.com/axetroy/blog/tree/' + LAST_COMMIT_TREE_HASH}
         >
           {LAST_COMMIT_TREE_HASH}
         </a>
       </div>
     </footer>
-  );
+  )
 }

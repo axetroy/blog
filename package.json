@@ -51,7 +51,7 @@
     "build": "react-app-rewired build",
     "postbuild": "node scripts/postbuild.js && react-snap",
     "test": "react-app-rewired test",
-    "format": "prettier --write '{src,app}/**/*.{js,css,json,md}'",
+    "format": "prettier --write '{src,app}/**/*.{js,jsx,css,json,md}'",
     "fix": "npx babel-cli ./node_modules/@octokit/rest --out-dir ./node_modules/@octokit/rest --copy-files --source-maps inline",
     "postinstall": "npm run fix"
   },

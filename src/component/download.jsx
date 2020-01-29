@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
 function downloadFile(fileName, fileContent) {
   function fake_click(obj) {
-    let ev = document.createEvent("MouseEvents");
+    let ev = document.createEvent('MouseEvents')
     ev.initMouseEvent(
-      "click",
+      'click',
       true,
       false,
       window,
@@ -19,45 +19,45 @@ function downloadFile(fileName, fileContent) {
       false,
       0,
       null
-    );
-    obj.dispatchEvent(ev);
+    )
+    obj.dispatchEvent(ev)
   }
   function export_raw(name, data) {
-    let urlObject = window.URL || window.webkitURL || window;
-    let export_blob = new Blob([data]);
+    let urlObject = window.URL || window.webkitURL || window
+    let export_blob = new Blob([data])
 
-    if ("msSaveBlob" in navigator) {
+    if ('msSaveBlob' in navigator) {
       // Prefer msSaveBlob if available - Edge supports a[download] but
       // ignores the filename provided, using the blob UUID instead.
       // msSaveBlob will respect the provided filename
-      navigator.msSaveBlob(export_blob, name);
-    } else if ("download" in HTMLAnchorElement.prototype) {
+      navigator.msSaveBlob(export_blob, name)
+    } else if ('download' in HTMLAnchorElement.prototype) {
       let save_link = document.createElementNS(
-        "http://www.w3.org/1999/xhtml",
-        "a"
-      );
-      save_link.href = urlObject.createObjectURL(export_blob);
-      save_link.download = name;
-      fake_click(save_link);
+        'http://www.w3.org/1999/xhtml',
+        'a'
+      )
+      save_link.href = urlObject.createObjectURL(export_blob)
+      save_link.download = name
+      fake_click(save_link)
     } else {
-      throw new Error("Neither a[download] nor msSaveBlob is available");
+      throw new Error('Neither a[download] nor msSaveBlob is available')
     }
   }
-  export_raw(fileName, fileContent);
+  export_raw(fileName, fileContent)
 }
 
 export default function Download(props) {
-  const { children, file, content, style, className } = props;
+  const { children, file, content, style, className } = props
 
   return (
     <div
       className={
-        "react-download-container" + (className ? " " + className : "")
+        'react-download-container' + (className ? ' ' + className : '')
       }
       onClick={() => downloadFile(file, content)}
       style={style}
     >
       {children}
     </div>
-  );
+  )
 }

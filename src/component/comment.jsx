@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { formatDistanceToNow } from "date-fns";
-import chinese from "date-fns/locale/zh-CN";
-import github from "../lib/github";
-import "./comment.css";
+import React, { useState, useEffect } from 'react'
+import { formatDistanceToNow } from 'date-fns'
+import chinese from 'date-fns/locale/zh-CN'
+import github from '../lib/github'
+import './comment.css'
 
 async function getIssuesComments(owner, repo, number) {
   const { data: comments } = await github.issues.listComments({
@@ -10,46 +10,46 @@ async function getIssuesComments(owner, repo, number) {
     repo,
     issue_number: number,
     headers: {
-      Accept: "application/vnd.github.v3.html"
+      Accept: 'application/vnd.github.v3.html'
     }
-  });
+  })
 
-  return comments;
+  return comments
 }
 
 async function getGistComments(gist_id) {
   const { data: comments } = await github.gists.listComments({
     gist_id,
     headers: {
-      Accept: "application/vnd.github.v3.html"
+      Accept: 'application/vnd.github.v3.html'
     }
-  });
-  return comments;
+  })
+  return comments
 }
 
 export default function Comments(props) {
-  const { type, owner, repo, number, gistId } = props;
-  const [comments, setComments] = useState([]);
+  const { type, owner, repo, number, gistId } = props
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     switch (type) {
-      case "issues":
-        if (typeof number === "number") {
+      case 'issues':
+        if (typeof number === 'number') {
           getIssuesComments(owner, repo, number).then(data => {
-            setComments(data);
-          });
+            setComments(data)
+          })
         }
-        break;
-      case "gist":
-        if (typeof gistId === "string") {
+        break
+      case 'gist':
+        if (typeof gistId === 'string') {
           getGistComments(gistId).then(data => {
-            setComments(data);
-          });
+            setComments(data)
+          })
         }
-        break;
+        break
       default:
     }
-  }, [number, owner, repo, type, gistId]);
+  }, [number, owner, repo, type, gistId])
 
   return (
     <div>
@@ -60,15 +60,15 @@ export default function Comments(props) {
           rel="noopener noreferrer"
           target="_blank"
           href={
-            type === "issues"
+            type === 'issues'
               ? `https://github.com/${owner}/${repo}/issues/${number}#new_comment_field`
-              : type === "gist"
+              : type === 'gist'
               ? `https://gist.github.com/${gistId}#new_comment_field`
               : // eslint-disable-next-line
-                "javascript:void 0"
+                'javascript:void 0'
           }
           style={{
-            float: "right"
+            float: 'right'
           }}
         >
           朕有话说
@@ -81,22 +81,22 @@ export default function Comments(props) {
             <div
               key={comment.id}
               style={{
-                border: "0.1rem solid #e2e2e2",
-                borderRadius: "0.5rem",
-                margin: "1rem 0"
+                border: '0.1rem solid #e2e2e2',
+                borderRadius: '0.5rem',
+                margin: '1rem 0'
               }}
             >
               <div
                 className="comment-header"
                 style={{
-                  overflow: "hidden"
+                  overflow: 'hidden'
                 }}
               >
                 <img
                   style={{
-                    width: "3.2rem",
-                    verticalAlign: "middle",
-                    borderRadius: "50%"
+                    width: '3.2rem',
+                    verticalAlign: 'middle',
+                    borderRadius: '50%'
                   }}
                   src={comment.user.avatar_url}
                   alt=""
@@ -104,7 +104,7 @@ export default function Comments(props) {
                 &nbsp;&nbsp;
                 <strong
                   style={{
-                    color: "#586069"
+                    color: '#586069'
                   }}
                 >
                   {/* eslint-disable-next-line */}
@@ -118,7 +118,7 @@ export default function Comments(props) {
                 </strong>
                 &nbsp;&nbsp;
                 <span>
-                  {" "}
+                  {' '}
                   {`评论于 ${formatDistanceToNow(new Date(comment.created_at), {
                     locale: chinese
                   })}前`}
@@ -129,13 +129,13 @@ export default function Comments(props) {
                           locale: chinese
                         }
                       )}前`
-                    : ""}
+                    : ''}
                 </span>
               </div>
               <div
                 className="comment-body"
                 style={{
-                  padding: "1.2rem"
+                  padding: '1.2rem'
                 }}
               >
                 <div
@@ -146,7 +146,7 @@ export default function Comments(props) {
                 />
               </div>
             </div>
-          );
+          )
         })
       ) : (
         <div>
@@ -154,5 +154,5 @@ export default function Comments(props) {
         </div>
       )}
     </div>
-  );
+  )
 }

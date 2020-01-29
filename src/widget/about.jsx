@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function() {
   return (
@@ -12,5 +12,5 @@ export default function() {
       <p>待而立之年，蓦然回首，乃知误入, 悔之晚矣!</p>
       <p>如后人欲往，当以慎之，切记! 切记!</p>
     </div>
-  );
+  )
 }

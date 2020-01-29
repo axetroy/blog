@@ -1,5 +1,5 @@
-import { Col, Icon, Menu, Row } from "antd";
-import React, { Fragment, useState, useEffect } from "react";
+import { Col, Icon, Menu, Row } from 'antd'
+import React, { Fragment, useState, useEffect } from 'react'
 import {
   HashRouter as Router,
   matchPath,
@@ -7,26 +7,26 @@ import {
   Route,
   Switch,
   useLocation
-} from "react-router-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Provider } from "redux-zero/react";
+} from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { Provider } from 'redux-zero/react'
 
-import DynamicLoad from "./component/dynamic-load";
-import Footer from "./component/footer";
-import GoogleAnalytics from "./component/ga";
-import Ripple from "./component/ripple";
-import store from "./redux/store";
+import DynamicLoad from './component/dynamic-load'
+import Footer from './component/footer'
+import GoogleAnalytics from './component/ga'
+import Ripple from './component/ripple'
+import store from './redux/store'
 
-import "./app.css";
+import './app.css'
 
 const widthScreenRouter = [
-  "/todo",
-  "/todo/:id",
-  "/gist",
-  "/gist/:id",
-  "/stackoverflow",
-  "/stackoverflow/:number"
-];
+  '/todo',
+  '/todo/:id',
+  '/gist',
+  '/gist/:id',
+  '/stackoverflow',
+  '/stackoverflow/:number'
+]
 
 const contentLayout = {
   xs: { span: 24, offset: 0 },
@@ -35,7 +35,7 @@ const contentLayout = {
   lg: { span: 15, offset: 1 },
   xl: { span: 14, offset: 2 },
   xxl: { span: 13, offset: 3 }
-};
+}
 
 const widgetLayout = {
   xs: { span: 24, offset: 0 },
@@ -44,7 +44,7 @@ const widgetLayout = {
   lg: { span: 7, offset: 0 },
   xl: { span: 6, offset: 0 },
   xxl: { span: 5, offset: 0 }
-};
+}
 
 const widthContentLayout = {
   xs: { span: 24, offset: 0 },
@@ -53,37 +53,37 @@ const widthContentLayout = {
   lg: { span: 18, offset: 3 },
   xl: { span: 18, offset: 3 },
   xxl: { span: 16, offset: 4 }
-};
+}
 
 const widthWidgetLayout = {
   span: 0
-};
+}
 
 function Content() {
-  const location = useLocation();
-  const [widthScreenMode, setWidthScreenMode] = useState(false);
+  const location = useLocation()
+  const [widthScreenMode, setWidthScreenMode] = useState(false)
 
   useEffect(() => {
-    const pathname = location.pathname;
+    const pathname = location.pathname
 
-    if (pathname === "/") {
-      setWidthScreenMode(false);
-      return;
+    if (pathname === '/') {
+      setWidthScreenMode(false)
+      return
     }
     for (const p of widthScreenRouter) {
       const currentRoute = matchPath(pathname, {
         path: p,
         exact: false
-      });
+      })
 
       if (currentRoute) {
-        setWidthScreenMode(true);
-        return;
+        setWidthScreenMode(true)
+        return
       }
     }
 
-    setWidthScreenMode(false);
-  }, [location.pathname]);
+    setWidthScreenMode(false)
+  }, [location.pathname])
 
   return (
     <TransitionGroup>
@@ -98,42 +98,42 @@ function Content() {
                 exact
                 path="/"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/posts")} />
+                  <DynamicLoad import={() => import('./pages/posts')} />
                 )}
               />
               <Route
                 exact
                 path="/post/:number"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/post")} />
+                  <DynamicLoad import={() => import('./pages/post')} />
                 )}
               />
               <Route
                 exact
                 path="/todo/:number"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/todo")} />
+                  <DynamicLoad import={() => import('./pages/todo')} />
                 )}
               />
               <Route
                 exact
                 path="/todo"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/todos")} />
+                  <DynamicLoad import={() => import('./pages/todos')} />
                 )}
               />
               <Route
                 exact
                 path="/gist/:id"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/gist")} />
+                  <DynamicLoad import={() => import('./pages/gist')} />
                 )}
               />
               <Route
                 exact
                 path="/gist"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/gists")} />
+                  <DynamicLoad import={() => import('./pages/gists')} />
                 )}
               />
               <Route
@@ -141,7 +141,7 @@ function Content() {
                 path="/stackoverflow"
                 render={() => (
                   <DynamicLoad
-                    import={() => import("./pages/stackoverflows")}
+                    import={() => import('./pages/stackoverflows')}
                   />
                 )}
               />
@@ -149,7 +149,7 @@ function Content() {
                 exact
                 path="/stackoverflow/:number"
                 render={() => (
-                  <DynamicLoad import={() => import("./pages/stackoverflow")} />
+                  <DynamicLoad import={() => import('./pages/stackoverflow')} />
                 )}
               />
             </Switch>
@@ -163,22 +163,22 @@ function Content() {
         </Row>
       </CSSTransition>
     </TransitionGroup>
-  );
+  )
 }
 
 function Widget() {
   return (
     <Fragment>
-      <DynamicLoad import={() => import("./widget/about")} />
-      <DynamicLoad import={() => import("./widget/stat")} />
-      <DynamicLoad import={() => import("./widget/todo")} />
-      <DynamicLoad import={() => import("./widget/gist")} />
+      <DynamicLoad import={() => import('./widget/about')} />
+      <DynamicLoad import={() => import('./widget/stat')} />
+      <DynamicLoad import={() => import('./widget/todo')} />
+      <DynamicLoad import={() => import('./widget/gist')} />
     </Fragment>
-  );
+  )
 }
 
 function Nav() {
-  const location = useLocation();
+  const location = useLocation()
   return (
     <Menu mode="horizontal" defaultSelectedKeys={[location.pathname]}>
       <Menu.Item key="/">
@@ -206,7 +206,7 @@ function Nav() {
         </NavLink>
       </Menu.Item>
     </Menu>
-  );
+  )
 }
 
 export default function App(props) {
@@ -225,5 +225,5 @@ export default function App(props) {
         </Ripple>
       </Router>
     </Provider>
-  );
+  )
 }

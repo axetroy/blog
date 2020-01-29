@@ -1,23 +1,23 @@
-import { Icon, Steps, Tag, Tooltip } from "antd";
-import { format } from "date-fns";
-import React, { useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
-import { connect } from "redux-zero/react";
-import Comments from "../../component/comment";
-import DocumentTitle from "../../component/document-title";
-import CONFIG from "../../config.json";
-import github from "../../lib/github";
-import { diffTime, enableIframe } from "../../lib/utils";
-import actions from "../../redux/actions";
+import { Icon, Steps, Tag, Tooltip } from 'antd'
+import { format } from 'date-fns'
+import React, { useEffect } from 'react'
+import { useRouteMatch } from 'react-router-dom'
+import { connect } from 'redux-zero/react'
+import Comments from '../../component/comment'
+import DocumentTitle from '../../component/document-title'
+import CONFIG from '../../config.json'
+import github from '../../lib/github'
+import { diffTime, enableIframe } from '../../lib/utils'
+import actions from '../../redux/actions'
 
 function Todo(props) {
-  const { TODO, updateTodo } = props;
-  const match = useRouteMatch();
-  const { number } = match.params;
-  const todo = TODO[number] || {};
+  const { TODO, updateTodo } = props
+  const match = useRouteMatch()
+  const { number } = match.params
+  const todo = TODO[number] || {}
 
   useEffect(() => {
-    const controller = new AbortController();
+    const controller = new AbortController()
 
     github.issues
       .get({
@@ -25,27 +25,27 @@ function Todo(props) {
         repo: CONFIG.todo_repo,
         issue_number: number,
         headers: {
-          Accept: "application/vnd.github.v3.html"
+          Accept: 'application/vnd.github.v3.html'
         },
         request: {
           signal: controller.signal
         }
       })
       .then(({ data: todo }) => {
-        updateTodo(number, todo);
+        updateTodo(number, todo)
       })
-      .catch(() => {});
+      .catch(() => {})
 
     return () => {
-      controller.abort();
-    };
-  }, [number, updateTodo]);
+      controller.abort()
+    }
+  }, [number, updateTodo])
 
   return (
-    <DocumentTitle title={[todo.title, "待办事项"]}>
-      <div className="bg-white" style={{ padding: "0 1rem", marginBottom: 20 }}>
+    <DocumentTitle title={[todo.title, '待办事项']}>
+      <div className="bg-white" style={{ padding: '0 1rem', marginBottom: 20 }}>
         {todo.title ? (
-          <h2 style={{ textAlign: "center", padding: "1rem 0" }}>
+          <h2 style={{ textAlign: 'center', padding: '1rem 0' }}>
             {todo.title}
             <Tooltip placement="topLeft" title="编辑此页">
               <a
@@ -58,11 +58,11 @@ function Todo(props) {
             </Tooltip>
           </h2>
         ) : (
-          ""
+          ''
         )}
         <Steps
           style={{
-            margin: "2rem 0"
+            margin: '2rem 0'
           }}
         >
           <Steps.Step
@@ -70,55 +70,55 @@ function Todo(props) {
             title="创建计划"
             description={
               todo.created_at
-                ? `${format(new Date(todo.created_at), "yyyy-MM-dd HH:mm:ss")}`
-                : ""
+                ? `${format(new Date(todo.created_at), 'yyyy-MM-dd HH:mm:ss')}`
+                : ''
             }
             icon={<Icon type="book" />}
           />
           <Steps.Step
-            status={todo.closed_at ? "finish" : "wait"}
+            status={todo.closed_at ? 'finish' : 'wait'}
             title="进行中"
             description={
               todo.closed_at
                 ? (() => {
                     const diff = diffTime(new Date(todo.created_at))(
                       new Date(todo.closed_at)
-                    );
-                    return `耗时${diff.days ? diff.days + "天" : ""} ${
-                      diff.hours || diff.days ? diff.hours + "时" : ""
-                    }${diff.minutes || diff.hours ? diff.minutes + "分" : ""}${
+                    )
+                    return `耗时${diff.days ? diff.days + '天' : ''} ${
+                      diff.hours || diff.days ? diff.hours + '时' : ''
+                    }${diff.minutes || diff.hours ? diff.minutes + '分' : ''}${
                       diff.seconds
-                    }秒`;
+                    }秒`
                   })()
-                : "进行中..."
+                : '进行中...'
             }
             icon={<Icon type="clock-circle-o" />}
           />
           <Steps.Step
-            status={todo.closed_at ? "finish" : "wait"}
+            status={todo.closed_at ? 'finish' : 'wait'}
             title="关闭计划"
             description={
               todo.closed_at
-                ? `${format(new Date(todo.closed_at), "yyyy-MM-dd HH:mm:ss")}`
-                : ""
+                ? `${format(new Date(todo.closed_at), 'yyyy-MM-dd HH:mm:ss')}`
+                : ''
             }
             icon={<Icon type="check" />}
           />
         </Steps>
-        <div style={{ margin: "2rem 0" }}>
+        <div style={{ margin: '2rem 0' }}>
           {(todo.labels || []).map(label => {
             return (
-              <Tag key={label.id} color={"#" + label.color}>
+              <Tag key={label.id} color={'#' + label.color}>
                 {label.name}
               </Tag>
-            );
+            )
           })}
         </div>
         <div
           className="markdown-body"
           style={{
-            fontSize: "1.6rem",
-            minHeight: "20rem"
+            fontSize: '1.6rem',
+            minHeight: '20rem'
           }}
           dangerouslySetInnerHTML={{
             __html: enableIframe(todo.body_html)
@@ -134,7 +134,7 @@ function Todo(props) {
         </div>
       </div>
     </DocumentTitle>
-  );
+  )
 }
 
-export default connect(state => ({ TODO: state.TODO }), actions)(Todo);
+export default connect(state => ({ TODO: state.TODO }), actions)(Todo)
