@@ -42,7 +42,7 @@
     "customize-cra": "0.9.1",
     "fs-extra": "8.1.0",
     "react-app-rewired": "2.1.5",
-    "react-scripts": "3.3.0",
+    "react-scripts": "3.3.1",
     "react-snap": "1.23.0"
   },
   "scripts": {
