@@ -15,42 +15,10 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "12.14.1"
+          node-version: '12.14.1'
 
       - name: Install
         run: npm install
 
       - name: Build
-        run: |
-          npm run build
-          npx cpy-cli ./CNAME ./build
-
-      - uses: actions/upload-artifact@v1
-        if: runner.os == 'linux'
-        with:
-          name: build
-          path: ./build
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'axetroy/blog'
-    steps:
-      - uses: actions/download-artifact@v1
-        with:
-          name: build
-
-      - name: Deploy to axetroy.github.io
-        uses: axetroy/ghpages@master
-        env:
-          BUILD_DIR: build
-          REPOSITORY: axetroy/axetroy.github.io
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - run: rm ./build/CNAME
-
-      - name: Deploy to blog.axetroy.xyz
-        uses: maxheld83/ghpages@v0.2.1
-        env:
-          BUILD_DIR: build
-          GH_PAT: ${{ secrets.GH_PAT }}
+        run: npm run build
