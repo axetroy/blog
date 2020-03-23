@@ -283,10 +283,11 @@ const eventMap = {
   }
 }
 
-async function getRepos(page, per_page) {
+async function getRepos(page = 1, per_page = 100) {
   const { data } = await github.repos.listForUser({
     username: CONFIG.owner,
-    type: "owner",
+    type: 'owner',
+    // type: 'source',
     page,
     per_page,
     request: {
