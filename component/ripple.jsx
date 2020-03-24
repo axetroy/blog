@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 
 import './ripple.css'
 
-export default function Ripple(props) {
+export function Ripple(props) {
   const { style, children } = props
-  const location = useLocation()
   const [enable, setEnable] = useState(false)
   const [ele, setEle] = useState(null)
   const [timers, setTimers] = useState([])
@@ -37,10 +35,6 @@ export default function Ripple(props) {
       window.removeEventListener('resize', resize)
     }
   }, [])
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
 
   function onClick(event) {
     if (!enable) return

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import Footer from '../component/footer'
+import { Ripple } from '../component/ripple'
 import { About as WidgetAbout } from '../widget/about'
 import { Stat as WidgetStat } from '../widget/stat'
 import { Todo as WidgetTodo } from '../widget/todo'
@@ -135,7 +136,7 @@ export function Layout(props) {
   }
 
   return (
-    <div>
+    <Ripple>
       <div id="nav">
         <Nav />
       </div>
@@ -143,6 +144,6 @@ export function Layout(props) {
         <Content widthScreenMode={widthScreenMode}>{children}</Content>
       </div>
       <Footer />
-    </div>
+    </Ripple>
   )
 }

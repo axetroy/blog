@@ -1,20 +1,19 @@
 import { Col, Row } from 'antd'
-import { formatDistanceToNow } from 'date-fns'
-import chinese from 'date-fns/locale/zh-CN'
+// import { formatDistanceToNow } from 'date-fns'
+// import chinese from 'date-fns/locale/zh-CN'
 import React from 'react'
 import { diffTime } from '../lib/utils'
 import Now from './now'
-import './footer.css'
 
 export default function Footer() {
   const created = new Date('2016-11-09 14:22:33')
 
-  const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE || new Date()
-  const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH
-  const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH
-  const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE || new Date()
-  const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR
-  const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE
+  // const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE || new Date()
+  // const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH
+  // const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH
+  // const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE || new Date()
+  // const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR
+  // const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE
 
   return (
     <footer id="footer">
@@ -182,7 +181,7 @@ export default function Footer() {
         </Col>
       </Row>
 
-      <div className="text-center">
+      {/* <div className="text-center">
         最近由 {LAST_COMMIT_AUTHOR} 于{' '}
         {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
           locale: chinese
@@ -201,7 +200,28 @@ export default function Footer() {
         >
           {LAST_COMMIT_TREE_HASH}
         </a>
-      </div>
+      </div> */}
+      <style jsx>
+        {`
+          #footer {
+            padding: 1rem;
+            background-color: #fff;
+          }
+
+          #footer p {
+            margin-bottom: 0;
+          }
+
+          #footer .footer-item-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+          }
+
+          #footer ul {
+            line-height: 26px;
+          }
+        `}
+      </style>
     </footer>
   )
 }
