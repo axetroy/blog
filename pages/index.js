@@ -60,61 +60,63 @@ export default function Posts(props) {
           {POSTS.map((post, i) => {
             return (
               <Col key={post.number + '/' + i} xs={24}>
-                <Card
-                  style={{
-                    overflow: 'hidden'
-                  }}
-                  className="post-list"
-                >
-                  <div>
-                    <Link href={`/post/${post.number}`}>
-                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                      <a>
-                        <h3
-                          className="post-title"
-                          style={{
-                            wordBreak: 'break-word',
-                            whiteSpace: 'nowrap',
-                            textOverflow: 'ellipsis',
-                            overflow: 'hidden',
-                            display: 'inline-block',
-                            maxWidth: '100%'
-                          }}
-                        >
-                          {post.title}
-                        </h3>
-                      </a>
-                    </Link>
-                  </div>
-                  <div>
-                    <span>
-                      <ClockCircleOutlined />{' '}
-                      {format(new Date(post.created_at), 'yyyy-MM-dd')}
-                      &nbsp;
-                    </span>
-                    <span>
-                      <MessageOutlined /> {post.comments}{' '}
-                    </span>
-
-                    <span className="label-list">
-                      {(post.labels || []).map(label => {
-                        return (
-                          <a
-                            key={label.id}
-                            href={
-                              'https://github.com/axetroy/blog/labels/' +
-                              label.name
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
+                <section>
+                  <Card
+                    style={{
+                      overflow: 'hidden'
+                    }}
+                    className="post-list"
+                  >
+                    <div>
+                      <Link href={`/post/${post.number}`}>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a>
+                          <h3
+                            className="post-title"
+                            style={{
+                              wordBreak: 'break-word',
+                              whiteSpace: 'nowrap',
+                              textOverflow: 'ellipsis',
+                              overflow: 'hidden',
+                              display: 'inline-block',
+                              maxWidth: '100%'
+                            }}
                           >
-                            <Tag color={'#' + label.color}>{label.name}</Tag>
-                          </a>
-                        )
-                      })}
-                    </span>
-                  </div>
-                </Card>
+                            {post.title}
+                          </h3>
+                        </a>
+                      </Link>
+                    </div>
+                    <div>
+                      <span>
+                        <ClockCircleOutlined />{' '}
+                        {format(new Date(post.created_at), 'yyyy-MM-dd')}
+                        &nbsp;
+                      </span>
+                      <span>
+                        <MessageOutlined /> {post.comments}{' '}
+                      </span>
+
+                      <span className="label-list">
+                        {(post.labels || []).map(label => {
+                          return (
+                            <a
+                              key={label.id}
+                              href={
+                                'https://github.com/axetroy/blog/labels/' +
+                                label.name
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Tag color={'#' + label.color}>{label.name}</Tag>
+                            </a>
+                          )
+                        })}
+                      </span>
+                    </div>
+                  </Card>
+                </section>
               </Col>
             )
           })}

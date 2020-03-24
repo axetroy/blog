@@ -319,7 +319,7 @@ export default function Post(props) {
             </span>
           </h2>
 
-          <div
+          <article
             className="markdown-body post-content"
             style={{
               margin: '2rem 0',

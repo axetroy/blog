@@ -137,12 +137,12 @@ export function Layout(props) {
 
   return (
     <Ripple>
-      <div id="nav">
+      <nav id="nav">
         <Nav />
-      </div>
-      <div id="content">
+      </nav>
+      <main id="content">
         <Content widthScreenMode={widthScreenMode}>{children}</Content>
-      </div>
+      </main>
       <Footer />
     </Ripple>
   )

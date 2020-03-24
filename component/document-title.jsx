@@ -14,7 +14,6 @@ export default function DocumentTitle(props) {
     <Fragment>
       <Head>
         <title>{titleStr}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {children}
     </Fragment>
