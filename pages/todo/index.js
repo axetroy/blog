@@ -2,6 +2,7 @@ import { Icon, Tag } from 'antd'
 import { format } from 'date-fns'
 import React from 'react'
 import Link from 'next/link'
+import { CheckCircleOutlined } from '@ant-design/icons'
 
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
@@ -118,7 +119,7 @@ export default function TodoList(props) {
                     </h2>
                     <div style={{ margin: '1rem 0' }}>
                       <span>
-                        <Icon type="clock-circle-o" />
+                        <CheckCircleOutlined />
                         &nbsp;
                         {format(new Date(todo.created_at), 'yyyy-MM-dd')}
                         &nbsp;

@@ -1,6 +1,12 @@
 import { Icon, Steps, Tag, Tooltip } from 'antd'
 import { format } from 'date-fns'
 import React from 'react'
+import {
+  EditOutlined,
+  BookOutlined,
+  CheckOutlined,
+  CheckCircleOutlined
+} from '@ant-design/icons'
 
 import Comments from '../../component/comment'
 import DocumentTitle from '../../component/document-title'
@@ -23,7 +29,7 @@ export default function Todo(props) {
                 href={`https://github.com/${CONFIG.owner}/${CONFIG.todo_repo}/issues/${todo.number}`}
                 target="_blank"
               >
-                <Icon type="edit" />
+                <EditOutlined />
               </a>
             </Tooltip>
           </h2>
@@ -43,7 +49,7 @@ export default function Todo(props) {
                 ? `${format(new Date(todo.created_at), 'yyyy-MM-dd HH:mm:ss')}`
                 : ''
             }
-            icon={<Icon type="book" />}
+            icon={<BookOutlined />}
           />
           <Steps.Step
             status={todo.closed_at ? 'finish' : 'wait'}
@@ -62,7 +68,7 @@ export default function Todo(props) {
                   })()
                 : '进行中...'
             }
-            icon={<Icon type="clock-circle-o" />}
+            icon={<CheckCircleOutlined />}
           />
           <Steps.Step
             status={todo.closed_at ? 'finish' : 'wait'}
@@ -72,7 +78,7 @@ export default function Todo(props) {
                 ? `${format(new Date(todo.closed_at), 'yyyy-MM-dd HH:mm:ss')}`
                 : ''
             }
-            icon={<Icon type="check" />}
+            icon={<CheckOutlined />}
           />
         </Steps>
         <div style={{ margin: '2rem 0' }}>

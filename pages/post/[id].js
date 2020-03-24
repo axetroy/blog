@@ -2,7 +2,10 @@ import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from 'antd'
 import {
   UserOutlined,
   CalendarOutlined,
-  MessageOutlined
+  MessageOutlined,
+  EditOutlined,
+  ShareAltOutlined,
+  QrcodeOutlined
 } from '@ant-design/icons'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
@@ -259,7 +262,7 @@ export default function Post(props) {
                         color: 'inherit'
                       }}
                     >
-                      <Icon type="edit" />
+                      <EditOutlined />
                     </a>
                   </Tooltip>
                 </span>
@@ -279,7 +282,7 @@ export default function Post(props) {
                       </div>
                     }
                   >
-                    <Icon type="qrcode" />
+                    <QrcodeOutlined />
                   </Popover>
                 </span>
                 <span
@@ -289,7 +292,7 @@ export default function Post(props) {
                   }}
                 >
                   <Dropdown overlay={getShareMenu(post)} trigger={['click']}>
-                    <Icon type="share-alt" />
+                    <ShareAltOutlined />
                   </Dropdown>
                 </span>
               </div>
