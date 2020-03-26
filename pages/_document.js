@@ -13,8 +13,8 @@ class MyDocument extends Document {
           <meta name="keywords" content="axetroy,blog" />
           <meta name="description" content="Axetroy's 的博客" />
           <meta name="renderer" content="webkit" />
-          <meta http-equiv="Cache-Control" content="no-transform" />
-          <meta http-equiv="Cache-Control" content="no-siteapp" />
+          <meta httpEquiv="Cache-Control" content="no-transform" />
+          <meta httpEquiv="Cache-Control" content="no-siteapp" />
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
