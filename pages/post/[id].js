@@ -1,4 +1,4 @@
-import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from 'antd'
+import { Dropdown, Menu, Popover, Spin, Tag, Tooltip } from 'antd'
 import {
   UserOutlined,
   CalendarOutlined,
@@ -378,7 +378,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       id,
-      url: context.req.url,
+      url: 'http://' + context.req.headers.host + context.req.url,
       post,
       banner
     }
