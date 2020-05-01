@@ -27,7 +27,8 @@
     "query-string": "6.12.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-octicon": "3.0.1"
+    "react-octicon": "3.0.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@axetroy/walk": "0.1.1",
@@ -41,6 +42,9 @@
     "format": "prettier --write '{src,app}/**/*.{js,jsx,css,json,md}'",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
-  }
+    "start": "next start",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
