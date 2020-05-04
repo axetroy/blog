@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
 import github from '../lib/github'
-import './comment.css'
 
 async function getIssuesComments(owner, repo, number) {
   const { data: comments } = await github.issues.listComments({
@@ -153,6 +152,22 @@ export default function Comments(props) {
           <p>还没有人评论哦，赶紧抢沙发!</p>
         </div>
       )}
+
+      <style jsx>{`
+        .comment-header {
+          padding-right: 1.5rem;
+          padding-left: 1.5rem;
+          color: #586069;
+          border-bottom: 0.1rem solid #d1d5da;
+          border-top-left-radius: 0.3rem;
+          border-top-right-radius: 0.3rem;
+
+          background-color: #f1f8ff;
+          border-bottom-color: #bfccd1;
+          height: 4.2rem;
+          line-height: 4.2rem;
+        }
+      `}</style>
     </div>
   )
 }
