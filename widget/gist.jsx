@@ -86,6 +86,7 @@ export function Gist() {
           return (
             <li key={gist.id} className="gist-item">
               <Link
+                prefetch={false}
                 href={`/gist/${gist.id}`}
                 // style={{
                 //   whiteSpace: 'nowrap',

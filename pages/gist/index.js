@@ -54,7 +54,7 @@ export default function Gists(props) {
                   borderBottom: '1px solid #e6e6e6'
                 }}
               >
-                <Link href={`/gist/${gist.id}`}>
+                <Link prefetch={false} href={`/gist/${gist.id}`}>
                   {/* <Octicon
                     style={{ fontSize: '1.6rem', marginRight: '0.5rem' }}
                     name="gist"

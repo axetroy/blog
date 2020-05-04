@@ -68,8 +68,7 @@ export default function Posts(props) {
                     className="post-list"
                   >
                     <div>
-                      <Link href={`/post/[id].js`}  as={`/post/${post.number}`}>
-                      {/* <Link prefetch={false} href={`/post/${post.number}`}> */}
+                        <Link prefetch={false} href={`/post/${post.number}`}>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a>
                           <h3

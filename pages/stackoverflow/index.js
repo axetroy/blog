@@ -66,7 +66,7 @@ export default function Stackoverflow(props) {
                 xl={{ span: 8, offset: 0 }}
                 xxl={{ span: 6, offset: 0 }}
               >
-                <Link href={`/stackoverflow/${post.number}`}>
+                <Link prefetch={false} href={`/stackoverflow/${post.number}`}>
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a>
                     <Card

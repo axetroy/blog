@@ -106,7 +106,7 @@ export default function TodoList(props) {
                         overflow: 'hidden'
                       }}
                     >
-                      <Link href={`/todo/${todo.number}`}>
+                      <Link prefetch={false} href={`/todo/${todo.number}`}>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a
                           style={{
