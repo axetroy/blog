@@ -1,19 +1,19 @@
 import { Col, Row } from 'antd'
-import { formatDistanceToNow } from 'date-fns'
-import chinese from 'date-fns/locale/zh-CN'
+// import { formatDistanceToNow } from 'date-fns'
+// import chinese from 'date-fns/locale/zh-CN'
 import React from 'react'
 import { diffTime } from '../lib/utils'
 import Now from './now'
 
-export default function Footer(props) {
+export default function Footer() {
   const created = new Date('2016-11-09 14:22:33')
 
-  const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE || new Date()
-  const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH
-  const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH
-  const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE || new Date()
-  const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR
-  const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE
+  // const LATEST_BUILD_DATE = process.env.REACT_APP_LATEST_BUILD_DATE || new Date()
+  // const LAST_COMMIT_HASH = process.env.REACT_APP_LAST_COMMIT_HASH
+  // const LAST_COMMIT_TREE_HASH = process.env.REACT_APP_LAST_COMMIT_TREE_HASH
+  // const LAST_COMMIT_DATE = process.env.REACT_APP_LAST_COMMIT_DATE || new Date()
+  // const LAST_COMMIT_AUTHOR = process.env.REACT_APP_LAST_COMMIT_AUTHOR
+  // const LAST_COMMIT_MESSAGE = process.env.REACT_APP_LAST_COMMIT_MESSAGE
 
   return (
     <footer id="footer">
@@ -181,7 +181,7 @@ export default function Footer(props) {
         </Col>
       </Row>
 
-      <div className="text-center">
+      {/* <div className="text-center">
         最近由 {LAST_COMMIT_AUTHOR} 于{' '}
         {formatDistanceToNow(new Date(LAST_COMMIT_DATE), {
           locale: chinese
@@ -200,7 +200,7 @@ export default function Footer(props) {
         >
           {LAST_COMMIT_TREE_HASH}
         </a>
-      </div>
+      </div> */}
       <style jsx>
         {`
           #footer {
