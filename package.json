@@ -17,7 +17,7 @@
     "@octokit/rest": "16.43.1",
     "antd": "4.2.0",
     "clipboard": "2.0.6",
-    "date-fns": "2.12.0",
+    "date-fns": "2.13.0",
     "fastclick": "1.0.6",
     "github-markdown-css": "4.0.0",
     "lodash.debounce": "4.0.8",
