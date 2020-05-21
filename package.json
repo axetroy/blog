@@ -13,7 +13,7 @@
     "open-source"
   ],
   "dependencies": {
-    "@octokit/plugin-throttling": "3.2.0",
+    "@octokit/plugin-throttling": "3.2.1",
     "@octokit/rest": "16.43.1",
     "antd": "4.2.4",
     "clipboard": "2.0.6",
