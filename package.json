@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@axetroy/walk": "0.1.1",
-    "@types/react": "16.9.43",
+    "@types/react": "16.9.44",
     "@types/react-dom": "16.9.8",
     "@zeit/next-css": "1.0.1",
     "babel-plugin-import": "1.13.0",
