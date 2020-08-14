@@ -7,7 +7,7 @@ import CONFIG from '../config.json'
 import github from '../lib/github'
 import './gist.css'
 
-export function Gist() {
+function GistWidget() {
   const [meta, setMeta] = useState({ page: 1, per_page: 10, total: 0 })
   const [gistList, setGistList] = useState([])
   const [hashNextpage, setHashNextpage] = useState(false)
@@ -18,13 +18,13 @@ export function Gist() {
   useEffect(() => {
     const { page, per_page } = meta
     getGistList(page, per_page)
-      .then(list => {
+      .then((list) => {
         setGistList(list)
         setHashNextpage(list.length > 0 && list.length >= per_page)
       })
       .catch(() => {})
 
-    return function() {
+    return function () {
       // controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +38,7 @@ export function Gist() {
       per_page,
       request: {
         // signal: controller.signal
-      }
+      },
     })
     setLoading(false)
     setHashNextpage(gists.length > 0 && gists.length >= per_page)
@@ -51,7 +51,7 @@ export function Gist() {
     const nextGistList = await getGistList(nextPage, per_page)
     if (nextGistList.length) {
       const hash = {}
-      const newGistList = gistList.concat(nextGistList).filter(v => {
+      const newGistList = gistList.concat(nextGistList).filter((v) => {
         if (!hash[v.id]) {
           hash[v.id] = true
           return true
@@ -63,7 +63,7 @@ export function Gist() {
       setGistList(newGistList)
       setMeta({
         ...meta,
-        page: nextPage
+        page: nextPage,
       })
     }
   }
@@ -82,7 +82,7 @@ export function Gist() {
         </h3>
       </div>
       <ul className="gist-list">
-        {gistList.map(gist => {
+        {gistList.map((gist) => {
           return (
             <li key={gist.id} className="gist-item">
               <Link
@@ -119,3 +119,7 @@ export function Gist() {
     </div>
   )
 }
+
+const Gist = React.memo(GistWidget)
+
+export { Gist }

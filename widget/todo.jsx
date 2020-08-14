@@ -1,13 +1,13 @@
 import { Button } from 'antd'
 import { ExceptionOutlined } from '@ant-design/icons'
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 import CONFIG from '../config.json'
 import { github } from '../lib/github'
 import './todo.css'
 
-export function Todo() {
+function TodoWidget() {
   const [meta, setMeta] = useState({ page: 1, per_page: 10, total: 0 })
   const [todoList, setTodoList] = useState([])
   const [hashNextpage, setHashNextpage] = useState(false)
@@ -18,14 +18,14 @@ export function Todo() {
   useEffect(() => {
     const { page, per_page } = meta
     getTodoList(page, per_page)
-      .then(list => {
+      .then((list) => {
         setTodoList(list)
         setHashNextpage(list.length > 0 && list.length >= per_page)
       })
       .catch(() => {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    return function() {
+    return function () {
       // controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +42,7 @@ export function Todo() {
       page,
       request: {
         // signal: controller.signal
-      }
+      },
     })
     setLoading(false)
     setHashNextpage(data.length > 0 && data.length >= per_page)
@@ -55,7 +55,7 @@ export function Todo() {
     const nextList = await getTodoList(nextPage, per_page)
     if (nextList.length) {
       const hash = {}
-      const newList = todoList.concat(nextList).filter(v => {
+      const newList = todoList.concat(nextList).filter((v) => {
         if (!hash[v.id]) {
           hash[v.id] = true
           return true
@@ -67,7 +67,7 @@ export function Todo() {
       setTodoList(newList)
       setMeta({
         ...meta,
-        page: nextPage
+        page: nextPage,
       })
     }
   }
@@ -142,3 +142,7 @@ export function Todo() {
     </div>
   )
 }
+
+const Todo = React.memo(TodoWidget)
+
+export { Todo }

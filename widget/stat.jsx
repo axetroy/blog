@@ -2,7 +2,6 @@ import { Tooltip } from 'antd'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
 import React, { useState, useEffect } from 'react'
-// import Octicon from 'react-octicon'
 import CONFIG from '../config.json'
 import github from '../lib/github'
 import './stat.css'
@@ -280,7 +279,7 @@ const eventMap = {
         @{branchName}
       </span>
     )
-  }
+  },
 }
 
 async function getRepos(page = 1, per_page = 100) {
@@ -292,7 +291,7 @@ async function getRepos(page = 1, per_page = 100) {
     per_page,
     request: {
       // signal: controller.signal
-    }
+    },
   })
   // 说明还有下一页数据
   if (data.length >= per_page) {
@@ -308,7 +307,7 @@ async function getAllFollower(page = 1, per_page = 100) {
     per_page,
     request: {
       // signal: controller.signal
-    }
+    },
   })
   // 说明还有下一页数据
   if (data.length >= per_page) {
@@ -317,7 +316,7 @@ async function getAllFollower(page = 1, per_page = 100) {
   return data
 }
 
-export function Stat(props) {
+function StatWidget(props) {
   const [events, setEvents] = useState([])
   const [latestEvent, setLatestEvent] = useState(null)
   const [repos, setRepos] = useState([])
@@ -333,9 +332,9 @@ export function Stat(props) {
         page: 0,
         request: {
           // signal: controller.signal
-        }
+        },
       })
-      .then(res => {
+      .then((res) => {
         const events = res.data
 
         setLatestEvent(events[0])
@@ -348,7 +347,7 @@ export function Stat(props) {
                 placement="top"
                 title={
                   formatDistanceToNow(new Date(event.created_at), {
-                    locale: chinese
+                    locale: chinese,
                   }) + '前'
                 }
               >
@@ -369,7 +368,7 @@ export function Stat(props) {
       .then(setFollowers)
       .catch(() => {})
 
-    return function() {
+    return function () {
       // controller.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -391,20 +390,20 @@ export function Stat(props) {
       </div>
       <div className="stat-meta">
         <p>
-          开源 <b>{repos.filter(v => !v.fork).length}</b> 个原创项目 , 有{' '}
+          开源 <b>{repos.filter((v) => !v.fork).length}</b> 个原创项目 , 有{' '}
           <b>{followers.length}</b> 个人关注我
         </p>
         <p>
           收获{' '}
           <b>
             {repos
-              .map(repo => repo.stargazers_count || 0)
+              .map((repo) => repo.stargazers_count || 0)
               .reduce((a, b) => a + b, 0) || 0}
           </b>{' '}
           个 Star,{' '}
           <b>
             {repos
-              .map(repo => repo.forks_count || 0)
+              .map((repo) => repo.forks_count || 0)
               .reduce((a, b) => a + b, 0) || 0}
           </b>{' '}
           个 Fork.
@@ -417,14 +416,14 @@ export function Stat(props) {
           <b>
             {events.length && latestEvent
               ? formatDistanceToNow(new Date(latestEvent.created_at), {
-                  locale: chinese
+                  locale: chinese,
                 }) + '前'
               : ''}
           </b>
         </p>
         <ul className="event-list">
           {events
-            .filter(v => v)
+            .filter((v) => v)
             .slice(0, 10)
             .map((v, i) => {
               return <li key={i}>{v}</li>
@@ -434,3 +433,7 @@ export function Stat(props) {
     </div>
   )
 }
+
+const Stat = React.memo(StatWidget)
+
+export { Stat }

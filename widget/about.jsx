@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function About() {
+function AboutWidget() {
   return (
     <div className="widget widget-about">
       <div className="widget-header">
@@ -14,3 +14,7 @@ export function About() {
     </div>
   )
 }
+
+const About = React.memo(AboutWidget)
+
+export { About }
