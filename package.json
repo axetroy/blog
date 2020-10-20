@@ -25,8 +25,8 @@
     "normalize.css": "8.0.1",
     "qrcode.react": "1.0.0",
     "query-string": "6.13.6",
-    "react": "16.14.0",
-    "react-dom": "16.14.0",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
     "react-octicon": "3.0.1"
   },
   "devDependencies": {
