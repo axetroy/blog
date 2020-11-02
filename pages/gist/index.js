@@ -1,11 +1,10 @@
 import { Menu } from 'antd'
-import React from 'react'
 // import Octicon from 'react-octicon'
 import Link from 'next/link'
-
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
 import github from '../../lib/github'
+
 
 async function getAllGistList(page, per_page, gists = []) {
   try {
@@ -15,7 +14,7 @@ async function getAllGistList(page, per_page, gists = []) {
       per_page,
       request: {
         // signal: controller.signal
-      }
+      },
     })
 
     if (!data) {
@@ -46,12 +45,12 @@ export default function Gists(props) {
           mode="inline"
           style={{ overflowY: 'auto', overflowX: 'hidden', borderRight: 0 }}
         >
-          {gists.map(gist => {
+          {gists.map((gist) => {
             return (
               <Menu.Item
                 key={gist.id}
                 style={{
-                  borderBottom: '1px solid #e6e6e6'
+                  borderBottom: '1px solid #e6e6e6',
                 }}
               >
                 <Link prefetch={false} href={`/gist/${gist.id}`}>
@@ -66,7 +65,7 @@ export default function Gists(props) {
                       whiteSpace: 'nowrap',
                       wordBreak: 'break-all',
                       textOverflow: 'ellipsis',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
                     }}
                   >
                     {gist.description}
@@ -86,7 +85,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      gists
-    }
+      gists,
+    },
   }
 }

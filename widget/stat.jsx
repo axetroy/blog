@@ -1,7 +1,7 @@
 import { Tooltip } from 'antd'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
-import React, { useState, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import github from '../lib/github'
 import './stat.css'
@@ -32,10 +32,7 @@ const eventMap = {
       case 'opened':
         return (
           <span>
-            <span className="green">
-              创建
-              {/* <Octicon name="issue-closed" mega /> */}
-            </span>
+            <span className="green">创建 </span>
             <a
               href={issueUrl(name, issue.number)}
               target="_blink"
@@ -54,10 +51,7 @@ const eventMap = {
       case 'closed':
         return (
           <span>
-            <span className="red">
-              关闭
-              {/* <Octicon name="issue-closed" mega /> */}
-            </span>
+            <span className="red">关闭</span>
             <a
               href={issueUrl(name, issue.number)}
               target="_blink"
@@ -80,7 +74,7 @@ const eventMap = {
       case 'created':
         return (
           <span>
-            在
+            在{' '}
             <a
               href={issueUrl(name, issue.number)}
               target="_blank"
@@ -94,7 +88,7 @@ const eventMap = {
       case 'updated':
         return (
           <span>
-            更新
+            更新{' '}
             <a
               href={issueUrl(name, issue.number)}
               target="_blank"
@@ -108,7 +102,7 @@ const eventMap = {
       case 'deleted':
         return (
           <span>
-            删除
+            删除{' '}
             <a
               href={issueUrl(name, issue.number)}
               target="_blank"
@@ -130,19 +124,17 @@ const eventMap = {
       case 'tag':
         return (
           <span>
-            发布
+            发布{' '}
             <a href={repoUrl(name)} target="_blink">
               {name}
             </a>
-            {/* <Octicon name="tag" mega /> */}
             {ref}
           </span>
         )
       case 'repository':
         return (
           <span>
-            创建
-            {/* <Octicon name="repo" mega /> */}
+            创建{' '}
             <a href={repoUrl(name)} target="_blink">
               {name}
             </a>
@@ -151,11 +143,10 @@ const eventMap = {
       case 'branch':
         return (
           <span>
-            创建
+            创建{' '}
             <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
               {name}
             </a>
-            {/* <Octicon name="git-branch" mega /> */}
             {ref}
           </span>
         )
@@ -187,8 +178,7 @@ const eventMap = {
       case 'started':
         return (
           <span>
-            点赞
-            {/* <Octicon name="thumbsup" mega /> */}
+            点赞{' '}
             <a href={repoUrl(name)} rel="noopener noreferrer" target="_blank">
               {name}
             </a>
@@ -202,7 +192,6 @@ const eventMap = {
     const { forkee } = event.payload
     return (
       <span>
-        {/* <Octicon name="repo-forked" mega /> */}
         <a href={repoUrl(name)} target="_blank" rel="noopener noreferrer">
           {name}
         </a>{' '}
@@ -224,8 +213,7 @@ const eventMap = {
       case 'opened':
         return (
           <span>
-            发起 PR
-            {/* <Octicon name="git-pull-request" mega /> */}
+            发起 PR{' '}
             <a
               href={repoUrl(name) + '/pull/' + number}
               target="_blank"
@@ -238,8 +226,7 @@ const eventMap = {
       case 'closed':
         return (
           <span>
-            关闭 PR
-            {/* <Octicon name="git-pull-request" mega /> */}
+            关闭 PR{' '}
             <a
               href={repoUrl(name) + '/pull/' + number}
               target="_blank"
@@ -252,8 +239,7 @@ const eventMap = {
       case 'reopened':
         return (
           <span>
-            重启 PR
-            {/* <Octicon name="git-pull-request" mega /> */}
+            重启 PR{' '}
             <a
               href={repoUrl(name) + '/pull/' + number}
               target="_blank"
@@ -434,6 +420,6 @@ function StatWidget(props) {
   )
 }
 
-const Stat = React.memo(StatWidget)
+const Stat = memo(StatWidget)
 
 export { Stat }

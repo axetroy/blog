@@ -1,11 +1,11 @@
-import { Button } from 'antd'
 import { ExceptionOutlined } from '@ant-design/icons'
-import React, { useState, useEffect } from 'react'
+import { Button } from 'antd'
 import Link from 'next/link'
-
+import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import { github } from '../lib/github'
 import './todo.css'
+
 
 function TodoWidget() {
   const [meta, setMeta] = useState({ page: 1, per_page: 10, total: 0 })
@@ -143,6 +143,6 @@ function TodoWidget() {
   )
 }
 
-const Todo = React.memo(TodoWidget)
+const Todo = memo(TodoWidget)
 
 export { Todo }

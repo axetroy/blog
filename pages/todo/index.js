@@ -1,9 +1,7 @@
-import { Icon, Tag } from 'antd'
-import { format } from 'date-fns'
-import React from 'react'
-import Link from 'next/link'
 import { CheckCircleOutlined } from '@ant-design/icons'
-
+import { Tag } from 'antd'
+import { format } from 'date-fns'
+import Link from 'next/link'
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
 import github from '../../lib/github'
@@ -18,7 +16,7 @@ async function getAllTodoList(page, per_page, todoList = []) {
     page,
     request: {
       // signal: controller.signal
-    }
+    },
   })
 
   if (!data) {
@@ -86,7 +84,7 @@ export default function TodoList(props) {
                   <div
                     className="timeline-icon"
                     style={{
-                      backgroundColor: status === 2 ? '#2cbe4e' : '#cb2431'
+                      backgroundColor: status === 2 ? '#2cbe4e' : '#cb2431',
                     }}
                     title={statusText}
                   >
@@ -103,14 +101,14 @@ export default function TodoList(props) {
                         whiteSpace: 'nowrap',
                         wordBreak: 'break-all',
                         textOverflow: 'ellipsis',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
                       }}
                     >
                       <Link prefetch={false} href={`/todo/${todo.number}`}>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a
                           style={{
-                            color: '#fff'
+                            color: '#fff',
                           }}
                         >
                           {todo.title}
@@ -125,7 +123,7 @@ export default function TodoList(props) {
                         &nbsp;
                       </span>
                       <span style={{ float: 'right' }}>
-                        {todo.labels.map(label => {
+                        {todo.labels.map((label) => {
                           return (
                             <Tag key={label.id} color={'#' + label.color}>
                               {label.name}
@@ -340,7 +338,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      todos
-    }
+      todos,
+    },
   }
 }

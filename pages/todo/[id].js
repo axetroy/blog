@@ -1,13 +1,11 @@
-import { Icon, Steps, Tag, Tooltip } from 'antd'
-import { format } from 'date-fns'
-import React from 'react'
 import {
-  EditOutlined,
   BookOutlined,
+  CheckCircleOutlined,
   CheckOutlined,
-  CheckCircleOutlined
+  EditOutlined
 } from '@ant-design/icons'
-
+import { Steps, Tag, Tooltip } from 'antd'
+import { format } from 'date-fns'
 import Comments from '../../component/comment'
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
@@ -38,7 +36,7 @@ export default function Todo(props) {
         )}
         <Steps
           style={{
-            margin: '2rem 0'
+            margin: '2rem 0',
           }}
         >
           <Steps.Step
@@ -82,7 +80,7 @@ export default function Todo(props) {
           />
         </Steps>
         <div style={{ margin: '2rem 0' }}>
-          {(todo.labels || []).map(label => {
+          {(todo.labels || []).map((label) => {
             return (
               <Tag key={label.id} color={'#' + label.color}>
                 {label.name}
@@ -94,10 +92,10 @@ export default function Todo(props) {
           className="markdown-body"
           style={{
             fontSize: '1.6rem',
-            minHeight: '20rem'
+            minHeight: '20rem',
           }}
           dangerouslySetInnerHTML={{
-            __html: enableIframe(todo.body_html)
+            __html: enableIframe(todo.body_html),
           }}
         />
         <div className="comment-box">
@@ -120,16 +118,16 @@ export async function getServerSideProps(context) {
     repo: CONFIG.todo_repo,
     issue_number: id,
     headers: {
-      Accept: 'application/vnd.github.v3.html'
+      Accept: 'application/vnd.github.v3.html',
     },
     request: {
       // signal: controller.signal
-    }
+    },
   })
 
   return {
     props: {
-      todo
-    }
+      todo,
+    },
   }
 }

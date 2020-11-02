@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react'
 import Clipboard from 'clipboard'
+import { useEffect, useRef } from 'react'
 
 export default function ReactClipboard(props) {
   const { className, style, children, value, onSuccess, onError } = props

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
 import debounce from 'lodash.debounce'
+import { useEffect, useRef, useState } from 'react'
 
 export function Ripple(props) {
   const { style, children } = props

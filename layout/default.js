@@ -1,22 +1,20 @@
+import { BookFilled, CheckCircleFilled, HomeFilled } from '@ant-design/icons'
 import { Col, Menu, Row } from 'antd'
-import { HomeFilled, CheckCircleFilled, BookFilled } from '@ant-design/icons'
-import React, { Fragment } from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-
+import { useRouter } from 'next/router'
+import { Fragment } from 'react'
 import Footer from '../component/footer'
 import { Ripple } from '../component/ripple'
 import { About as WidgetAbout } from '../widget/about'
+import { Gist as WidgetGist } from '../widget/gist'
 import { Stat as WidgetStat } from '../widget/stat'
 import { Todo as WidgetTodo } from '../widget/todo'
-import { Gist as WidgetGist } from '../widget/gist'
-
 import './layout.css'
 
 const widthScreenRouter = [
   new RegExp(`^/todo(/d+)?`),
   new RegExp(`^/gist(/d+)?`),
-  new RegExp(`^/stackoverflow(/d+)?`)
+  new RegExp(`^/stackoverflow(/d+)?`),
 ]
 
 const contentLayout = {
@@ -25,7 +23,7 @@ const contentLayout = {
   md: { span: 22, offset: 1 },
   lg: { span: 15, offset: 1 },
   xl: { span: 14, offset: 2 },
-  xxl: { span: 13, offset: 3 }
+  xxl: { span: 13, offset: 3 },
 }
 
 const widgetLayout = {
@@ -34,7 +32,7 @@ const widgetLayout = {
   md: { span: 22, offset: 1 },
   lg: { span: 7, offset: 0 },
   xl: { span: 6, offset: 0 },
-  xxl: { span: 5, offset: 0 }
+  xxl: { span: 5, offset: 0 },
 }
 
 const widthContentLayout = {
@@ -43,11 +41,11 @@ const widthContentLayout = {
   md: { span: 22, offset: 1 },
   lg: { span: 18, offset: 3 },
   xl: { span: 18, offset: 3 },
-  xxl: { span: 16, offset: 4 }
+  xxl: { span: 16, offset: 4 },
 }
 
 const widthWidgetLayout = {
-  span: 0
+  span: 0,
 }
 
 function Content(props) {

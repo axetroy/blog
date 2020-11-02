@@ -1,12 +1,10 @@
-import { message, Spin, Tooltip } from 'antd'
 import {
-  FileOutlined,
-  DownloadOutlined,
   CopyOutlined,
-  EditOutlined
+  DownloadOutlined,
+  EditOutlined,
+  FileOutlined
 } from '@ant-design/icons'
-import React from 'react'
-
+import { message, Spin, Tooltip } from 'antd'
 import ReactClipboard from '../../component/clipboard'
 import Comments from '../../component/comment'
 import DocumentTitle from '../../component/document-title'
@@ -46,14 +44,14 @@ export default function Gist(props) {
               </a>
             </Tooltip>
           </h2>
-          {getValues(gist.files).map(file => {
+          {getValues(gist.files).map((file) => {
             return (
               <div key={file.filename}>
                 <h3
                   style={{
                     backgroundColor: '#e6e6e6',
                     padding: '0.5rem',
-                    marginBottom: 0
+                    marginBottom: 0,
                   }}
                 >
                   <span>
@@ -62,7 +60,7 @@ export default function Gist(props) {
                   </span>
                   <span
                     style={{
-                      margin: '0 0.5rem'
+                      margin: '0 0.5rem',
                     }}
                   >
                     <Download
@@ -93,10 +91,10 @@ export default function Gist(props) {
                   className="markdown-body"
                   style={{
                     fontSize: '1.6rem',
-                    padding: '10px'
+                    padding: '10px',
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: enableIframe(file.html)
+                    __html: enableIframe(file.html),
                   }}
                 />
               </div>
@@ -117,14 +115,14 @@ export async function getServerSideProps(context) {
     .get({
       gist_id: id,
       headers: {
-        Accept: 'application/vnd.github.v3.html'
+        Accept: 'application/vnd.github.v3.html',
       },
       request: {
         // signal: controller.signal
-      }
+      },
     })
     .then(({ data: gist }) => {
-      const renders = Object.keys(gist.files).map(filename => {
+      const renders = Object.keys(gist.files).map((filename) => {
         const file = gist.files[filename]
         const language = file.language ? file.language.toLowerCase() : ''
 
@@ -144,7 +142,7 @@ ${isMarkdown ? '' : '```'}
             mode: 'markdown',
             request: {
               // signal: controller.signal
-            }
+            },
           })
           .then(({ data: html }) => {
             file.html = html
@@ -158,7 +156,7 @@ ${isMarkdown ? '' : '```'}
   return {
     props: {
       id,
-      gist
-    }
+      gist,
+    },
   }
 }

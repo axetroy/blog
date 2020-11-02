@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from 'react'
 import Head from 'next/head'
+import { Fragment, useEffect } from 'react'
 
 export default function DocumentTitle(props) {
   const { title, children } = props

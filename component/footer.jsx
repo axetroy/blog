@@ -1,7 +1,6 @@
 import { Col, Row } from 'antd'
 // import { formatDistanceToNow } from 'date-fns'
 // import chinese from 'date-fns/locale/zh-CN'
-import React from 'react'
 import { diffTime } from '../lib/utils'
 import Now from './now'
 

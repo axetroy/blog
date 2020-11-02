@@ -1,11 +1,11 @@
 import { Button } from 'antd'
-import React, { useState, useEffect } from 'react'
 // import Octicon from 'react-octicon'
 import Link from 'next/link'
-
+import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import github from '../lib/github'
 import './gist.css'
+
 
 function GistWidget() {
   const [meta, setMeta] = useState({ page: 1, per_page: 10, total: 0 })
@@ -120,6 +120,6 @@ function GistWidget() {
   )
 }
 
-const Gist = React.memo(GistWidget)
+const Gist = memo(GistWidget)
 
 export { Gist }

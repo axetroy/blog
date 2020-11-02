@@ -1,6 +1,3 @@
-// import App from 'next/app'
-import React from 'react'
-
 import { Layout } from '../layout/default'
 
 function MyApp({ Component, pageProps }) {

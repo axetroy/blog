@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { isValidElement, useEffect, useState } from 'react'
 
 export default function Now(props) {
   const { interval, children } = props
@@ -16,14 +16,14 @@ export default function Now(props) {
       setCurrentDate(new Date())
     }, 1000)
 
-    return function() {
+    return function () {
       clearInterval(timer)
     }
   }, [interval])
 
   const reactElement = children.call(this, currentDate)
 
-  if (!React.isValidElement(reactElement)) {
+  if (!isValidElement(reactElement)) {
     throw new Error(`react-now: Function not return a valid react element`)
   }
 

@@ -1,5 +1,3 @@
-import React from 'react'
-
 function downloadFile(fileName, fileContent) {
   function fake_click(obj) {
     let ev = document.createEvent('MouseEvents')

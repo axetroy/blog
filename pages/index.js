@@ -1,8 +1,6 @@
-import { Card, Col, Pagination, Row, Tag } from 'antd'
 import { ClockCircleOutlined, MessageOutlined } from '@ant-design/icons'
-
+import { Card, Col, Pagination, Row, Tag } from 'antd'
 import { format } from 'date-fns'
-import React from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import DocumentTitle from '../component/document-title'
@@ -19,7 +17,7 @@ async function getPosts(page, per_page) {
     page,
     request: {
       // signal: controller.signal
-    }
+    },
   })
 
   const link = headers.link
@@ -35,7 +33,7 @@ async function getPosts(page, per_page) {
     meta = { page, per_page, total: lastPage * per_page }
   }
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     // 获取第一张图片作为缩略图
     let match = /!\[[^\]]+\]\(([^)]+)\)/im.exec(post.body)
     if (match && match[1]) {
@@ -63,12 +61,12 @@ export default function Posts(props) {
                 <section>
                   <Card
                     style={{
-                      overflow: 'hidden'
+                      overflow: 'hidden',
                     }}
                     className="post-list"
                   >
                     <div>
-                        <Link prefetch={false} href={`/post/${post.number}`}>
+                      <Link prefetch={false} href={`/post/${post.number}`}>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a>
                           <h3
@@ -79,7 +77,7 @@ export default function Posts(props) {
                               textOverflow: 'ellipsis',
                               overflow: 'hidden',
                               display: 'inline-block',
-                              maxWidth: '100%'
+                              maxWidth: '100%',
                             }}
                           >
                             {post.title}
@@ -98,7 +96,7 @@ export default function Posts(props) {
                       </span>
 
                       <span className="label-list">
-                        {(post.labels || []).map(label => {
+                        {(post.labels || []).map((label) => {
                           return (
                             <a
                               key={label.id}
@@ -126,7 +124,7 @@ export default function Posts(props) {
           <Row className="text-center" style={{ paddingBottom: '2rem' }}>
             <Col span={24} style={{ transition: 'all 1s' }}>
               <Pagination
-                onChange={page => changePage(page, meta.per_page)}
+                onChange={(page) => changePage(page, meta.per_page)}
                 defaultCurrent={meta.page}
                 defaultPageSize={meta.per_page}
                 total={meta.total}
@@ -166,7 +164,7 @@ export default function Posts(props) {
   )
 }
 
-Posts.getInitialProps = async ctx => {
+Posts.getInitialProps = async (ctx) => {
   const [posts, meta] = await getPosts(
     ctx.query.page || 0,
     ctx.query.per_page || 25
@@ -174,6 +172,6 @@ Posts.getInitialProps = async ctx => {
 
   return {
     POSTS: posts,
-    meta: meta
+    meta: meta,
   }
 }

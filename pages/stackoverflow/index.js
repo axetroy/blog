@@ -1,9 +1,7 @@
-import { Card, Col, Pagination, Row, Tag } from 'antd'
 import { CalendarOutlined, MessageOutlined } from '@ant-design/icons'
+import { Card, Col, Pagination, Row, Tag } from 'antd'
 import { format } from 'date-fns'
-import React from 'react'
 import Link from 'next/link'
-
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
 import github from '../../lib/github'
@@ -19,7 +17,7 @@ async function getPosts(page, per_page) {
     page,
     request: {
       // signal: controller.signal
-    }
+    },
   })
 
   const link = headers.link
@@ -33,11 +31,11 @@ async function getPosts(page, per_page) {
     const lastPage = last ? last[1].match(/\bpage=(\d+)/)[1] : page
     meta = {
       ...meta,
-      ...{ page, per_page, total: lastPage * per_page }
+      ...{ page, per_page, total: lastPage * per_page },
     }
   }
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     // 获取第一张图片作为缩略图
     let match = /!\[[^\]]+\]\(([^)]+)\)/im.exec(post.body)
     if (match && match[1]) {
@@ -75,7 +73,7 @@ export default function Stackoverflow(props) {
                         minHeight: '200px',
                         height: '300px',
                         overflow: 'hidden',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                       }}
                     >
                       <div>
@@ -85,7 +83,7 @@ export default function Stackoverflow(props) {
                             wordBreak: 'break-word',
                             whiteSpace: 'nowrap',
                             textOverflow: 'ellipsis',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
                           }}
                           title={post.title}
                         >
@@ -103,7 +101,7 @@ export default function Stackoverflow(props) {
                         </span>
 
                         <span className="label-list">
-                          {(post.labels || []).map(label => {
+                          {(post.labels || []).map((label) => {
                             return (
                               <Tag key={label.id} color={'#' + label.color}>
                                 {label.name}
@@ -119,7 +117,7 @@ export default function Stackoverflow(props) {
                           textOverflow: 'ellipsis',
                           overflow: 'hidden',
                           clear: 'both',
-                          height: '150px'
+                          height: '150px',
                         }}
                       >
                         {post.body.slice(0, 150)}...
@@ -171,7 +169,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       posts,
-      meta
-    }
+      meta,
+    },
   }
 }

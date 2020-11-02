@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
+import { useEffect, useState } from 'react'
 import github from '../lib/github'
 
 async function getIssuesComments(owner, repo, number) {

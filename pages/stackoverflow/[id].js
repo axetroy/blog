@@ -1,22 +1,22 @@
-import { Dropdown, Icon, Menu, Popover, Spin, Tag, Tooltip } from 'antd'
 import {
-  UserOutlined,
   CalendarOutlined,
-  MessageOutlined,
-  ShareAltOutlined,
-  EditOutlined,
-  QrcodeOutlined
+
+
+  EditOutlined, MessageOutlined,
+
+
+  QrcodeOutlined, ShareAltOutlined, UserOutlined
 } from '@ant-design/icons'
+import { Dropdown, Menu, Popover, Spin, Tag, Tooltip } from 'antd'
 import { formatDistanceToNow } from 'date-fns'
 import chinese from 'date-fns/locale/zh-CN'
-import React from 'react'
 import QRCode from 'qrcode.react'
-
 import Comments from '../../component/comment'
 import DocumentTitle from '../../component/document-title'
 import CONFIG from '../../config.json'
 import github from '../../lib/github'
 import { enableIframe, firstUpperCase } from '../../lib/utils'
+
 
 const banners = [
   '35051293-df358be0-fbdf-11e7-9d74-80e8ad97d713',
@@ -37,8 +37,8 @@ const banners = [
   '35051727-dee8460e-fbe0-11e7-8b35-7c4bf8f6d8a9',
   '35051749-e8af347c-fbe0-11e7-951b-2d9e03ee443a',
   '35051761-f24f0c0a-fbe0-11e7-893f-6bfcbb036c3e',
-  '35051785-fd3a9fc6-fbe0-11e7-8faf-a97facebe5ce'
-].map(v => 'https://user-images.githubusercontent.com/9758711/' + v + '.png')
+  '35051785-fd3a9fc6-fbe0-11e7-8faf-a97facebe5ce',
+].map((v) => 'https://user-images.githubusercontent.com/9758711/' + v + '.png')
 
 async function getPost(number) {
   const { data: post } = await github.issues.get({
@@ -46,11 +46,11 @@ async function getPost(number) {
     repo: 'stackoverflow',
     issue_number: number,
     headers: {
-      Accept: 'application/vnd.github.v3.html'
+      Accept: 'application/vnd.github.v3.html',
     },
     request: {
       // signal: controller.signal
-    }
+    },
   })
   // @ts-ignore
   const [html, banner] = htmlFilter(post.body_html)
@@ -100,28 +100,32 @@ export default function Stackoverflow(props) {
     const shareMenu = [
       {
         title: '分享到新浪微博',
-        url: `http://service.weibo.com/share/share.php?appkey=&title=${'分享: ' +
-          post.title}&url=${url}&pic=&searchPic=false&style=simple`
+        url: `http://service.weibo.com/share/share.php?appkey=&title=${
+          '分享: ' + post.title
+        }&url=${url}&pic=&searchPic=false&style=simple`,
       },
       {
         title: '分享到 Twitter',
-        url: `https://twitter.com/intent/tweet?text=${'分享: ' +
-          post.title}&url=${url}&via=Axetroy`
+        url: `https://twitter.com/intent/tweet?text=${
+          '分享: ' + post.title
+        }&url=${url}&via=Axetroy`,
       },
       {
         title: '分享到 Telegram',
-        url: `https://telegram.me/share/url?url=${url}&text=${'分享: ' +
-          post.title}`
+        url: `https://telegram.me/share/url?url=${url}&text=${
+          '分享: ' + post.title
+        }`,
       },
       {
         title: '分享到 QQ',
-        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${'分享: ' +
-          post.title}&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${url}`
-      }
+        url: `http://connect.qq.com/widget/shareqq/index.html?site=Axetroy's NeverLand&title=${
+          '分享: ' + post.title
+        }&summary=欢迎来到 Axetroy's NeverLand。&pics=&url=${url}`,
+      },
     ]
     return (
       <Menu>
-        {shareMenu.map(menu => {
+        {shareMenu.map((menu) => {
           return (
             <Menu.Item key={menu.title}>
               <a rel="noopener noreferrer" target="_blank" href={menu.url}>
@@ -147,7 +151,7 @@ export default function Stackoverflow(props) {
               backgroundOrigin: 'border-box',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
-              backgroundPositionY: '25%'
+              backgroundPositionY: '25%',
             }}
           >
             <div
@@ -160,7 +164,7 @@ export default function Stackoverflow(props) {
                 padding: '2rem',
                 backgroundColor: '#fff',
                 transition: 'all 0.2s ease-in-out',
-                borderBottom: '1px dashed #e5e5e5'
+                borderBottom: '1px dashed #e5e5e5',
               }}
             >
               {post.user && post.user.avatar_url ? (
@@ -171,7 +175,7 @@ export default function Stackoverflow(props) {
                     width: '4.4rem',
                     height: '4.4rem',
                     borderRadius: '50%',
-                    verticalAlign: 'middle'
+                    verticalAlign: 'middle',
                   }}
                 />
               ) : (
@@ -181,7 +185,7 @@ export default function Stackoverflow(props) {
                 style={{
                   display: 'inline-block',
                   verticalAlign: 'middle',
-                  margin: '0 1rem'
+                  margin: '0 1rem',
                 }}
               >
                 <strong>
@@ -189,12 +193,12 @@ export default function Stackoverflow(props) {
                     style={{
                       marginRight: '0.5rem',
                       verticalAlign: 'middle',
-                      fontSize: 18
+                      fontSize: 18,
                     }}
                   />
                   <span
                     style={{
-                      verticalAlign: 'middle'
+                      verticalAlign: 'middle',
                     }}
                   >
                     {firstUpperCase(post.user ? post.user.login : '')}
@@ -206,19 +210,19 @@ export default function Stackoverflow(props) {
                     style={{
                       marginRight: '0.5rem',
                       verticalAlign: 'middle',
-                      fontSize: 18
+                      fontSize: 18,
                     }}
                   />
                   <span
                     style={{
-                      verticalAlign: 'middle'
+                      verticalAlign: 'middle',
                     }}
                   >
                     发布于&nbsp;
                     {formatDistanceToNow(
                       new Date(post.created_at ? post.created_at : 0),
                       {
-                        locale: chinese
+                        locale: chinese,
                       }
                     )}
                     前
@@ -230,12 +234,12 @@ export default function Stackoverflow(props) {
                     style={{
                       marginRight: '0.5rem',
                       verticalAlign: 'middle',
-                      fontSize: 18
+                      fontSize: 18,
                     }}
                   />
                   <span
                     style={{
-                      verticalAlign: 'middle'
+                      verticalAlign: 'middle',
                     }}
                   >
                     {post.comments
@@ -248,7 +252,7 @@ export default function Stackoverflow(props) {
                 style={{
                   textAlign: 'right',
                   float: 'right',
-                  fontSize: '2.4rem'
+                  fontSize: '2.4rem',
                 }}
               >
                 <span style={{ margin: '0.5rem' }}>
@@ -259,7 +263,7 @@ export default function Stackoverflow(props) {
                         CONFIG.owner
                       }/${'stackoverflow'}/issues/${post.number}`}
                       style={{
-                        color: 'inherit'
+                        color: 'inherit',
                       }}
                     >
                       <EditOutlined />
@@ -269,7 +273,7 @@ export default function Stackoverflow(props) {
                 <span
                   style={{
                     cursor: 'pointer',
-                    margin: '0.5rem'
+                    margin: '0.5rem',
                   }}
                 >
                   <Popover
@@ -288,7 +292,7 @@ export default function Stackoverflow(props) {
                 <span
                   style={{
                     cursor: 'pointer',
-                    margin: '0.5rem'
+                    margin: '0.5rem',
                   }}
                 >
                   <Dropdown overlay={getShareMenu(post)} trigger={['click']}>
@@ -303,16 +307,16 @@ export default function Stackoverflow(props) {
             style={{
               textAlign: 'center',
               marginTop: '20px',
-              marginBottom: '20px'
+              marginBottom: '20px',
             }}
           >
             <span style={{ color: '#303030' }}>{post.title} </span>
             <span
               style={{
-                verticalAlign: 'top'
+                verticalAlign: 'top',
               }}
             >
-              {(post.labels || []).map(label => {
+              {(post.labels || []).map((label) => {
                 return (
                   <Tag key={label.id} color={'#' + label.color}>
                     {label.name}
@@ -327,10 +331,10 @@ export default function Stackoverflow(props) {
             style={{
               margin: '2rem 0',
               borderBottom: '1px dashed #e6e6e6',
-              paddingBottom: '2rem'
+              paddingBottom: '2rem',
             }}
             dangerouslySetInnerHTML={{
-              __html: enableIframe(post.filter_html)
+              __html: enableIframe(post.filter_html),
             }}
           />
 
@@ -380,7 +384,7 @@ export async function getServerSideProps(context) {
       id,
       url: context.req.url,
       post,
-      banner
-    }
+      banner,
+    },
   }
 }

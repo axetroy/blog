@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 function AboutWidget() {
   return (
@@ -15,6 +15,6 @@ function AboutWidget() {
   )
 }
 
-const About = React.memo(AboutWidget)
+const About = memo(AboutWidget)
 
 export { About }
