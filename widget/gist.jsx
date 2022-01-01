@@ -6,23 +6,20 @@ import CONFIG from '../config.json'
 import github from '../lib/github'
 import styles from './gist.module.css'
 
-
 function GistWidget() {
   const [meta, setMeta] = useState({ page: 1, per_page: 10, total: 0 })
   const [gistList, setGistList] = useState([])
-  const [hashNextpage, setHashNextpage] = useState(false)
+  const [hashNextPage, setHashNextPage] = useState(false)
   const [loading, setLoading] = useState(false)
 
   // const controller = new AbortController()
 
   useEffect(() => {
     const { page, per_page } = meta
-    getGistList(page, per_page)
-      .then((list) => {
-        setGistList(list)
-        setHashNextpage(list.length > 0 && list.length >= per_page)
-      })
-      .catch(() => {})
+    getGistList(page, per_page).then((list) => {
+      setGistList(list)
+      setHashNextPage(list.length > 0 && list.length >= per_page)
+    })
 
     return function () {
       // controller.abort()
@@ -32,7 +29,7 @@ function GistWidget() {
 
   async function getGistList(page, per_page) {
     setLoading(true)
-    const { data: gists } = await github.gists.listPublicForUser({
+    const { data: gists } = await github.gists.listForUser({
       username: CONFIG.owner,
       page,
       per_page,
@@ -41,7 +38,7 @@ function GistWidget() {
       },
     })
     setLoading(false)
-    setHashNextpage(gists.length > 0 && gists.length >= per_page)
+    setHashNextPage(gists.length > 0 && gists.length >= per_page)
     return gists
   }
 
@@ -101,7 +98,7 @@ function GistWidget() {
             </li>
           )
         })}
-        {hashNextpage ? (
+        {hashNextPage ? (
           <li className="more">
             <Button
               type="default"
