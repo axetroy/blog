@@ -15,10 +15,6 @@ class MyDocument extends Document {
           <meta name="renderer" content="webkit" />
           <meta httpEquiv="Cache-Control" content="no-transform" />
           <meta httpEquiv="Cache-Control" content="no-siteapp" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
         </Head>
         <body>
           <Main />

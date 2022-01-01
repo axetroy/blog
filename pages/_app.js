@@ -1,12 +1,19 @@
+import Head from 'next/head'
 import { Layout } from '../layout/default'
 import '../styles/global.css'
 
 function MyApp({ Component, pageProps }) {
-  return (
+  return <>
+    <Head>
+      <meta
+        name="viewport"
+        content="initial-scale=1.0, width=device-width"
+      />
+    </Head>
     <Layout>
       <Component {...pageProps} />
     </Layout>
-  )
+  </>
 }
 
 // Only uncomment this method if you have blocking data requirements for
