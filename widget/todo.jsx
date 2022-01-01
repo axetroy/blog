@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import { github } from '../lib/github'
-import './todo.css'
+import styles from './todo.module.css'
 
 
 function TodoWidget() {
@@ -86,7 +86,7 @@ function TodoWidget() {
         </h3>
       </div>
 
-      <ul className="todo-list">
+      <ul>
         {todoList.map((todo, i) => {
           let statusText = '未开始'
           let icon = 'undone'
@@ -117,7 +117,7 @@ function TodoWidget() {
           }
 
           return (
-            <li className={`todo-item todo-${icon}`} key={todo.number}>
+            <li className={`${styles.todoItem} todo-${icon}`} key={todo.number}>
               <Link prefetch={false} href={`/todo/${todo.number}`}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a>{todo.title}</a>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import github from '../lib/github'
-import './gist.css'
+import styles from './gist.module.css'
 
 
 function GistWidget() {
@@ -81,10 +81,10 @@ function GistWidget() {
           </Link>
         </h3>
       </div>
-      <ul className="gist-list">
+      <ul>
         {gistList.map((gist) => {
           return (
-            <li key={gist.id} className="gist-item">
+            <li key={gist.id} className={styles.gistItem}>
               <Link
                 prefetch={false}
                 href={`/gist/${gist.id}`}

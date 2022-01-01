@@ -9,7 +9,6 @@ import { About as WidgetAbout } from '../widget/about'
 import { Gist as WidgetGist } from '../widget/gist'
 import { Stat as WidgetStat } from '../widget/stat'
 import { Todo as WidgetTodo } from '../widget/todo'
-import './layout.css'
 
 const widthScreenRouter = [
   new RegExp(`^/todo(/d+)?`),

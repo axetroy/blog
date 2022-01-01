@@ -4,7 +4,7 @@ import chinese from 'date-fns/locale/zh-CN'
 import { memo, useEffect, useState } from 'react'
 import CONFIG from '../config.json'
 import github from '../lib/github'
-import './stat.css'
+import styles from './stat.module.css'
 
 const githubDomain = 'https://github.com/'
 
@@ -32,7 +32,7 @@ const eventMap = {
       case 'opened':
         return (
           <span>
-            <span className="green">创建 </span>
+            <span className={styles.green}>创建 </span>
             <a
               href={issueUrl(name, issue.number)}
               target="_blink"
@@ -51,7 +51,7 @@ const eventMap = {
       case 'closed':
         return (
           <span>
-            <span className="red">关闭</span>
+            <span className={styles.red}>关闭</span>
             <a
               href={issueUrl(name, issue.number)}
               target="_blink"
@@ -374,7 +374,7 @@ function StatWidget(props) {
           </a>
         </h3>
       </div>
-      <div className="stat-meta">
+      <div className={styles.statMeta}>
         <p>
           开源 <b>{repos.filter((v) => !v.fork).length}</b> 个原创项目 , 有{' '}
           <b>{followers.length}</b> 个人关注我
@@ -407,7 +407,7 @@ function StatWidget(props) {
               : ''}
           </b>
         </p>
-        <ul className="event-list">
+        <ul className={styles.eventList}>
           {events
             .filter((v) => v)
             .slice(0, 10)

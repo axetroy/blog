@@ -1,20 +1,20 @@
-ul.event-list > li {
+.eventList > li {
   padding: 0.8rem 0.5rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-ul.event-list > li:hover {
+.eventList > li:hover {
   background-color: #f5f5f5;
 }
 
-.event-list a {
+.eventList a {
   color: #303030;
   font-weight: bold;
 }
 
-.event-list .mega-octicon {
+.eventList .mega-octicon {
   font-size: 2rem;
   vertical-align: middle;
   margin: 0 0.2rem;
