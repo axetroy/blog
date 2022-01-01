@@ -8,7 +8,7 @@ import github from '../../lib/github'
 
 async function getAllGistList(page, per_page, gists = []) {
   try {
-    const { data } = await github.gists.listPublicForUser({
+    const { data } = await github.gists.listForUser({
       username: CONFIG.owner,
       page,
       per_page,
