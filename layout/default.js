@@ -2,7 +2,6 @@ import { BookFilled, CheckCircleFilled, HomeFilled } from '@ant-design/icons'
 import { Col, Menu, Row } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Fragment } from 'react'
 import Footer from '../component/footer'
 import { Ripple } from '../component/ripple'
 import { About as WidgetAbout } from '../widget/about'
@@ -66,12 +65,12 @@ function Content(props) {
 
 function Widget() {
   return (
-    <Fragment>
+    <>
       <WidgetAbout />
       <WidgetStat />
       <WidgetTodo />
       <WidgetGist />
-    </Fragment>
+    </>
   )
 }
 
@@ -120,8 +119,7 @@ function Nav() {
   )
 }
 
-export function Layout(props) {
-  const { children } = props
+function useScreenMode() {
   const location = useRouter()
 
   let widthScreenMode = false
@@ -131,6 +129,13 @@ export function Layout(props) {
       widthScreenMode = true
     }
   }
+
+  return widthScreenMode
+}
+
+export function Layout(props) {
+  const { children } = props
+  const widthScreenMode = useScreenMode()
 
   return (
     <Ripple>

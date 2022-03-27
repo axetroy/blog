@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Fragment, useEffect } from 'react'
+import { useEffect } from 'react'
 
 export default function DocumentTitle(props) {
   const { title, children } = props
@@ -11,11 +11,11 @@ export default function DocumentTitle(props) {
   const titleStr = (title || []).concat(["Axetroy's NeverLand"]).join(' | ')
 
   return (
-    <Fragment>
+    <>
       <Head>
         <title>{titleStr}</title>
       </Head>
       {children}
-    </Fragment>
+    </>
   )
 }
