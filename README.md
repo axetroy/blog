@@ -11,29 +11,6 @@
 
 将**Server Less**进行到底
 
-### 特性
-
-- [x] 博客
-- [x] 代码片段 Gist
-- [x] 仓库集合
-- [x] 计划任务 TODO
-- [x] 响应式
-- [x] Progressive Web Apps
-- [x] 数据持久化
-- [x] 按需加载
-- [x] 静态类型检查
-- [ ] i18n
-- [x] 分析 Github 相关数据
-- [x] 集成[FireBase](https://firebase.google.com/)
-- [x] 支持[Github GraphQL API v4](https://developer.github.com/v4/)
-
-### 技术栈
-
-- React 全家桶
-- Ant-Design
-- Github Api
-- Flow
-
 ### 为什么不使用 Hexo 之类的静态站点
 
 Hexo 的流程:
