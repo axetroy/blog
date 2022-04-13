@@ -26,7 +26,7 @@
     "styled-jsx": "5.0.2"
   },
   "devDependencies": {
-    "@types/react": "18.0.1",
+    "@types/react": "18.0.3",
     "@types/react-dom": "18.0.0"
   },
   "scripts": {
