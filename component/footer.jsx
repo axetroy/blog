@@ -118,7 +118,7 @@ export default function Footer() {
               {/* eslint-disable-next-line */}
               <a
                 href="#"
-                onClick={e => e.preventDefault()}
+                onClick={(e) => e.preventDefault()}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
@@ -140,18 +140,11 @@ export default function Footer() {
             <li>Copyright © {new Date().getFullYear()}</li>
             <li>
               <Now>
-                {now => {
+                {(now) => {
                   const diff = diffTime(created)(now)
                   return (
                     <div>
-                      <p>
-                        {`已运行
-                ${diff.days}天
-                ${diff.hours}时
-                ${diff.minutes}分
-                ${diff.seconds}秒
-                `}
-                      </p>
+                      <p>{`已运行${diff.days}天`}</p>
                     </div>
                   )
                 }}
