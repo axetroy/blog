@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
 @import '~normalize.css';
-@import '~github-markdown-css';
+@import '~github-markdown-css/github-markdown-light.css';
 
 /*
 1rem = 10px
