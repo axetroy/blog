@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.4"
+    "@types/react-dom": "18.0.5"
   },
   "scripts": {
     "format": "prettier --write '{src,app}/**/*.{js,jsx,css,json,md}'",
