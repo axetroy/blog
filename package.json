@@ -6,7 +6,7 @@
   "keywords": [],
   "dependencies": {
     "@ant-design/icons": "4.7.0",
-    "@octokit/auth-oauth-app": "4.3.1",
+    "@octokit/auth-oauth-app": "5.0.5",
     "@octokit/plugin-throttling": "3.6.2",
     "@octokit/rest": "19.0.5",
     "antd": "4.23.1",
