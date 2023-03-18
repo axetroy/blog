@@ -23,7 +23,7 @@
     "react-dom": "18.2.0",
     "react-octicon": "3.0.1",
     "styled-components": "5.3.5",
-    "styled-jsx": "5.0.2"
+    "styled-jsx": "5.1.2"
   },
   "devDependencies": {
     "@types/react": "18.0.23",
