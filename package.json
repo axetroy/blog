@@ -26,8 +26,8 @@
     "styled-jsx": "5.0.2"
   },
   "devDependencies": {
-    "@types/react": "18.0.23",
-    "@types/react-dom": "18.0.5"
+    "@types/react": "18.0.37",
+    "@types/react-dom": "18.0.11"
   },
   "scripts": {
     "format": "prettier --write '{src,app}/**/*.{js,jsx,css,json,md}'",
