@@ -5,7 +5,7 @@
   "homepage": "http://www.axetroy.xyz",
   "keywords": [],
   "dependencies": {
-    "@ant-design/icons": "4.7.0",
+    "@ant-design/icons": "5.3.5",
     "@octokit/auth-oauth-app": "4.3.1",
     "@octokit/plugin-throttling": "3.6.2",
     "@octokit/rest": "19.0.5",
